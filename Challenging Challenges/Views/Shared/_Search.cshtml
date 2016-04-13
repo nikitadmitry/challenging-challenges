@@ -1,0 +1,11 @@
+﻿@using Challenging_Challenges.Resources
+@Styles.Render("~/Content/search")
+
+<div class="search">
+    @using (Html.BeginForm("Index", "Challenges"))
+    {
+        @*@<input type="hidden" name="Field" value="Tags"/>*@
+        <input type="search" class="form-control input-sm" id="tags" name="Keyword" value="" placeholder="@Localization.Search"/>
+        <button type="submit" class="btn btn-primary btn-sm search-btn">@Localization.Search</button>
+    }
+</div>

@@ -1,0 +1,3 @@
+enable-migrations -ContextProjectName Data.Identity -StartUpProjectName Data.Identity -ContextTypeName Data.Identity.Repositories.IdentityContext -ProjectName Data.Identity
+
+Update-Database -ProjectName Data.Identity -ConnectionStringName IdentityConnection

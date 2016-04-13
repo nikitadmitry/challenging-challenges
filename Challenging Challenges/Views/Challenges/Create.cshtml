@@ -1,0 +1,162 @@
+﻿@using Challenging_Challenges.Resources
+@model Challenging_Challenges.Models.ViewModels.ChallengeViewModel
+
+@{
+    ViewBag.Title = Localization.NewChallenge;
+}
+
+<div style="text-align: center;">
+    <h2>
+        @(ViewBag.IsEditing == null ? Localization.NewChallenge : Localization.Editing)
+    </h2>
+</div>
+
+@Styles.Render("~/Content/challenge-create")
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <hr/>
+    @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+    <div class="row">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, new {@class = "control-label col-md-2"})
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.Title, new {htmlAttributes = new {@class = "form-control", autocomplete = "off"}})
+                @Html.ValidationMessageFor(model => model.Title, "", new {@class = "text-danger"})
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-md-4 col-xs-4">
+            @Html.LabelFor(model => model.Section, new {@class = "control-label"})
+            <select class="type-select" name="Section" style="width: 100%">
+                <option value="0">C#</option>
+                <option value="1">Java</option>
+                <option value="2">Ruby</option>
+                <option value="3">Python</option>
+                <option value="4">@Localization.Other</option>
+            </select>
+            @Html.ValidationMessageFor(model => model.Section, "", new {@class = "text-danger"})
+        </div>
+        <div class="form-group col-md-4 col-xs-4">
+            @Html.LabelFor(model => model.Difficulty, new {htmlAttributes = new {@class = "control-label"}})
+            <select class="type-select" name="Difficulty" style="width: 100%">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            @Html.ValidationMessageFor(model => model.Difficulty, "", new {@class = "text-danger"})
+        </div>
+        <div class="form-group col-md-4 col-xs-4">
+            @Html.LabelFor(model => model.Language, new {@class = "control-label"})
+            <select class="type-select" name="Language" style="width: 100%">
+                <option value="0">English</option>
+                <option value="1">@Localization.Russian</option>
+            </select>
+            @Html.ValidationMessageFor(model => model.Language, "", new {@class = "text-danger"})
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-md-12">
+            @Html.LabelFor(model => model.PreviewText, new {@class = "control-label"})
+            <textarea id="preview-editor" name="PreviewText" rows="10">
+                
+                
+                @if (Model != null)
+                {
+                    @Model.PreviewText
+                }
+            
+            
+            </textarea>
+            @Html.ValidationMessageFor(model => model.PreviewText, "", new {@class = "text-danger"})
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-md-12">
+            @Html.LabelFor(model => model.Condition, new {@class = "control-label"})
+            <textarea id="condition-editor" name="Condition" rows="10">
+                
+                
+            @if (Model != null)
+            {
+                @Model.Condition
+            }
+        
+            
+            </textarea>
+            @Html.ValidationMessageFor(model => model.Condition, "", new {@class = "text-danger"})
+        </div>
+    </div>
+
+    <div class="row">
+        @Html.ValidationMessageFor(model => model.Answers, "", new {@class = "text-danger col-md-12"})
+        <div class="form-group form-group-options col-md-12 col-xs-12">
+            <script>
+                var fieldsCounter = 1;
+            </script>
+            @if (Model != null)
+            {
+                foreach (var answer in Model.Answers)
+                {
+                    <script>
+                        fieldsCounter++;
+                    </script>
+                    <div class="input-group input-group-option col-md-12 col-xs-12">
+                        <input type="text" name="Answers" value="@answer" autocomplete="off" class="form-control" placeholder=@Localization.Answer>
+                        <span class="input-group-addon input-group-addon-remove">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </span>
+                    </div>
+                }
+            }
+            <div class="input-group input-group-option col-md-12 col-xs-12">
+                <input type="text" name="Answers" autocomplete="off" class="form-control" placeholder=@Localization.Answer>
+                <span class="input-group-addon input-group-addon-remove">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+    if (ViewBag.IsEditing == null)
+    {
+        <div class="row">
+            <div class="form-group col-md-12">
+                <input type="text" id="tags" name="Tags" autocomplete="off" class="form-control" value="@if (Model != null)
+                                                                                                        {
+                                                                                                            @Model.Tags
+                                                                                                        }" placeholder=@Localization.Tags>
+                @Html.ValidationMessageFor(model => model.Tags, "", new {@class = "text-danger"})
+            </div>
+        </div>
+    }
+    <br/>
+    <div class="row">
+        <div class="form-group col-md-12">
+            <a href="@Url.Action("Index")" class="button btn btn-lg btn-default">@Localization.Back</a>
+            <input type="submit" value="@Localization.ReadyEx" class="btn btn-lg btn-primary" style="float: right; margin-left: 10px"/>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/challenge-create")
+    <script>
+        @if (HttpContext.Current.Request.Cookies["_culture"]?.Value == "ru")
+        {
+            @:CKEDITOR.config.language = 'ru';
+        }
+        @if (HttpContext.Current.Request.Cookies["theme"]?.Value == "dark")
+        {
+            @:CKEDITOR.config.skin = 'moono-dark';
+        }
+        CKEDITOR.replace('preview-editor');
+        CKEDITOR.replace('condition-editor');
+    </script>
+}

@@ -1,0 +1,84 @@
+﻿@using Challenging_Challenges.Resources
+@model Challenging_Challenges.Models.ViewModels.LoginViewModel
+@{
+    Layout = null;
+    ViewBag.Title = Localization.LogIn;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Challenging Challenges</title>
+    @Styles.Render("~/Content/authentication")
+</head>
+<body>
+<div class="top-content">
+
+    <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 hidden-xs text">
+                    <h1>
+                        <strong>Challenging Challenges</strong> @Localization.LoginForm
+                    </h1>
+                    <div class="description">
+                        <p>
+                            @Localization.FillFieldsMessage
+                            <br/>
+                            @Localization.YouCanClickMessage <a href="@Url.Action("Index", "Home")">
+                                <strong>@Localization.Back</strong>
+                            </a> @Localization.GoBackMessage
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 form-box">
+                    <div class="form-top">
+                        <div class="form-top-left">
+                            <h3>@Localization.LoginTitle</h3>
+                            <p>@Localization.LoginMessage</p>
+                        </div>
+                        <div class="form-top-right">
+                            <i class="fa fa-key"></i>
+                        </div>
+                    </div>
+                    <div class="form-bottom">
+                        @using (Html.BeginForm("Login", "Account", new {ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="form-group">
+                                <label class="sr-only">@Localization.FullName</label>
+                                @Html.TextBoxFor(m => m.UserName, new {@class = "form-control", id = "form-username", required = "required", placeholder = Localization.FullName})
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only">@Localization.Password</label>
+                                @Html.PasswordFor(m => m.Password, new {@class = "form-control", id = "form-password", required = "required", placeholder = Localization.Password})
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    @Html.CheckBoxFor(m => m.RememberMe)
+                                    @Html.LabelFor(m => m.RememberMe)
+                                </div>
+                            </div>
+                            @Html.ValidationSummary()
+                            <button type="submit" class="btn">@Localization.SignIn</button>
+                            <ul id="options">
+                                <li>
+                                    @Html.ActionLink(Localization.RegisterAsNewUser, "Register")
+                                </li>
+                            </ul>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/authentication")
+</body>
+</html>

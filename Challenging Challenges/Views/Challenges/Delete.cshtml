@@ -1,0 +1,29 @@
+﻿@using Challenging_Challenges.Helpers
+@using Challenging_Challenges.Resources
+@model Challenging_Challenges.Models.Entities.Challenge
+
+@{
+    ViewBag.Title = Localization.Delete;
+}
+
+<h2>@Localization.WantToDelete</h2>
+<hr/>
+<div>
+    <h3 style="text-align: center">@Model.Title</h3>
+
+    <div class="row">
+        <div class="col-md-12">
+            <p>@Html.Markdown(Model.Condition)</p>
+        </div>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            @Html.ActionLink(Localization.Back, "Index", null, new {@class = "button btn btn-default"})
+            <input type="submit" value="Delete" class="btn btn-default" style="float: right"/>
+        </div>
+    }
+</div>

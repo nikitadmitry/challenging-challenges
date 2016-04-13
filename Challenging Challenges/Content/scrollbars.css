@@ -1,0 +1,16 @@
+﻿::-webkit-scrollbar {
+  width: 0.5em;
+  height: 0.5em; }
+
+::-webkit-scrollbar-thumb {
+  background: slategray; }
+
+::-webkit-scrollbar-track {
+  background: #b8c0c8; }
+
+body {
+  -ms-scrollbar-face-color: slategray;
+  scrollbar-face-color: slategray;
+  -ms-scrollbar-track-color: #b8c0c8;
+  scrollbar-track-color: #b8c0c8; }
+

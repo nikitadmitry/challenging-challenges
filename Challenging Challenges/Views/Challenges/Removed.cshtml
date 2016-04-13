@@ -1,0 +1,15 @@
+﻿@using Challenging_Challenges.Resources
+@{
+    ViewBag.Title = Localization.ChallengeRemoved;
+}
+
+<div style="text-align: center;">
+    <h1>@Localization.ChallengeRemoved</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-12" style="text-align: center">
+        <a href="@Url.Action("Index", "Challenges")" class="button btn btn-lg btn-default">@Localization.ToTaskList</a>
+        <a href="@Url.Action("Index", "Home")" class="button btn btn-lg btn-default">@Localization.ToMain</a>
+    </div>
+</div>

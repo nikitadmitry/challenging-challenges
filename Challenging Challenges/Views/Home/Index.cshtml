@@ -1,0 +1,98 @@
+﻿@using Challenging_Challenges.Enums
+@using Challenging_Challenges.Resources
+@model Challenging_Challenges.Models.ViewModels.HomeChallengeViewModel
+
+@{
+    ViewBag.Title = "Challenging Challenges";
+}
+@Styles.Render("~/Content/home-index")
+
+<div class="container">
+    <h2>@Localization.LatestChallenges</h2>
+    <div id="latest-list">
+        @Html.Partial("_ChallengesPartial", Model.LatestChallenges, new ViewDataDictionary {{"selector", "latest-list"}, {"sort", SortType.Latest}})
+    </div>
+    <hr>
+    <h2>@Localization.UnsolvedChallenges</h2>
+    <div id="unsolved-list">
+        @Html.Partial("_ChallengesPartial", Model.UnsolvedChallenges, new ViewDataDictionary {{"selector", "unsolved-list"}, {"sort", SortType.Unsolved}})
+    </div>
+    <hr>
+    <h2>@Localization.PopularChallenges</h2>
+    <div id="popular-list">
+        @Html.Partial("_ChallengesPartial", Model.PopularChallenges, new ViewDataDictionary {{"selector", "popular-list"}, {"sort", SortType.Popular}})
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-6" id="tag-cloud-container">
+            <h2>@Localization.TagCloud</h2>
+            <canvas width="500" height="500" id="tag-cloud">
+                <p>Update browser to see tag cloud.</p>
+            </canvas>
+            <div id="tag-list">
+                <ul>
+                    @foreach (var tag in Model.Tags)
+                    {
+                        <li>
+                            <a href="@Url.Action("Index", "Challenges", new {keyword = tag, field = "Tags"})">@tag</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h2>@Localization.TopUsers</h2>
+            <table class="table table-striped table-hover ">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>@Localization.User</th>
+                    <th>@Localization.Level</th>
+                    <th>@Localization.SolvedChallenges</th>
+                    <th>@Localization.PostedChallenges</th>
+                </tr>
+                </thead>
+                <tbody>
+                @{
+                    var i = 1;
+                    foreach (var user in Model.TopUsers)
+                    {
+                        <tr>
+                            <td>@i</td>
+                            <td>
+                                <a href="@Url.Action("UserProfile", "Account", new {userName = user.UserName.Replace(' ', '_')})" style="text-decoration: none">@user.UserName</a>
+                            </td>
+                            <td>@Convert.ToInt32(user.Rating)</td>
+                            <td>@user.SolvedChallenges</td>
+                            <td>@user.PostedChallenges</td>
+                        </tr>
+                        i++;
+                    }
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/tagcloud")
+    @Scripts.Render("~/bundles/jquery-ajax")
+    <script>
+        $(document).ready(function() {
+            if (!$('#tag-cloud').tagcanvas({
+                textColour: '#000',
+                outlineColour: '#C4003C',
+                reverse: true,
+                depth: 0.8,
+                initial: [0.100, 0.100],
+                maxSpeed: 0.05,
+                textFont: null,
+                weightMode: 'both',
+                weight: true
+            }, 'tag-list')) {
+                $('#tag-cloud-container').hide();
+            }
+        });
+    </script>
+}

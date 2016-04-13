@@ -1,0 +1,116 @@
+﻿@using Challenging_Challenges.Resources
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css">
+    @Styles.Render("~/Content/search")
+    @Styles.Render("~/Content/achievement")
+    @(HttpContext.Current.Request.Cookies["theme"]?.Value == "dark" ? Styles.Render("~/Content/dark") : Styles.Render("~/Content/light"))
+    <link href="//fonts.googleapis.com/css?family=Titillium+Web:200,400,300,600" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<div class="achievement-banner">
+    <div class="achievement-icon">
+        <span class="icon"><span class="icon-trophy"></span></span>
+    </div>
+    <div class="achievement-text">
+        <p class="achievement-notification" style="margin-bottom: 20px">@Localization.AchievementUnlocked</p>
+        <p class="achievement-name"></p>
+    </div>
+</div>
+
+<div id="wrapper">
+    <div class="overlay"></div>
+    <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+        <ul class="nav sidebar-nav">
+            <li class="sidebar-brand">
+                @Html.ActionLink("Challenging Challenges", "Index", "Home")
+            </li>
+            <li>
+                @Html.ActionLink(Localization.Challenges, "Index", "Challenges")
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    @Localization.Categories <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <li class="dropdown-header">@Localization.Pick</li>
+                    <li>@Html.ActionLink("C#", "Index", "Challenges", new {Keyword = "CSharp", SearchField = "Section"}, null)</li>
+                    <li>@Html.ActionLink("Java", "Index", "Challenges", new {Keyword = "Java", SearchField = "Section"}, null)</li>
+                    <li>@Html.ActionLink("Ruby", "Index", "Challenges", new {Keyword = "Ruby", SearchField = "Section"}, null)</li>
+                    <li>@Html.ActionLink("Python", "Index", "Challenges", new {Keyword = "Python", SearchField = "Section"}, null)</li>
+                    <li>@Html.ActionLink(Localization.Other, "Index", "Challenges", new {Keyword = "Other", SearchField = "Section"}, null)</li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    @Localization.Language <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <li class="dropdown-header">@Localization.Pick</li>
+                    <li>@Html.ActionLink("English", "SetCulture", "Home", new {culture = "en"}, null)</li>
+                    <li>@Html.ActionLink(Localization.Russian, "SetCulture", "Home", new {culture = "ru"}, null)</li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    @Localization.Theme <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <li class="dropdown-header">@Localization.Pick</li>
+                    <li>@Html.ActionLink(Localization.Light, "ChangeTheme", "Home", new {theme = "light"}, null)</li>
+                    <li>@Html.ActionLink(Localization.Dark, "ChangeTheme", "Home", new {theme = "dark"}, null)</li>
+                </ul>
+            </li>
+            @Html.Partial("_LoginPartial")
+        </ul>
+    </nav>
+    <div id="page-content-wrapper">
+        <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+            <span class="hamb-top"></span>
+            <span class="hamb-middle"></span>
+            <span class="hamb-bottom"></span>
+        </button>
+        <div class="container body-content">
+            @RenderBody()
+            <hr/>
+            <footer>
+                <p>&copy; @DateTime.Now.Year - Challenging Challenges</p>
+            </footer>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("_Search")
+
+@Scripts.Render("~/bundles/jquery")
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+@Scripts.Render("~/bundles/signalr")
+<script src="~/signalr/hubs"></script>
+<script>
+    $(function() {
+        var achievementsHub = $.connection.notificationHub;
+        achievementsHub.client.showAchievement = function(achievement) {
+            $(".achievement-name").text(achievement);
+            $(".achievement-banner").css('display', 'block');
+        }
+        $.connection.hub.start();
+    });
+</script>
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", false)
+@Scripts.Render("~/bundles/search")
+<script>
+    $(function() {
+        $('#tags').autocomplete({ source: '@Url.Action("TagSearch", "Challenges")' });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+﻿@using Challenging_Challenges.Helpers
+@using Challenging_Challenges.Resources
+@using Microsoft.AspNet.Identity
+@using PagedList.Mvc
+@model PagedList.IPagedList<Challenging_Challenges.Models.Entities.SearchIndex>
+
+@if (Model.Count != 0)
+{
+    @Html.PagedListPager(Model, page => Url.Action("Index", "Challenges", new {keyword = Request["Keyword"], field = Request["Field"], page}),
+        PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(string.IsNullOrEmpty(Request["Keyword"]) ? PagedListRenderOptions.Classic
+            : PagedListRenderOptions.TwitterBootstrapPagerAligned, new AjaxOptions {HttpMethod = "GET", UpdateTargetId = "challenges-list"}))
+
+    <div class="list-group">
+        @foreach (var item in Model)
+        {
+            <div class="well challenge">
+                <div class="media">
+                    <div class="media-body">
+                        @if (item.AuthorId.Equals(User.Identity.GetUserId()))
+                        {
+                            <div class="btn-group solve-btn">
+                                <a href="@Url.Action("Solve", "Challenges", new {id = item.Id})" class="btn btn-primary btn-lg">@Localization.ChallengePage</a>
+                                <a href="#" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="@Url.Action("Edit", "Challenges", new {id = item.Id})">@Localization.Edit</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Delete", "Challenges", new {id = item.Id})">@Localization.Delete</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Solve", "Challenges", new {id = item.Id})" class="button btn btn-lg btn-primary solve-btn">@Localization.ChallengePage</a>
+                        }
+                        <h4 class="media-heading">@item.Title</h4>
+                        <br/>
+                        <div class="condition">
+                            @Html.Markdown(item.PreviewText)
+                        </div>
+                        <br/>
+                        <p class="post-footer">
+                            @Localization.Rating:
+                            <span id="stars-existing rating-@item.Id" class="starrr" data-rating='@item.Rating.ToString("#")'></span>
+                            |
+                            @string.Format(Localization.SolvedTimes, item.TimesSolved)
+                            @if (item.TimesSolved == 0)
+                            {
+                                @:<span class="label label-warning">@Localization.BeFirst</span>
+                            }
+                            |
+                            <a href="@Url.Action("Index", "Challenges", new {Keyword = @item.Difficulty, Field = "Difficulty"})">@string.Format(Localization.PropertyScaleText, Localization.Difficulty, item.Difficulty, 5)</a>
+                            |
+                            @Localization.Language: <a href="@Url.Action("Index", "Challenges", new {keyword = @item.Language, field = "Language"})">@item.Language</a>
+                            |
+                            @Localization.Section: <a href="@Url.Action("Index", "Challenges", new {keyword = @item.Section, field = "Section"})">@item.Section</a>
+                            |
+                            @Localization.Tags:
+                            @foreach (var tag in item.Tags.Split(' '))
+                            {
+                                <a href="@Url.Action("Index", "Challenges", new {keyword = tag, field = "Tags"})">
+                                    <span class="label label-info">@tag</span></a>
+                            }
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    @Html.PagedListPager(Model, page => Url.Action("Index", "Challenges", new {keyword = Request["Keyword"], field = Request["Field"], page}),
+        PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(string.IsNullOrEmpty(Request["Keyword"]) ? PagedListRenderOptions.Classic
+            : PagedListRenderOptions.TwitterBootstrapPagerAligned, new AjaxOptions {HttpMethod = "GET", UpdateTargetId = "challenges-list"}))
+}
+else
+{
+    <h1>@Localization.SearchNoResults</h1>
+}
+
+<script>
+    $(".starrr").starrr();
+</script>

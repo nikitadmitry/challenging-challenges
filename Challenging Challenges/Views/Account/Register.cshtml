@@ -1,0 +1,71 @@
+﻿@using Challenging_Challenges.Resources
+@model Challenging_Challenges.Models.ViewModels.RegisterViewModel
+@{
+    ViewBag.Title = Localization.Register;
+    Layout = null;
+}
+@Styles.Render("~/Content/authentication")
+<div class="top-content">
+
+    <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 hidden-xs text">
+                    <h1>
+                        <strong>@Localization.Welcome</strong>
+                    </h1>
+                    <div class="description">
+                        <p>
+                            @Localization.RegistrationText
+                            <br/>
+                            @Localization.YouCanClickMessage <a href="@Url.Action("Index", "Home")">
+                                <strong>@Localization.Back</strong>
+                            </a> @Localization.GoBackMessage
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 form-box">
+                    <div class="form-top">
+                        <div class="form-top-left">
+                            <h3>@Localization.RegistrationTitle</h3>
+                            <p>@Localization.RegistrationMessage</p>
+                        </div>
+                        <div class="form-top-right">
+                            <i class="fa fa-key"></i>
+                        </div>
+                    </div>
+                    <div class="form-bottom">
+                        @using (Html.BeginForm("Register", "Account", new {ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.UserName, new {@class = "sr-only"})
+                                @Html.TextBoxFor(m => m.UserName, new {@class = "form-control", required = "required", placeholder = Localization.FullName})
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Email, new {@class = "sr-only"})
+                                @Html.TextBoxFor(m => m.Email, new {@class = "form-control", placeholder = Localization.Email})
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Password, new {@class = "sr-only"})
+                                @Html.PasswordFor(m => m.Password, new {@class = "form-control", required = "required", placeholder = Localization.Password})
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ConfirmPassword, new {@class = "sr-only"})
+                                @Html.PasswordFor(m => m.ConfirmPassword, new {@class = "form-control", required = "required", placeholder = Localization.ConfirmPassword})
+                            </div>
+                            @Html.ValidationSummary()
+                            <button type="submit" class="btn">@Localization.Register</button>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/authentication")

@@ -1,0 +1,522 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Code" xml:space="preserve">
+    <value>Код</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Подтвердите пароль</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Электронная почта</value>
+  </data>
+  <data name="FullName" xml:space="preserve">
+    <value>Полное имя</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="LengthMessage" xml:space="preserve">
+    <value>{0} должен иметь длину не менее {2} символов.</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Запомнить меня?</value>
+  </data>
+  <data name="RememberBrowser" xml:space="preserve">
+    <value>Запомнить этот браузер?</value>
+  </data>
+  <data name="PasswordsDoNotMatch" xml:space="preserve">
+    <value>Пароль и подтверждающий пароль не совпадают.</value>
+  </data>
+  <data name="NameValidationMessage" xml:space="preserve">
+    <value>Введите полное имя (например Иван Иванов)</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="FillFieldsMessage" xml:space="preserve">
+    <value>Заполните поля для входа. Ничего сложного.</value>
+  </data>
+  <data name="GoBackMessage" xml:space="preserve">
+    <value>если хотите вернуться на главную.</value>
+  </data>
+  <data name="LoginForm" xml:space="preserve">
+    <value>требует аутентификации</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Войти</value>
+  </data>
+  <data name="YouCanClickMessage" xml:space="preserve">
+    <value>Вы можете нажать</value>
+  </data>
+  <data name="ConfirmNewPassword" xml:space="preserve">
+    <value>Подтвердите новый пароль</value>
+  </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>Текущий пароль</value>
+  </data>
+  <data name="InvalidEmailAddress" xml:space="preserve">
+    <value>Некорректный адрес электронной почты</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Новый пароль</value>
+  </data>
+  <data name="NewPasswordsDoNotMatch" xml:space="preserve">
+    <value>Пароли не совпадают</value>
+  </data>
+  <data name="PasswordValidationMessage" xml:space="preserve">
+    <value>Пароль должен содержать буквы и цифры и иметь длину не менее 6 символов</value>
+  </data>
+  <data name="InvalidLoginAttempt" xml:space="preserve">
+    <value>Неверный логин или пароль</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>Регистрация</value>
+  </data>
+  <data name="PropertyTooShort" xml:space="preserve">
+    <value>{0} имеет недостаточную длину</value>
+  </data>
+  <data name="InvalidUserName" xml:space="preserve">
+    <value>{0} - некорректное имя</value>
+  </data>
+  <data name="DuplicateName" xml:space="preserve">
+    <value>Пользователь {0} уже существует</value>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>{0}  - некорректный адрес электронной почты</value>
+  </data>
+  <data name="DuplicateEmail" xml:space="preserve">
+    <value>{0} уже используется</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Приветствуем!</value>
+  </data>
+  <data name="RegistrationText" xml:space="preserve">
+    <value>Бесплатная регистрация. Никаких подписок.</value>
+  </data>
+  <data name="RegistrationTitle" xml:space="preserve">
+    <value>Зарегистрируйтесь на нашем сайте</value>
+  </data>
+  <data name="RegistrationMessage" xml:space="preserve">
+    <value>Введите свое полное имя, электронную почту и пароль для регистрации:</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Регистрация</value>
+  </data>
+  <data name="LoginTitle" xml:space="preserve">
+    <value>Войдите на наш сайт</value>
+  </data>
+  <data name="LoginMessage" xml:space="preserve">
+    <value>Введите электронный адрес и параоль для входа:</value>
+  </data>
+  <data name="RegisterAsNewUser" xml:space="preserve">
+    <value>Регистрация</value>
+  </data>
+  <data name="ForgotPasswordQuestion" xml:space="preserve">
+    <value>Забыли пароль?</value>
+  </data>
+  <data name="LogIn" xml:space="preserve">
+    <value>Войти</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Язык</value>
+  </data>
+  <data name="Russian" xml:space="preserve">
+    <value>Русский</value>
+  </data>
+  <data name="Pick" xml:space="preserve">
+    <value>Выберите</value>
+  </data>
+  <data name="LogOff" xml:space="preserve">
+    <value>Выйти</value>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>Тема</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>Светлая</value>
+  </data>
+  <data name="Dark" xml:space="preserve">
+    <value>Темная</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Другое</value>
+  </data>
+  <data name="Answer" xml:space="preserve">
+    <value>Ответ</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="TitleOfTheChallenge" xml:space="preserve">
+    <value>Название задачи</value>
+  </data>
+  <data name="Section" xml:space="preserve">
+    <value>Раздел</value>
+  </data>
+  <data name="Difficulty" xml:space="preserve">
+    <value>Сложность</value>
+  </data>
+  <data name="NewChallenge" xml:space="preserve">
+    <value>Новая задача</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Тэги</value>
+  </data>
+  <data name="MinLengthValidation" xml:space="preserve">
+    <value>Количество {0} должно быть больше {1}</value>
+  </data>
+  <data name="MaxLengthValidation" xml:space="preserve">
+    <value>Количество {0} должно быть между {1} и {2}</value>
+  </data>
+  <data name="OfAnswers" xml:space="preserve">
+    <value>ответов</value>
+  </data>
+  <data name="DropFilesHere" xml:space="preserve">
+    <value>Перетяните файлы сюда либо кликните для загрузки</value>
+  </data>
+  <data name="Condition" xml:space="preserve">
+    <value>Условие</value>
+  </data>
+  <data name="IsRequired" xml:space="preserve">
+    <value>Введите {0}</value>
+  </data>
+  <data name="AreRequired" xml:space="preserve">
+    <value>Введите {0}</value>
+  </data>
+  <data name="Challenges" xml:space="preserve">
+    <value>Задачи</value>
+  </data>
+  <data name="Keyword" xml:space="preserve">
+    <value>Ключевое слово</value>
+  </data>
+  <data name="SearchField" xml:space="preserve">
+    <value>Где искать</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
+  <data name="TypeKeywords" xml:space="preserve">
+    <value>Введите ключевые слова</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Создать</value>
+  </data>
+  <data name="AvailableChallenges" xml:space="preserve">
+    <value>Список задач</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Новая задача</value>
+  </data>
+  <data name="CancelSearch" xml:space="preserve">
+    <value>Отменить поиск</value>
+  </data>
+  <data name="SearchBy" xml:space="preserve">
+    <value>Искать по</value>
+  </data>
+  <data name="Anything" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="PreviewText" xml:space="preserve">
+    <value>Текст превью</value>
+  </data>
+  <data name="PropertyScaleText" xml:space="preserve">
+    <value>{0}: {1} из {2}</value>
+  </data>
+  <data name="SolvedTimes" xml:space="preserve">
+    <value>Решено {0} раз</value>
+  </data>
+  <data name="BeFirst" xml:space="preserve">
+    <value>Будь первым!</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Изменить</value>
+  </data>
+  <data name="ReadyEx" xml:space="preserve">
+    <value>Готово!</value>
+  </data>
+  <data name="WantToDelete" xml:space="preserve">
+    <value>Вы уверены, что хотите удалить эту задачу?</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="SearchTerm" xml:space="preserve">
+    <value>Поисковой запрос...</value>
+  </data>
+  <data name="RightEx" xml:space="preserve">
+    <value>Верно!</value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>Попробуйте снова.</value>
+  </data>
+  <data name="AnswerIsRight" xml:space="preserve">
+    <value>Вы успешно решили задачу!</value>
+  </data>
+  <data name="WrongEx" xml:space="preserve">
+    <value>Не верно!</value>
+  </data>
+  <data name="YourAnswer" xml:space="preserve">
+    <value>Ваш ответ</value>
+  </data>
+  <data name="Check" xml:space="preserve">
+    <value>Проверить ответ</value>
+  </data>
+  <data name="Return" xml:space="preserve">
+    <value>Вернуться к задаче</value>
+  </data>
+  <data name="SendMessage" xml:space="preserve">
+    <value>Добавить комментарий</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Комментарии</value>
+  </data>
+  <data name="AddComment" xml:space="preserve">
+    <value>Добавить комментарий</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Сообщение</value>
+  </data>
+  <data name="Editing" xml:space="preserve">
+    <value>Редактирование задачи</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="SuccessfullyRated" xml:space="preserve">
+    <value>Рейтинг успешно изменен</value>
+  </data>
+  <data name="YouHaveRated" xml:space="preserve">
+    <value>Вы уже оценили задачу</value>
+  </data>
+  <data name="YouHaveToSolveFirst" xml:space="preserve">
+    <value>Для оценки необходимо решить задачу</value>
+  </data>
+  <data name="YouCantRateYourChallenge" xml:space="preserve">
+    <value>Вы не можете оценивать свою задачу</value>
+  </data>
+  <data name="Rating" xml:space="preserve">
+    <value>Рейтинг</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Категории</value>
+  </data>
+  <data name="ChallengePage" xml:space="preserve">
+    <value>Страница задачи</value>
+  </data>
+  <data name="LengthBetweenMessage" xml:space="preserve">
+    <value>{0} должен иметь длину между {2} и {1} символами.</value>
+  </data>
+  <data name="EmailConfirmationMessage" xml:space="preserve">
+    <value>Пожалуйста подтвердите ваш аккаунт открытием &lt;a href="{0}"&gt;этой&lt;/a&gt; ссылки</value>
+  </data>
+  <data name="ConfirmAccount" xml:space="preserve">
+    <value>Подтверждение аккаунта</value>
+  </data>
+  <data name="SearchNoResults" xml:space="preserve">
+    <value>Поиск не вернул результатов. Попробуйте другие ключевые слова</value>
+  </data>
+  <data name="LatestChallenges" xml:space="preserve">
+    <value>Последние задачи</value>
+  </data>
+  <data name="UnsolvedChallenges" xml:space="preserve">
+    <value>Нерешенные задачи</value>
+  </data>
+  <data name="PopularChallenges" xml:space="preserve">
+    <value>Популярные задачи</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Пользователь</value>
+  </data>
+  <data name="TagCloud" xml:space="preserve">
+    <value>Облако тэгов</value>
+  </data>
+  <data name="TopUsers" xml:space="preserve">
+    <value>Топ пользователей</value>
+  </data>
+  <data name="SolvedChallenges" xml:space="preserve">
+    <value>Задач решено</value>
+  </data>
+  <data name="PostedChallenges" xml:space="preserve">
+    <value>Задач создано</value>
+  </data>
+  <data name="Level" xml:space="preserve">
+    <value>Уровень</value>
+  </data>
+  <data name="AboutNotSet" xml:space="preserve">
+    <value>Пользователь не оставил о себе информации</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>О себе</value>
+  </data>
+  <data name="ContactInfo" xml:space="preserve">
+    <value>Контактная информация</value>
+  </data>
+  <data name="EmailNotConfirmed" xml:space="preserve">
+    <value>Не подтверждена</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Смена пароля</value>
+  </data>
+  <data name="Accept" xml:space="preserve">
+    <value>Принять</value>
+  </data>
+  <data name="ClickToSet" xml:space="preserve">
+    <value>Кликните здесь чтобы ввести</value>
+  </data>
+  <data name="UserExists" xml:space="preserve">
+    <value>Пользователь существует</value>
+  </data>
+  <data name="WrongInput" xml:space="preserve">
+    <value>Неверный формат данных</value>
+  </data>
+  <data name="NothingHere" xml:space="preserve">
+    <value>Здесь пока ничего нет</value>
+  </data>
+  <data name="Achievements" xml:space="preserve">
+    <value>Достижения</value>
+  </data>
+  <data name="PostedChallengesAdj" xml:space="preserve">
+    <value>Созданные задачи</value>
+  </data>
+  <data name="SolvedChallengesAdj" xml:space="preserve">
+    <value>Решенные задачи</value>
+  </data>
+  <data name="UserLevel" xml:space="preserve">
+    <value>Уровень пользователя</value>
+  </data>
+  <data name="MyChallenges" xml:space="preserve">
+    <value>Мои задачи</value>
+  </data>
+  <data name="ChallengeRemoved" xml:space="preserve">
+    <value>Задача удалена</value>
+  </data>
+  <data name="ToTaskList" xml:space="preserve">
+    <value>К списку задач</value>
+  </data>
+  <data name="ToMain" xml:space="preserve">
+    <value>На главную</value>
+  </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>Мой профиль</value>
+  </data>
+  <data name="AchievementUnlocked" xml:space="preserve">
+    <value>Достижение разблокировано</value>
+  </data>
+</root>

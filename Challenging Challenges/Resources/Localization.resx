@@ -1,0 +1,522 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Code" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email address</value>
+  </data>
+  <data name="FullName" xml:space="preserve">
+    <value>Full name</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="LengthMessage" xml:space="preserve">
+    <value>The {0} must be at least {2} characters long.</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Remember me?</value>
+  </data>
+  <data name="RememberBrowser" xml:space="preserve">
+    <value>Remember this browser?</value>
+  </data>
+  <data name="PasswordsDoNotMatch" xml:space="preserve">
+    <value>The password and confirmation password do not match.</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
+  <data name="NameValidationMessage" xml:space="preserve">
+    <value>Input valid full name (ex. John Doe)</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="FillFieldsMessage" xml:space="preserve">
+    <value>Fill the field to log in. You seem to be fimiliar with it.</value>
+  </data>
+  <data name="GoBackMessage" xml:space="preserve">
+    <value>if you want to go back.</value>
+  </data>
+  <data name="LoginForm" xml:space="preserve">
+    <value>Login Form</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Sign in</value>
+  </data>
+  <data name="YouCanClickMessage" xml:space="preserve">
+    <value>You can click</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>New password</value>
+  </data>
+  <data name="ConfirmNewPassword" xml:space="preserve">
+    <value>Confirm new password</value>
+  </data>
+  <data name="NewPasswordsDoNotMatch" xml:space="preserve">
+    <value>Passwords do not match</value>
+  </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>Current password</value>
+  </data>
+  <data name="InvalidEmailAddress" xml:space="preserve">
+    <value>Invalid Email Address</value>
+  </data>
+  <data name="InvalidLoginAttempt" xml:space="preserve">
+    <value>Invalid login attempt</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>Sign Up</value>
+  </data>
+  <data name="PasswordValidationMessage" xml:space="preserve">
+    <value>Password must contain letters, digits and be at least 6 symbols long</value>
+  </data>
+  <data name="PropertyTooShort" xml:space="preserve">
+    <value>{0} is too short</value>
+  </data>
+  <data name="InvalidUserName" xml:space="preserve">
+    <value>{0} is an invalid name</value>
+  </data>
+  <data name="DuplicateName" xml:space="preserve">
+    <value>User {0} already exists</value>
+  </data>
+  <data name="DuplicateEmail" xml:space="preserve">
+    <value>{0} is already registered</value>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>{0} is an invalid email address</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Welcome!</value>
+  </data>
+  <data name="RegistrationText" xml:space="preserve">
+    <value>Register. It's free! And always will be.</value>
+  </data>
+  <data name="RegistrationTitle" xml:space="preserve">
+    <value>Register on our site</value>
+  </data>
+  <data name="RegistrationMessage" xml:space="preserve">
+    <value>Enter your full name, email and password to register:</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Register</value>
+  <comment>@Invariant</comment></data>
+  <data name="LoginTitle" xml:space="preserve">
+    <value>Login to our site</value>
+  </data>
+  <data name="LoginMessage" xml:space="preserve">
+    <value>Enter your email address and password to log on:</value>
+  </data>
+  <data name="RegisterAsNewUser" xml:space="preserve">
+    <value>Register as a new user</value>
+  </data>
+  <data name="ForgotPasswordQuestion" xml:space="preserve">
+    <value>Forgot your password?</value>
+  </data>
+  <data name="LogIn" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Russian" xml:space="preserve">
+    <value>Russian</value>
+  </data>
+  <data name="Pick" xml:space="preserve">
+    <value>Pick one</value>
+  </data>
+  <data name="LogOff" xml:space="preserve">
+    <value>Log off</value>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="Light" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="Dark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="Answer" xml:space="preserve">
+    <value>Answer</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="TitleOfTheChallenge" xml:space="preserve">
+    <value>Title of the challenge</value>
+  </data>
+  <data name="Section" xml:space="preserve">
+    <value>Section</value>
+  </data>
+  <data name="Difficulty" xml:space="preserve">
+    <value>Difficulty</value>
+  </data>
+  <data name="NewChallenge" xml:space="preserve">
+    <value>New Challenge</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="MinLengthValidation" xml:space="preserve">
+    <value>Number {0} must be at least {1} item(s)</value>
+  </data>
+  <data name="MaxLengthValidation" xml:space="preserve">
+    <value>Number {0} must be between {1} and {2} item(s)</value>
+  </data>
+  <data name="OfAnswers" xml:space="preserve">
+    <value>of answers</value>
+  </data>
+  <data name="DropFilesHere" xml:space="preserve">
+    <value>Drop files here or click to upload</value>
+  </data>
+  <data name="Condition" xml:space="preserve">
+    <value>Condition</value>
+  </data>
+  <data name="IsRequired" xml:space="preserve">
+    <value>{0} is required</value>
+  </data>
+  <data name="AreRequired" xml:space="preserve">
+    <value>{0} are required</value>
+  </data>
+  <data name="Challenges" xml:space="preserve">
+    <value>Challenges</value>
+  </data>
+  <data name="Keyword" xml:space="preserve">
+    <value>Keyword</value>
+  </data>
+  <data name="SearchField" xml:space="preserve">
+    <value>Where to search</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="TypeKeywords" xml:space="preserve">
+    <value>Type keyword(s) here</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="AvailableChallenges" xml:space="preserve">
+    <value>Available Challenges</value>
+  </data>
+  <data name="CreateNew" xml:space="preserve">
+    <value>Create new</value>
+  </data>
+  <data name="CancelSearch" xml:space="preserve">
+    <value>Cancel search</value>
+  </data>
+  <data name="SearchBy" xml:space="preserve">
+    <value>Search by</value>
+  </data>
+  <data name="Anything" xml:space="preserve">
+    <value>Anything</value>
+  </data>
+  <data name="PreviewText" xml:space="preserve">
+    <value>Preview text</value>
+  </data>
+  <data name="PropertyScaleText" xml:space="preserve">
+    <value>{0}: {1} of {2}</value>
+  </data>
+  <data name="SolvedTimes" xml:space="preserve">
+    <value>Solved {0} time(s)</value>
+  </data>
+  <data name="BeFirst" xml:space="preserve">
+    <value>Be first!</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="ReadyEx" xml:space="preserve">
+    <value>Ready!</value>
+  </data>
+  <data name="WantToDelete" xml:space="preserve">
+    <value>Are you sure you want to delete this challenge?</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="SearchTerm" xml:space="preserve">
+    <value>Search term...</value>
+  </data>
+  <data name="RightEx" xml:space="preserve">
+    <value>Right!</value>
+  </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>Try again.</value>
+  </data>
+  <data name="AnswerIsRight" xml:space="preserve">
+    <value>You successfully solved a challenge!</value>
+  </data>
+  <data name="WrongEx" xml:space="preserve">
+    <value>Wrong!</value>
+  </data>
+  <data name="YourAnswer" xml:space="preserve">
+    <value>Your answer</value>
+  </data>
+  <data name="Check" xml:space="preserve">
+    <value>Check answer</value>
+  </data>
+  <data name="Return" xml:space="preserve">
+    <value>Return to challenge</value>
+  </data>
+  <data name="SendMessage" xml:space="preserve">
+    <value>Send a message</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Comments</value>
+  </data>
+  <data name="AddComment" xml:space="preserve">
+    <value>Add comment</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="Editing" xml:space="preserve">
+    <value>Editing challenge</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="SuccessfullyRated" xml:space="preserve">
+    <value>Successfully Rated</value>
+  </data>
+  <data name="YouHaveRated" xml:space="preserve">
+    <value>You have already rated</value>
+  </data>
+  <data name="YouHaveToSolveFirst" xml:space="preserve">
+    <value>You have to solve the challenge first</value>
+  </data>
+  <data name="YouCantRateYourChallenge" xml:space="preserve">
+    <value>You can't rate your challenge</value>
+  </data>
+  <data name="Rating" xml:space="preserve">
+    <value>Rating</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="ChallengePage" xml:space="preserve">
+    <value>Challenge page</value>
+  </data>
+  <data name="LengthBetweenMessage" xml:space="preserve">
+    <value>The {0} must be between {2} and {1} characters long.</value>
+  </data>
+  <data name="EmailConfirmationMessage" xml:space="preserve">
+    <value>Please confirm your account by clicking &lt;a href="{0}"&gt;here&lt;/a&gt;</value>
+  </data>
+  <data name="ConfirmAccount" xml:space="preserve">
+    <value>Confirm your account</value>
+  </data>
+  <data name="SearchNoResults" xml:space="preserve">
+    <value>Search returned no results. Try other keywords</value>
+  </data>
+  <data name="LatestChallenges" xml:space="preserve">
+    <value>Latest Challenges</value>
+  </data>
+  <data name="UnsolvedChallenges" xml:space="preserve">
+    <value>Unsolved Challenges</value>
+  </data>
+  <data name="PopularChallenges" xml:space="preserve">
+    <value>Popular Challenges</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="TagCloud" xml:space="preserve">
+    <value>Tag Cloud</value>
+  </data>
+  <data name="TopUsers" xml:space="preserve">
+    <value>Top Users</value>
+  </data>
+  <data name="SolvedChallenges" xml:space="preserve">
+    <value>Challenges Solved</value>
+  </data>
+  <data name="PostedChallenges" xml:space="preserve">
+    <value>Challenges Posted</value>
+  </data>
+  <data name="Level" xml:space="preserve">
+    <value>Level</value>
+  </data>
+  <data name="AboutNotSet" xml:space="preserve">
+    <value>User has not set this field</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="ContactInfo" xml:space="preserve">
+    <value>Contact information</value>
+  </data>
+  <data name="EmailNotConfirmed" xml:space="preserve">
+    <value>Not confirmed</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Change Password</value>
+  </data>
+  <data name="Accept" xml:space="preserve">
+    <value>Accept</value>
+  </data>
+  <data name="ClickToSet" xml:space="preserve">
+    <value>Click me to set</value>
+  </data>
+  <data name="UserExists" xml:space="preserve">
+    <value>User exists</value>
+  </data>
+  <data name="WrongInput" xml:space="preserve">
+    <value>Wrong input data</value>
+  </data>
+  <data name="NothingHere" xml:space="preserve">
+    <value>Nothing here yet</value>
+  </data>
+  <data name="Achievements" xml:space="preserve">
+    <value>Achievements</value>
+  </data>
+  <data name="PostedChallengesAdj" xml:space="preserve">
+    <value>Posted challenges</value>
+  </data>
+  <data name="SolvedChallengesAdj" xml:space="preserve">
+    <value>Solved challenges</value>
+  </data>
+  <data name="UserLevel" xml:space="preserve">
+    <value>User level</value>
+  </data>
+  <data name="MyChallenges" xml:space="preserve">
+    <value>My challenges</value>
+  </data>
+  <data name="ChallengeRemoved" xml:space="preserve">
+    <value>Challenge Removed</value>
+  </data>
+  <data name="ToTaskList" xml:space="preserve">
+    <value>To challenges list</value>
+  </data>
+  <data name="ToMain" xml:space="preserve">
+    <value>To main page</value>
+  </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>My profile</value>
+  </data>
+  <data name="AchievementUnlocked" xml:space="preserve">
+    <value>Achievement unlocked</value>
+  </data>
+</root>
