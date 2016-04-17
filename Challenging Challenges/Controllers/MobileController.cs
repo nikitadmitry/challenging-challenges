@@ -58,7 +58,7 @@ namespace Challenging_Challenges.Controllers
 
         // POST api/Mobile/SolveChallenge
         [HttpPost]
-        public bool SolveChallenge(string answer, int id)
+        public bool SolveChallenge(string answer, Guid id)
         {
             if (string.IsNullOrEmpty(answer)) return false;
             var challenge = _db.Challenges.Find(id);

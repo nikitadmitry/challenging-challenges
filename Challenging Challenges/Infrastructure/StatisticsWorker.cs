@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Globalization;
+using System.Linq;
 using Challenging_Challenges.Hubs;
 using Challenging_Challenges.Resources;
 using Data.Challenges.Entities;
@@ -81,7 +82,7 @@ namespace Challenging_Challenges.Infrastructure
 
         private void AddAchievement(AchievementTypes achievement)
         {
-            if (user.Achievements.Find(x => x.AchievementEnum == achievement) == null)
+            if (user.Achievements.All(x => x.AchievementEnum != achievement))
             {
                 user.Achievements.Add(new Achievement {Value = achievement.ToString()});
                 ShowAhievement(achievement);

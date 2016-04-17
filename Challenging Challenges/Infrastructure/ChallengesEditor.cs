@@ -8,6 +8,7 @@ using Data.Challenges.Entities;
 using Data.Challenges.Repositories;
 using Data.Identity.Entities;
 using Data.Identity.Repositories;
+using WebGrease.Css.Extensions;
 
 namespace Challenging_Challenges.Infrastructure
 {

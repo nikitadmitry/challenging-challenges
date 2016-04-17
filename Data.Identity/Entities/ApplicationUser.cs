@@ -26,10 +26,14 @@ namespace Data.Identity.Entities
             set;
         }
 
-        public ICollection<Achievement> Achievements
+        private List<Achievement> achievements;
+
+        public IList<Achievement> Achievements
         {
-            get;
-            set;
+            get
+            {
+                return achievements ?? (achievements = new List<Achievement>());
+            }
         }
 
         public string About

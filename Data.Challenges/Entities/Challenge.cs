@@ -66,28 +66,52 @@ namespace Data.Challenges.Entities
             set;
         }
 
-        public virtual ICollection<Tag> Tags
+        private List<Tag> tags; 
+
+        public virtual IList<Tag> Tags
         {
-            get;
-            set;
+            get
+            {
+                return tags ?? (tags = new List<Tag>());
+            }
+            set
+            {
+                tags = new List<Tag>(value);
+            }
         }
 
-        public virtual ICollection<Answer> Answers
+        private List<Answer> answers; 
+
+        public virtual IList<Answer> Answers
         {
-            get;
-            set;
+            get
+            {
+                return answers ?? (answers = new List<Answer>());
+            }
+            set
+            {
+                answers = new List<Answer>(value);
+            }
         }
 
-        public virtual ICollection<Comment> Comments
+        private List<Comment> comments; 
+
+        public virtual IList<Comment> Comments
         {
-            get;
-            set;
+            get
+            {
+                return comments ?? (comments = new List<Comment>());
+            }
         }
 
-        public virtual ICollection<Solver> Solvers
+        private List<Solver> solvers; 
+
+        public virtual IList<Solver> Solvers
         {
-            get;
-            set;
+            get
+            {
+                return solvers ?? (solvers = new List<Solver>());
+            }
         }
 
         public void BindChanges(Challenge challenge)
@@ -104,7 +128,7 @@ namespace Data.Challenges.Entities
 
     public interface ITaggable
     {
-        ICollection<Tag> Tags
+        IList<Tag> Tags
         {
             get;
         }

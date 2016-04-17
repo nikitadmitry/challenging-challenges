@@ -10,10 +10,15 @@ namespace Data.Challenges.Entities
             get;
             set;
         }
-        public virtual ICollection<Challenge> Challenges
+
+        private List<Challenge> challenges;
+
+        public virtual IList<Challenge> Challenges
         {
-            get;
-            set;
+            get
+            {
+                return challenges ?? (challenges = new List<Challenge>());
+            }
         }
     }
 }

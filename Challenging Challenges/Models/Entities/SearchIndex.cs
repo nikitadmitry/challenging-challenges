@@ -40,7 +40,7 @@ namespace Challenging_Challenges.Models.Entities
 
     public static class IndexRepository
     {
-        public static SearchIndex Get(int id)
+        public static SearchIndex Get(Guid id)
         {
             return GetAll().SingleOrDefault(x => x.Id.Equals(id));
         }

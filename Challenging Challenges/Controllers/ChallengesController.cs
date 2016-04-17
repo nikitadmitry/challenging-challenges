@@ -188,7 +188,7 @@ namespace Challenging_Challenges.Controllers
         }
 
         [ValidateAntiForgeryToken]
-        public ActionResult AddComment(int? id, string message)
+        public ActionResult AddComment(Guid? id, string message)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
