@@ -3,11 +3,11 @@ using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
 using Challenging_Challenges.Hubs;
-using Challenging_Challenges.Resources;
 using Data.Challenges.Entities;
 using Data.Identity.Entities;
 using Data.Identity.Enums;
 using Data.Identity.Repositories;
+using Shared.Framework.Resources;
 
 namespace Challenging_Challenges.Infrastructure
 {

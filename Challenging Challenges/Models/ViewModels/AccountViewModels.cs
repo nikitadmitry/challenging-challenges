@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Challenging_Challenges.Resources;
 using Data.Identity.Entities;
+using Shared.Framework.Resources;
 
 namespace Challenging_Challenges.Models.ViewModels
 {

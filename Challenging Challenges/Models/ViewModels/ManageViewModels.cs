@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Challenging_Challenges.Resources;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using Shared.Framework.Resources;
 
 namespace Challenging_Challenges.Models.ViewModels
 {

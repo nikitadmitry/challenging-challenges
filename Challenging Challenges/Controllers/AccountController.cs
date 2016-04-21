@@ -6,10 +6,10 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Challenging_Challenges.Models.ViewModels;
-using Challenging_Challenges.Resources;
 using Data.Identity.Entities;
 using Data.Identity.Repositories;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Shared.Framework.Resources;
 
 namespace Challenging_Challenges.Controllers
 {

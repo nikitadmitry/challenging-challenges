@@ -2,8 +2,8 @@
 using System.Linq;
 using Challenging_Challenges.Enums;
 using Challenging_Challenges.Models.Entities;
+using Data.Challenges.Context;
 using Data.Challenges.Entities;
-using Data.Challenges.Repositories;
 using PagedList;
 
 namespace Challenging_Challenges.Infrastructure

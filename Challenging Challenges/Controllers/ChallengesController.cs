@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using Business.Challenges.ViewModels;
 using Challenging_Challenges.Infrastructure;
 using Challenging_Challenges.Models.Entities;
-using Challenging_Challenges.Models.ViewModels;
-using Challenging_Challenges.Resources;
+using Data.Challenges.Context;
 using Data.Challenges.Entities;
 using Data.Challenges.Repositories;
 using Data.Identity.Entities;
@@ -14,6 +14,7 @@ using Data.Identity.Repositories;
 using Lucene.Net.Search;
 using Microsoft.AspNet.Identity;
 using PagedList;
+using Shared.Framework.Resources;
 using WebGrease.Css.Extensions;
 
 namespace Challenging_Challenges.Controllers
@@ -22,6 +23,7 @@ namespace Challenging_Challenges.Controllers
     [RoutePrefix("Challenges")]
     public class ChallengesController : BaseController
     {
+        private readonly IChallengesUnitOfWork challengesUnitOfWork;
         private readonly ChallengesContext db;
         private readonly ChallengesEditorFactory challengesEditorFactory;
         private readonly StatisticsWorkerFactory statisticsWorkerFactory;
@@ -33,6 +35,11 @@ namespace Challenging_Challenges.Controllers
             challengesEditorFactory = new ChallengesEditorFactory();
             statisticsWorkerFactory = new StatisticsWorkerFactory();
             accountController = new AccountController();
+        }
+
+        public ChallengesController(IChallengesUnitOfWork challengesUnitOfWork) : this()
+        {
+            this.challengesUnitOfWork = challengesUnitOfWork;
         }
 
         public ChallengesController(ChallengesContext challengesContext, 

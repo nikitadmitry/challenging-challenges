@@ -49,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Context\ChallengesContext.cs" />
+    <Compile Include="Context\ChallengesUnitOfWork.cs" />
     <Compile Include="Entities\Answer.cs" />
     <Compile Include="Entities\Challenge.cs" />
     <Compile Include="Entities\Comment.cs" />
@@ -62,7 +64,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\ChallengesContext.cs" />
+    <Compile Include="Repositories\IChallengesUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -73,14 +75,15 @@
       <DependentUpon>201604031554100_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Data.Common\Data.Common.csproj">
-      <Project>{610FE3E7-21B8-4BBD-865F-32EA6BA15784}</Project>
+      <Project>{610fe3e7-21b8-4bbd-865f-32ea6ba15784}</Project>
       <Name>Data.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Data.Identity\Data.Identity.csproj">
-      <Project>{6780FCD1-1B0C-4410-94B7-91C98B2333A1}</Project>
-      <Name>Data.Identity</Name>
+    <ProjectReference Include="..\Shared.Framework\Shared.Framework.csproj">
+      <Project>{150EBD2E-0220-4E95-A42E-A5E14E0DB467}</Project>
+      <Name>Shared.Framework</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

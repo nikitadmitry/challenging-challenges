@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Business.Challenges;
 using Challenging_Challenges.Enums;
 using Challenging_Challenges.Helpers;
 using Challenging_Challenges.Infrastructure;
@@ -10,11 +11,19 @@ using Challenging_Challenges.Models.ViewModels;
 using Data.Identity.Entities;
 using Data.Identity.Repositories;
 using PagedList;
+using Shared.Framework.Validation;
 
 namespace Challenging_Challenges.Controllers
 {
     public class HomeController : BaseController
     {
+        private readonly IChallengesService challengesService;
+
+        public HomeController(IChallengesService challengesService)
+        {
+            this.challengesService = challengesService;
+        }
+
         public string UpdateIndex()
         {
             LuceneSearch.AddUpdateLuceneIndex(IndexRepository.GetAll());
@@ -26,6 +35,8 @@ namespace Challenging_Challenges.Controllers
 
         public ActionResult Index()
         {
+            Contract.Requires<ArgumentNullException>(true, "true?");
+            var test = challengesService.GetChallengeViewModel(Guid.Parse("9483862e-b6f9-e511-9c57-6c71d97724c6"));
             HomeChallengeViewModel model = new HomeChallengeViewModel();
             return View(model);
         }

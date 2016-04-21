@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Data.Common.Query.QueryParameters;
 
 namespace Data.Common
 {
@@ -42,10 +43,55 @@ namespace Data.Common
         T Get(Guid id);
 
         /// <summary>
+        /// Reloads entity of Type T with actual data from database, by id.
+        /// </summary>
+        /// <param name="id">Entity identity value.</param>
+        /// <returns>Reloaded entity</returns>
+        T Reload(Guid id);
+
+        /// <summary>
+        /// Gets all entities of type T from repository.
+        /// </summary>
+        /// <param name="queryParameters">Parameters to much conditions for entity.</param>
+        /// <returns>Returns all entities of the type that satisfies criteria.</returns>
+        T Get(BaseQueryParameters queryParameters);
+
+        /// <summary>
+        /// Gets entity of type T from repository.
+        /// </summary>
+        /// <param name="queryParameters">Parameters to much conditions for entity.</param>
+        /// <returns>Returns entity of the type that satisfies criteria or null.</returns>
+        T GetSingleOrDefault(BaseQueryParameters queryParameters);
+
+        /// <summary>
+        /// Gets first entity of type T from repository.
+        /// </summary>
+        /// <param name="queryParameters">Parameters to much conditions for entity.</param>
+        /// <returns>Returns first entity of the type that satisfies criteria or null.</returns>
+        T GetFirstOrDefault(BaseQueryParameters queryParameters);
+
+        /// <summary>
+        /// Gets all entities for the repository
+        /// </summary>
+        /// <param name="parameters">The query.</param>
+        /// <returns></returns>
+        IList<T> GetAll(BaseQueryParameters parameters);
+
+        /// <summary>
         /// Gets all entities for the repository
         /// </summary>
         /// <returns></returns>
-        IEnumerable<T> GetAll();
+        IList<T> GetAll();
+
+        /// <summary>
+        /// Gets Count of entities which match query parameters.
+        /// </summary>
+        int Count(BaseQueryParameters parameters);
+
+        /// <summary>
+        /// Indicates is there any entity matching query parameters.
+        /// </summary>
+        bool Any(BaseQueryParameters parameters);
 
         void MarkAsDetached(T entity);
     }

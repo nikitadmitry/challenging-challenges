@@ -1,6 +1,6 @@
 ﻿using System.Linq;
+using Data.Challenges.Context;
 using Data.Challenges.Entities;
-using Data.Challenges.Repositories;
 
 namespace Challenging_Challenges.Infrastructure
 {
@@ -12,14 +12,14 @@ namespace Challenging_Challenges.Infrastructure
 
     public class TagService : ITagService
     {
-        private readonly ITaggableContext _context;
+        private readonly ITaggableContext context;
 
         public TagService()
         { }
 
         public TagService(ITaggableContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
         public TEntity Tag<TEntity>(TEntity entity, string str) where TEntity : ITaggable
@@ -28,10 +28,10 @@ namespace Challenging_Challenges.Infrastructure
 
             if (entity.Tags.All(t => t.Value != tag))
             {
-                var tagEntity = _context.Tags.FirstOrDefault(t => t.Value == tag);
+                var tagEntity = context.Tags.FirstOrDefault(t => t.Value == tag);
 
                 if (tagEntity == null)
-                    tagEntity = _context.Tags.Add(new Tag { Value = tag });
+                    tagEntity = context.Tags.Add(new Tag { Value = tag });
                 entity.Tags.Add(tagEntity);
             }
 

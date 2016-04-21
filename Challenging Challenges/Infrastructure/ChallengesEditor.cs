@@ -3,11 +3,11 @@ using System.Data.Entity;
 using System.Linq;
 using Challenging_Challenges.Controllers;
 using Challenging_Challenges.Helpers;
-using Challenging_Challenges.Resources;
+using Data.Challenges.Context;
 using Data.Challenges.Entities;
-using Data.Challenges.Repositories;
 using Data.Identity.Entities;
 using Data.Identity.Repositories;
+using Shared.Framework.Resources;
 using WebGrease.Css.Extensions;
 
 namespace Challenging_Challenges.Infrastructure

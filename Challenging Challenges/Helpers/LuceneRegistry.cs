@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Linq;
 using Challenging_Challenges.Infrastructure;
 using Challenging_Challenges.Models.Entities;

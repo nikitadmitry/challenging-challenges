@@ -11,7 +11,7 @@ using Challenging_Challenges.Infrastructure;
 using Challenging_Challenges.Models.Mobile;
 using Challenging_Challenges.Models.ViewModels;
 using Challenging_Challenges.Providers;
-using Data.Challenges.Repositories;
+using Data.Challenges.Context;
 using Data.Identity.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;

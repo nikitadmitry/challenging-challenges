@@ -4,10 +4,10 @@ using System.Globalization;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Challenging_Challenges.Resources;
 using Data.Identity.Entities;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
+using Shared.Framework.Resources;
 
 namespace Challenging_Challenges.Helpers
 {

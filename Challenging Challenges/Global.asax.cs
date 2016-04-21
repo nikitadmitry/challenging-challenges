@@ -16,6 +16,7 @@ namespace Challenging_Challenges
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            AutofacConfig.ConfigureContainer();
             TaskManager.Initialize(new LuceneRegistry());
         }
     }

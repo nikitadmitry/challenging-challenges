@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Data.Challenges.Context;
 using Data.Challenges.Entities;
-using Data.Challenges.Repositories;
 using Data.Common;
 
 namespace Challenging_Challenges.Models.Entities
