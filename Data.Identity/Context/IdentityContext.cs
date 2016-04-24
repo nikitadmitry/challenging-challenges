@@ -1,10 +1,16 @@
-﻿using Data.Identity.Entities;
-using Microsoft.AspNet.Identity.EntityFramework;
+﻿using System.Data.Entity;
+using Data.Identity.Entities;
 
 namespace Data.Identity.Context
 {
-    public class IdentityContext : IdentityDbContext<ApplicationUser>
+    public class IdentityContext : DbContext
     {
+        public DbSet<User> Users
+        {
+            get;
+            set;
+        }
+
         public IdentityContext() : base("IdentityConnection")
         {
         }

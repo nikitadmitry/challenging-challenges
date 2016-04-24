@@ -13,7 +13,7 @@ namespace Challenging_Challenges.Infrastructure
 {
     public class StatisticsWorkerFactory
     {
-        public virtual IStatisticsWorker GetWorker(IdentityContext usersDb, ApplicationUser user)
+        public virtual IStatisticsWorker GetWorker(IdentityContext usersDb, User user)
         {
             return new StatisticsWorker(usersDb, user);
         }
@@ -30,9 +30,9 @@ namespace Challenging_Challenges.Infrastructure
     public class StatisticsWorker : IStatisticsWorker
     {
         private IdentityContext db;
-        private ApplicationUser user;
+        private User user;
 
-        public StatisticsWorker(IdentityContext usersDb, ApplicationUser user)
+        public StatisticsWorker(IdentityContext usersDb, User user)
         {
             db = usersDb;
             this.user = user;
@@ -93,7 +93,7 @@ namespace Challenging_Challenges.Infrastructure
         {
             var resourceSet = Achievements.ResourceManager.GetResourceSet(CultureInfo.CurrentCulture, true, true);
             var context = Microsoft.AspNet.SignalR.GlobalHost.ConnectionManager.GetHubContext<NotificationHub>();
-            foreach (var connectionId in NotificationHub.Connections.GetConnections(user.Id))
+            foreach (var connectionId in NotificationHub.Connections.GetConnections(user.Id.ToString()))
             {
                 context.Clients.Client(connectionId).showAchievement(resourceSet.GetString(achievement.ToString()));
             }

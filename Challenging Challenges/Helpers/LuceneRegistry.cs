@@ -21,14 +21,15 @@ namespace Challenging_Challenges.Helpers
                     LuceneSearch.ClearLuceneIndexRecord(id);
                 LuceneSearch.AddUpdateLuceneIndex(IndexRepository.GetAll());
                 LuceneSearch.Optimize();
-                UpdateTopOne();
+                //todo: temp disabled
+                //UpdateTopOne();
             }).ToRunNow().AndEvery(20).Minutes();
         }
 
         private void UpdateTopOne()
         {
             IdentityContext usersDb = new IdentityContext();
-            ApplicationUser user = usersDb.Users.OrderByDescending(x => x.Rating).Take(1).First();
+            User user = usersDb.Users.OrderByDescending(x => x.Rating).Take(1).First();
             new StatisticsWorker(usersDb, user).BecameTopOne();
         }
     }

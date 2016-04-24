@@ -12,7 +12,7 @@ namespace Data.Challenges.Context
             Func<DbContext, IRepository<Comment>> commentsRepositoryFunc,
             Func<DbContext, IRepository<Solver>> solversRepositoryFunc,
             Func<DbContext, IRepository<Tag>> tagsRepositoryFunc)
-            : base(new ChallengesContext("ChallengesConnection"))
+            : base(new ChallengesContext())
         {
             RegisterRepository(challengesRepositoryFunc(Context));
             RegisterRepository(answersRepositoryFunc(Context));

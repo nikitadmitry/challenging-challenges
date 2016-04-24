@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Business.Identity.ViewModels;
 using Data.Identity.Entities;
 using Shared.Framework.Resources;
 
@@ -7,11 +8,11 @@ namespace Challenging_Challenges.Models.ViewModels
     public class TopUser
     {
         public string UserName { get; set; }
-        public float Rating { get; set; }
+        public double Rating { get; set; }
         public int SolvedChallenges { get; set; }
         public int PostedChallenges { get; set; }
 
-        public TopUser(ApplicationUser user)
+        public TopUser(User user)
         {
             UserName = user.UserName;
             Rating = user.Rating;

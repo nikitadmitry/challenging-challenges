@@ -1,8 +1,7 @@
 ﻿@using System.Globalization
 @using Microsoft.AspNet.Identity
-@using Data.Identity.Entities
 @using Shared.Framework.Resources
-@model ApplicationUser
+@model Business.Identity.ViewModels.IdentityUser
 
 @{
     ViewBag.Title = Model.UserName;
@@ -20,7 +19,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <h2>
-            @if (Model.Id.Equals(User.Identity.GetUserId()))
+            @if (Model.Id.Equals(Guid.Parse(User.Identity.GetUserId())))
             {
                 <a href="#" id="change-username">@Model.UserName</a>
             }
@@ -37,7 +36,7 @@
             <h2>@Localization.About</h2>
             <br />
             <p>
-                @if (Model.Id.Equals(User.Identity.GetUserId()))
+                @if (Model.Id.Equals(Guid.Parse(User.Identity.GetUserId())))
                 {
                     <a href="#" id="change-about">@(string.IsNullOrEmpty(Model.About) ? Localization.ClickToSet : Model.About)</a>
                 }

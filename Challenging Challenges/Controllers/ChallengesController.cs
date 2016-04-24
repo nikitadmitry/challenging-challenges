@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using Autofac.Core;
 using Business.Challenges.ViewModels;
+using Business.Identity;
+using Business.Identity.ViewModels;
 using Challenging_Challenges.Infrastructure;
 using Challenging_Challenges.Models.Entities;
 using Data.Challenges.Context;
@@ -22,18 +25,25 @@ namespace Challenging_Challenges.Controllers
     [RoutePrefix("Challenges")]
     public class ChallengesController : BaseController
     {
+        private readonly IIdentityService identityService;
         private readonly IChallengesUnitOfWork challengesUnitOfWork;
         private readonly ChallengesContext db;
         private readonly ChallengesEditorFactory challengesEditorFactory;
         private readonly StatisticsWorkerFactory statisticsWorkerFactory;
-        private readonly AccountController accountController;
+        //private readonly AccountController accountController;
 
         public ChallengesController()
         {
+            
+        }
+
+        public ChallengesController(IIdentityService identityService)
+        {
+            this.identityService = identityService;
             db = new ChallengesContext();
             challengesEditorFactory = new ChallengesEditorFactory();
             statisticsWorkerFactory = new StatisticsWorkerFactory();
-            accountController = new AccountController();
+            //accountController = new AccountController();
         }
 
         public ChallengesController(IChallengesUnitOfWork challengesUnitOfWork) : this()
@@ -49,7 +59,7 @@ namespace Challenging_Challenges.Controllers
             db = challengesContext;
             this.challengesEditorFactory = challengesEditorFactory;
             this.statisticsWorkerFactory = statisticsWorkerFactory;
-            this.accountController = accountController;
+            //this.accountController = accountController;
         }
 
         public JsonResult TagSearch(string term = "", int limit = 10)
@@ -81,8 +91,9 @@ namespace Challenging_Challenges.Controllers
         public ActionResult ByUser(string userName)
         {
             IdentityContext usersDb = new IdentityContext();
-            var userId = accountController.GetApplicationUser(userName, usersDb).Id;
-            var list = LuceneSearch.Search(Sort.RELEVANCE, userId, "AuthorId", 0, 100).ToList();
+            var userId = identityService.GetIdentityUserByUserName(userName).Id;
+            //var userId = accountController.GetApplicationUser(userName, usersDb).Id;
+            var list = LuceneSearch.Search(Sort.RELEVANCE, userId.ToString(), "AuthorId", 0, 100).ToList();
             int count = list.Count;
             if (count < 1) count = 1;
             IPagedList<SearchIndex> result = new StaticPagedList<SearchIndex>(list, 1, count, count);
@@ -104,10 +115,11 @@ namespace Challenging_Challenges.Controllers
             {
                 string userId = User.Identity.GetUserId();
                 IdentityContext usersDb = new IdentityContext();
-                ApplicationUser user = accountController.GetApplicationUser(userId, usersDb);
+                //IdentityUser user = accountController.GetApplicationUser(userId, usersDb);
                 Challenge challenge = model.ToChallenge(userId);
                 challengesEditorFactory.GetEditor(challenge, db, userId).AddChallenge(model.Tags);
-                statisticsWorkerFactory.GetWorker(usersDb, user).ChallengePosted(true);
+                //todo identityuser here
+                //statisticsWorkerFactory.GetWorker(usersDb, user).ChallengePosted(true);
                 return RedirectToAction("Index");
             }
             return View(model);
@@ -189,7 +201,8 @@ namespace Challenging_Challenges.Controllers
             string userId = User.Identity.GetUserId();
             new ChallengesEditor(challenge, db, userId).RemoveChallenge();
             IdentityContext usersDb = new IdentityContext();
-            new StatisticsWorker(usersDb, accountController.GetApplicationUser(userId, usersDb)).ChallengePosted(false);
+            //todo: identityUser here
+            //new StatisticsWorker(usersDb, accountController.GetApplicationUser(userId, usersDb)).ChallengePosted(false);
             return RedirectToAction("Index");
         }
 

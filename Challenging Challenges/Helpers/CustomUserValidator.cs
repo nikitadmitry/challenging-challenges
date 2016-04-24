@@ -4,21 +4,20 @@ using System.Globalization;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Data.Identity.Entities;
-using Microsoft.Ajax.Utilities;
+using Business.Identity.ViewModels;
 using Microsoft.AspNet.Identity;
 using Shared.Framework.Resources;
 
 namespace Challenging_Challenges.Helpers
 {
-    public class CustomUserValidator<TUser> : UserValidator<TUser, string> where TUser : ApplicationUser
+    public class CustomUserValidator<TUser> : UserValidator<TUser, Guid> where TUser : IdentityUser
     {
-        public CustomUserValidator(UserManager<TUser, string> manager) : base(manager)
+        public CustomUserValidator(UserManager<TUser, Guid> manager) : base(manager)
         {
             Manager = manager;
         }
 
-        private UserManager<TUser, string> Manager { get; }
+        private UserManager<TUser, Guid> Manager { get; }
 
         public override async Task<IdentityResult> ValidateAsync(TUser item)
         {
@@ -52,7 +51,7 @@ namespace Challenging_Challenges.Helpers
             else
             {
                 var owner = await Manager.FindByNameAsync(user.UserName);
-                if (owner != null && !EqualityComparer<string>.Default.Equals(owner.Id, user.Id))
+                if (owner != null && !EqualityComparer<Guid>.Default.Equals(owner.Id, user.Id))
                 {
                     errors.Add(String.Format(CultureInfo.CurrentCulture, Localization.DuplicateName, user.UserName));
                 }
@@ -61,7 +60,7 @@ namespace Challenging_Challenges.Helpers
 
         private async Task ValidateEmail(TUser user, List<string> errors)
         {
-            if (!user.Email.IsNullOrWhiteSpace())
+            if (!user.Email.IsNullOrEmpty())
             {
                 if (string.IsNullOrWhiteSpace(user.Email))
                 {
@@ -79,7 +78,7 @@ namespace Challenging_Challenges.Helpers
                 }
             }
             var owner = await Manager.FindByEmailAsync(user.Email);
-            if (owner != null && !EqualityComparer<string>.Default.Equals(owner.Id, user.Id))
+            if (owner != null && !EqualityComparer<Guid>.Default.Equals(owner.Id, user.Id))
             {
                 errors.Add(String.Format(CultureInfo.CurrentCulture, Localization.DuplicateEmail, user.Email));
             }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using Business.Identity.ViewModels;
 using Challenging_Challenges.Controllers;
 using Challenging_Challenges.Helpers;
 using Data.Challenges.Context;
@@ -59,7 +60,7 @@ namespace Challenging_Challenges.Infrastructure
             this.challenge = challenge;
             this.db = db;
             identityContext = new IdentityContext();
-            accountController = new AccountController();
+            //accountController = new AccountController();
         }
 
         public void AddSolveAttempt()
@@ -133,7 +134,7 @@ namespace Challenging_Challenges.Infrastructure
             if (solver == null || !solver.HasSolved) return Localization.YouHaveToSolveFirst;
             if (solver.HasRated) return Localization.YouHaveRated;
             ChangeChallengeRating((rating - challenge.Rating) / challenge.NumberOfVotes, solver);
-            ApplicationUser author = accountController.GetApplicationUser(challenge.AuthorId, identityContext);
+            IdentityUser author = accountController.GetApplicationUser(challenge.AuthorId, identityContext);
             AddUserRating(author, (rating - challenge.Rating) / 10, identityContext);
             return Localization.SuccessfullyRated;
         }
@@ -175,16 +176,17 @@ namespace Challenging_Challenges.Infrastructure
 
         private void AddChallengeStats()
         {
-            ApplicationUser user = accountController.GetApplicationUser(userId, identityContext);
-            ApplicationUser author = accountController.GetApplicationUser(challenge.AuthorId, identityContext);
+            IdentityUser user = accountController.GetApplicationUser(userId, identityContext);
+            IdentityUser author = accountController.GetApplicationUser(challenge.AuthorId, identityContext);
             float rating = challenge.Rating * challenge.Difficulty / 10 / GetNumberOfTries();
             AddUserRating(user, rating, identityContext);
             AddUserRating(author, rating / 5, identityContext);
             identityContext.SaveChanges();
-            var sw = new StatisticsWorker(identityContext, user);
-            sw.RatingChanged();
-            sw.ChallengeSolved(challenge);
-            new StatisticsWorker(identityContext, author).RatingChanged();
+            //todo fix
+            //var sw = new StatisticsWorker(identityContext, user);
+            //sw.RatingChanged();
+            //sw.ChallengeSolved(challenge);
+            //new StatisticsWorker(identityContext, author).RatingChanged();
         }
 
         private byte GetNumberOfTries()
@@ -193,15 +195,16 @@ namespace Challenging_Challenges.Infrastructure
             return solver?.NumberOfTries ?? 0;
         }
 
-        private void AddUserRating(ApplicationUser user, float rating, IdentityContext usersDb)
+        private void AddUserRating(IdentityUser user, float rating, IdentityContext usersDb)
         {
-            usersDb.Users.Attach(user);
+            //usersDb.Users.Attach(user);
             if (!user.EmailConfirmed) rating /= 3;
             user.Rating += rating;
-            SetEntityStateModified(user, usersDb);
+            //todo fix
+            //SetEntityStateModified(user, usersDb);
         }
 
-        public virtual void SetEntityStateModified(ApplicationUser user, IdentityContext usersDb)
+        public virtual void SetEntityStateModified(User user, IdentityContext usersDb)
         {
             usersDb.Entry(user).State = EntityState.Modified;
         }

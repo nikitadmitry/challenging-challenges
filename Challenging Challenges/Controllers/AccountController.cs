@@ -1,56 +1,28 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Business.Identity;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Challenging_Challenges.Models.ViewModels;
 using Data.Identity.Context;
-using Data.Identity.Entities;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Shared.Framework.Resources;
+using IdentityUser = Business.Identity.ViewModels.IdentityUser;
 
 namespace Challenging_Challenges.Controllers
 {
     [Authorize]
     public class AccountController : BaseController
     {
-        private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
+        private readonly UserManager<IdentityUser, Guid> userManager;
+        private readonly IIdentityService identityService;
 
-        public AccountController()
+        public AccountController(UserManager<IdentityUser, Guid> userManager, IIdentityService identityService)
         {
-        }
-
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
-
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set 
-            { 
-                _signInManager = value; 
-            }
-        }
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
+            this.userManager = userManager;
+            this.identityService = identityService;
         }
 
         //
@@ -69,24 +41,18 @@ namespace Challenging_Challenges.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View(model);
-            }
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
-            {
-                case SignInStatus.Success:
+                var user = await userManager.FindAsync(model.UserName, model.Password);
+                if (user != null)
+                {
+                    await SignInAsync(user, model.RememberMe);
                     return RedirectToLocal(returnUrl);
-                //case SignInStatus.LockedOut:
-                //    return View("Lockout");
-                //case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", Localization.InvalidLoginAttempt);
-                    return View(model);
+                }
+                ModelState.AddModelError("", Localization.InvalidLoginAttempt);
             }
+
+            return View(model);
         }
 
         //
@@ -106,14 +72,15 @@ namespace Challenging_Challenges.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
+                var user = new IdentityUser { UserName = model.UserName, Email = model.Email };
+                var result = await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, false, false);
-                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code }, Request.Url.Scheme);
-                    await UserManager.SendEmailAsync(user.Id, Localization.ConfirmAccount,
+                    await SignInAsync(user, isPersistent: false);
+                    var userId = identityService.GetIdentityUserByUserName(user.UserName).Id;
+                    string code = await userManager.GenerateEmailConfirmationTokenAsync(userId);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = userId, code }, Request.Url.Scheme);
+                    await userManager.SendEmailAsync(userId, Localization.ConfirmAccount,
                         string.Format(Localization.EmailConfirmationMessage, callbackUrl));
                     return RedirectToAction("Index", "Home");
                 }
@@ -127,13 +94,13 @@ namespace Challenging_Challenges.Controllers
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
-        public async Task<ActionResult> ConfirmEmail(string userId, string code)
+        public async Task<ActionResult> ConfirmEmail(Guid userId, string code)
         {
-            if (userId == null || code == null)
+            if (code == null)
             {
                 return View("Error");
             }
-            var result = await UserManager.ConfirmEmailAsync(userId, code);
+            var result = await userManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
@@ -151,37 +118,32 @@ namespace Challenging_Challenges.Controllers
         {
             if (string.IsNullOrEmpty(userName)) return RedirectToAction("Index", "Home");
             IdentityContext usersDb = new IdentityContext();
-            ApplicationUser user = GetApplicationUser(userName.Replace('_', ' '), usersDb);
-            if (user == null) return View(UserManager.FindById(User.Identity.GetUserId()));
+            IdentityUser user = GetApplicationUser(userName.Replace('_', ' '), usersDb);
+            if (user == null) return View(userManager.FindById(Guid.Parse(User.Identity.GetUserId())));
             return View(user);
         }
 
         [NonAction]
-        public virtual ApplicationUser GetApplicationUser(string userData, IdentityContext usersDb)
+        public virtual IdentityUser GetApplicationUser(string userData, IdentityContext usersDb)
         {
-            UserManager<ApplicationUser> userManager =
-                new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(usersDb));
-            return userData.Contains(' ') ? userManager.FindByName(userData) : userManager.FindById(userData);
+            return userData.Contains(' ') ? userManager.FindByName(userData) : userManager.FindById(Guid.Parse(userData));
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                if (_userManager != null)
-                {
-                    _userManager.Dispose();
-                    _userManager = null;
-                }
-
-                if (_signInManager != null)
-                {
-                    _signInManager.Dispose();
-                    _signInManager = null;
-                }
+                userManager?.Dispose();
             }
 
             base.Dispose(disposing);
+        }
+
+        private async Task SignInAsync(IdentityUser user, bool isPersistent)
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+            var identity = await userManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+            AuthenticationManager.SignIn(new AuthenticationProperties { IsPersistent = isPersistent }, identity);
         }
 
         #region Helpers

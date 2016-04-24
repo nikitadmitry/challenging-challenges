@@ -15,10 +15,10 @@ namespace Challenging_Challenges.Migrations
 
         protected override void Seed(IdentityContext context)
         {
-            //List<ApplicationUser> users = new List<ApplicationUser>();
+            //List<User> users = new List<User>();
             //for (int i = 0; i < 1000; i++)
             //{
-            //    var user = new ApplicationUser {
+            //    var user = new User {
             //        Email = Faker.Internet.Email(),
             //        UserName = $"{Faker.Name.First()} {Faker.Name.Last()}",
             //        PasswordHash = Crypto.HashPassword("password"),

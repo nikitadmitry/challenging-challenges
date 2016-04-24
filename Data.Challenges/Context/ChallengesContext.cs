@@ -5,8 +5,19 @@ namespace Data.Challenges.Context
 {
     public class ChallengesContext : DbContext, ITaggableContext
     {
-        public ChallengesContext()
-            : this("ChallengesConnection")
+        public virtual DbSet<Challenge> Challenges
+        {
+            get;
+            set;
+        }
+
+        public virtual DbSet<Tag> Tags
+        {
+            get;
+            set;
+        }
+
+        public ChallengesContext() : this("ChallengesConnection")
         {
             
         }
@@ -31,18 +42,6 @@ namespace Data.Challenges.Context
                         .HasMany(a => a.Solvers)
                         .WithOptional()
                         .WillCascadeOnDelete();
-        }
-
-        public virtual DbSet<Challenge> Challenges
-        {
-            get;
-            set;
-        }
-
-        public virtual DbSet<Tag> Tags
-        {
-            get;
-            set;
         }
     }
 

@@ -1,78 +1,51 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Business.Identity.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Challenging_Challenges.Models.ViewModels;
 using Data.Identity.Entities;
+using Microsoft.Owin.Security;
 
 namespace Challenging_Challenges.Controllers
 {
     [Authorize]
     public class ManageController : BaseController
     {
-        private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
+        private UserManager<IdentityUser, Guid> userManager;
 
-        public ManageController()
+        public ManageController(UserManager<IdentityUser, Guid> userManager)
         {
-        }
-
-        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
-
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set 
-            { 
-                _signInManager = value; 
-            }
-        }
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
+            this.userManager = userManager;
         }
 
         public void SetAbout(string value)
         {
             if (string.IsNullOrEmpty(value)) return;
-            ApplicationUser user = UserManager.FindById(User.Identity.GetUserId());
+            IdentityUser user = userManager.FindById(Guid.Parse(User.Identity.GetUserId()));
             user.About = value;
-            UserManager.Update(user);
+            userManager.Update(user);
         }
 
         //
         // POST: /Manage/ChangeUserName
         [HttpPost]
-        public ActionResult ChangeUserName(string value)
+        public async Task<ActionResult> ChangeUserName(string value)
         {
             if (string.IsNullOrEmpty(value)) return null;
             Regex regex = new Regex("^([A-Z][a-z]+ [A-Z][a-z]+)$");
             if (!regex.IsMatch(value))
                 return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
-            if (UserManager.FindByName(value) == null)
+            if (userManager.FindByName(value) == null)
             {
-                ApplicationUser user = UserManager.FindById(User.Identity.GetUserId());
+                IdentityUser user = userManager.FindById(Guid.Parse(User.Identity.GetUserId()));
                 user.UserName = value;
-                UserManager.Update(user);
-                SignInManager.SignIn(user, false, false);
+                userManager.Update(user);
+                await SignInAsync(user, isPersistent: false);
             }
             else
             {
@@ -98,13 +71,13 @@ namespace Challenging_Challenges.Controllers
             {
                 return View(model);
             }
-            var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+            var result = await userManager.ChangePasswordAsync(Guid.Parse(User.Identity.GetUserId()), model.OldPassword, model.NewPassword);
             if (result.Succeeded)
             {
-                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                var user = await userManager.FindByIdAsync(Guid.Parse(User.Identity.GetUserId()));
                 if (user != null)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    await SignInAsync(user, isPersistent: false);
                 }
                 return RedirectToAction("UserProfile", "Account", new { userName = User.Identity.Name.Replace(' ', '_') });
             }
@@ -114,16 +87,32 @@ namespace Challenging_Challenges.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && _userManager != null)
+            if (disposing && userManager != null)
             {
-                _userManager.Dispose();
-                _userManager = null;
+                userManager.Dispose();
+                userManager = null;
             }
 
             base.Dispose(disposing);
         }
 
-#region Helpers
+        private async Task SignInAsync(IdentityUser user, bool isPersistent)
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+            var identity = await userManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+            AuthenticationManager.SignIn(new AuthenticationProperties { IsPersistent = isPersistent }, identity);
+        }
+
+        #region Helpers
+
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
+            }
+        }
+
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)

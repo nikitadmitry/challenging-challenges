@@ -235,6 +235,7 @@
     <Compile Include="Helpers\LuceneRegistry.cs" />
     <Compile Include="Helpers\MarkdownHelper.cs" />
     <Compile Include="Hubs\NotificationHub.cs" />
+    <Compile Include="Identity\UserStore.cs" />
     <Compile Include="Infrastructure\ChallengesEditor.cs" />
     <Compile Include="Infrastructure\FilesWorker.cs" />
     <Compile Include="Infrastructure\SearchService.cs" />
@@ -796,6 +797,10 @@
     <ProjectReference Include="..\Business.Host\Business.Host.csproj">
       <Project>{DE6F869A-56ED-43A9-8F3F-3CE5C53DB35C}</Project>
       <Name>Business.Host</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Business.Identity\Business.Identity.csproj">
+      <Project>{B248D183-63B4-41F6-8182-E532200D5AEE}</Project>
+      <Name>Business.Identity</Name>
     </ProjectReference>
     <ProjectReference Include="..\Data.Challenges\Data.Challenges.csproj">
       <Project>{3BC289F6-2AE2-4CD3-A5D4-AA6A549BCA9A}</Project>

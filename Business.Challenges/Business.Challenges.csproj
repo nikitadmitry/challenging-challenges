@@ -74,6 +74,7 @@
     <Compile Include="ChallengesService.cs" />
     <Compile Include="IChallengesService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\AchievementViewModel.cs" />
     <Compile Include="ViewModels\ChallengeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
