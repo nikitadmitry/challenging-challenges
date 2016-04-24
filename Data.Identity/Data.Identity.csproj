@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Context\IdentityUnitOfWork.cs" />
     <Compile Include="Entities\Achievement.cs" />
     <Compile Include="Entities\ApplicationUser.cs" />
     <Compile Include="Enums\AchievementTypes.cs" />
@@ -78,6 +79,10 @@
     <ProjectReference Include="..\Data.Common\Data.Common.csproj">
       <Project>{610fe3e7-21b8-4bbd-865f-32ea6ba15784}</Project>
       <Name>Data.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shared.Framework\Shared.Framework.csproj">
+      <Project>{150EBD2E-0220-4E95-A42E-A5E14E0DB467}</Project>
+      <Name>Shared.Framework</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

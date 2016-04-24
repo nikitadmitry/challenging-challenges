@@ -16,9 +16,6 @@ namespace Data.Common
     public class Repository<T> : IRepository<T>
         where T : Entity
     {
-
-        private const string GetSequenceCommand = @"SELECT NEXT VALUE FOR [{0}].[{1}] AS Value";
-
         private const string OrderByDescendingMethod = "OrderByDescending";
         private const string OrderByMethod = "OrderBy";
         private const string ThenByDescendingMethod = "ThenByDescending";
@@ -485,11 +482,6 @@ namespace Data.Common
         protected virtual int ExecuteSqlCommand(string sql, IList<SqlParameter> parameters)
         {
             return context.Database.ExecuteSqlCommand(sql, parameters.ToArray());
-        }
-
-        protected long GetNextSequenceNumber(string sequenceName, string schemaName = "dbo")
-        {
-            return SqlQuery<long>(String.Format(GetSequenceCommand, schemaName, sequenceName)).Single();
         }
 
         private IQueryable<T> GetSingleQuery(BaseQueryParameters queryParameters)
