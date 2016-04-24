@@ -6,8 +6,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Challenging_Challenges.Models.ViewModels;
+using Data.Identity.Context;
 using Data.Identity.Entities;
-using Data.Identity.Repositories;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Shared.Framework.Resources;
 

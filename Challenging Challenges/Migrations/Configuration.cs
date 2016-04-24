@@ -1,4 +1,4 @@
-using Data.Identity.Repositories;
+using Data.Identity.Context;
 
 namespace Challenging_Challenges.Migrations
 {

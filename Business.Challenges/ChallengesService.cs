@@ -1,12 +1,12 @@
 ﻿using System;
 using System.ServiceModel;
 using Business.Challenges.ViewModels;
+using Data.Challenges.Context;
 using Data.Challenges.Entities;
-using Data.Challenges.Repositories;
 
 namespace Business.Challenges
 {
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall)]
+    [ServiceBehavior(IncludeExceptionDetailInFaults = true/*, InstanceContextMode = InstanceContextMode.PerCall*/)]
     public class ChallengesService: IChallengesService
     {
         private readonly IChallengesUnitOfWork unitOfWork;

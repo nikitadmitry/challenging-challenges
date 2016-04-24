@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
 using Data.Challenges.Entities;
-using Data.Challenges.Repositories;
 using Data.Common;
 
 namespace Data.Challenges.Context

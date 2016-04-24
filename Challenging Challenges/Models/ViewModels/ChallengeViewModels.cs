@@ -4,7 +4,7 @@ using Challenging_Challenges.Controllers;
 using Challenging_Challenges.Enums;
 using Challenging_Challenges.Infrastructure;
 using Challenging_Challenges.Models.Entities;
-using Data.Identity.Repositories;
+using Data.Identity.Context;
 using Newtonsoft.Json;
 using PagedList;
 

@@ -47,8 +47,9 @@ namespace Challenging_Challenges.Models.Entities
 
         public static List<SearchIndex> GetAll()
         {
-            ChallengesContext context = new ChallengesContext();
-            return context.Challenges.ToList().Select(x => new SearchIndex(x)).ToList();
+            return new List<SearchIndex>();
+            //ChallengesContext context = new ChallengesContext();
+            //return context.Challenges.ToList().Select(x => new SearchIndex(x)).ToList();
         }
     }
 }

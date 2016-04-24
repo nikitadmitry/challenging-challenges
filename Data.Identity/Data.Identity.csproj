@@ -60,8 +60,12 @@
     <Compile Include="Entities\Achievement.cs" />
     <Compile Include="Entities\ApplicationUser.cs" />
     <Compile Include="Enums\AchievementTypes.cs" />
+    <Compile Include="Migrations\201604240106016_Initial.cs" />
+    <Compile Include="Migrations\201604240106016_Initial.Designer.cs">
+      <DependentUpon>201604240106016_Initial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Repositories\IdentityContext.cs" />
+    <Compile Include="Context\IdentityContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -75,6 +79,11 @@
       <Project>{610fe3e7-21b8-4bbd-865f-32ea6ba15784}</Project>
       <Name>Data.Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201604240106016_Initial.resx">
+      <DependentUpon>201604240106016_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

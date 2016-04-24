@@ -1,15 +1,17 @@
+using Data.Identity.Context;
+
 namespace Data.Identity.Migrations
 {
     using System.Data.Entity.Migrations;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Data.Identity.Repositories.IdentityContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<IdentityContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(Data.Identity.Repositories.IdentityContext context)
+        protected override void Seed(IdentityContext context)
         {
         }
     }

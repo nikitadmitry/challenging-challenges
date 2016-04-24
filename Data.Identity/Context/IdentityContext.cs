@@ -1,7 +1,7 @@
 ﻿using Data.Identity.Entities;
 using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace Data.Identity.Repositories
+namespace Data.Identity.Context
 {
     public class IdentityContext : IdentityDbContext<ApplicationUser>
     {

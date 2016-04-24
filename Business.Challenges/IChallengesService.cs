@@ -4,9 +4,10 @@ using Business.Challenges.ViewModels;
 
 namespace Business.Challenges
 {
-    [ServiceContract(ConfigurationName = "ChallengesService")]
+    [ServiceContract]
     public interface IChallengesService
     {
+        [OperationContract]
         ChallengeViewModel GetChallengeViewModel(Guid id);
     }
 }

@@ -7,7 +7,7 @@ namespace Business.Host.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType(typeof(ChallengesService)).As(typeof(IChallengesService)).InstancePerRequest();
+            builder.RegisterType(typeof(ChallengesService)).As(typeof(IChallengesService))/*.InstancePerRequest()*/;
 
             base.Load(builder);
         }

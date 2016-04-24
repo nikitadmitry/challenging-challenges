@@ -1,7 +1,7 @@
 ﻿using Data.Challenges.Entities;
 using Data.Common;
 
-namespace Data.Challenges.Repositories
+namespace Data.Challenges.Context
 {
     public interface IChallengesUnitOfWork: IUnitOfWork
     {

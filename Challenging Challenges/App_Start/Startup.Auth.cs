@@ -5,8 +5,8 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 using Challenging_Challenges.Providers;
+using Data.Identity.Context;
 using Data.Identity.Entities;
-using Data.Identity.Repositories;
 using Microsoft.Owin.Security.OAuth;
 
 namespace Challenging_Challenges

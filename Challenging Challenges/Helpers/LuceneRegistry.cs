@@ -2,8 +2,8 @@
 using System.Linq;
 using Challenging_Challenges.Infrastructure;
 using Challenging_Challenges.Models.Entities;
+using Data.Identity.Context;
 using Data.Identity.Entities;
-using Data.Identity.Repositories;
 using FluentScheduler;
 
 namespace Challenging_Challenges.Helpers
