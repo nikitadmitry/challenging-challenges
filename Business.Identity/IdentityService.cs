@@ -78,6 +78,23 @@ namespace Business.Identity
             return Mapper.Map<IdentityUser>(user);
         }
 
+        public string GetUserNameById(Guid userId)
+        {
+            var user = unitOfWork.Get<User>(userId);
+
+            return user.UserName;
+        }
+
+        public void AddRatingToUser(Guid userId, double rating)
+        {
+            var user = unitOfWork.Get<User>(userId);
+
+            user.Rating += rating;
+
+            unitOfWork.InsertOrUpdate(user);
+            unitOfWork.Commit();
+        }
+
         public IdentityUser GetIdentityUserById(Guid userId)
         {
             var user = unitOfWork.Get<User>(userId);

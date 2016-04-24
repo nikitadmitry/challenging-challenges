@@ -14,15 +14,22 @@ namespace Data.Identity.Entities
         }
 
         [NotMapped]
-        public AchievementTypes AchievementEnum
+        public DataAchievementType AchievementEnum
         {
             get
             {
-                AchievementTypes achievement;
+                DataAchievementType achievement;
                 Enum.TryParse(Value, out achievement);
                 return achievement;
             }
         }
 
+        public static Achievement Create(string value)
+        {
+            return new Achievement
+            {
+                Value = value
+            };
+        }
     }
 }

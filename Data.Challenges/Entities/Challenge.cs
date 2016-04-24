@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Data.Challenges.Enums;
 using Data.Common;
 
@@ -6,7 +7,7 @@ namespace Data.Challenges.Entities
 {
     public class Challenge : Entity, ITaggable
     {
-        public string AuthorId
+        public Guid AuthorId
         {
             get;
             set;
@@ -48,7 +49,7 @@ namespace Data.Challenges.Entities
             set;
         }
 
-        public float Rating
+        public double Rating
         {
             get;
             set;

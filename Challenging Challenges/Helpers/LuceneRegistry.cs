@@ -30,7 +30,8 @@ namespace Challenging_Challenges.Helpers
         {
             IdentityContext usersDb = new IdentityContext();
             User user = usersDb.Users.OrderByDescending(x => x.Rating).Take(1).First();
-            new StatisticsWorker(usersDb, user).BecameTopOne();
+            //todo fix too
+            //new StatisticsWorker(usersDb, user).BecameTopOne();
         }
     }
 }

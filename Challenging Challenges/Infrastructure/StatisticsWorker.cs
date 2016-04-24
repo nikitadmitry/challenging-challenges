@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
+using Business.Achievements.ViewModels;
 using Challenging_Challenges.Hubs;
 using Data.Challenges.Entities;
 using Data.Identity.Context;
@@ -71,32 +72,6 @@ namespace Challenging_Challenges.Infrastructure
             AddBadge("TopOne");
             db.Entry(user).State = EntityState.Modified;
             db.SaveChanges();
-        }
-
-        private void AddBadge(string achievementString)
-        {
-            AchievementTypes achievement;
-            if (Enum.TryParse(achievementString, out achievement))
-                AddAchievement(achievement);
-        }
-
-        private void AddAchievement(AchievementTypes achievement)
-        {
-            if (user.Achievements.All(x => x.AchievementEnum != achievement))
-            {
-                user.Achievements.Add(new Achievement {Value = achievement.ToString()});
-                ShowAhievement(achievement);
-            }
-        }
-
-        private void ShowAhievement(AchievementTypes achievement)
-        {
-            var resourceSet = Achievements.ResourceManager.GetResourceSet(CultureInfo.CurrentCulture, true, true);
-            var context = Microsoft.AspNet.SignalR.GlobalHost.ConnectionManager.GetHubContext<NotificationHub>();
-            foreach (var connectionId in NotificationHub.Connections.GetConnections(user.Id.ToString()))
-            {
-                context.Clients.Client(connectionId).showAchievement(resourceSet.GetString(achievement.ToString()));
-            }
         }
     }
 }

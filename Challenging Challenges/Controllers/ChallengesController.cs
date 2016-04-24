@@ -4,6 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using Autofac.Core;
+using Business.Achievements;
+using Business.Challenges;
 using Business.Challenges.ViewModels;
 using Business.Identity;
 using Business.Identity.ViewModels;
@@ -25,55 +27,27 @@ namespace Challenging_Challenges.Controllers
     [RoutePrefix("Challenges")]
     public class ChallengesController : BaseController
     {
+        private readonly IChallengesService challengesService;
         private readonly IIdentityService identityService;
-        private readonly IChallengesUnitOfWork challengesUnitOfWork;
-        private readonly ChallengesContext db;
-        private readonly ChallengesEditorFactory challengesEditorFactory;
-        private readonly StatisticsWorkerFactory statisticsWorkerFactory;
-        //private readonly AccountController accountController;
+        private readonly IAchievementsService achievementsService;
+        private readonly IAchievementsSignalRProvider achievementsSignalRProvider;
 
-        public ChallengesController()
+        public ChallengesController(IChallengesService challengesService, 
+            IIdentityService identityService,
+            IAchievementsService achievementsService,
+            IAchievementsSignalRProvider achievementsSignalRProvider)
         {
-            
-        }
-
-        public ChallengesController(IIdentityService identityService)
-        {
+            this.challengesService = challengesService;
             this.identityService = identityService;
-            db = new ChallengesContext();
-            challengesEditorFactory = new ChallengesEditorFactory();
-            statisticsWorkerFactory = new StatisticsWorkerFactory();
-            //accountController = new AccountController();
-        }
-
-        public ChallengesController(IChallengesUnitOfWork challengesUnitOfWork) : this()
-        {
-            this.challengesUnitOfWork = challengesUnitOfWork;
-        }
-
-        public ChallengesController(ChallengesContext challengesContext, 
-            ChallengesEditorFactory challengesEditorFactory,
-            StatisticsWorkerFactory statisticsWorkerFactory,
-            AccountController accountController)
-        {
-            db = challengesContext;
-            this.challengesEditorFactory = challengesEditorFactory;
-            this.statisticsWorkerFactory = statisticsWorkerFactory;
-            //this.accountController = accountController;
+            this.achievementsService = achievementsService;
+            this.achievementsSignalRProvider = achievementsSignalRProvider;
         }
 
         public JsonResult TagSearch(string term = "", int limit = 10)
         {
-            if (term.Length > 180)
-            {
-                return Json(new[] { new object() }, JsonRequestBehavior.AllowGet);
-            }
-            term = term.Trim().Split(' ').Last().ToLower();
-            List<string> tags = new List<string>();
-            LuceneSearch.Search(Sort.RELEVANCE, term, "Tags", 0, limit).ForEach(index => index.Tags.Split(' ')
-                .Where(tag => tag.StartsWith(term) && !tag.Equals(string.Empty)).ForEach(tag => tags.Add(tag)));
-            tags = tags.Distinct().ToList();
-            return Json(tags, JsonRequestBehavior.AllowGet);
+            var items = TagSearcher.Search(term, limit);
+
+            return Json(items, JsonRequestBehavior.AllowGet);
         }
 
         // GET, POST: Challenges
@@ -113,27 +87,28 @@ namespace Challenging_Challenges.Controllers
         {
             if (ModelState.IsValid)
             {
-                string userId = User.Identity.GetUserId();
-                IdentityContext usersDb = new IdentityContext();
-                //IdentityUser user = accountController.GetApplicationUser(userId, usersDb);
-                Challenge challenge = model.ToChallenge(userId);
-                challengesEditorFactory.GetEditor(challenge, db, userId).AddChallenge(model.Tags);
-                //todo identityuser here
-                //statisticsWorkerFactory.GetWorker(usersDb, user).ChallengePosted(true);
+                var userId = User.Identity.GetUserId().ToGuid();
+                model.AuthorId = userId;
+
+                challengesService.AddChallenge(model);
+
+                var achievement = achievementsService.ChallengePosted(userId);
+                achievementsSignalRProvider.ShowAchievementMessage(achievement, userId);
+
                 return RedirectToAction("Index");
             }
             return View(model);
         }
 
         // GET: Challenges/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(Guid? id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            Challenge challenge = db.Challenges.Find(id);
+            var challenge = challengesService.GetChallengeViewModel(id.Value);
             if (challenge == null) return RedirectToAction("Removed");
             if (!UserIsAuthor(challenge)) return RedirectToAction("Index");
             ViewBag.IsEditing = true;
-            return View("Create", new ChallengeViewModel(challenge));
+            return View("Create", challenge);
         }
 
         // POST: Challenges/Edit/5
@@ -141,13 +116,16 @@ namespace Challenging_Challenges.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ChallengeViewModel model)
         {
+            model.AuthorId = User.Identity.GetUserId().ToGuid();
             model.Tags = LuceneSearch.Search(Sort.RELEVANCE, model.Id.ToString(), "Id", 0, 1).First().Tags;
             if (ModelState.IsValid)
             {
-                Challenge challenge = db.Challenges.Find(model.Id);
+                var challenge = challengesService.GetChallengeViewModel(model.Id);
+
                 if (!UserIsAuthor(challenge)) return RedirectToAction("Index");
-                string userId = User.Identity.GetUserId();
-                new ChallengesEditor(challenge, db, userId).EditChallenge(model.ToChallenge(userId));
+
+                challengesService.UpdateChallenge(challenge);
+
                 return RedirectToAction("Index");
             }
             model.Answers.RemoveAll(string.IsNullOrWhiteSpace);
@@ -159,11 +137,23 @@ namespace Challenging_Challenges.Controllers
         public ActionResult Solve(Guid? id)
         {
             if (id == null) return RedirectToAction("Index");
-            Challenge challenge = db.Challenges.Find(id);
-            if (challenge == null) return RedirectToAction("Removed");
-            if (UserIsAuthor(challenge)) ViewBag.IsAuthor = true;
-            else new ChallengesEditor(challenge, db, User.Identity.GetUserId()).AddSolver();
-            return View("Solve", challenge);
+
+            var challenge = challengesService.GetChallengeViewModel(id.Value);
+
+            //if (challenge == null) return RedirectToAction("Removed");
+
+            if (UserIsAuthor(challenge))
+            {
+                ViewBag.IsAuthor = true;
+            }
+            else
+            {
+                challengesService.AddSolver(id.Value, User.Identity.GetUserId().ToGuid());
+            }
+
+            var challenge1 = challengesService.GetChallenge(id.Value);
+
+            return View("Solve", challenge1);
         }
 
         // POST: Challenges/Solve/5
@@ -171,21 +161,22 @@ namespace Challenging_Challenges.Controllers
         public ActionResult Solve(Guid? id, string answer)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            Challenge challenge = db.Challenges.Find(id);
+            var challenge = challengesService.GetChallengeViewModel(id.Value);
             if (challenge == null) return HttpNotFound();
             if (UserIsAuthor(challenge)) return RedirectToAction("Index");
-            IChallengesEditor ce = challengesEditorFactory.GetEditor(challenge, db, User.Identity.GetUserId());
-            ce.AddSolveAttempt();
-            ViewBag.IsSolved = ce.TryToSolve(answer);
+            challengesService.AddSolveAttempt(challenge.Id, User.Identity.GetUserId().ToGuid());
+            ViewBag.IsSolved = challengesService.TryToSolve(challenge.Id, User.Identity.GetUserId().ToGuid(), answer);
             ViewBag.Answer = answer;
-            return View("Solve", challenge);
+
+            var challenge1 = challengesService.GetChallenge(id.Value);
+            return View("Solve", challenge1);
         }
 
         // GET: Challenges/Delete/5
         public ActionResult Delete(Guid? id)
         {
             if (id == null) return RedirectToAction("Removed");
-            Challenge challenge = db.Challenges.Find(id);
+            var challenge = challengesService.GetChallengeViewModel(id.Value);
             if (challenge == null) return RedirectToAction("Removed");
             if (!UserIsAuthor(challenge)) return HttpNotFound();
             return View(challenge);
@@ -196,13 +187,11 @@ namespace Challenging_Challenges.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            Challenge challenge = db.Challenges.Find(id);
+            var challenge = challengesService.GetChallengeViewModel(id);
             if (!UserIsAuthor(challenge)) return HttpNotFound();
-            string userId = User.Identity.GetUserId();
-            new ChallengesEditor(challenge, db, userId).RemoveChallenge();
-            IdentityContext usersDb = new IdentityContext();
-            //todo: identityUser here
-            //new StatisticsWorker(usersDb, accountController.GetApplicationUser(userId, usersDb)).ChallengePosted(false);
+            var userId = User.Identity.GetUserId().ToGuid();
+            challengesService.RemoveChallenge(id);
+            achievementsService.ChallengeRemoved(userId);
             return RedirectToAction("Index");
         }
 
@@ -210,23 +199,22 @@ namespace Challenging_Challenges.Controllers
         public ActionResult AddComment(Guid? id, string message)
         {
             if (id == null)
+            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            Challenge challenge = db.Challenges.Find(id);
-            if (challenge == null) return HttpNotFound();
+            }
+
             if (message.Length <= 100)
             {
-                new ChallengesEditor(challenge, db, User.Identity.GetUserId()).AddComment(User.Identity.Name, message);
+                challengesService.AddComment(id.Value, User.Identity.GetUserId().ToGuid(), message);
             }
-            return RedirectToAction("Solve", new { id = challenge.Id });
+            return RedirectToAction("Solve", new { id = id.Value });
         }
 
         public ActionResult DeleteComment(Guid commentId, Guid challengeId)
         {
-            Challenge challenge = db.Challenges.Find(challengeId);
+            var challenge = challengesService.GetChallengeViewModel(challengeId);
             if (challenge == null) return HttpNotFound();
-            var comment = challenge.Comments.FirstOrDefault(x => x.Id == commentId && x.UserName.Equals(User.Identity.Name));
-            if (comment != null)
-                new ChallengesEditor(challenge, db, User.Identity.GetUserId()).RemoveComment(comment);
+            challengesService.RemoveComment(challengeId, commentId, User.Identity.GetUserId().ToGuid());
             return RedirectToAction("Solve", new { id = challengeId });
         }
 
@@ -236,12 +224,25 @@ namespace Challenging_Challenges.Controllers
             return Json(new { uploaded = 1, fileName = output[0], url = output[1] }, JsonRequestBehavior.AllowGet);
         }
 
-        public string Rate(int? challengeId, int rating = 3)
+        public string Rate(Guid? challengeId, int rating = 3)
         {
             if (challengeId == null || !Enumerable.Range(1, 5).Contains(rating)) return Localization.Error;
-            Challenge challenge = db.Challenges.Find(challengeId);
+
+            var challenge = challengesService.GetChallengeViewModel(challengeId.Value);
+
             if (challenge == null) return Localization.Error;
-            var result = challengesEditorFactory.GetEditor(challenge, db, User.Identity.GetUserId()).RateChallenge(rating);
+
+            var result = Localization.SuccessfullyRated;
+
+            try
+            {
+                challengesService.RateChallenge(challengeId.Value, User.Identity.GetUserId().ToGuid(), rating);
+            }
+            catch (Exception e)
+            {
+                result = e.Message;
+            }
+            
             return result;
         }
 
@@ -250,18 +251,9 @@ namespace Challenging_Challenges.Controllers
             return View();
         }
 
-        private bool UserIsAuthor(Challenge challenge)
+        private bool UserIsAuthor(ChallengeViewModel challenge)
         {
-            return challenge.AuthorId.Equals(User.Identity.GetUserId());
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            return challenge.AuthorId.Equals(User.Identity.GetUserId().ToGuid());
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Challenging_Challenges.Models.ViewModels
             LatestChallenges = searchService.GetPagedList(SortType.Latest);
             UnsolvedChallenges = searchService.GetPagedList(SortType.Unsolved);
             PopularChallenges = searchService.GetPagedList(SortType.Popular);
-            Tags = (List<string>) JsonConvert.DeserializeObject(JsonConvert.SerializeObject(new ChallengesController().TagSearch("", 50).Data), 
+            Tags = (List<string>) JsonConvert.DeserializeObject(JsonConvert.SerializeObject(TagSearcher.Search("", 50)), 
                 typeof(List<string>));
             TopUsers = new IdentityContext().Users.OrderByDescending(x => x.Rating)
                         .Take(10)

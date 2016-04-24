@@ -25,7 +25,7 @@ namespace Challenging_Challenges.Models.Entities
         public SearchIndex(Challenge challenge)
         {
             Id = challenge.Id;
-            AuthorId = challenge.AuthorId;
+            AuthorId = challenge.AuthorId.ToString();
             Title = challenge.Title;
             PreviewText = challenge.PreviewText;
             Condition = challenge.Condition;

@@ -8,7 +8,7 @@ namespace Challenging_Challenges.Helpers
 {
     public class ChallengeGenerator
     {
-        public Challenge GetChallenge(string authorId)
+        public Challenge GetChallenge(Guid authorId)
         {
             string answer = GetRandomString();
             Random random = new Random();

@@ -236,14 +236,15 @@
     <Compile Include="Helpers\MarkdownHelper.cs" />
     <Compile Include="Hubs\NotificationHub.cs" />
     <Compile Include="Identity\UserStore.cs" />
-    <Compile Include="Infrastructure\ChallengesEditor.cs" />
+    <Compile Include="Infrastructure\AchievementsSignalRProvider.cs" />
     <Compile Include="Infrastructure\FilesWorker.cs" />
+    <Compile Include="Infrastructure\IAchievementsSignalRProvider.cs" />
     <Compile Include="Infrastructure\SearchService.cs" />
+    <Compile Include="Infrastructure\TagSearcher.cs" />
     <Compile Include="Migrations\201509201300244_AddedTasksRating.cs" />
     <Compile Include="Migrations\201509201300244_AddedTasksRating.Designer.cs">
       <DependentUpon>201509201300244_AddedTasksRating.cs</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\StatisticsWorker.cs" />
     <Compile Include="Infrastructure\LuceneSearch.cs" />
     <Compile Include="Models\Entities\SearchIndex.cs" />
     <Compile Include="Infrastructure\TagService.cs" />
@@ -790,6 +791,10 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Business.Achievements\Business.Achievements.csproj">
+      <Project>{37C92161-45C9-481B-90A1-821007185720}</Project>
+      <Name>Business.Achievements</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Business.Challenges\Business.Challenges.csproj">
       <Project>{532F5E1B-117C-4131-A9A7-8B96B3CEE237}</Project>
       <Name>Business.Challenges</Name>

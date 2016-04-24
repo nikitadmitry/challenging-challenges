@@ -21,5 +21,11 @@ namespace Business.Identity
 
         [OperationContract]
         IdentityUser GetIdentityUserByEmail(string email);
+
+        [OperationContract]
+        string GetUserNameById(Guid userId);
+
+        [OperationContract]
+        void AddRatingToUser(Guid userId, double rating);
     }
 }

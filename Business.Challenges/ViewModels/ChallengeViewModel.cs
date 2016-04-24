@@ -60,52 +60,18 @@ namespace Business.Challenges.ViewModels
         [Display(ResourceType = typeof(Localization), Name = "Language")]
         public Language Language { get; set; }
 
-        public ChallengeViewModel() { }
-
-        public ChallengeViewModel(Challenge challenge)
+        public Guid AuthorId
         {
-            Id = challenge.Id;
-            Title = challenge.Title;
-            PreviewText = challenge.PreviewText;
-            Condition = challenge.Condition;
-            Tags = "";
-            foreach (var tag in challenge.Tags)
-                Tags += $"{tag.Value} ";
-            Answers = new List<string>();
-            foreach (var answer in challenge.Answers)
-            {
-                Answers.Add(answer.Value);
-            }
-            Difficulty = challenge.Difficulty;
-            Section = challenge.Section;
-            Language = challenge.Language;
+            get;
+            set;
         }
 
-        public Challenge ToChallenge(string userId)
-        {
-            var challenge = new Challenge
-            {
-                Id = Id,
-                Section = Section,
-                AuthorId = userId,
-                PreviewText = PreviewText,
-                Condition = Condition,
-                Answers = GetAnswers(),
-                Difficulty = Difficulty,
-                Language = Language,
-                Title = Title,
-                Tags = GetTags()
-            };
-
-            return challenge;
-        }
-
-        private List<Tag> GetTags()
+        public List<Tag> GetTags()
         {
             return Tags?.Trim().Split(new[] { ",", " " }, StringSplitOptions.RemoveEmptyEntries).Select(tag => new Tag { Value = tag }).ToList();
         }
 
-        private List<Answer> GetAnswers()
+        public List<Answer> GetAnswers()
         {
             List<Answer> answersList = new List<Answer>();
 

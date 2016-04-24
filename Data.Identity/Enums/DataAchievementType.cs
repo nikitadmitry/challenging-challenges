@@ -1,6 +1,6 @@
 ﻿namespace Data.Identity.Enums
 {
-    public enum AchievementTypes
+    public enum DataAchievementType
     {
         First,
         TopOne,

@@ -151,6 +151,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Business.Achievements\Business.Achievements.csproj">
+      <Project>{37c92161-45c9-481b-90a1-821007185720}</Project>
+      <Name>Business.Achievements</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Business.Challenges\Business.Challenges.csproj">
       <Project>{532F5E1B-117C-4131-A9A7-8B96B3CEE237}</Project>
       <Name>Business.Challenges</Name>

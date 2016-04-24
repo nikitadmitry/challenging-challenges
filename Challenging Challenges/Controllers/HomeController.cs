@@ -28,7 +28,8 @@ namespace Challenging_Challenges.Controllers
             LuceneSearch.AddUpdateLuceneIndex(IndexRepository.GetAll());
             IdentityContext usersDb = new IdentityContext();
             User user = usersDb.Users.OrderByDescending(x => x.Rating).Take(1).First();
-            new StatisticsWorker(usersDb, user).BecameTopOne();
+            //todo fix
+            //new StatisticsWorker(usersDb, user).BecameTopOne();
             return "OK";
         }
 

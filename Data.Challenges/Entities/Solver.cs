@@ -1,10 +1,11 @@
-﻿using Data.Common;
+﻿using System;
+using Data.Common;
 
 namespace Data.Challenges.Entities
 {
     public class Solver : Entity
     {
-        public string UserId
+        public Guid UserId
         {
             get;
             set;
@@ -26,6 +27,14 @@ namespace Data.Challenges.Entities
         {
             get;
             set;
+        }
+
+        public static Solver Create(Guid userId)
+        {
+            return new Solver
+            {
+                UserId = userId
+            };
         }
     }
 }

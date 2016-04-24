@@ -257,5 +257,12 @@ namespace System
         {
             return input.Replace("\r\n", " ");
         }
+
+        public static Guid ToGuid(this string value)
+        {
+            Guid result;
+            Guid.TryParse(value, out result);
+            return result;
+        }
     }
 }
