@@ -19,6 +19,7 @@
 //using Microsoft.Owin.Security.Cookies;
 //using Microsoft.Owin.Security.OAuth;
 
+//todo: uncomment if mobile auth is on
 //namespace Challenging_Challenges.Controllers
 //{
 //    [Authorize]
@@ -70,7 +71,6 @@
 //            return ce.TryToSolve(answer);
 //        }
 
-//        //todo fix this
 //        //// GET api/Account/ExternalLogin
 //        //[OverrideAuthentication]
 //        //[HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]

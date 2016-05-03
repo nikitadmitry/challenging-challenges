@@ -9,7 +9,7 @@ namespace Challenging_Challenges.Hubs
     [Authorize]
     public class NotificationHub: Hub
     {
-        public readonly static ConnectionMapping<string> Connections =
+        public static readonly ConnectionMapping<string> Connections =
                     new ConnectionMapping<string>();
 
         public void SendAchievementMessage(string user, string achievementId)

@@ -1,41 +1,62 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
+using Business.Achievements.ViewModels;
 using Business.Challenges;
+using Business.Challenges.ViewModels;
 using Challenging_Challenges.Enums;
 using Challenging_Challenges.Helpers;
 using Challenging_Challenges.Infrastructure;
-using Challenging_Challenges.Models.Entities;
 using Challenging_Challenges.Models.ViewModels;
-using Data.Identity.Context;
-using Data.Identity.Entities;
+using Microsoft.AspNet.Identity;
 using PagedList;
+using Shared.Framework.DataSource;
 
 namespace Challenging_Challenges.Controllers
 {
     public class HomeController : BaseController
     {
         private readonly IChallengesService challengesService;
+        private readonly IComplexViewModelsProvider complexViewModelsProvider;
+        private readonly IAchievementsSignalRProvider achievementsSignalRProvider;
 
-        public HomeController(IChallengesService challengesService)
+        public HomeController(IChallengesService challengesService,
+            IComplexViewModelsProvider complexViewModelsProvider,
+            IAchievementsSignalRProvider achievementsSignalRProvider)
         {
             this.challengesService = challengesService;
+            this.complexViewModelsProvider = complexViewModelsProvider;
+            this.achievementsSignalRProvider = achievementsSignalRProvider;
         }
 
-        public string UpdateIndex()
+        [Authorize]
+        public string AchievementTest(string id = "First")
         {
-            LuceneSearch.AddUpdateLuceneIndex(IndexRepository.GetAll());
-            IdentityContext usersDb = new IdentityContext();
-            User user = usersDb.Users.OrderByDescending(x => x.Rating).Take(1).First();
-            //todo fix
-            //new StatisticsWorker(usersDb, user).BecameTopOne();
-            return "OK";
+            AchievementType achievement;
+            if (Enum.TryParse(id, out achievement))
+            {
+                achievementsSignalRProvider.ShowAchievementMessage(achievement, User.Identity.GetUserId().ToGuid());
+                return "OK";
+            }
+            return "Not a valid achievement id";
         }
+
+        //todo fix theeeees
+        //public string UpdateIndex()
+        //{
+        //    LuceneSearch.AddUpdateLuceneIndex(IndexRepository.GetAll());
+        //    IdentityContext usersDb = new IdentityContext();
+        //    User user = usersDb.Users.OrderByDescending(x => x.Rating).Take(1).First();
+        //    //todo fix
+        //    //new StatisticsWorker(usersDb, user).BecameTopOne();
+        //    return "OK";
+        //}
 
         public ActionResult Index()
         {
-            HomeChallengeViewModel model = new HomeChallengeViewModel();
+            HomeChallengeViewModel model = complexViewModelsProvider.GetHomeChallengeViewModel();
+
             return View(model);
         }
 
@@ -52,11 +73,13 @@ namespace Challenging_Challenges.Controllers
 
         public ActionResult ChallengesPartial(int? page, string selector, SortType sort)
         {
-            page = page ?? 1;
-            SearchService searchService = new SearchService();
-            IPagedList<SearchIndex> result = searchService.GetPagedList(sort, page.Value);
+            page = page ?? 0;
+
+            var result = GetChallengesDescriptionViewModels(page.Value, sort);
+
             ViewData["selector"] = selector;
             ViewData["sort"] = sort;
+
             return PartialView("_ChallengesPartial", result);
         }
 
@@ -81,9 +104,45 @@ namespace Challenging_Challenges.Controllers
         public ActionResult ChangeTheme(string theme)
         {
             if (!theme.Equals("light") && !theme.Equals("dark")) return RedirectToAction("Index", "Home");
+
             HttpCookie themeCookie = new HttpCookie("theme", theme) {Expires = DateTime.Now.AddYears(1)};
+
             Response.Cookies.Add(themeCookie);
+
             return RedirectToAction("Index", "Home");
+        }
+
+        private IPagedList<ChallengesDescriptionViewModel> GetChallengesDescriptionViewModels(int page, SortType sort)
+        {
+            var count = ConfigurationValuesProvider.Get<int>("DefaultMainPageCount");
+
+            IList<ChallengesDescriptionViewModel> challengesViewModels;
+
+            var pageRule = new PageRule
+            {
+                Count = count,
+                Start = page * count
+            };
+
+            switch (sort)
+            {
+                case SortType.Popular:
+                    challengesViewModels = challengesService.GetPopularChallenges(pageRule);
+                    break;
+                case SortType.Unsolved:
+                    challengesViewModels = challengesService.GetUnsolvedChallenges(pageRule);
+                    break;
+                case SortType.Latest:
+                default:
+                    challengesViewModels = challengesService.GetLatestChallenges(pageRule);
+                    break;
+            }
+            var totalCount = challengesService.GetChallengesCount();
+
+            var result = PagedListBuilder<ChallengesDescriptionViewModel>.Build(challengesViewModels, ++page, count,
+                totalCount);
+
+            return result;
         }
     }
 }

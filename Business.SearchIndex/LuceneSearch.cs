@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Web.Hosting;
 using System.Web.WebPages;
-using Challenging_Challenges.Models.Entities;
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Documents;
 using Lucene.Net.Index;
@@ -12,48 +11,48 @@ using Lucene.Net.QueryParsers;
 using Lucene.Net.Search;
 using Lucene.Net.Store;
 
-namespace Challenging_Challenges.Infrastructure
+namespace Business.SearchIndex
 {
-    public static class LuceneSearch
+    internal static class LuceneSearch
     {
-        private static readonly string LuceneDir = HostingEnvironment.MapPath("~/LuceneIndex");
-        private static FSDirectory _directory;
+        private static readonly string luceneDir = HostingEnvironment.MapPath("~/LuceneIndex");
+        private static FSDirectory directory;
         private static FSDirectory Directory
         {
             get
             {
-                if (_directory == null) _directory = FSDirectory.Open(new DirectoryInfo(LuceneDir));
-                if (IndexWriter.IsLocked(_directory)) IndexWriter.Unlock(_directory);
+                if (directory == null) directory = FSDirectory.Open(new DirectoryInfo(luceneDir));
+                if (IndexWriter.IsLocked(directory)) IndexWriter.Unlock(directory);
                 try
                 {
-                    _directory.ClearLock("write.lock");
+                    directory.ClearLock("write.lock");
                 }
                 catch
                 {
                     // ignored
                 }
-                return _directory;
+                return directory;
             }
         }
 
-        public static void AddUpdateLuceneIndex(IEnumerable<SearchIndex> searchIndexes)
+        public static void AddUpdateLuceneIndex(IEnumerable<ViewModels.SearchIndex> searchIndexes)
         {
             var analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
             using (var writer = new IndexWriter(Directory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED))
             {
-                foreach (var searchIndex in searchIndexes) _addToLuceneIndex(searchIndex, writer);
+                foreach (var searchIndex in searchIndexes) AddToLuceneIndex(searchIndex, writer);
 
                 analyzer.Close();
                 writer.Dispose();
             }
         }
 
-        public static void AddUpdateLuceneIndex(SearchIndex searchIndex)
+        public static void AddUpdateLuceneIndex(ViewModels.SearchIndex searchIndex)
         {
-            AddUpdateLuceneIndex(new List<SearchIndex> { searchIndex });
+            AddUpdateLuceneIndex(new List<ViewModels.SearchIndex> { searchIndex });
         }
 
-        public static void ClearLuceneIndexRecord(string recordId)
+        public static void ClearLuceneIndexRecord(Guid recordId)
         {
             var analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
             using (var writer = new IndexWriter(Directory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED))
@@ -97,7 +96,7 @@ namespace Challenging_Challenges.Infrastructure
             }
         }
 
-        public static IEnumerable<SearchIndex> Search(Sort sort, string input = "", string fieldName = "", int page = 0, int hitsLimit = 10)
+        public static IEnumerable<ViewModels.SearchIndex> Search(Sort sort, string input = "", string fieldName = "", int page = 0, int hitsLimit = 10)
         {
             var terms = input.Trim().Replace("-", " ").Replace(",", " ").Split(' ')
                 .Where(x => !string.IsNullOrEmpty(x)).Select(x => x.Trim().TrimEnd('s','\'') + "*");
@@ -106,20 +105,20 @@ namespace Challenging_Challenges.Infrastructure
             return _search(sort, input, fieldName, page, hitsLimit);
         }
 
-        public static void UpdateIndex(SearchIndex searchIndex)
+        public static void UpdateIndex(ViewModels.SearchIndex searchIndex)
         {
             var writer = new IndexWriter(Directory,
                 new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30),
                 false,
                 IndexWriter.MaxFieldLength.LIMITED);
-            var document = _getDocument(searchIndex);
+            var document = GetDocument(searchIndex);
             writer.UpdateDocument(new Term("Id", document.Get("Id")), document);
             writer.Dispose();
         }
 
-        public static IEnumerable<SearchIndex> GetIndexRecords(int page = 0, int hitsLimit = 1000)
+        public static IEnumerable<ViewModels.SearchIndex> GetIndexRecords(int page = 0, int hitsLimit = 1000)
         {
-            if (!System.IO.Directory.EnumerateFiles(LuceneDir).Any()) return new List<SearchIndex>();
+            if (!System.IO.Directory.EnumerateFiles(luceneDir).Any()) return new List<ViewModels.SearchIndex>();
 
             var searcher = new IndexSearcher(Directory, true);
             var reader = IndexReader.Open(Directory, true);
@@ -133,10 +132,10 @@ namespace Challenging_Challenges.Infrastructure
             }
             reader.Dispose();
             searcher.Dispose();
-            return _mapLuceneToDataList(docs);
+            return MapLuceneToDataList(docs);
         }
 
-        private static IEnumerable<SearchIndex> _search(Sort sort, string searchQuery, string searchField, int page, int hitsLimit)
+        private static IEnumerable<ViewModels.SearchIndex> _search(Sort sort, string searchQuery, string searchField, int page, int hitsLimit)
         {
             if (IndexReader.IndexExists(Directory))
                 using (var searcher = new IndexSearcher(Directory, true))
@@ -164,57 +163,43 @@ namespace Challenging_Challenges.Infrastructure
                     }
                     analyzer.Close();
                     searcher.Dispose();
-                    return _mapLuceneToDataList(luceneDocuments);
+                    return MapLuceneToDataList(luceneDocuments);
                 }
             return null;
         }
 
-        private static void _addToLuceneIndex(SearchIndex searchIndex, IndexWriter writer)
+        private static void AddToLuceneIndex(ViewModels.SearchIndex searchIndex, IndexWriter writer)
         {
-            var document = _getDocument(searchIndex);
+            var document = GetDocument(searchIndex);
             writer.UpdateDocument(new Term("Id", document.Get("Id")), document);
         }
 
-        private static Document _getDocument(SearchIndex searchIndex)
+        private static Document GetDocument(ViewModels.SearchIndex searchIndex)
         {
             var doc = new Document();
 
             doc.Add(new Field("Id", searchIndex.Id.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
-            doc.Add(new Field("AuthorId", searchIndex.AuthorId, Field.Store.YES, Field.Index.ANALYZED));
-            doc.Add(new Field("Title", searchIndex.Title, Field.Store.YES, Field.Index.ANALYZED));
             doc.Add(new Field("PreviewText", searchIndex.PreviewText, Field.Store.YES, Field.Index.ANALYZED));
             doc.Add(new Field("Condition", searchIndex.Condition, Field.Store.YES, Field.Index.ANALYZED));
-            doc.Add(new Field("Difficulty", searchIndex.Difficulty.ToString(), Field.Store.YES, Field.Index.ANALYZED));
-            doc.Add(new Field("Section", searchIndex.Section, Field.Store.YES, Field.Index.ANALYZED));
-            doc.Add(new Field("Language", searchIndex.Language, Field.Store.YES, Field.Index.ANALYZED));
-            doc.Add(new Field("TimesSolved", searchIndex.TimesSolved.ToString(), Field.Store.YES, Field.Index.ANALYZED));
-            doc.Add(new Field("Rating", searchIndex.Rating.ToString("#"), Field.Store.YES, Field.Index.ANALYZED));
             doc.Add(new Field("Tags", searchIndex.Tags, Field.Store.YES, Field.Index.ANALYZED));
 
             return doc;
         }
 
-        private static SearchIndex _mapLuceneDocumentToData(Document doc)
+        private static ViewModels.SearchIndex MapLuceneDocumentToData(Document doc)
         {
-            return new SearchIndex
+            return new ViewModels.SearchIndex
             {
                 Id = Guid.Parse(doc.Get("Id")),
-                AuthorId = doc.Get("AuthorId"),
-                Title = doc.Get("Title"),
                 PreviewText = doc.Get("PreviewText"),
                 Condition = doc.Get("Condition"),
-                Difficulty = Convert.ToByte(doc.Get("Difficulty")),
-                Section = doc.Get("Section"),
-                Language = doc.Get("Language"),
-                Rating = Convert.ToByte(doc.Get("Rating")),
-                TimesSolved = Convert.ToInt32(doc.Get("TimesSolved")),
                 Tags = doc.Get("Tags")
             };
         }
 
-        private static IEnumerable<SearchIndex> _mapLuceneToDataList(IEnumerable<Document> hits)
+        private static IEnumerable<ViewModels.SearchIndex> MapLuceneToDataList(IEnumerable<Document> hits)
         {
-            return hits.Select(_mapLuceneDocumentToData).ToList();
+            return hits.Select(MapLuceneDocumentToData).ToList();
         }
 
         private static Query ParseQuery(string searchQuery, QueryParser parser)

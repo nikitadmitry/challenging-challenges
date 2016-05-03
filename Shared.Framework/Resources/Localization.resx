@@ -330,9 +330,6 @@
   <data name="SearchBy" xml:space="preserve">
     <value>Search by</value>
   </data>
-  <data name="Anything" xml:space="preserve">
-    <value>Anything</value>
-  </data>
   <data name="PreviewText" xml:space="preserve">
     <value>Preview text</value>
   </data>

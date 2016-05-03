@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 using Business.Identity.ViewModels;
 using Data.Identity.Entities;
 using Shared.Framework.Automapper;
@@ -23,7 +24,6 @@ namespace Business.Identity.Mappings
                 .ForMember(t => t.PostedTasksQuantity, o => o.MapFrom(s => s.PostedTasksQuantity))
                 .ForMember(t => t.SolvedTasksQuantity, o => o.MapFrom(s => s.SolvedTasksQuantity))
                 .ForMember(t => t.Rating, o => o.MapFrom(s => s.Rating))
-                .ForMember(t => t.Achievements, o => o.MapFrom(s => s.Achievements))
                 .ForMember(t => t.PasswordHash, o => o.MapFrom(s => s.PasswordHash))
                 .ForMember(t => t.SecurityStamp, o => o.MapFrom(s => s.SecurityStamp));
 
@@ -36,9 +36,16 @@ namespace Business.Identity.Mappings
                 .ForMember(t => t.PostedTasksQuantity, o => o.MapFrom(s => s.PostedTasksQuantity))
                 .ForMember(t => t.SolvedTasksQuantity, o => o.MapFrom(s => s.SolvedTasksQuantity))
                 .ForMember(t => t.Rating, o => o.MapFrom(s => s.Rating))
-                .ForMember(t => t.Achievements, o => o.MapFrom(s => s.Achievements))
+                .ForMember(t => t.Achievements, o => o.MapFrom(s => s.Achievements.Select(x => x.Value).ToList()))
                 .ForMember(t => t.PasswordHash, o => o.MapFrom(s => s.PasswordHash))
                 .ForMember(t => t.SecurityStamp, o => o.MapFrom(s => s.SecurityStamp));
+
+            CreateMap<User, UserTopViewModel>()
+                .IgnoreAllUnmapped()
+                .ForMember(t => t.UserName, o => o.MapFrom(s => s.UserName))
+                .ForMember(t => t.Rating, o => o.MapFrom(s => s.Rating))
+                .ForMember(t => t.PostedChallenges, o => o.MapFrom(s => s.PostedTasksQuantity))
+                .ForMember(t => t.SolvedChallenges, o => o.MapFrom(s => s.SolvedTasksQuantity));
         }
     }
 }

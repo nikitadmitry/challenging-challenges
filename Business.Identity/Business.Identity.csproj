@@ -54,6 +54,7 @@
     <Compile Include="Mappings\IdentityMapProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\IdentityUser.cs" />
+    <Compile Include="ViewModels\UserTopViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

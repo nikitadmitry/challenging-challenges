@@ -34,6 +34,14 @@
       <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Lucene.Net, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lucene.Net.3.0.3\lib\NET40\Lucene.Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
       <Private>True</Private>
@@ -83,12 +91,21 @@
     <Compile Include="IChallengesService.cs" />
     <Compile Include="Mappings\ChallengesMapProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ChallengeFullViewModel.cs" />
+    <Compile Include="ViewModels\ChallengeInfoViewModel.cs" />
+    <Compile Include="ViewModels\ChallengesDescriptionViewModel.cs" />
     <Compile Include="ViewModels\ChallengeViewModel.cs" />
+    <Compile Include="ViewModels\CommentViewModel.cs" />
+    <Compile Include="ViewModels\SolverViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Business.Identity\Business.Identity.csproj">
       <Project>{B248D183-63B4-41F6-8182-E532200D5AEE}</Project>
       <Name>Business.Identity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Business.SearchIndex\Business.SearchIndex.csproj">
+      <Project>{B25C08CC-9015-4AFB-B6B8-BDBCFABA9074}</Project>
+      <Name>Business.SearchIndex</Name>
     </ProjectReference>
     <ProjectReference Include="..\Data.Challenges\Data.Challenges.csproj">
       <Project>{3BC289F6-2AE2-4CD3-A5D4-AA6A549BCA9A}</Project>
@@ -98,16 +115,13 @@
       <Project>{610FE3E7-21B8-4BBD-865F-32EA6BA15784}</Project>
       <Name>Data.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Data.Identity\Data.Identity.csproj">
-      <Project>{6780FCD1-1B0C-4410-94B7-91C98B2333A1}</Project>
-      <Name>Data.Identity</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Shared.Framework\Shared.Framework.csproj">
       <Project>{150EBD2E-0220-4E95-A42E-A5E14E0DB467}</Project>
       <Name>Shared.Framework</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

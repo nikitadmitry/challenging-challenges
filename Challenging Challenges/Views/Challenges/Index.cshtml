@@ -1,5 +1,5 @@
 ﻿@using Shared.Framework.Resources
-@model PagedList.IPagedList<Challenging_Challenges.Models.Entities.SearchIndex>
+@model PagedList.IPagedList<Business.Challenges.ViewModels.ChallengeInfoViewModel>
 
 @{
     ViewBag.Title = Localization.AvailableChallenges;
@@ -39,10 +39,6 @@
                         </li>
                         <li>
                             <a href="#Tags">@Localization.Tags</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">@Localization.Anything</a>
                         </li>
                     </ul>
                 </div>

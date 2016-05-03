@@ -67,6 +67,12 @@ namespace Data.Challenges.Entities
             set;
         }
 
+        public DateTime TimeCreated
+        {
+            get;
+            set;
+        }
+
         private List<Tag> tags; 
 
         public virtual IList<Tag> Tags
@@ -113,17 +119,6 @@ namespace Data.Challenges.Entities
             {
                 return solvers ?? (solvers = new List<Solver>());
             }
-        }
-
-        public void BindChanges(Challenge challenge)
-        {
-            Title = challenge.Title;
-            Section = challenge.Section;
-            PreviewText = challenge.PreviewText;
-            Condition = challenge.Condition;
-            Answers = challenge.Answers;
-            Difficulty = challenge.Difficulty;
-            Language = challenge.Language;
         }
     }
 

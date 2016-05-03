@@ -2,7 +2,7 @@
 @using Microsoft.AspNet.Identity
 @using PagedList.Mvc
 @using Shared.Framework.Resources
-@model PagedList.IPagedList<Challenging_Challenges.Models.Entities.SearchIndex>
+@model PagedList.IPagedList<Business.Challenges.ViewModels.ChallengeInfoViewModel>
 
 @if (Model.Count != 0)
 {
@@ -16,7 +16,7 @@
             <div class="well challenge">
                 <div class="media">
                     <div class="media-body">
-                        @if (item.AuthorId.Equals(User.Identity.GetUserId()))
+                        @if (item.AuthorId.Equals(User.Identity.GetUserId().ToGuid()))
                         {
                             <div class="btn-group solve-btn">
                                 <a href="@Url.Action("Solve", "Challenges", new {id = item.Id})" class="btn btn-primary btn-lg">@Localization.ChallengePage</a>

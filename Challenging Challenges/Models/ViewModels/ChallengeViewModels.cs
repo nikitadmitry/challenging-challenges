@@ -1,38 +1,40 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using Challenging_Challenges.Controllers;
-using Challenging_Challenges.Enums;
-using Challenging_Challenges.Infrastructure;
-using Challenging_Challenges.Models.Entities;
-using Data.Identity.Context;
-using Newtonsoft.Json;
+using Business.Challenges.ViewModels;
+using Business.Identity.ViewModels;
 using PagedList;
 
 namespace Challenging_Challenges.Models.ViewModels
 {
     public class HomeChallengeViewModel
     {
-        public IPagedList<SearchIndex> LatestChallenges { get; set; }
-        public IPagedList<SearchIndex> UnsolvedChallenges { get; set; }
-        public IPagedList<SearchIndex> PopularChallenges { get; set; }
-        public List<string> Tags { get; set; }
-        public List<TopUser> TopUsers { get; set; }
-
-        public HomeChallengeViewModel()
+        public IPagedList<ChallengesDescriptionViewModel> LatestChallenges
         {
-            SearchService searchService = new SearchService();
-            LatestChallenges = searchService.GetPagedList(SortType.Latest);
-            UnsolvedChallenges = searchService.GetPagedList(SortType.Unsolved);
-            PopularChallenges = searchService.GetPagedList(SortType.Popular);
-            Tags = (List<string>) JsonConvert.DeserializeObject(JsonConvert.SerializeObject(TagSearcher.Search("", 50)), 
-                typeof(List<string>));
-            TopUsers = new IdentityContext().Users.OrderByDescending(x => x.Rating)
-                        .Take(10)
-                        .ToList()
-                        .Select(x => new TopUser(x))
-                        .ToList();
+            get;
+            set;
+        }
+
+        public IPagedList<ChallengesDescriptionViewModel> UnsolvedChallenges
+        {
+            get;
+            set;
+        }
+
+        public IPagedList<ChallengesDescriptionViewModel> PopularChallenges
+        {
+            get;
+            set;
+        }
+
+        public List<string> Tags
+        {
+            get;
+            set;
+        }
+
+        public IList<UserTopViewModel> TopUsers
+        {
+            get;
+            set;
         }
     }
-
-    
 }

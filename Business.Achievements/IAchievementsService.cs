@@ -12,5 +12,17 @@ namespace Business.Achievements
 
         [OperationContract]
         void ChallengeRemoved(Guid userId);
+
+        [OperationContract]
+        AchievementType? ChallengeSolved(Guid challengeId, Guid userId);
+
+        [OperationContract]
+        void BecameTopOne(Guid userId);
+
+        [OperationContract]
+        AchievementType? RatingChanged(Guid userId);
+
+        [OperationContract]
+        void UpdateTopOne();
     }
 }

@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Business.Identity;
 using Business.Identity.ViewModels;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 using Shared.Framework.Validation;
 
 namespace Challenging_Challenges.Identity

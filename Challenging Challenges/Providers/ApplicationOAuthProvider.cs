@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using Data.Identity.Entities;
-using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 
 namespace Challenging_Challenges.Providers
@@ -24,7 +20,7 @@ namespace Challenging_Challenges.Providers
             _publicClientId = publicClientId;
         }
 
-        //todo fix this if nessesary
+        //todo: uncomment if mobile auth is on
         //public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         //{
         //    var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();

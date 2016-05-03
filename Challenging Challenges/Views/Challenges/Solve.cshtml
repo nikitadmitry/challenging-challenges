@@ -1,12 +1,10 @@
-﻿@using Challenging_Challenges.Helpers
-@using Microsoft.AspNet.Identity
-@using Data.Challenges.Entities
+﻿@using Microsoft.AspNet.Identity
 @using Shared.Framework.Resources
-@model Challenge
+@model Business.Challenges.ViewModels.ChallengeFullViewModel
 
 @{
     ViewBag.Title = Model.Title;
-    var solver = Model.Solvers.FirstOrDefault(x => x.HasSolved && x.UserId.Equals(User.Identity.GetUserId()));
+    var solver = Model.Solvers.FirstOrDefault(x => x.HasSolved && x.UserId.Equals(User.Identity.GetUserId().ToGuid()));
 }
 
 @Styles.Render("~/Content/challenge-solve")
@@ -15,12 +13,12 @@
 <hr/>
 <div class="row">
     <div class="col-md-12 condition">
-        <p>@Html.Markdown(Model.Condition)</p>
+        <p>@Html.Raw(Model.Condition)</p>
     </div>
 </div>
 <br/>
 <div class="row">
-    <div class=" col-md-12">
+    <div class="col-md-12">
         <div class="form-group">
             @if (solver == null && ViewBag.IsAuthor == null)
             {

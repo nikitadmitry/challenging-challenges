@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Context\ChallengesContext.cs" />
     <Compile Include="Context\ChallengesUnitOfWork.cs" />
+    <Compile Include="Context\TagService.cs" />
     <Compile Include="Entities\Answer.cs" />
     <Compile Include="Entities\Challenge.cs" />
     <Compile Include="Entities\Comment.cs" />
@@ -61,6 +62,14 @@
     <Compile Include="Migrations\201604240110407_Initial.cs" />
     <Compile Include="Migrations\201604240110407_Initial.Designer.cs">
       <DependentUpon>201604240110407_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604242347561_NightlyFixes.cs" />
+    <Compile Include="Migrations\201604242347561_NightlyFixes.Designer.cs">
+      <DependentUpon>201604242347561_NightlyFixes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604252353140_NightkyFixes_ChangeDbSchema.cs" />
+    <Compile Include="Migrations\201604252353140_NightkyFixes_ChangeDbSchema.Designer.cs">
+      <DependentUpon>201604252353140_NightkyFixes_ChangeDbSchema.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -73,6 +82,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201604240110407_Initial.resx">
       <DependentUpon>201604240110407_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604242347561_NightlyFixes.resx">
+      <DependentUpon>201604242347561_NightlyFixes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604252353140_NightkyFixes_ChangeDbSchema.resx">
+      <DependentUpon>201604252353140_NightkyFixes_ChangeDbSchema.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

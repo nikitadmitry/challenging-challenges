@@ -1,8 +1,7 @@
 ﻿using System.Linq;
-using Data.Challenges.Context;
 using Data.Challenges.Entities;
 
-namespace Challenging_Challenges.Infrastructure
+namespace Data.Challenges.Context
 {
     public interface ITagService
     {

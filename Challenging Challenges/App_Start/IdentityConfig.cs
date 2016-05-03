@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Net;
 using System.Net.Mail;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Challenging_Challenges.Helpers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin;
-using Microsoft.Owin.Security;
-using Microsoft.Owin.Security.DataProtection;
 using IdentityUser = Business.Identity.ViewModels.IdentityUser;
 
 namespace Challenging_Challenges

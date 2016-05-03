@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq.Expressions;
 using System.Reflection;
 using Shared.Framework.DataSource;
 using Shared.Framework.Utilities;
+using Shared.Framework.Validation;
 
 namespace Data.Common.Query.FilterExpressions
 {

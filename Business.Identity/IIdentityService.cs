@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ServiceModel;
 using Business.Identity.ViewModels;
 
@@ -27,5 +28,8 @@ namespace Business.Identity
 
         [OperationContract]
         void AddRatingToUser(Guid userId, double rating);
+
+        [OperationContract]
+        IList<UserTopViewModel> GetTopUsers();
     }
 }

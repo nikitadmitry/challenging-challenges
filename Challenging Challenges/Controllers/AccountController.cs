@@ -7,7 +7,6 @@ using Business.Identity;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using Challenging_Challenges.Models.ViewModels;
-using Data.Identity.Context;
 using Shared.Framework.Resources;
 using IdentityUser = Business.Identity.ViewModels.IdentityUser;
 
@@ -116,15 +115,19 @@ namespace Challenging_Challenges.Controllers
 
         public ActionResult UserProfile(string userName)
         {
-            if (string.IsNullOrEmpty(userName)) return RedirectToAction("Index", "Home");
-            IdentityContext usersDb = new IdentityContext();
-            IdentityUser user = GetApplicationUser(userName.Replace('_', ' '), usersDb);
-            if (user == null) return View(userManager.FindById(Guid.Parse(User.Identity.GetUserId())));
+            if (string.IsNullOrEmpty(userName))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var user = GetApplicationUser(userName.Replace('_', ' ')) 
+                ?? GetApplicationUser(User.Identity.GetUserId());
+
             return View(user);
         }
 
         [NonAction]
-        public virtual IdentityUser GetApplicationUser(string userData, IdentityContext usersDb)
+        public IdentityUser GetApplicationUser(string userData)
         {
             return userData.Contains(' ') ? userManager.FindByName(userData) : userManager.FindById(Guid.Parse(userData));
         }
@@ -142,7 +145,9 @@ namespace Challenging_Challenges.Controllers
         private async Task SignInAsync(IdentityUser user, bool isPersistent)
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+
             var identity = await userManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+
             AuthenticationManager.SignIn(new AuthenticationProperties { IsPersistent = isPersistent }, identity);
         }
 

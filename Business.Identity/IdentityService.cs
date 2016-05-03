@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.ServiceModel;
 using AutoMapper;
 using Business.Identity.ViewModels;
@@ -93,6 +93,25 @@ namespace Business.Identity
 
             unitOfWork.InsertOrUpdate(user);
             unitOfWork.Commit();
+        }
+
+        public IList<UserTopViewModel> GetTopUsers()
+        {
+            var parameters = new BaseQueryParameters
+            {
+                SortSettings = SortSettingsBuilder<User>.Create()
+                    .DescendingBy("Rating")
+                    .GetSettings(),
+                PageRule = new PageRule
+                {
+                    Count = 10,
+                    Start = 0
+                }
+            };
+
+            var users = unitOfWork.GetAll<User>(parameters);
+
+            return Mapper.Map<List<UserTopViewModel>>(users);
         }
 
         public IdentityUser GetIdentityUserById(Guid userId)

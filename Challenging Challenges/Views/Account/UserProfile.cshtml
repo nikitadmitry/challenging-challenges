@@ -36,7 +36,7 @@
             <h2>@Localization.About</h2>
             <br />
             <p>
-                @if (Model.Id.Equals(Guid.Parse(User.Identity.GetUserId())))
+                @if (Model.Id.Equals(User.Identity.GetUserId().ToGuid()))
                 {
                     <a href="#" id="change-about">@(string.IsNullOrEmpty(Model.About) ? Localization.ClickToSet : Model.About)</a>
                 }
@@ -55,9 +55,9 @@
                 }
             </p>
             <p>
-                <a href="@Url.Action("ByUser", "Challenges", new {Model.UserName})">@Localization.PostedChallengesAdj</a>
+                <a href="@Url.Action("ByUser", "Challenges", new { Model.UserName })">@Localization.PostedChallengesAdj</a>
             </p>
-            @if (Model.Id.Equals(User.Identity.GetUserId()))
+            @if (Model.Id.Equals(User.Identity.GetUserId().ToGuid()))
             {
                 <p>
                     <a href="@Url.Action("ChangePassword", "Manage")">@Localization.ChangePassword</a>
@@ -106,7 +106,7 @@
                 var resourceSet = Achievements.ResourceManager.GetResourceSet(CultureInfo.CurrentCulture, true, true);
                 foreach (var achievement in Model.Achievements)
                 {
-                    <img style="height: 100px; margin-bottom: 2px" src="~/Content/Achievements/@(achievement.Value).jpg" title="@resourceSet.GetString(achievement.Value)" alt="@resourceSet.GetString(achievement.Value)" />
+                    <img style="height: 100px; margin-bottom: 2px" src="~/Content/Achievements/@(achievement).jpg" title="@resourceSet.GetString(achievement)" alt="@resourceSet.GetString(achievement)" />
                 }
             }
         </div>

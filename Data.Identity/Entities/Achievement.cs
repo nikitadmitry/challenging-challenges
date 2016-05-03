@@ -13,6 +13,12 @@ namespace Data.Identity.Entities
             set;
         }
 
+        public virtual User User
+        {
+            get;
+            set;
+        }
+
         [NotMapped]
         public DataAchievementType AchievementEnum
         {

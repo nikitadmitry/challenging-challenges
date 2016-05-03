@@ -3,23 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using Autofac.Core;
 using Business.Achievements;
 using Business.Challenges;
 using Business.Challenges.ViewModels;
 using Business.Identity;
-using Business.Identity.ViewModels;
+using Business.SearchIndex;
+using Challenging_Challenges.Helpers;
 using Challenging_Challenges.Infrastructure;
-using Challenging_Challenges.Models.Entities;
-using Data.Challenges.Context;
-using Data.Challenges.Entities;
-using Data.Identity.Context;
-using Data.Identity.Entities;
-using Lucene.Net.Search;
 using Microsoft.AspNet.Identity;
 using PagedList;
+using Shared.Framework.DataSource;
 using Shared.Framework.Resources;
-using WebGrease.Css.Extensions;
 
 namespace Challenging_Challenges.Controllers
 {
@@ -31,47 +25,56 @@ namespace Challenging_Challenges.Controllers
         private readonly IIdentityService identityService;
         private readonly IAchievementsService achievementsService;
         private readonly IAchievementsSignalRProvider achievementsSignalRProvider;
+        private readonly ISearchIndexService searchIndexService;
 
         public ChallengesController(IChallengesService challengesService, 
             IIdentityService identityService,
             IAchievementsService achievementsService,
-            IAchievementsSignalRProvider achievementsSignalRProvider)
+            IAchievementsSignalRProvider achievementsSignalRProvider,
+            ISearchIndexService searchIndexService)
         {
             this.challengesService = challengesService;
             this.identityService = identityService;
             this.achievementsService = achievementsService;
             this.achievementsSignalRProvider = achievementsSignalRProvider;
+            this.searchIndexService = searchIndexService;
         }
 
         public JsonResult TagSearch(string term = "", int limit = 10)
         {
-            var items = TagSearcher.Search(term, limit);
+            var items = searchIndexService.GetTagsByTerm(term, limit);
 
             return Json(items, JsonRequestBehavior.AllowGet);
         }
 
         // GET, POST: Challenges
-        public ActionResult Index(string keyword = "", string field = "", int page = 1)
+        public ActionResult Index(string keyword = "", string field = "", int page = 0)
         {
-            if (page < 1) page = 1;
-            var list = LuceneSearch.Search(new Sort(new SortField("Id", SortField.STRING, true)), keyword, field, page - 1).ToList();
-            IPagedList<SearchIndex> result = new StaticPagedList<SearchIndex>
-                (list, page, 10, list.Count < 10 ? list.Count : 500);
+            if (page < 0) page = 0;
+
+            var count = ConfigurationValuesProvider.Get<int>("TotalChallengesFetchedNumber");
+
+            var totalCount = challengesService.GetChallengesCount();
+
+            var pageRule = new PageRule
+            {
+                Count = count,
+                Start = count * page
+            };
+
+            var pagedList =
+                PagedListBuilder<ChallengeInfoViewModel>.Build(
+                    challengesService.GetByProperty(keyword, field, pageRule), ++page, count, totalCount);
+   
             return Request.IsAjaxRequest()
-                ? (ActionResult)PartialView("_ChallengesIndexList", result)
-                : View(result);
+                ? (ActionResult)PartialView("_ChallengesIndexList", pagedList)
+                : View(pagedList);
         }
 
         public ActionResult ByUser(string userName)
         {
-            IdentityContext usersDb = new IdentityContext();
             var userId = identityService.GetIdentityUserByUserName(userName).Id;
-            //var userId = accountController.GetApplicationUser(userName, usersDb).Id;
-            var list = LuceneSearch.Search(Sort.RELEVANCE, userId.ToString(), "AuthorId", 0, 100).ToList();
-            int count = list.Count;
-            if (count < 1) count = 1;
-            IPagedList<SearchIndex> result = new StaticPagedList<SearchIndex>(list, 1, count, count);
-            return View("Index", result);
+            return RedirectToAction("Index", "Challenges", new { keyword = userId.ToString(), field = "AuthorId" });
         }
 
         // GET: Challenges/Create
@@ -116,15 +119,15 @@ namespace Challenging_Challenges.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ChallengeViewModel model)
         {
-            model.AuthorId = User.Identity.GetUserId().ToGuid();
-            model.Tags = LuceneSearch.Search(Sort.RELEVANCE, model.Id.ToString(), "Id", 0, 1).First().Tags;
+            model.AuthorId = challengesService.GetChallengeAuthor(model.Id);
+
             if (ModelState.IsValid)
             {
-                var challenge = challengesService.GetChallengeViewModel(model.Id);
+                if (!UserIsAuthor(model)) return RedirectToAction("Index");
 
-                if (!UserIsAuthor(challenge)) return RedirectToAction("Index");
+                model.Tags = challengesService.GetTagsAsStringByChallengeId(model.Id);
 
-                challengesService.UpdateChallenge(challenge);
+                challengesService.UpdateChallenge(model);
 
                 return RedirectToAction("Index");
             }
@@ -138,7 +141,7 @@ namespace Challenging_Challenges.Controllers
         {
             if (id == null) return RedirectToAction("Index");
 
-            var challenge = challengesService.GetChallengeViewModel(id.Value);
+            var challenge = challengesService.GetChallengeFullViewModel(id.Value);
 
             //if (challenge == null) return RedirectToAction("Removed");
 
@@ -151,9 +154,7 @@ namespace Challenging_Challenges.Controllers
                 challengesService.AddSolver(id.Value, User.Identity.GetUserId().ToGuid());
             }
 
-            var challenge1 = challengesService.GetChallenge(id.Value);
-
-            return View("Solve", challenge1);
+            return View("Solve", challenge);
         }
 
         // POST: Challenges/Solve/5
@@ -161,24 +162,45 @@ namespace Challenging_Challenges.Controllers
         public ActionResult Solve(Guid? id, string answer)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var challenge = challengesService.GetChallengeViewModel(id.Value);
-            if (challenge == null) return HttpNotFound();
+
+            var challenge = challengesService.GetChallengeFullViewModel(id.Value);
+
             if (UserIsAuthor(challenge)) return RedirectToAction("Index");
-            challengesService.AddSolveAttempt(challenge.Id, User.Identity.GetUserId().ToGuid());
-            ViewBag.IsSolved = challengesService.TryToSolve(challenge.Id, User.Identity.GetUserId().ToGuid(), answer);
+
+            var userId = User.Identity.GetUserId().ToGuid();
+
+            if (challenge.Solvers.Any(x => x.UserId == userId && !x.HasSolved))
+            {
+                return RedirectToAction("Index");
+            }
+
+            challengesService.AddSolveAttempt(challenge.Id, userId);
+
+            var isCorrect = challengesService.TryToSolve(challenge.Id, userId, answer);
+
+            if (isCorrect)
+            {
+                var achievement = achievementsService.ChallengeSolved(challenge.Id, userId);
+                achievementsSignalRProvider.ShowAchievementMessage(achievement, userId);
+            }
+
+            ViewBag.IsSolved = isCorrect;
             ViewBag.Answer = answer;
 
-            var challenge1 = challengesService.GetChallenge(id.Value);
-            return View("Solve", challenge1);
+            return View("Solve", challenge);
         }
 
         // GET: Challenges/Delete/5
         public ActionResult Delete(Guid? id)
         {
             if (id == null) return RedirectToAction("Removed");
+
             var challenge = challengesService.GetChallengeViewModel(id.Value);
-            if (challenge == null) return RedirectToAction("Removed");
+
+            //if (challenge == null) return RedirectToAction("Removed");
+
             if (!UserIsAuthor(challenge)) return HttpNotFound();
+
             return View(challenge);
         }
 
@@ -188,10 +210,15 @@ namespace Challenging_Challenges.Controllers
         public ActionResult DeleteConfirmed(Guid id)
         {
             var challenge = challengesService.GetChallengeViewModel(id);
+
             if (!UserIsAuthor(challenge)) return HttpNotFound();
+
             var userId = User.Identity.GetUserId().ToGuid();
+
             challengesService.RemoveChallenge(id);
+
             achievementsService.ChallengeRemoved(userId);
+
             return RedirectToAction("Index");
         }
 
@@ -207,14 +234,14 @@ namespace Challenging_Challenges.Controllers
             {
                 challengesService.AddComment(id.Value, User.Identity.GetUserId().ToGuid(), message);
             }
+
             return RedirectToAction("Solve", new { id = id.Value });
         }
 
         public ActionResult DeleteComment(Guid commentId, Guid challengeId)
         {
-            var challenge = challengesService.GetChallengeViewModel(challengeId);
-            if (challenge == null) return HttpNotFound();
             challengesService.RemoveComment(challengeId, commentId, User.Identity.GetUserId().ToGuid());
+
             return RedirectToAction("Solve", new { id = challengeId });
         }
 

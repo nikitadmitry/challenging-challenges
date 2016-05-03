@@ -1,13 +1,9 @@
 ﻿using System;
-using Business.Identity.ViewModels;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 using Challenging_Challenges.Providers;
-using Data.Identity.Context;
-using Data.Identity.Entities;
 using Microsoft.Owin.Security.DataProtection;
 using Microsoft.Owin.Security.OAuth;
 
@@ -28,8 +24,9 @@ namespace Challenging_Challenges
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {
+            //todo comment?
             // Configure the db context, user manager and signin manager to use a single instance per request
-            app.CreatePerOwinContext(IdentityContext.Create);
+            //app.CreatePerOwinContext(IdentityContext.Create);
 
             DataProtectionProvider = app.GetDataProtectionProvider();
 

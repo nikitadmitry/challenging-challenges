@@ -39,7 +39,7 @@ namespace Data.Identity.Entities
 
         private List<Achievement> achievements;
 
-        public IList<Achievement> Achievements
+        public virtual IList<Achievement> Achievements
         {
             get
             {

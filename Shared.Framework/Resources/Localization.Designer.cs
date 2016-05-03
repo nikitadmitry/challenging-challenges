@@ -133,15 +133,6 @@ namespace Shared.Framework.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Anything.
-        /// </summary>
-        public static string Anything {
-            get {
-                return ResourceManager.GetString("Anything", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0} are required.
         /// </summary>
         public static string AreRequired {

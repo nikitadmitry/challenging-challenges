@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using System.ServiceModel;
 using System.Web.Mvc;
 using Autofac;
@@ -11,6 +8,8 @@ using Business.Achievements;
 using Business.Challenges;
 using Business.Identity;
 using Business.Identity.ViewModels;
+using Business.SearchIndex;
+using Challenging_Challenges.Helpers;
 using Challenging_Challenges.Identity;
 using Challenging_Challenges.Infrastructure;
 using Microsoft.AspNet.Identity;
@@ -19,6 +18,12 @@ namespace Challenging_Challenges
 {
     public class DependencyRegistration
     {
+        public static IContainer Container
+        {
+            get;
+            set;
+        }
+
         public static void ConfigureContainer()
         {
             var builder = new ContainerBuilder();
@@ -32,22 +37,40 @@ namespace Challenging_Challenges
             builder.RegisterType(typeof(UserStore)).As(typeof(IUserStore<IdentityUser, Guid>));
             builder.RegisterType(typeof(ApplicationUserManager)).As(typeof(UserManager<IdentityUser, Guid>));
             builder.RegisterType(typeof(AchievementsSignalRProvider)).As(typeof(IAchievementsSignalRProvider));
+            builder.RegisterType(typeof(ComplexViewModelsProvider)).As(typeof(IComplexViewModelsProvider));
 
-            RegisterChallengesService(builder);
-            RegisterIdentityService(builder);
-            RegisterAchievementsService(builder);
+            RegisterService<IChallengesService>(builder, "ChallengesService");
+            RegisterService<IIdentityService>(builder, "IdentityService");
+            RegisterService<IAchievementsService>(builder, "AchievementsService");
+            RegisterService<ISearchIndexService>(builder, "SearchIndexService");
 
-            var container = builder.Build();
+            Container = builder.Build();
 
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(Container));
         }
 
-        private static void RegisterChallengesService(ContainerBuilder builder)
+        private static void RegisterService<T>(ContainerBuilder builder, string serviceName)
+        {
+            var businessAddress = ConfigurationValuesProvider.Get<string>("BusinessAddress");
+
+            builder
+                .Register(c => new ChannelFactory<T>(
+                    new BasicHttpBinding(),
+                    new EndpointAddress($"{businessAddress}{serviceName}.svc")))
+                .SingleInstance();
+
+            builder
+                .Register(c => c.Resolve<ChannelFactory<T>>().CreateChannel())
+                .As<T>()
+                .UseWcfSafeRelease();
+        }
+
+        private static void RegisterChallengesService(ContainerBuilder builder, string businessAddress)
         {
             builder
                 .Register(c => new ChannelFactory<IChallengesService>(
                     new BasicHttpBinding(),
-                    new EndpointAddress("http://localhost:64242/ChallengesService.svc")))
+                    new EndpointAddress($"{businessAddress}ChallengesService.svc")))
                 .SingleInstance();
 
             builder
@@ -56,12 +79,12 @@ namespace Challenging_Challenges
                 .UseWcfSafeRelease();
         }
 
-        private static void RegisterIdentityService(ContainerBuilder builder)
+        private static void RegisterIdentityService(ContainerBuilder builder, string businessAddress)
         {
             builder
                 .Register(c => new ChannelFactory<IIdentityService>(
                     new BasicHttpBinding(),
-                    new EndpointAddress("http://localhost:64242/IdentityService.svc")))
+                    new EndpointAddress($"{businessAddress}IdentityService.svc")))
                 .SingleInstance();
 
             builder
@@ -70,12 +93,12 @@ namespace Challenging_Challenges
                 .UseWcfSafeRelease();
         }
 
-        private static void RegisterAchievementsService(ContainerBuilder builder)
+        private static void RegisterAchievementsService(ContainerBuilder builder, string businessAddress)
         {
             builder
                 .Register(c => new ChannelFactory<IAchievementsService>(
                     new BasicHttpBinding(),
-                    new EndpointAddress("http://localhost:64242/AchievementsService.svc")))
+                    new EndpointAddress($"{businessAddress}AchievementsService.svc")))
                 .SingleInstance();
 
             builder

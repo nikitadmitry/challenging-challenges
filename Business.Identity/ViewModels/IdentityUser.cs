@@ -55,7 +55,7 @@ namespace Business.Identity.ViewModels
             set;
         }
 
-        public IList<Achievement> Achievements; 
+        public IList<string> Achievements; 
 
         public virtual string PasswordHash
         {

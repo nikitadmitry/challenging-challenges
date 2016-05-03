@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.Identity", "Busine
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.Achievements", "Business.Achievements\Business.Achievements.csproj", "{37C92161-45C9-481B-90A1-821007185720}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.SearchIndex", "Business.SearchIndex\Business.SearchIndex.csproj", "{B25C08CC-9015-4AFB-B6B8-BDBCFABA9074}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{37C92161-45C9-481B-90A1-821007185720}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37C92161-45C9-481B-90A1-821007185720}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37C92161-45C9-481B-90A1-821007185720}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B25C08CC-9015-4AFB-B6B8-BDBCFABA9074}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B25C08CC-9015-4AFB-B6B8-BDBCFABA9074}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B25C08CC-9015-4AFB-B6B8-BDBCFABA9074}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B25C08CC-9015-4AFB-B6B8-BDBCFABA9074}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,5 +91,6 @@ Global
 		{532F5E1B-117C-4131-A9A7-8B96B3CEE237} = {A42CA661-3EDA-4917-8316-828739271322}
 		{B248D183-63B4-41F6-8182-E532200D5AEE} = {A42CA661-3EDA-4917-8316-828739271322}
 		{37C92161-45C9-481B-90A1-821007185720} = {A42CA661-3EDA-4917-8316-828739271322}
+		{B25C08CC-9015-4AFB-B6B8-BDBCFABA9074} = {A42CA661-3EDA-4917-8316-828739271322}
 	EndGlobalSection
 EndGlobal

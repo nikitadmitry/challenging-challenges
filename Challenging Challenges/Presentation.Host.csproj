@@ -229,7 +229,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\ChallengeGenerator.cs" />
+    <Compile Include="Helpers\ConfigurationValuesProvider.cs" />
     <Compile Include="Helpers\CultureHelper.cs" />
     <Compile Include="Helpers\CustomUserValidator.cs" />
     <Compile Include="Helpers\LuceneRegistry.cs" />
@@ -237,21 +237,14 @@
     <Compile Include="Hubs\NotificationHub.cs" />
     <Compile Include="Identity\UserStore.cs" />
     <Compile Include="Infrastructure\AchievementsSignalRProvider.cs" />
+    <Compile Include="Infrastructure\ComplexViewModelsProvider.cs" />
     <Compile Include="Infrastructure\FilesWorker.cs" />
     <Compile Include="Infrastructure\IAchievementsSignalRProvider.cs" />
-    <Compile Include="Infrastructure\SearchService.cs" />
-    <Compile Include="Infrastructure\TagSearcher.cs" />
-    <Compile Include="Migrations\201509201300244_AddedTasksRating.cs" />
-    <Compile Include="Migrations\201509201300244_AddedTasksRating.Designer.cs">
-      <DependentUpon>201509201300244_AddedTasksRating.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Infrastructure\LuceneSearch.cs" />
-    <Compile Include="Models\Entities\SearchIndex.cs" />
-    <Compile Include="Infrastructure\TagService.cs" />
+    <Compile Include="Infrastructure\IComplexViewModelsProvider.cs" />
+    <Compile Include="Infrastructure\PagedListBuilder.cs" />
     <Compile Include="Models\Mobile\MobileViewModels.cs" />
     <Compile Include="Models\ViewModels\ChallengeViewModels.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\ViewModels\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -354,9 +347,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <EmbeddedResource Include="Migrations\201509201300244_AddedTasksRating.resx">
-      <DependentUpon>201509201300244_AddedTasksRating.cs</DependentUpon>
-    </EmbeddedResource>
     <Content Include="Content\Authentication\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\Authentication\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\Authentication\fonts\fontawesome-webfont.woff" />
@@ -785,6 +775,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\Entities\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -807,17 +798,9 @@
       <Project>{B248D183-63B4-41F6-8182-E532200D5AEE}</Project>
       <Name>Business.Identity</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Data.Challenges\Data.Challenges.csproj">
-      <Project>{3BC289F6-2AE2-4CD3-A5D4-AA6A549BCA9A}</Project>
-      <Name>Data.Challenges</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Data.Common\Data.Common.csproj">
-      <Project>{610FE3E7-21B8-4BBD-865F-32EA6BA15784}</Project>
-      <Name>Data.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Data.Identity\Data.Identity.csproj">
-      <Project>{6780FCD1-1B0C-4410-94B7-91C98B2333A1}</Project>
-      <Name>Data.Identity</Name>
+    <ProjectReference Include="..\Business.SearchIndex\Business.SearchIndex.csproj">
+      <Project>{B25C08CC-9015-4AFB-B6B8-BDBCFABA9074}</Project>
+      <Name>Business.SearchIndex</Name>
     </ProjectReference>
     <ProjectReference Include="..\Shared.Framework\Shared.Framework.csproj">
       <Project>{150EBD2E-0220-4E95-A42E-A5E14E0DB467}</Project>

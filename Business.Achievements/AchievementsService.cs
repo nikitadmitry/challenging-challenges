@@ -2,7 +2,9 @@
 using System.Linq;
 using System.ServiceModel;
 using Business.Achievements.ViewModels;
-using Data.Challenges.Context;
+using Business.Challenges;
+using Data.Common.Query.Builder;
+using Data.Common.Query.QueryParameters;
 using Data.Identity.Context;
 using Data.Identity.Entities;
 using Data.Identity.Enums;
@@ -12,13 +14,13 @@ namespace Business.Achievements
     [ServiceBehavior(IncludeExceptionDetailInFaults = true)]
     public class AchievementsService : IAchievementsService
     {
-        private readonly IChallengesUnitOfWork unitOfWork;
+        private readonly IChallengesService challengesService;
         private readonly IIdentityUnitOfWork identityUnitOfWork;
 
-        public AchievementsService(IChallengesUnitOfWork unitOfWork,
+        public AchievementsService(IChallengesService challengesService,
             IIdentityUnitOfWork identityUnitOfWork)
         {
-            this.unitOfWork = unitOfWork;
+            this.challengesService = challengesService;
             this.identityUnitOfWork = identityUnitOfWork;
         }
 
@@ -44,6 +46,56 @@ namespace Business.Achievements
 
             identityUnitOfWork.InsertOrUpdate(user);
             identityUnitOfWork.Commit();
+        }
+
+        public AchievementType? ChallengeSolved(Guid challengeId, Guid userId)
+        {
+            var user = identityUnitOfWork.Get<User>(userId);
+
+            user.SolvedTasksQuantity++;
+
+            var timesSolved = challengesService.GetChallengeTimesSolved(challengeId);
+
+            var addedBadge = GetAddedBadge(user, $"Solved{user.SolvedTasksQuantity}");
+
+            if (timesSolved == 1)
+            {
+                addedBadge = GetAddedBadge(user, "First");
+            }
+
+            identityUnitOfWork.InsertOrUpdate(user);
+            identityUnitOfWork.Commit();
+
+            return addedBadge;
+        }
+
+        public void BecameTopOne(Guid userId)
+        {
+            var user = identityUnitOfWork.Get<User>(userId);
+
+            GetAddedBadge(user, "TopOne");
+        }
+
+        public AchievementType? RatingChanged(Guid userId)
+        {
+            var user = identityUnitOfWork.Get<User>(userId);
+
+            return GetAddedBadge(user, $"Rating{user.Rating.ToString("###")}");
+        }
+
+        public void UpdateTopOne()
+        {
+            var queryParameters = new BaseQueryParameters
+            {
+                SortSettings = SortSettingsBuilder<User>
+                    .Create()
+                    .DescendingBy("Rating")
+                    .GetSettings()
+            };
+
+            var user = identityUnitOfWork.GetFirstOrDefault<User>(queryParameters);
+
+            BecameTopOne(user.Id);
         }
 
         private AchievementType? GetAddedBadge(User user, string achievementString)

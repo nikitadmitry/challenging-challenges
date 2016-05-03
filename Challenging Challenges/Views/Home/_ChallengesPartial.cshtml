@@ -1,6 +1,6 @@
 ﻿@using Challenging_Challenges.Helpers
 @using PagedList.Mvc
-@model PagedList.IPagedList<Challenging_Challenges.Models.Entities.SearchIndex>
+@model PagedList.IPagedList<Business.Challenges.ViewModels.ChallengesDescriptionViewModel>
 
 <div class="row">
     @Html.PagedListPager(Model, page => Url.Action("ChallengesPartial", "Home", new { page, selector = ViewData["selector"].ToString(), sort = ViewData["sort"].ToString() }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions { HttpMethod = "GET", UpdateTargetId = ViewData["selector"].ToString() }))

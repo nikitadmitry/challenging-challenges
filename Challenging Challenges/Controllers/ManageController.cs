@@ -6,9 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Business.Identity.ViewModels;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 using Challenging_Challenges.Models.ViewModels;
-using Data.Identity.Entities;
 using Microsoft.Owin.Security;
 
 namespace Challenging_Challenges.Controllers

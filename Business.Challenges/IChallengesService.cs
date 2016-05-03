@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ServiceModel;
 using Business.Challenges.ViewModels;
-using Data.Challenges.Entities;
+using Shared.Framework.DataSource;
 
 namespace Business.Challenges
 {
@@ -21,7 +22,7 @@ namespace Business.Challenges
         ChallengeViewModel GetChallengeViewModel(Guid id);
 
         [OperationContract]
-        Challenge GetChallenge(Guid id);
+        ChallengeFullViewModel GetChallengeFullViewModel(Guid id);
 
         [OperationContract]
         void AddSolver(Guid challengeId, Guid userId);
@@ -40,5 +41,29 @@ namespace Business.Challenges
 
         [OperationContract]
         bool TryToSolve(Guid challengeId, Guid userId, string answer);
+
+        [OperationContract]
+        int GetChallengeTimesSolved(Guid challengeId);
+
+        [OperationContract]
+        List<ChallengesDescriptionViewModel> GetLatestChallenges(PageRule pageRule);
+
+        [OperationContract]
+        List<ChallengesDescriptionViewModel> GetPopularChallenges(PageRule pageRule);
+
+        [OperationContract]
+        List<ChallengesDescriptionViewModel> GetUnsolvedChallenges(PageRule pageRule);
+
+        [OperationContract]
+        int GetChallengesCount();
+
+        [OperationContract]
+        string GetTagsAsStringByChallengeId(Guid challengeId);
+
+        [OperationContract]
+        List<ChallengeInfoViewModel> GetByProperty(string keyword, string property, PageRule pageRule);
+
+        [OperationContract]
+        Guid GetChallengeAuthor(Guid challengeId);
     }
 }
