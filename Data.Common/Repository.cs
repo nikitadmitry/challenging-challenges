@@ -55,11 +55,6 @@ namespace Data.Common
             return InsertOrUpdateInternal(entity);
         }
 
-        public T InsertOrUpdateWithSkipTrackingProperties(T entity)
-        {
-            return InsertOrUpdateInternal(entity, true);
-        }
-
         private static void CheckEntityModifiable(T entity)
         {
             if (!MultiMappingEntityAttribute.IsEntityModifiable(entity))
@@ -211,32 +206,26 @@ namespace Data.Common
             return queryable.Any();
         }
 
-        protected virtual void MarkAsDeleted(T entity)
+        private void MarkAsDeleted(T entity)
         {
             context.Entry(entity).State = EntityState.Deleted;
         }
 
-
-        public virtual void MarkAsDetached(T entity)
-        {
-            context.Entry(entity).State = EntityState.Detached;
-        }
-
-        protected virtual void BeforeInsertOrUpdate(T entity)
+        private void BeforeInsertOrUpdate(T entity)
         {
         }
 
-        protected virtual bool IsDetached(T entity)
+        private bool IsDetached(T entity)
         {
             return context.Entry(entity).State == EntityState.Detached;
         }
 
-        protected virtual void MarkAsModified(T entity)
+        private void MarkAsModified(T entity)
         {
             context.Entry(entity).State = EntityState.Modified;
         }
 
-        protected virtual IQueryable<T> ApplySingleQueryParameters(IQueryable<T> queryable,
+        private IQueryable<T> ApplySingleQueryParameters(IQueryable<T> queryable,
                                                                    BaseQueryParameters parameters)
         {
             if (parameters == null)
@@ -264,13 +253,13 @@ namespace Data.Common
             return queryable;
         }
 
-        protected IQueryable<T> GetListQuery(BaseQueryParameters parameters)
+        private IQueryable<T> GetListQuery(BaseQueryParameters parameters)
         {
             IQueryable<T> queryable = DbSet.AsQueryable();
             return ApplyListQueryParameters(queryable, parameters);
         }
 
-        protected virtual Expression<Func<T, bool>> GetSingleEntityExpression(Guid id)
+        private Expression<Func<T, bool>> GetSingleEntityExpression(Guid id)
         {
             return x => x.Id == id;
         }
@@ -281,7 +270,7 @@ namespace Data.Common
         /// <param name="queryable">Queryable to apply parameters to</param>
         /// <param name="parameters">Parameters which should be applied to queryable</param>
         /// <returns>queryable with applied parameters</returns>
-        protected IQueryable<T> ApplyListQueryParameters(IQueryable<T> queryable, BaseQueryParameters parameters)
+        private IQueryable<T> ApplyListQueryParameters(IQueryable<T> queryable, BaseQueryParameters parameters)
         {
             if (parameters != null)
             {
@@ -301,7 +290,7 @@ namespace Data.Common
         /// This method may be overridden to provide custom Entity.Id expression
         /// </summary>
         /// <returns></returns>
-        protected virtual Expression<Func<T, bool>> GetEntityListExpression(BaseQueryParameters parameters)
+        private Expression<Func<T, bool>> GetEntityListExpression(BaseQueryParameters parameters)
         {
             return x => parameters.Ids.Contains(x.Id);
         }
@@ -312,41 +301,13 @@ namespace Data.Common
         /// <param name="queryable">Queryable to apply parameters to</param>
         /// <param name="parameters">Parameters which should be applied to queryable</param>
         /// <returns>queryable with applied parameters</returns>
-        protected virtual IQueryable<T> ApplyListQueryParametersTypeSpecific(IQueryable<T> queryable,
+        private IQueryable<T> ApplyListQueryParametersTypeSpecific(IQueryable<T> queryable,
                                                                              BaseQueryParameters parameters)
         {
             return queryable;
         }
 
-        /// <summary>
-        /// Applies Localization rules to query
-        /// </summary>
-        /// <param name="queryable">IQuerable of entities : ILocalizableEntity</param>
-        /// <param name="languageId">LanguageId to use in query statement</param>
-        /// <returns>IQuerable with applied Language parameters</returns>
-        private static IQueryable<T> ApplyLocalizationFilter(IQueryable<T> queryable, Guid? languageId)
-        {
-            // item =>
-            ParameterExpression itemParameterExpression = Expression.Parameter(typeof(T), "item");
-            // item.LanguageId
-            MemberExpression memberExpression = Expression.Property(itemParameterExpression, "LanguageId");
-            // languageId // Trick here is to prevent issue like HESTIA-36479, using suggestion from http://stackoverflow.com/questions/17569335/create-an-expression-tree-that-generates-a-parametric-query-for-entity-framework
-            MemberExpression valuExpression = Expression.Property(Expression.Constant(new { LanguageId = languageId }), "LanguageId"); // Do not use
-            ConstantExpression nullExpression = Expression.Constant(null);
-
-            // item.LanguageId == languageId 
-            BinaryExpression equalExpression = Expression.Equal(memberExpression, valuExpression);
-            // item.LanguageId == null 
-            BinaryExpression equalNullExpression = Expression.Equal(memberExpression, nullExpression);
-
-            BinaryExpression orExpression = Expression.Or(equalExpression, equalNullExpression);
-            // item => item.LanguageId == languageId
-            Expression<Func<T, bool>> lambda = Expression.Lambda<Func<T, bool>>(orExpression, itemParameterExpression);
-
-            return queryable.Where(lambda);
-        }
-
-        protected IQueryable<TEntity> ApplySortSettingsIfExist<TEntity>(IQueryable<TEntity> queryable, BaseQueryParameters parameters)
+        private IQueryable<TEntity> ApplySortSettingsIfExist<TEntity>(IQueryable<TEntity> queryable, BaseQueryParameters parameters)
             where TEntity : Entity
         {
             if (parameters.SortSettings != null && parameters.SortSettings.SortRules != null &&
@@ -373,12 +334,12 @@ namespace Data.Common
             return queryable;
         }
 
-        protected IQueryable<TEntity> ApplyFilterSettings<TEntity>(IQueryable<TEntity> queryable, FilterSettings filterSettings)
+        private IQueryable<TEntity> ApplyFilterSettings<TEntity>(IQueryable<TEntity> queryable, FilterSettings filterSettings)
         {
             return filterSettings.Rules.Aggregate(queryable, ApplyFilterRule);
         }
 
-        protected IQueryable<TEntity> ApplyFilterRule<TEntity>(IQueryable<TEntity> queryable, IFilterRule filterRule)
+        private IQueryable<TEntity> ApplyFilterRule<TEntity>(IQueryable<TEntity> queryable, IFilterRule filterRule)
         {
             var lambda = filterRule.GetExpression<TEntity>();
 
@@ -394,7 +355,7 @@ namespace Data.Common
             return queryable.Provider.CreateQuery<TEntity>(result);
         }
 
-        protected IQueryable<TEntity> ApplySortingRule<TEntity>(IQueryable<TEntity> queryable, SortRule sortRule,
+        private IQueryable<TEntity> ApplySortingRule<TEntity>(IQueryable<TEntity> queryable, SortRule sortRule,
                                                                 bool initialSorting = false)
             where TEntity : Entity
         {
@@ -444,7 +405,7 @@ namespace Data.Common
             return queryable;
         }
 
-        protected virtual Expression<Func<T, Guid>> GetApplyPageRuleKeySelector()
+        private Expression<Func<T, Guid>> GetApplyPageRuleKeySelector()
         {
             return x => x.Id;
         }
@@ -469,19 +430,9 @@ namespace Data.Common
             return searchResultList;
         }
 
-        protected virtual bool IsNew(T entity)
+        private bool IsNew(T entity)
         {
             return entity.IsNew;
-        }
-
-        protected IEnumerable<TS> SqlQuery<TS>(string sql, params object[] parameters)
-        {
-            return context.Database.SqlQuery<TS>(sql, parameters);
-        }
-
-        protected virtual int ExecuteSqlCommand(string sql, IList<SqlParameter> parameters)
-        {
-            return context.Database.ExecuteSqlCommand(sql, parameters.ToArray());
         }
 
         private IQueryable<T> GetSingleQuery(BaseQueryParameters queryParameters)

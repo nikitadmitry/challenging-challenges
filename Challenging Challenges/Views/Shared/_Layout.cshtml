@@ -42,11 +42,11 @@
                 </a>
                 <ul class="dropdown-menu" role="menu">
                     <li class="dropdown-header">@Localization.Pick</li>
-                    <li>@Html.ActionLink("C#", "Index", "Challenges", new {Keyword = "CSharp", SearchField = "Section"}, null)</li>
-                    <li>@Html.ActionLink("Java", "Index", "Challenges", new {Keyword = "Java", SearchField = "Section"}, null)</li>
-                    <li>@Html.ActionLink("Ruby", "Index", "Challenges", new {Keyword = "Ruby", SearchField = "Section"}, null)</li>
-                    <li>@Html.ActionLink("Python", "Index", "Challenges", new {Keyword = "Python", SearchField = "Section"}, null)</li>
-                    <li>@Html.ActionLink(Localization.Other, "Index", "Challenges", new {Keyword = "Other", SearchField = "Section"}, null)</li>
+                    <li>@Html.ActionLink("C#", "Index", "Challenges", new {Keyword = "CSharp", field = "Section"}, null)</li>
+                    <li>@Html.ActionLink("Java", "Index", "Challenges", new {Keyword = "Java", field = "Section"}, null)</li>
+                    <li>@Html.ActionLink("Ruby", "Index", "Challenges", new {Keyword = "Ruby", field = "Section"}, null)</li>
+                    <li>@Html.ActionLink("Python", "Index", "Challenges", new {Keyword = "Python", field = "Section"}, null)</li>
+                    <li>@Html.ActionLink(Localization.Other, "Index", "Challenges", new {Keyword = "Other", field = "Section"}, null)</li>
                 </ul>
             </li>
             <li class="dropdown">

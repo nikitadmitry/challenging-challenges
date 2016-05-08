@@ -1,10 +1,11 @@
-﻿using Data.Common;
+﻿using System;
+using Data.Common;
 
 namespace Data.Challenges.Entities
 {
     public class Comment : Entity
     {
-        public string UserName
+        public Guid UserId
         {
             get;
             set;

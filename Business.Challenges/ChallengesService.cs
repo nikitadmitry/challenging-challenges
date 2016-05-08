@@ -71,7 +71,15 @@ namespace Business.Challenges
         {
             var challenge = unitOfWork.Get<Challenge>(id);
 
-            return Mapper.Map<ChallengeFullViewModel>(challenge);
+            var challengeViewModel = Mapper.Map<ChallengeFullViewModel>(challenge);
+
+            foreach (var comment in challenge.Comments)
+            {
+                var userName = identityService.GetUserNameById(comment.UserId);
+                challengeViewModel.Comments.Single(x => x.Id == comment.Id).UserName = userName;
+            }
+
+            return challengeViewModel;
         }
 
         public void AddSolver(Guid challengeId, Guid userId)
@@ -92,13 +100,13 @@ namespace Business.Challenges
 
         public void AddComment(Guid challengeId, Guid userId, string message)
         {
+            Contract.NotDefault<InvalidOperationException, Guid>(userId, "userId must not be default");
+
             var challenge = unitOfWork.Get<Challenge>(challengeId);
-
-            var userName = identityService.GetUserNameById(userId);
-
+            
             challenge.Comments.Add(new Comment
             {
-                UserName = userName,
+                UserId = userId,
                 Value = message
             });
 
@@ -109,12 +117,11 @@ namespace Business.Challenges
         public void RemoveComment(Guid challengeId, Guid commentId, Guid userId)
         {
             Contract.NotDefault<InvalidOperationException, Guid>(commentId, "Commend id must be not default");
+            Contract.NotDefault<InvalidOperationException, Guid>(userId, "user id must be not default");
 
             var challenge = unitOfWork.Get<Challenge>(challengeId);
 
-            var userName = identityService.GetUserNameById(userId);
-
-            var commentToRemove = challenge.Comments.First(x => x.Id == commentId && x.UserName == userName);
+            var commentToRemove = challenge.Comments.First(x => x.Id == commentId && x.UserId == userId);
 
             challenge.Comments.Remove(commentToRemove);
 
@@ -308,6 +315,15 @@ namespace Business.Challenges
             var challenge = unitOfWork.Get<Challenge>(challengeId);
 
             return challenge.AuthorId;
+        }
+
+        public bool CheckIfSolved(Guid challengeId, Guid userId)
+        {
+            var challenge = unitOfWork.Get<Challenge>(challengeId);
+
+            var solver = challenge.Solvers.SingleOrDefault(x => x.UserId == userId);
+
+            return solver?.HasSolved ?? false;
         }
 
         private IList<Challenge> SearchChallengesOnDb(string keyword, string property, PageRule pageRule)

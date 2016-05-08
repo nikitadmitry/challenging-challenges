@@ -74,35 +74,6 @@ namespace Data.Common
         }
 
         /// <summary>
-        /// Evict entity from context.
-        /// </summary>
-        /// <remarks>
-        /// Try to avoid usages of this method. Usually when you think you need to use the method it means
-        /// there is an entity which was created manually and attached to DB context. In such cases use <see cref="Create{T}"/> method instead.
-        /// </remarks>
-        /// <typeparam name="T">Entity type.</typeparam>
-        /// <param name="entity">Entity to Evict.</param>
-        public void Evict<T>(T entity) where T : Entity
-        {
-            var cachedEntry = context.ChangeTracker
-                .Entries()
-                .Where(x => ObjectContext.GetObjectType(x.Entity.GetType()) == typeof(T))
-                .SingleOrDefault(x =>
-                {
-                    var attachedEntity = x.Entity as Entity;
-                    return attachedEntity != null &&
-                           (attachedEntity.Id == default(Guid)
-                               ? ReferenceEquals(entity, attachedEntity)
-                               : attachedEntity.Id.Equals(entity.Id));
-                });
-
-            if (cachedEntry != null)
-            {
-                context.Entry(cachedEntry.Entity).State = EntityState.Detached;
-            }
-        }
-
-        /// <summary>
         /// Gets all entities by specified filter.
         /// </summary>
         /// <typeparam name="T">Entity type.</typeparam>
@@ -155,35 +126,6 @@ namespace Data.Common
             return GetRepository<T>().InsertOrUpdate(entity);
         }
 
-        public T InsertOrUpdateWithSkipTrackingProperties<T>(T entity) where T : Entity
-        {
-            return GetRepository<T>().InsertOrUpdateWithSkipTrackingProperties(entity);
-        }
-
-        public IEnumerable<T> BulkInsertOrUpdate<T>(IEnumerable<T> entities) where T : Entity
-        {
-            bool formerAutoDetectChangesEnabled = Context.Configuration.AutoDetectChangesEnabled;
-            bool formerValidateOnSaveEnabled = Context.Configuration.ValidateOnSaveEnabled;
-
-            Context.Configuration.AutoDetectChangesEnabled = false;
-            Context.Configuration.ValidateOnSaveEnabled = false;
-
-            try
-            {
-                foreach (T entity in entities)
-                {
-                    InsertOrUpdate(entity);
-                }
-            }
-            finally
-            {
-                Context.Configuration.AutoDetectChangesEnabled = formerAutoDetectChangesEnabled;
-                Context.Configuration.ValidateOnSaveEnabled = formerValidateOnSaveEnabled;
-            }
-
-            return entities;
-        }
-
         /// <summary>
         /// Delete entity from repository.
         /// </summary>
@@ -209,7 +151,7 @@ namespace Data.Common
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        protected virtual IRepository<T> GetRepository<T>() where T : Entity
+        protected IRepository<T> GetRepository<T>() where T : Entity
         {
             return (IRepository<T>)repositories[typeof(T)];
         }
@@ -222,20 +164,6 @@ namespace Data.Common
         protected void RegisterRepository<T>(IRepository<T> repository) where T : Entity
         {
             repositories[typeof(T)] = repository;
-        }
-
-        /// <summary>
-        /// Load Navigation Property
-        /// </summary>
-        /// <typeparam name="TEntity"></typeparam>
-        /// <typeparam name="TProperty"></typeparam>
-        /// <param name="entity"></param>
-        /// <param name="navigationProperty"></param>
-        public void LoadNavigationProperty<TEntity, TProperty>(TEntity entity, Expression<Func<TEntity, TProperty>> navigationProperty)
-            where TProperty : class
-            where TEntity : Entity
-        {
-            context.Entry(entity).Reference(navigationProperty).Load();
         }
 
         public T GetReload<T>(Guid id) where T : Entity

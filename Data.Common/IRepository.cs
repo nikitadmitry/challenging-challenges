@@ -23,13 +23,6 @@ namespace Data.Common
         T InsertOrUpdate(T entity);
 
         /// <summary>
-        /// Saves entity in the repository and does not mark it as modified.
-        /// </summary>
-        /// <param name="entity">Entity to save.</param>
-        /// <returns>Saved entity.</returns>
-        T InsertOrUpdateWithSkipTrackingProperties(T entity);
-
-        /// <summary>
         /// Delete entity from repository.
         /// </summary>
         /// <param name="entity">Entity to Delete.</param>
@@ -92,7 +85,5 @@ namespace Data.Common
         /// Indicates is there any entity matching query parameters.
         /// </summary>
         bool Any(BaseQueryParameters parameters);
-
-        void MarkAsDetached(T entity);
     }
 }

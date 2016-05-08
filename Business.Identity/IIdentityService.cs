@@ -31,5 +31,8 @@ namespace Business.Identity
 
         [OperationContract]
         IList<UserTopViewModel> GetTopUsers();
+
+        [OperationContract]
+        void ConfirmEmail(Guid userId);
     }
 }

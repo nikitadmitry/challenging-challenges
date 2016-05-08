@@ -61,7 +61,6 @@ namespace Business.Challenges.Mappings
                 .ForMember(t => t.Title, o => o.MapFrom(s => s.Title))
                 .ForMember(t => t.Comments, o => o.MapFrom(s => s.Comments))
                 .ForMember(t => t.Rating, o => o.MapFrom(s => s.Rating))
-                .ForMember(t => t.Solvers, o => o.MapFrom(s => s.Solvers))
                 .ForMember(t => t.TimesSolved, o => o.MapFrom(s => s.TimesSolved));
 
             CreateMap<ChallengeFullViewModel, Challenge>()
@@ -78,7 +77,6 @@ namespace Business.Challenges.Mappings
                 .ForMember(t => t.Title, o => o.MapFrom(s => s.Title))
                 .ForMember(t => t.Comments, o => o.MapFrom(s => s.Comments))
                 .ForMember(t => t.Rating, o => o.MapFrom(s => s.Rating))
-                .ForMember(t => t.Solvers, o => o.MapFrom(s => s.Solvers))
                 .ForMember(t => t.TimesSolved, o => o.MapFrom(s => s.TimesSolved));
 
             CreateMap<Challenge, ChallengesDescriptionViewModel>()
@@ -120,15 +118,13 @@ namespace Business.Challenges.Mappings
             CreateMap<Comment, CommentViewModel>()
                 .IgnoreAllUnmapped()
                 .ForMember(t => t.Id, o => o.MapFrom(s => s.Id))
-                .ForMember(t => t.Value, o => o.MapFrom(s => s.Value))
-                .ForMember(t => t.UserName, o => o.MapFrom(s => s.UserName));
+                .ForMember(t => t.Value, o => o.MapFrom(s => s.Value));
 
 
             CreateMap<CommentViewModel, Comment>()
                 .IgnoreAllUnmapped()
                 .ForMember(t => t.Id, o => o.MapFrom(s => s.Id))
-                .ForMember(t => t.Value, o => o.MapFrom(s => s.Value))
-                .ForMember(t => t.UserName, o => o.MapFrom(s => s.UserName));
+                .ForMember(t => t.Value, o => o.MapFrom(s => s.Value));
         }
 
         private List<Tag> GetEntityTags(string tags)

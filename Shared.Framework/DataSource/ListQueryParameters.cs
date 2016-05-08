@@ -13,16 +13,6 @@ namespace Shared.Framework.DataSource
         private SortSettings sortSettings;
 
         /// <summary>
-        /// All requests must contain HousingAuthorityId
-        /// </summary>
-        [DataMember]
-        public Guid HousingAuthorityId
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
         /// Gets or sets the ids.
         /// </summary>
         /// <value>

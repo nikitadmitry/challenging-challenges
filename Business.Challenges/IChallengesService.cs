@@ -65,5 +65,8 @@ namespace Business.Challenges
 
         [OperationContract]
         Guid GetChallengeAuthor(Guid challengeId);
+
+        [OperationContract]
+        bool CheckIfSolved(Guid challengeId, Guid userId);
     }
 }

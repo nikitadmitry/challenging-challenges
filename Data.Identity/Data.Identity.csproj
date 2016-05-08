@@ -62,9 +62,9 @@
     <Compile Include="Entities\Achievement.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Enums\DataAchievementType.cs" />
-    <Compile Include="Migrations\201604242042338_Initial.cs" />
-    <Compile Include="Migrations\201604242042338_Initial.Designer.cs">
-      <DependentUpon>201604242042338_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201605032205234_InitialConfig.cs" />
+    <Compile Include="Migrations\201605032205234_InitialConfig.Designer.cs">
+      <DependentUpon>201605032205234_InitialConfig.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Context\IdentityContext.cs" />
@@ -87,11 +87,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201604242042338_Initial.resx">
-      <DependentUpon>201604242042338_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201605032205234_InitialConfig.resx">
+      <DependentUpon>201605032205234_InitialConfig.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

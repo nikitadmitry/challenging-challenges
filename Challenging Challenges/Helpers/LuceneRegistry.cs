@@ -29,7 +29,7 @@ namespace Challenging_Challenges.Helpers
             }).ToRunNow().AndEvery(20).Minutes();
         }
 
-        private IEnumerable<Guid> GetRemovedRecordIds()
+        public static IEnumerable<Guid> GetRemovedRecordIds()
         {
             Guid id;
             while (StagedToDelete.TryDequeue(out id))

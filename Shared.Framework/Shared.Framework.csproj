@@ -50,40 +50,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Automapper\AutoMapperExtensions.cs" />
-    <Compile Include="Collections\CheckBoxCollectionExtensions.cs" />
-    <Compile Include="Collections\CheckBoxItem.cs" />
-    <Compile Include="Collections\CollectionModification.cs" />
-    <Compile Include="Collections\DisabledListItem.cs" />
     <Compile Include="Collections\EnumerableExtensions.cs" />
-    <Compile Include="Collections\ICollectionModification.cs" />
-    <Compile Include="Collections\ListExtensions.cs" />
-    <Compile Include="Collections\ListItem.cs" />
-    <Compile Include="Collections\Modification.cs" />
-    <Compile Include="DataSource\ExpressionConverter.cs" />
     <Compile Include="DataSource\FilterOperator.cs" />
     <Compile Include="DataSource\ListQueryParameters.cs" />
     <Compile Include="DataSource\PageRule.cs" />
     <Compile Include="DataSource\Rules\FilterRule.cs" />
     <Compile Include="DataSource\Rules\SortRule.cs" />
-    <Compile Include="DataSource\SearchResult.cs" />
-    <Compile Include="DataSource\SearchResultExtension.cs" />
     <Compile Include="DataSource\Settings\FilterSettings.cs" />
     <Compile Include="DataSource\Settings\SortSettings.cs" />
     <Compile Include="DataSource\SortOrder.cs" />
     <Compile Include="Exceptions\DataNotFoundException.cs" />
-    <Compile Include="Extensions\AttributeExtensions.cs" />
-    <Compile Include="Extensions\EnumExtensions.cs" />
-    <Compile Include="Extensions\ExpressionExtentions.cs" />
     <Compile Include="Extensions\GuidExtensions.cs" />
-    <Compile Include="Extensions\IdentityExtensions.cs" />
-    <Compile Include="Extensions\IntExtensions.cs" />
-    <Compile Include="Extensions\JobOperationTypeExtension.cs" />
-    <Compile Include="Extensions\NullableExtension.cs" />
-    <Compile Include="Extensions\NumberToBoolExtensions.cs" />
-    <Compile Include="Extensions\ReflectionExtensions.cs" />
-    <Compile Include="Extensions\StreamExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Achievements.Designer.cs">
       <DependentUpon>Achievements.resx</DependentUpon>
@@ -101,28 +79,11 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Utilities\BaseDisposable.cs" />
-    <Compile Include="Utilities\ByKeyComparer.cs" />
-    <Compile Include="Utilities\BytesUtility.cs" />
-    <Compile Include="Utilities\CsvExtensions.cs" />
-    <Compile Include="Utilities\CurrencyValueExtensions.cs" />
-    <Compile Include="Utilities\DateTimeUtility.cs" />
-    <Compile Include="Utilities\EmptyArray.cs" />
-    <Compile Include="Utilities\EnumHelper.cs" />
-    <Compile Include="Utilities\ExpressionUtility.cs" />
-    <Compile Include="Utilities\ICloneable.cs" />
-    <Compile Include="Utilities\MaskingHelper.cs" />
     <Compile Include="Utilities\ObjectExtensions.cs" />
     <Compile Include="Utilities\ObjectTransformer.cs" />
-    <Compile Include="Utilities\ParameterRebinderUtility.cs" />
     <Compile Include="Utilities\QueryableExtensions.cs" />
-    <Compile Include="Utilities\RandomUtility.cs" />
-    <Compile Include="Utilities\ResourceHelper.cs" />
-    <Compile Include="Utilities\RoundHelper.cs" />
-    <Compile Include="Utilities\SetOnce.cs" />
-    <Compile Include="Utilities\StringValueFormatter.cs" />
     <Compile Include="Validation\CollectionMinimumLengthValidationAttribute.cs" />
     <Compile Include="Validation\Contract.cs" />
-    <Compile Include="Validation\ContractAnnotation.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Achievements.resx">

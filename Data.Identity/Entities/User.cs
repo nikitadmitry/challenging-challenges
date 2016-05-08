@@ -37,6 +37,12 @@ namespace Data.Identity.Entities
             set;
         }
 
+        public bool EmailConfirmed
+        {
+            get;
+            set;
+        }
+
         private List<Achievement> achievements;
 
         public virtual IList<Achievement> Achievements

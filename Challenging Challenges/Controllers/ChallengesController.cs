@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using Business.Achievements;
+using Business.Achievements.ViewModels;
 using Business.Challenges;
 using Business.Challenges.ViewModels;
 using Business.Identity;
@@ -38,6 +39,18 @@ namespace Challenging_Challenges.Controllers
             this.achievementsService = achievementsService;
             this.achievementsSignalRProvider = achievementsSignalRProvider;
             this.searchIndexService = searchIndexService;
+        }
+
+        [Authorize]
+        public string AchievementTest(string id = "First")
+        {
+            AchievementType achievement;
+            if (Enum.TryParse(id, out achievement))
+            {
+                achievementsSignalRProvider.ShowAchievementMessage(achievement, User.Identity.GetUserId().ToGuid());
+                return "OK";
+            }
+            return "Not a valid achievement id";
         }
 
         public JsonResult TagSearch(string term = "", int limit = 10)
@@ -143,7 +156,7 @@ namespace Challenging_Challenges.Controllers
 
             var challenge = challengesService.GetChallengeFullViewModel(id.Value);
 
-            //if (challenge == null) return RedirectToAction("Removed");
+            var userId = User.Identity.GetUserId().ToGuid();
 
             if (UserIsAuthor(challenge))
             {
@@ -151,8 +164,10 @@ namespace Challenging_Challenges.Controllers
             }
             else
             {
-                challengesService.AddSolver(id.Value, User.Identity.GetUserId().ToGuid());
+                challengesService.AddSolver(id.Value, userId);
             }
+
+            ViewBag.IsSolved = challengesService.CheckIfSolved(id.Value, userId);
 
             return View("Solve", challenge);
         }
@@ -169,11 +184,6 @@ namespace Challenging_Challenges.Controllers
 
             var userId = User.Identity.GetUserId().ToGuid();
 
-            if (challenge.Solvers.Any(x => x.UserId == userId && !x.HasSolved))
-            {
-                return RedirectToAction("Index");
-            }
-
             challengesService.AddSolveAttempt(challenge.Id, userId);
 
             var isCorrect = challengesService.TryToSolve(challenge.Id, userId, answer);
@@ -186,6 +196,7 @@ namespace Challenging_Challenges.Controllers
 
             ViewBag.IsSolved = isCorrect;
             ViewBag.Answer = answer;
+            ViewBag.ShowBanner = isCorrect;
 
             return View("Solve", challenge);
         }

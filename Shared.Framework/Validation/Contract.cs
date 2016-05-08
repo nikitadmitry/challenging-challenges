@@ -13,7 +13,6 @@ namespace Shared.Framework.Validation
         /// <typeparam name="TException">Type of exception to throw.</typeparam>
         /// <param name="condition">Condition to check.</param>
         /// <param name="parameterName">name of input parameter</param>
-        [ContractAnnotation("condition:false => halt")]
         public static void Requires<TException>(bool condition, string parameterName = null) where TException : ArgumentException
         {
             Assert<TException>(condition, parameterName);
@@ -25,7 +24,6 @@ namespace Shared.Framework.Validation
         /// <typeparam name="T">Type of exception to throw.</typeparam>
         /// <param name="condition">Condition to check.</param>
         /// <param name="message">Exception message.</param>
-        [ContractAnnotation("condition:false => halt")]
         public static void Assert<T>(bool condition, string message = null) where T : Exception
         {
             if (condition)
@@ -43,7 +41,6 @@ namespace Shared.Framework.Validation
         /// <typeparam name="T"></typeparam>
         /// <param name="source"></param>
         /// <param name="message"></param>
-        [ContractAnnotation("source:null => halt")]
         public static void NotNull<T>(object source, string message = null) where T : Exception
         {
             if (source != null)

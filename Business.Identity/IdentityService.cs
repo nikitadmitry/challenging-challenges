@@ -114,6 +114,16 @@ namespace Business.Identity
             return Mapper.Map<List<UserTopViewModel>>(users);
         }
 
+        public void ConfirmEmail(Guid userId)
+        {
+            var user = unitOfWork.Get<User>(userId);
+
+            user.EmailConfirmed = true;
+
+            unitOfWork.InsertOrUpdate(user);
+            unitOfWork.Commit();
+        }
+
         public IdentityUser GetIdentityUserById(Guid userId)
         {
             var user = unitOfWork.Get<User>(userId);

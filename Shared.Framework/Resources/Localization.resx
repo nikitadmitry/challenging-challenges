@@ -218,7 +218,7 @@
   </data>
   <data name="Register" xml:space="preserve">
     <value>Register</value>
-  <comment>@Invariant</comment></data>
+  </data>
   <data name="LoginTitle" xml:space="preserve">
     <value>Login to our site</value>
   </data>

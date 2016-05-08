@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Data.Identity.Entities;
 using Microsoft.AspNet.Identity;
 
 namespace Business.Identity.ViewModels

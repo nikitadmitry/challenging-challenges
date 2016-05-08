@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using Data.Common.Query.QueryParameters;
 
 namespace Data.Common
@@ -86,20 +85,6 @@ namespace Data.Common
         T InsertOrUpdate<T>(T entity) where T : Entity;
 
         /// <summary>
-        /// Saves entity in the repository and does not mark it as modified.
-        /// </summary>
-        /// <param name="entity">Entity to save.</param>
-        /// <returns>Saved entity.</returns>
-        T InsertOrUpdateWithSkipTrackingProperties<T>(T entity) where T : Entity;
-
-        /// <summary>
-        /// Saves entity in the repository with AutoDetectChangesEnabled and ValidateOnSaveEnabled options turned off.
-        /// </summary>
-        /// <param name="entities">Entities to save.</param>
-        /// <returns>Saved bulk.</returns>
-        IEnumerable<T> BulkInsertOrUpdate<T>(IEnumerable<T> entities) where T : Entity;
-
-        /// <summary>
         /// Delete entity from repository.
         /// </summary>
         /// <typeparam name="T">Entity type.</typeparam>
@@ -115,27 +100,9 @@ namespace Data.Common
         int Count<T>(BaseQueryParameters parameters) where T : Entity;
 
         /// <summary>
-        /// Evict entity from context.
-        /// </summary>
-        /// <typeparam name="T">Entity type.</typeparam>
-        /// <param name="entity">Entity to Evict.</param>
-        void Evict<T>(T entity) where T : Entity;
-
-        /// <summary>
         /// Creates new instance of an entity.
         /// It must be used in cases when you want to create entity instance and save it without retrieving it from DB.
         /// </summary>
         T Create<T>() where T : Entity;
-
-        /// <summary>
-        /// Load Navigation Property
-        /// </summary>
-        /// <typeparam name="TEntity"></typeparam>
-        /// <typeparam name="TProperty"></typeparam>
-        /// <param name="entity"></param>
-        /// <param name="navigationProperty"></param>
-        void LoadNavigationProperty<TEntity, TProperty>(TEntity entity, Expression<Func<TEntity, TProperty>> navigationProperty)
-            where TProperty : class
-            where TEntity : Entity;
     }
 }

@@ -4,12 +4,6 @@ namespace Business.Challenges.ViewModels
 {
     public class ChallengeFullViewModel : ChallengeViewModel
     {
-        public List<SolverViewModel> Solvers
-        {
-            get;
-            set;
-        }
-
         public List<CommentViewModel> Comments
         {
             get;

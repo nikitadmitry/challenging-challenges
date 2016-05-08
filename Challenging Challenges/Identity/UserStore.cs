@@ -103,8 +103,12 @@ namespace Challenging_Challenges.Identity
         public Task SetEmailConfirmedAsync(IdentityUser user, bool confirmed)
         {
             Contract.NotNull<ArgumentNullException>(user);
+            Contract.NotDefault<InvalidOperationException, Guid>(user.Id, "user id must not be default");
 
-            user.EmailConfirmed = confirmed;
+            if (confirmed)
+            {
+                identityService.ConfirmEmail(user.Id);
+            }
 
             return Task.FromResult(0);
         }

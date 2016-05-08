@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
+using Autofac;
+using Business.Achievements;
 using Business.Achievements.ViewModels;
 using Business.Challenges;
 using Business.Challenges.ViewModels;
+using Business.SearchIndex;
 using Challenging_Challenges.Enums;
 using Challenging_Challenges.Helpers;
 using Challenging_Challenges.Infrastructure;
@@ -42,16 +45,21 @@ namespace Challenging_Challenges.Controllers
             return "Not a valid achievement id";
         }
 
-        //todo fix theeeees
-        //public string UpdateIndex()
-        //{
-        //    LuceneSearch.AddUpdateLuceneIndex(IndexRepository.GetAll());
-        //    IdentityContext usersDb = new IdentityContext();
-        //    User user = usersDb.Users.OrderByDescending(x => x.Rating).Take(1).First();
-        //    //todo fix
-        //    //new StatisticsWorker(usersDb, user).BecameTopOne();
-        //    return "OK";
-        //}
+        [Authorize]
+        public string UpdateIndex()
+        {
+            using (var scope = DependencyRegistration.Container.BeginLifetimeScope())
+            {
+                var searchIndexService = scope.Resolve<ISearchIndexService>();
+
+                searchIndexService.RemoveRecords(LuceneRegistry.GetRemovedRecordIds());
+                searchIndexService.UpdateIndex();
+                searchIndexService.Optimize();
+
+                scope.Resolve<IAchievementsService>().UpdateTopOne();
+            }
+            return "OK";
+        }
 
         public ActionResult Index()
         {
