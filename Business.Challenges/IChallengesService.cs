@@ -40,7 +40,7 @@ namespace Business.Challenges
         void AddSolveAttempt(Guid challengeId, Guid userId);
 
         [OperationContract]
-        bool TryToSolve(Guid challengeId, Guid userId, string answer);
+        ChallengeSolveResult TryToSolve(Guid challengeId, Guid userId, string answer);
 
         [OperationContract]
         int GetChallengeTimesSolved(Guid challengeId);

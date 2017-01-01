@@ -12,7 +12,6 @@ using Business.SearchIndex;
 using Challenging_Challenges.Helpers;
 using Challenging_Challenges.Infrastructure;
 using Microsoft.AspNet.Identity;
-using PagedList;
 using Shared.Framework.DataSource;
 using Shared.Framework.Resources;
 
@@ -190,17 +189,17 @@ namespace Challenging_Challenges.Controllers
 
             challengesService.AddSolveAttempt(challenge.Id, userId);
 
-            var isCorrect = challengesService.TryToSolve(challenge.Id, userId, answer);
+            var solveResult = challengesService.TryToSolve(challenge.Id, userId, answer);
 
-            if (isCorrect)
+            if (solveResult.IsSolved)
             {
                 var achievement = achievementsService.ChallengeSolved(challenge.Id, userId);
                 achievementsSignalRProvider.ShowAchievementMessage(achievement, userId);
             }
 
-            ViewBag.IsSolved = isCorrect;
+            ViewBag.IsSolved = solveResult.IsSolved;
             ViewBag.Answer = answer;
-            ViewBag.ShowBanner = isCorrect;
+            ViewBag.ShowBanner = solveResult.IsSolved;
 
             return View("Solve", challenge);
         }

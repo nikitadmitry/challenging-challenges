@@ -60,6 +60,17 @@ namespace Business.Challenges.ViewModels
         [Display(ResourceType = typeof(Localization), Name = "Language")]
         public Language Language { get; set; }
 
+        [Required]
+        [Display(ResourceType = typeof(Localization), Name = "ChallengeType")]
+        public ChallengeType ChallengeType { get; set; }
+
+        [Display(ResourceType = typeof(Localization), Name = "SourceCode")]
+        public string SourceCode
+        {
+            get;
+            set;
+        }
+
         public Guid AuthorId
         {
             get;

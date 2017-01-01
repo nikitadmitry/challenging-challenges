@@ -132,6 +132,12 @@ namespace Data.Challenges.Entities
             get;
             set;
         }
+
+        public string SolutionSourceCode
+        {
+            get;
+            set;
+        }
     }
 
     public interface ITaggable

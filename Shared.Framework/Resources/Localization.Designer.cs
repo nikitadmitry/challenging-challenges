@@ -133,6 +133,15 @@ namespace Shared.Framework.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Provided answer is not a valid one..
+        /// </summary>
+        public static string AnswerNotValid {
+            get {
+                return ResourceManager.GetString("AnswerNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} are required.
         /// </summary>
         public static string AreRequired {
@@ -214,6 +223,15 @@ namespace Shared.Framework.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Challenge Type.
+        /// </summary>
+        public static string ChallengeType {
+            get {
+                return ResourceManager.GetString("ChallengeType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change Password.
         /// </summary>
         public static string ChangePassword {
@@ -246,6 +264,15 @@ namespace Shared.Framework.Resources {
         public static string Code {
             get {
                 return ResourceManager.GetString("Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Code Answer.
+        /// </summary>
+        public static string CodeAnsweredChallengeType {
+            get {
+                return ResourceManager.GetString("CodeAnsweredChallengeType", resourceCulture);
             }
         }
         
@@ -1042,6 +1069,15 @@ namespace Shared.Framework.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Source Code.
+        /// </summary>
+        public static string SourceCode {
+            get {
+                return ResourceManager.GetString("SourceCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Successfully Rated.
         /// </summary>
         public static string SuccessfullyRated {
@@ -1065,6 +1101,15 @@ namespace Shared.Framework.Resources {
         public static string Tags {
             get {
                 return ResourceManager.GetString("Tags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text Answer.
+        /// </summary>
+        public static string TextAnsweredChallengeType {
+            get {
+                return ResourceManager.GetString("TextAnsweredChallengeType", resourceCulture);
             }
         }
         
@@ -1209,6 +1254,15 @@ namespace Shared.Framework.Resources {
         public static string WrongInput {
             get {
                 return ResourceManager.GetString("WrongInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expected output to be {0}, but found {1}..
+        /// </summary>
+        public static string WrongTestCaseOutputTemplate {
+            get {
+                return ResourceManager.GetString("WrongTestCaseOutputTemplate", resourceCulture);
             }
         }
         

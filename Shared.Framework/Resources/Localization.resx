@@ -516,4 +516,22 @@
   <data name="AchievementUnlocked" xml:space="preserve">
     <value>Achievement unlocked</value>
   </data>
+  <data name="AnswerNotValid" xml:space="preserve">
+    <value>Provided answer is not a valid one.</value>
+  </data>
+  <data name="WrongTestCaseOutputTemplate" xml:space="preserve">
+    <value>Expected output to be {0}, but found {1}.</value>
+  </data>
+  <data name="ChallengeType" xml:space="preserve">
+    <value>Challenge Type</value>
+  </data>
+  <data name="CodeAnsweredChallengeType" xml:space="preserve">
+    <value>Code Answer</value>
+  </data>
+  <data name="TextAnsweredChallengeType" xml:space="preserve">
+    <value>Text Answer</value>
+  </data>
+  <data name="SourceCode" xml:space="preserve">
+    <value>Source Code</value>
+  </data>
 </root>

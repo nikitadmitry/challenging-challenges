@@ -6,6 +6,7 @@ using System.Reflection;
 using System.ServiceModel;
 using System.Text;
 using AutoMapper;
+using Business.Challenges.Private;
 using Business.Challenges.ViewModels;
 using Business.Identity;
 using Business.SearchIndex;
@@ -27,14 +28,17 @@ namespace Business.Challenges
         private readonly IChallengesUnitOfWork unitOfWork;
         private readonly IIdentityService identityService;
         private readonly ISearchIndexService searchIndexService;
+        private readonly Lazy<IChallengeSolutionDispatcher> challengeSolutionDispatcher;
 
         public ChallengesService(IChallengesUnitOfWork unitOfWork, 
             IIdentityService identityService,
-            ISearchIndexService searchIndexService)
+            ISearchIndexService searchIndexService,
+            Lazy<IChallengeSolutionDispatcher> challengeSolutionDispatcher)
         {
             this.unitOfWork = unitOfWork;
             this.identityService = identityService;
             this.searchIndexService = searchIndexService;
+            this.challengeSolutionDispatcher = challengeSolutionDispatcher;
         }
 
         public ChallengeViewModel AddChallenge(ChallengeViewModel challenge)
@@ -175,27 +179,9 @@ namespace Business.Challenges
             unitOfWork.Commit();
         }
 
-        public bool TryToSolve(Guid challengeId, Guid userId, string answer)
+        public ChallengeSolveResult TryToSolve(Guid challengeId, Guid userId, string answer)
         {
-            Contract.NotDefault<InvalidOperationException, Guid>(userId, "user id must be not default");
-
-            var challenge = unitOfWork.Get<Challenge>(challengeId);
-
-            var solver = challenge.Solvers.Single(x => x.UserId == userId);
-
-            if (!challenge.Answers.Select(x => x.Value).Any(x => x.Equals(answer.ToLower())))
-            {
-                return false;
-            }
-
-            solver.HasSolved = true;
-            challenge.TimesSolved++;
-
-            unitOfWork.InsertOrUpdate(challenge);
-            unitOfWork.InsertOrUpdate(solver);
-            unitOfWork.Commit();
-
-            return true;
+            return challengeSolutionDispatcher.Value.Solve(challengeId, userId, answer);
         }
 
         public int GetChallengeTimesSolved(Guid challengeId)

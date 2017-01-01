@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Autofac.Integration.Wcf;
+using Business.Challenges;
 using Business.Host.Modules;
 
 namespace Business.Host

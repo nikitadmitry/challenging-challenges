@@ -519,4 +519,22 @@
   <data name="AchievementUnlocked" xml:space="preserve">
     <value>Достижение разблокировано</value>
   </data>
+  <data name="AnswerNotValid" xml:space="preserve">
+    <value>Введенный ответ не верен.</value>
+  </data>
+  <data name="WrongTestCaseOutputTemplate" xml:space="preserve">
+    <value>Ожидался результат {0}, но получен {1}.</value>
+  </data>
+  <data name="ChallengeType" xml:space="preserve">
+    <value>Тип задачи</value>
+  </data>
+  <data name="CodeAnsweredChallengeType" xml:space="preserve">
+    <value>Ответ кодом</value>
+  </data>
+  <data name="TextAnsweredChallengeType" xml:space="preserve">
+    <value>Текстовый ответ</value>
+  </data>
+  <data name="SourceCode" xml:space="preserve">
+    <value>Исходный код</value>
+  </data>
 </root>
