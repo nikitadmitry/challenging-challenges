@@ -2,7 +2,8 @@
 {
     internal enum CodeExecutionStatus
     {
-        Completed = 0,
+        Success = 0,
+        Compilation = 1,
         Running = 3
     }
 }

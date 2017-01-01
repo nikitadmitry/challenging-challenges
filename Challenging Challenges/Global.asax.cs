@@ -17,7 +17,7 @@ namespace Challenging_Challenges
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             DependencyRegistration.ConfigureContainer();
-            TaskManager.Initialize(new LuceneRegistry());
+            //TaskManager.Initialize(new LuceneRegistry());
         }
     }
 }

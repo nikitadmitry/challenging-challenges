@@ -83,6 +83,10 @@
     <Compile Include="Migrations\201701011121149_AddTestCasedChallenges.Designer.cs">
       <DependentUpon>201701011121149_AddTestCasedChallenges.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701011413310_AddSourceCodeToChallenge.cs" />
+    <Compile Include="Migrations\201701011413310_AddSourceCodeToChallenge.Designer.cs">
+      <DependentUpon>201701011413310_AddSourceCodeToChallenge.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Context\IChallengesUnitOfWork.cs" />
@@ -106,6 +110,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701011121149_AddTestCasedChallenges.resx">
       <DependentUpon>201701011121149_AddTestCasedChallenges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701011413310_AddSourceCodeToChallenge.resx">
+      <DependentUpon>201701011413310_AddSourceCodeToChallenge.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

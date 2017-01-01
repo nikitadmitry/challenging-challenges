@@ -5,9 +5,11 @@ using AutoMapper;
 using Data.Challenges.Context;
 using Data.Challenges.Entities;
 using Lucene.Net.Search;
+using System.ServiceModel;
 
 namespace Business.SearchIndex
 {
+    [ServiceBehavior(IncludeExceptionDetailInFaults = true)]
     public class SearchIndexService: ISearchIndexService
     {
         private readonly IChallengesUnitOfWork challengesUnitOfWork;

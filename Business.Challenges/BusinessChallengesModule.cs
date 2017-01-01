@@ -20,12 +20,10 @@ namespace Business.Challenges
         private void RegisterChallengeSolvingStrategies(ContainerBuilder builder)
         {
             builder.RegisterType<TextChallengeSolvingStrategy>()
-                .As<IChallengeSolvingStrategy>()
-                .Keyed<ChallengeType>(ChallengeType.TextAnswered);
+                .Keyed<IChallengeSolvingStrategy>(ChallengeType.TextAnswered);
 
             builder.RegisterType<TestCaseChallengeSolvingStrategy>()
-                .As<IChallengeSolvingStrategy>()
-                .Keyed<ChallengeType>(ChallengeType.CodeAnswered);
+                .Keyed<IChallengeSolvingStrategy>(ChallengeType.CodeAnswered);
         }
     }
 }

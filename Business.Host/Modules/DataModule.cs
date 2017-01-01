@@ -13,10 +13,10 @@ namespace Business.Host.Modules
             builder.RegisterType(typeof(UnitOfWork)).As(typeof(IUnitOfWork));
 
             builder.RegisterType(typeof(ChallengesUnitOfWork)).As(typeof(IChallengesUnitOfWork))
-                .InstancePerRequest();
+                .InstancePerLifetimeScope();
 
             builder.RegisterType(typeof(IdentityUnitOfWork)).As(typeof(IIdentityUnitOfWork))
-                .InstancePerRequest();
+                .InstancePerLifetimeScope();
 
             base.Load(builder);
         }

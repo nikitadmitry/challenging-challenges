@@ -10,9 +10,9 @@ namespace Business.Host.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType(typeof(IdentityService)).As(typeof(IIdentityService))/*.InstancePerRequest()*/;
-            builder.RegisterType(typeof(AchievementsService)).As(typeof(IAchievementsService))/*.InstancePerRequest()*/;
-            builder.RegisterType(typeof(SearchIndexService)).As(typeof(ISearchIndexService))/*.InstancePerRequest()*/;
+            builder.RegisterType(typeof(IdentityService)).As(typeof(IIdentityService));
+            builder.RegisterType(typeof(AchievementsService)).As(typeof(IAchievementsService));
+            builder.RegisterType(typeof(SearchIndexService)).As(typeof(ISearchIndexService));
             
             builder.RegisterModule(new BusinessChallengesModule());
 

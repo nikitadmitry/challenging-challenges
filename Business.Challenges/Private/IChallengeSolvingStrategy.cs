@@ -4,7 +4,7 @@ using Data.Challenges.Entities;
 
 namespace Business.Challenges.Private
 {
-    internal interface IChallengeSolvingStrategy
+    public interface IChallengeSolvingStrategy
     {
         ChallengeSolveResult Solve(Challenge challenge, Guid userId, string answer);
     }

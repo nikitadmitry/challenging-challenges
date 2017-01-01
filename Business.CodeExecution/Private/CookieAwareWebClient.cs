@@ -3,6 +3,8 @@ using System.Net;
 
 namespace Business.CodeExecution.Private
 {
+    class Dummy { } //this is to fix IDE issue with marking file as 'Compile'
+
     public class CookieAwareWebClient : WebClient
     {
         public CookieAwareWebClient()

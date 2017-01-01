@@ -42,7 +42,8 @@ namespace Business.CodeExecution
 
                 var responseObject = (dynamic)JsonConvert.DeserializeObject(httpResponse);
 
-                if ((CodeExecutionStatus)responseObject.status != CodeExecutionStatus.Running)
+                if ((CodeExecutionStatus)responseObject.status != CodeExecutionStatus.Running
+                    && (CodeExecutionStatus)responseObject.status != CodeExecutionStatus.Compilation)
                 {
                     return ConvertHttpResponseToExecutionResponse(responseObject);
                 }

@@ -55,57 +55,13 @@ namespace Challenging_Challenges
         {
             var businessAddress = ConfigurationValuesProvider.Get<string>("BusinessAddress");
 
-            builder
-                .Register(c => new ChannelFactory<T>(
-                    new BasicHttpBinding(),
+            builder.Register(c => new ChannelFactory<T>(
+                    new WSHttpBinding(),
                     new EndpointAddress($"{businessAddress}{serviceName}.svc")))
                 .SingleInstance();
 
-            builder
-                .Register(c => c.Resolve<ChannelFactory<T>>().CreateChannel())
+            builder.Register(c => c.Resolve<ChannelFactory<T>>().CreateChannel())
                 .As<T>()
-                .UseWcfSafeRelease();
-        }
-
-        private static void RegisterChallengesService(ContainerBuilder builder, string businessAddress)
-        {
-            builder
-                .Register(c => new ChannelFactory<IChallengesService>(
-                    new BasicHttpBinding(),
-                    new EndpointAddress($"{businessAddress}ChallengesService.svc")))
-                .SingleInstance();
-
-            builder
-                .Register(c => c.Resolve<ChannelFactory<IChallengesService>>().CreateChannel())
-                .As<IChallengesService>()
-                .UseWcfSafeRelease();
-        }
-
-        private static void RegisterIdentityService(ContainerBuilder builder, string businessAddress)
-        {
-            builder
-                .Register(c => new ChannelFactory<IIdentityService>(
-                    new BasicHttpBinding(),
-                    new EndpointAddress($"{businessAddress}IdentityService.svc")))
-                .SingleInstance();
-
-            builder
-                .Register(c => c.Resolve<ChannelFactory<IIdentityService>>().CreateChannel())
-                .As<IIdentityService>()
-                .UseWcfSafeRelease();
-        }
-
-        private static void RegisterAchievementsService(ContainerBuilder builder, string businessAddress)
-        {
-            builder
-                .Register(c => new ChannelFactory<IAchievementsService>(
-                    new BasicHttpBinding(),
-                    new EndpointAddress($"{businessAddress}AchievementsService.svc")))
-                .SingleInstance();
-
-            builder
-                .Register(c => c.Resolve<ChannelFactory<IAchievementsService>>().CreateChannel())
-                .As<IAchievementsService>()
                 .UseWcfSafeRelease();
         }
     }

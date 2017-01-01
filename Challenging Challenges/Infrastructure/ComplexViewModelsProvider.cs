@@ -39,16 +39,16 @@ namespace Challenging_Challenges.Infrastructure
             };
 
             viewModel.LatestChallenges =
-                PagedListBuilder<ChallengesDescriptionViewModel>.Build(challengesService.GetLatestChallenges(pageRule),
-                    1, count, totalCount);
+                PagedListBuilder<ChallengesDescriptionViewModel>.Build(
+                    challengesService.GetLatestChallenges(pageRule), 1, count, totalCount);
 
             viewModel.PopularChallenges =
-                PagedListBuilder<ChallengesDescriptionViewModel>.Build(challengesService.GetPopularChallenges(pageRule),
-                    1, count, totalCount);
+                PagedListBuilder<ChallengesDescriptionViewModel>.Build(
+                    challengesService.GetPopularChallenges(pageRule), 1, count, totalCount);
 
             viewModel.UnsolvedChallenges = 
-                PagedListBuilder<ChallengesDescriptionViewModel>.Build(challengesService.GetUnsolvedChallenges(pageRule),
-                   1, count, totalCount);
+                PagedListBuilder<ChallengesDescriptionViewModel>.Build(
+                    challengesService.GetUnsolvedChallenges(pageRule), 1, count, totalCount);
 
             viewModel.TopUsers = identityService.GetTopUsers();
 

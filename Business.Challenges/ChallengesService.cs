@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.ServiceModel;
 using System.Text;
+using Autofac;
 using AutoMapper;
 using Business.Challenges.Private;
 using Business.Challenges.ViewModels;
@@ -22,7 +23,7 @@ using Shared.Framework.Validation;
 
 namespace Business.Challenges
 {
-    [ServiceBehavior(IncludeExceptionDetailInFaults = true/*, InstanceContextMode = InstanceContextMode.PerCall*/)]
+    [ServiceBehavior(IncludeExceptionDetailInFaults = true)]
     public class ChallengesService: IChallengesService
     {
         private readonly IChallengesUnitOfWork unitOfWork;
