@@ -242,7 +242,7 @@ namespace Data.Common.Query.FilterExpressions
 
         private static bool IsFloatOrDouble(object value)
         {
-            return (value is Single || value is Double);
+            return value is Single || value is Double;
         }
 
         private static bool CanAndShouldBeConvertedToEnumForNullable(object value, Type propertyType)

@@ -49,25 +49,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IUnitOfWork.cs" />
-    <Compile Include="MultiMappingEntityAttribute.cs" />
-    <Compile Include="MultiMappingEntityRole.cs" />
     <Compile Include="Query\Builder\FilterSettingRuleContainer.cs" />
     <Compile Include="Query\Builder\FilterSettingsBuilder.cs" />
     <Compile Include="Query\Builder\SortSettingsBuilder.cs" />
-    <Compile Include="Query\FilterExpressions\BaseFilterExpressionProvider.cs" />
+    <Compile Include="Query\FilterExpressions\FilterExpressionProvider.cs" />
     <Compile Include="Query\FilterExpressions\DateInterval.cs" />
     <Compile Include="Query\FilterExpressions\DateIntervalFilterExpressionProvider.cs" />
     <Compile Include="Query\FilterExpressions\DefaultFilterExpressionProvider.cs" />
     <Compile Include="Query\FilterExpressions\FilterExpressionProviderFactory.cs" />
     <Compile Include="Query\FilterExpressions\IFilterExpressionProvider.cs" />
-    <Compile Include="Query\QueryParameters\BaseQueryParameters.cs" />
+    <Compile Include="Query\QueryParameters\QueryParameters.cs" />
     <Compile Include="Query\Rules\ComplexFilterRule.cs" />
     <Compile Include="Query\Rules\FilterRule.cs" />
     <Compile Include="Query\Rules\IFilterRule.cs" />
     <Compile Include="Query\Rules\SortRule.cs" />
     <Compile Include="Query\Settings\FilterSettings.cs" />
     <Compile Include="Query\Settings\SortSettings.cs" />
-    <Compile Include="ReferenceEntityModifyingException.cs" />
     <Compile Include="Repository.cs" />
     <Compile Include="State.cs" />
     <Compile Include="Entity.cs" />

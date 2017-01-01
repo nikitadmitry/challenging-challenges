@@ -21,12 +21,14 @@ namespace Challenging_Challenges.Controllers
             this.userManager = userManager;
         }
 
-        public void SetAbout(string value)
+        public ActionResult SetAbout(string value)
         {
-            if (string.IsNullOrEmpty(value)) return;
+            if (value.Length > 100)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             IdentityUser user = userManager.FindById(Guid.Parse(User.Identity.GetUserId()));
             user.About = value;
             userManager.Update(user);
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         //
@@ -34,10 +36,12 @@ namespace Challenging_Challenges.Controllers
         [HttpPost]
         public async Task<ActionResult> ChangeUserName(string value)
         {
-            if (string.IsNullOrEmpty(value)) return null;
             Regex regex = new Regex("^([A-Z][a-z]+ [A-Z][a-z]+)$");
-            if (!regex.IsMatch(value))
-                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            if (string.IsNullOrEmpty(value) || value.Length > 50 || !regex.IsMatch(value))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
             if (userManager.FindByName(value) == null)
             {
                 IdentityUser user = userManager.FindById(Guid.Parse(User.Identity.GetUserId()));
@@ -47,7 +51,7 @@ namespace Challenging_Challenges.Controllers
             }
             else
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
             }
             return null;
         }

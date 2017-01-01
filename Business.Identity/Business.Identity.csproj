@@ -53,6 +53,7 @@
     <Compile Include="IIdentityService.cs" />
     <Compile Include="Mappings\IdentityMapProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\IdentityRole.cs" />
     <Compile Include="ViewModels\IdentityUser.cs" />
     <Compile Include="ViewModels\UserTopViewModel.cs" />
   </ItemGroup>

@@ -52,7 +52,7 @@ namespace Business.Identity
 
         public IdentityUser GetIdentityUserByUserName(string userName)
         {
-            var parameters = new BaseQueryParameters
+            var parameters = new QueryParameters
             {
                 FilterSettings = FilterSettingsBuilder<User>.Create()
                     .AddFilterRule(x => x.UserName, FilterOperator.IsEqualTo, userName)
@@ -66,7 +66,7 @@ namespace Business.Identity
 
         public IdentityUser GetIdentityUserByEmail(string email)
         {
-            var parameters = new BaseQueryParameters
+            var parameters = new QueryParameters
             {
                 FilterSettings = FilterSettingsBuilder<User>.Create()
                     .AddFilterRule(x => x.Email, FilterOperator.IsEqualTo, email)
@@ -97,7 +97,7 @@ namespace Business.Identity
 
         public IList<UserTopViewModel> GetTopUsers()
         {
-            var parameters = new BaseQueryParameters
+            var parameters = new QueryParameters
             {
                 SortSettings = SortSettingsBuilder<User>.Create()
                     .DescendingBy("Rating")
@@ -122,6 +122,27 @@ namespace Business.Identity
 
             unitOfWork.InsertOrUpdate(user);
             unitOfWork.Commit();
+        }
+
+        public IdentityRole GetRoleById(Guid roleId)
+        {
+            var role = unitOfWork.Get<Role>(roleId);
+
+            return Mapper.Map<IdentityRole>(role);
+        }
+
+        public IdentityRole GetRoleByName(string roleName)
+        {
+            var parameters = new QueryParameters
+            {
+                FilterSettings = FilterSettingsBuilder<Role>.Create()
+                    .AddFilterRule(x => x.Name, FilterOperator.IsEqualTo, roleName)
+                    .GetSettings()
+            };
+
+            var role = unitOfWork.GetSingleOrDefault<Role>(parameters);
+
+            return Mapper.Map<IdentityRole>(role);
         }
 
         public IdentityUser GetIdentityUserById(Guid userId)

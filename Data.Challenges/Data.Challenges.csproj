@@ -54,9 +54,13 @@
     <Compile Include="Context\TagService.cs" />
     <Compile Include="Entities\Answer.cs" />
     <Compile Include="Entities\Challenge.cs" />
+    <Compile Include="Entities\CodeParameter.cs" />
     <Compile Include="Entities\Comment.cs" />
     <Compile Include="Entities\Solver.cs" />
     <Compile Include="Entities\Tag.cs" />
+    <Compile Include="Entities\TestCase.cs" />
+    <Compile Include="Enums\ChallengeType.cs" />
+    <Compile Include="Enums\CodeParameterType.cs" />
     <Compile Include="Enums\Language.cs" />
     <Compile Include="Enums\Section.cs" />
     <Compile Include="Migrations\201604240110407_Initial.cs" />
@@ -74,6 +78,10 @@
     <Compile Include="Migrations\201605032000588_Comment_AddLinkToUser.cs" />
     <Compile Include="Migrations\201605032000588_Comment_AddLinkToUser.Designer.cs">
       <DependentUpon>201605032000588_Comment_AddLinkToUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701011121149_AddTestCasedChallenges.cs" />
+    <Compile Include="Migrations\201701011121149_AddTestCasedChallenges.Designer.cs">
+      <DependentUpon>201701011121149_AddTestCasedChallenges.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -95,6 +103,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605032000588_Comment_AddLinkToUser.resx">
       <DependentUpon>201605032000588_Comment_AddLinkToUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701011121149_AddTestCasedChallenges.resx">
+      <DependentUpon>201701011121149_AddTestCasedChallenges.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

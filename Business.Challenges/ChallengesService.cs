@@ -222,7 +222,7 @@ namespace Business.Challenges
 
         public List<ChallengesDescriptionViewModel> GetLatestChallenges(PageRule pageRule)
         {
-            var queryParameters = new BaseQueryParameters
+            var queryParameters = new QueryParameters
             {
                 PageRule = pageRule,
                 SortSettings = SortSettingsBuilder<Challenge>
@@ -238,7 +238,7 @@ namespace Business.Challenges
 
         public List<ChallengesDescriptionViewModel> GetPopularChallenges(PageRule pageRule)
         {
-            var queryParameters = new BaseQueryParameters
+            var queryParameters = new QueryParameters
             {
                 PageRule = pageRule,
                 SortSettings = SortSettingsBuilder<Challenge>
@@ -254,7 +254,7 @@ namespace Business.Challenges
 
         public List<ChallengesDescriptionViewModel> GetUnsolvedChallenges(PageRule pageRule)
         {
-            var queryParameters = new BaseQueryParameters
+            var queryParameters = new QueryParameters
             {
                 PageRule = pageRule,
                 SortSettings = SortSettingsBuilder<Challenge>
@@ -274,7 +274,7 @@ namespace Business.Challenges
 
         public int GetChallengesCount()
         {
-            return unitOfWork.Count<Challenge>(BaseQueryParameters.Empty);
+            return unitOfWork.Count<Challenge>(QueryParameters.Empty);
         }
 
         public string GetTagsAsStringByChallengeId(Guid challengeId)
@@ -328,7 +328,7 @@ namespace Business.Challenges
 
         private IList<Challenge> SearchChallengesOnDb(string keyword, string property, PageRule pageRule)
         {
-            var queryParameters = new BaseQueryParameters
+            var queryParameters = new QueryParameters
             {
                 PageRule = pageRule
             };
@@ -347,7 +347,7 @@ namespace Business.Challenges
             return challenges;
         }
 
-        private void PopulateFilterSettings(string keyword, string property, BaseQueryParameters queryParameters)
+        private void PopulateFilterSettings(string keyword, string property, QueryParameters queryParameters)
         {
             var propertyInfo = GetPropertyInfo(property);
 

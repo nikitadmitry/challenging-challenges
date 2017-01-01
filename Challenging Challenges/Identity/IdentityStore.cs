@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Business.Identity;
 using Business.Identity.ViewModels;
@@ -7,11 +8,15 @@ using Shared.Framework.Validation;
 
 namespace Challenging_Challenges.Identity
 {
-    public class UserStore : IUserPasswordStore<IdentityUser, Guid>, IUserEmailStore<IdentityUser, Guid>, IUserStore<IdentityUser, Guid>
+    public class IdentityStore 
+        : IUserPasswordStore<IdentityUser, Guid>,
+        IUserEmailStore<IdentityUser, Guid>, 
+        IUserStore<IdentityUser, Guid>,
+        IUserRoleStore<IdentityUser, Guid>
     {
         private readonly IIdentityService identityService;
 
-        public UserStore(IIdentityService identityService)
+        public IdentityStore(IIdentityService identityService)
         {
             this.identityService = identityService;
         }
@@ -118,6 +123,26 @@ namespace Challenging_Challenges.Identity
             IdentityUser user = identityService.GetIdentityUserByEmail(email);
 
             return Task.FromResult(user);
+        }
+
+        public Task AddToRoleAsync(IdentityUser user, string roleName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task RemoveFromRoleAsync(IdentityUser user, string roleName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IList<string>> GetRolesAsync(IdentityUser user)
+        {
+            return Task.FromResult(user.Roles);
+        }
+
+        public Task<bool> IsInRoleAsync(IdentityUser user, string roleName)
+        {
+            return Task.FromResult(user.Roles.Contains(roleName));
         }
     }
 }

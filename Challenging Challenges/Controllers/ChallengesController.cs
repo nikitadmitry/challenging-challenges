@@ -61,9 +61,13 @@ namespace Challenging_Challenges.Controllers
         }
 
         // GET, POST: Challenges
-        public ActionResult Index(string keyword = "", string field = "", int page = 0)
+        public ActionResult Index(string keyword = "", string field = "", int page = 1)
         {
-            if (page < 0) page = 0;
+            if (page < 1) page = 1;
+            if (keyword.Length > 200)
+            {
+                keyword = keyword.Substring(0, 200);
+            }
 
             var count = ConfigurationValuesProvider.Get<int>("TotalChallengesFetchedNumber");
 
@@ -72,12 +76,12 @@ namespace Challenging_Challenges.Controllers
             var pageRule = new PageRule
             {
                 Count = count,
-                Start = count * page
+                Start = count * (page-1)
             };
 
             var pagedList =
                 PagedListBuilder<ChallengeInfoViewModel>.Build(
-                    challengesService.GetByProperty(keyword, field, pageRule), ++page, count, totalCount);
+                    challengesService.GetByProperty(keyword, field, pageRule), page, count, totalCount);
    
             return Request.IsAjaxRequest()
                 ? (ActionResult)PartialView("_ChallengesIndexList", pagedList)

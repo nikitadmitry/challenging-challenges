@@ -11,6 +11,12 @@ namespace Data.Identity.Context
             set;
         }
 
+        public DbSet<Role> Roles
+        {
+            get;
+            set;
+        }
+
         public IdentityContext() : base("IdentityConnection")
         {
         }

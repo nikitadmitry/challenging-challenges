@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Dynamic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
 
 namespace Shared.Framework.Utilities
 {

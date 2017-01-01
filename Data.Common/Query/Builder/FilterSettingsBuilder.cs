@@ -129,15 +129,15 @@ namespace Data.Common.Query.Builder
         }
 
         /// <summary>
-        /// Converts internal filter rules to the instance of <see cref="BaseQueryParameters"/>
+        /// Converts internal filter rules to the instance of <see cref="QueryParameters"/>
         /// </summary>
-        public BaseQueryParameters ToListQueryParameters()
+        public QueryParameters.QueryParameters ToListQueryParameters()
         {
-            return ToQueryParameters<BaseQueryParameters>();
+            return ToQueryParameters<QueryParameters.QueryParameters>();
         }
 
         private TParameters ToQueryParameters<TParameters>()
-            where TParameters: BaseQueryParameters, new()
+            where TParameters: QueryParameters.QueryParameters, new()
         {
             return new TParameters
             {

@@ -18,16 +18,18 @@ namespace Challenging_Challenges
 
         private async Task ConfigSendGridasync(IdentityMessage message)
         {
-            var smtp = new SmtpClient("smtp.sendgrid.net", 587);
+            var smtp = new SmtpClient(ConfigurationValuesProvider.Get<string>("SendGridMailAddress"), 587);
 
-            var creds = new NetworkCredential("c.challenges", "1595001002004sekret");
+            var creds = new NetworkCredential(ConfigurationValuesProvider.Get<string>("SendGridUserName"),
+                ConfigurationValuesProvider.Get<string>("SendGridPassword"));
 
             smtp.UseDefaultCredentials = false;
             smtp.Credentials = creds;
             smtp.EnableSsl = false;
 
             var to = new MailAddress(message.Destination);
-            var from = new MailAddress("noreply@cchallenges.com", "Nikita D.");
+            var from = new MailAddress(ConfigurationValuesProvider.Get<string>("SendGridSentFromEmail"),
+                ConfigurationValuesProvider.Get<string>("SendGridSentFromName"));
 
             var msg = new MailMessage();
 

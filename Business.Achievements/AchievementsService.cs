@@ -85,7 +85,7 @@ namespace Business.Achievements
 
         public void UpdateTopOne()
         {
-            var queryParameters = new BaseQueryParameters
+            var queryParameters = new QueryParameters
             {
                 SortSettings = SortSettingsBuilder<User>
                     .Create()

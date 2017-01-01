@@ -70,5 +70,15 @@ namespace Data.Identity.Entities
             get;
             set;
         }
+
+        private List<Role> roles;
+
+        public virtual IList<Role> Roles
+        {
+            get
+            {
+                return roles ?? (roles = new List<Role>());
+            }
+        }
     }
 }

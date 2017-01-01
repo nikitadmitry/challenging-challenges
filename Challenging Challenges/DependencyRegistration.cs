@@ -34,7 +34,9 @@ namespace Challenging_Challenges
 
             builder.RegisterSource(new ViewRegistrationSource());
 
-            builder.RegisterType(typeof(UserStore)).As(typeof(IUserStore<IdentityUser, Guid>));
+            builder.RegisterType(typeof(IdentityStore))
+                .As(typeof(IUserStore<IdentityUser, Guid>))
+                .As(typeof(IUserRoleStore<IdentityUser, Guid>));
             builder.RegisterType(typeof(ApplicationUserManager)).As(typeof(UserManager<IdentityUser, Guid>));
             builder.RegisterType(typeof(AchievementsSignalRProvider)).As(typeof(IAchievementsSignalRProvider));
             builder.RegisterType(typeof(ComplexViewModelsProvider)).As(typeof(IComplexViewModelsProvider));

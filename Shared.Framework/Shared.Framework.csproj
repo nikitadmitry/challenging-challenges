@@ -52,7 +52,6 @@
     <Compile Include="Automapper\AutoMapperExtensions.cs" />
     <Compile Include="Collections\EnumerableExtensions.cs" />
     <Compile Include="DataSource\FilterOperator.cs" />
-    <Compile Include="DataSource\ListQueryParameters.cs" />
     <Compile Include="DataSource\PageRule.cs" />
     <Compile Include="DataSource\Rules\FilterRule.cs" />
     <Compile Include="DataSource\Rules\SortRule.cs" />

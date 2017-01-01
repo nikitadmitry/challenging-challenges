@@ -120,6 +120,18 @@ namespace Data.Challenges.Entities
                 return solvers ?? (solvers = new List<Solver>());
             }
         }
+
+        public IList<TestCase> TestCases
+        {
+            get;
+            set;
+        }
+
+        public ChallengeType ChallengeType
+        {
+            get;
+            set;
+        }
     }
 
     public interface ITaggable

@@ -9,5 +9,10 @@ namespace Data.Identity.Context
         {
             get;
         }
+
+        IRepository<Role> RolesRepository
+        {
+            get;
+        }
     }
 }

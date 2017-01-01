@@ -60,11 +60,16 @@
     <Compile Include="Context\IdentityUnitOfWork.cs" />
     <Compile Include="Context\IIdentityUnitOfWork.cs" />
     <Compile Include="Entities\Achievement.cs" />
+    <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Enums\DataAchievementType.cs" />
     <Compile Include="Migrations\201605032205234_InitialConfig.cs" />
     <Compile Include="Migrations\201605032205234_InitialConfig.Designer.cs">
       <DependentUpon>201605032205234_InitialConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610301820384_AddUserRoles.cs" />
+    <Compile Include="Migrations\201610301820384_AddUserRoles.Designer.cs">
+      <DependentUpon>201610301820384_AddUserRoles.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Context\IdentityContext.cs" />
@@ -89,6 +94,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201605032205234_InitialConfig.resx">
       <DependentUpon>201605032205234_InitialConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610301820384_AddUserRoles.resx">
+      <DependentUpon>201610301820384_AddUserRoles.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

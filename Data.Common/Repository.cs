@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using Data.Common.Query.QueryParameters;
@@ -31,7 +30,7 @@ namespace Data.Common
         /// <summary>
         /// Expose dbContext to subclasses.
         /// </summary>
-        protected DbContext Context
+        private DbContext Context
         {
             get
             {
@@ -42,7 +41,7 @@ namespace Data.Common
         /// <summary>
         /// DbSet for current entity type.
         /// </summary>
-        protected virtual IDbSet<T> DbSet
+        private IDbSet<T> DbSet
         {
             get
             {
@@ -54,23 +53,13 @@ namespace Data.Common
         {
             return InsertOrUpdateInternal(entity);
         }
-
-        private static void CheckEntityModifiable(T entity)
-        {
-            if (!MultiMappingEntityAttribute.IsEntityModifiable(entity))
-            {
-                throw new ReferenceEntityModifyingException(entity.GetType());
-            }
-        }
-
+        
         /// <summary>
         /// Delete entity from repository.
         /// </summary>
         /// <param name="entity">Entity to Delete.</param>
         public void Delete(T entity)
         {
-            CheckEntityModifiable(entity);
-
             if (IsDetached(entity))
             {
                 DbSet.Attach(entity);
@@ -92,7 +81,7 @@ namespace Data.Common
             return OnGet(id);
         }
 
-        protected virtual T OnGet(Guid id)
+        private T OnGet(Guid id)
         {
             if (Context.IsNotNull())
             {
@@ -116,7 +105,7 @@ namespace Data.Common
             }
         }
 
-        public virtual T Reload(Guid id)
+        public T Reload(Guid id)
         {
             var entity = context.Set<T>().Find(id);
 
@@ -130,7 +119,7 @@ namespace Data.Common
         /// </summary>
         /// <param name="queryParameters">Parameters to much conditions for entity.</param>
         /// <returns>Returns all entities of the type that satisfies criteria.</returns>
-        public T Get(BaseQueryParameters queryParameters)
+        public T Get(QueryParameters queryParameters)
         {
             T entity = GetSingleOrDefault(queryParameters);
 
@@ -147,33 +136,22 @@ namespace Data.Common
         /// </summary>
         /// <param name="queryParameters">Parameters to much conditions for entity.</param>
         /// <returns>Returns entity of the type that satisfies criteria or null.</returns>
-        public T GetSingleOrDefault(BaseQueryParameters queryParameters)
+        public T GetSingleOrDefault(QueryParameters queryParameters)
         {
             return GetSingleQuery(queryParameters).SingleOrDefault();
         }
 
-        public T GetFirstOrDefault(BaseQueryParameters queryParameters)
+        public T GetFirstOrDefault(QueryParameters queryParameters)
         {
             return GetListQuery(queryParameters).FirstOrDefault();
         }
-
+        
         /// <summary>
         /// Gets all.
         /// </summary>
         /// <param name="parameters">The query.</param>
         /// <returns></returns>
-        protected virtual IQueryable<T> GetAllQuery(BaseQueryParameters parameters)
-        {
-            var query = GetListQuery(parameters);
-            return ApplyPageRule(query, parameters);
-        }
-
-        /// <summary>
-        /// Gets all.
-        /// </summary>
-        /// <param name="parameters">The query.</param>
-        /// <returns></returns>
-        public virtual IList<T> GetAll(BaseQueryParameters parameters)
+        public IList<T> GetAll(QueryParameters parameters)
         {
             IQueryable<T> queryable = GetListQuery(parameters);
             return ExecuteQuery(queryable, parameters);
@@ -183,15 +161,15 @@ namespace Data.Common
         /// Gets all entities for the repository
         /// </summary>
         /// <returns></returns>
-        public virtual IList<T> GetAll()
+        public IList<T> GetAll()
         {
-            return GetAll(BaseQueryParameters.Empty);
+            return GetAll(QueryParameters.Empty);
         }
 
         /// <summary>
         /// Gets Count of entities which match query parameters.
         /// </summary>
-        public int Count(BaseQueryParameters parameters)
+        public int Count(QueryParameters parameters)
         {
             IQueryable<T> queryable = GetListQuery(parameters);
             return queryable.Count();
@@ -200,7 +178,7 @@ namespace Data.Common
         /// <summary>
         /// Indicates is there any entity matching query parameters.
         /// </summary>
-        public bool Any(BaseQueryParameters parameters)
+        public bool Any(QueryParameters parameters)
         {
             IQueryable<T> queryable = GetListQuery(parameters);
             return queryable.Any();
@@ -210,11 +188,7 @@ namespace Data.Common
         {
             context.Entry(entity).State = EntityState.Deleted;
         }
-
-        private void BeforeInsertOrUpdate(T entity)
-        {
-        }
-
+        
         private bool IsDetached(T entity)
         {
             return context.Entry(entity).State == EntityState.Detached;
@@ -226,7 +200,7 @@ namespace Data.Common
         }
 
         private IQueryable<T> ApplySingleQueryParameters(IQueryable<T> queryable,
-                                                                   BaseQueryParameters parameters)
+                                                                   QueryParameters parameters)
         {
             if (parameters == null)
             {
@@ -253,7 +227,7 @@ namespace Data.Common
             return queryable;
         }
 
-        private IQueryable<T> GetListQuery(BaseQueryParameters parameters)
+        private IQueryable<T> GetListQuery(QueryParameters parameters)
         {
             IQueryable<T> queryable = DbSet.AsQueryable();
             return ApplyListQueryParameters(queryable, parameters);
@@ -270,7 +244,7 @@ namespace Data.Common
         /// <param name="queryable">Queryable to apply parameters to</param>
         /// <param name="parameters">Parameters which should be applied to queryable</param>
         /// <returns>queryable with applied parameters</returns>
-        private IQueryable<T> ApplyListQueryParameters(IQueryable<T> queryable, BaseQueryParameters parameters)
+        private IQueryable<T> ApplyListQueryParameters(IQueryable<T> queryable, QueryParameters parameters)
         {
             if (parameters != null)
             {
@@ -290,7 +264,7 @@ namespace Data.Common
         /// This method may be overridden to provide custom Entity.Id expression
         /// </summary>
         /// <returns></returns>
-        private Expression<Func<T, bool>> GetEntityListExpression(BaseQueryParameters parameters)
+        private Expression<Func<T, bool>> GetEntityListExpression(QueryParameters parameters)
         {
             return x => parameters.Ids.Contains(x.Id);
         }
@@ -302,12 +276,12 @@ namespace Data.Common
         /// <param name="parameters">Parameters which should be applied to queryable</param>
         /// <returns>queryable with applied parameters</returns>
         private IQueryable<T> ApplyListQueryParametersTypeSpecific(IQueryable<T> queryable,
-                                                                             BaseQueryParameters parameters)
+                                                                             QueryParameters parameters)
         {
             return queryable;
         }
 
-        private IQueryable<TEntity> ApplySortSettingsIfExist<TEntity>(IQueryable<TEntity> queryable, BaseQueryParameters parameters)
+        private IQueryable<TEntity> ApplySortSettingsIfExist<TEntity>(IQueryable<TEntity> queryable, QueryParameters parameters)
             where TEntity : Entity
         {
             if (parameters.SortSettings != null && parameters.SortSettings.SortRules != null &&
@@ -323,7 +297,7 @@ namespace Data.Common
             return queryable;
         }
 
-        private IQueryable<TEntity> ApplyFilterParameters<TEntity>(IQueryable<TEntity> queryable, BaseQueryParameters parameters)
+        private IQueryable<TEntity> ApplyFilterParameters<TEntity>(IQueryable<TEntity> queryable, QueryParameters parameters)
             where TEntity : Entity
         {
             if (parameters.FilterSettings != null && !parameters.FilterSettings.Rules.IsNullOrEmpty())
@@ -367,7 +341,7 @@ namespace Data.Common
                     sortRule.Expression
                             .ReturnType
                 }, queryable.Expression,
-                                                             Expression.Quote(sortRule.Expression));
+                Expression.Quote(sortRule.Expression));
             return queryable.Provider.CreateQuery<TEntity>(resultExp);
         }
 
@@ -381,7 +355,7 @@ namespace Data.Common
             return sortRule.SortDirection == Shared.Framework.DataSource.SortOrder.Desc ? ThenByDescendingMethod : ThenByMethod;
         }
 
-        private IQueryable<T> ApplyPageRule(IQueryable<T> queryable, BaseQueryParameters parameters)
+        private IQueryable<T> ApplyPageRule(IQueryable<T> queryable, QueryParameters parameters)
         {
             var pageRule = parameters.PageRule;
 
@@ -416,7 +390,7 @@ namespace Data.Common
         /// <param name="wholeDatasetQueryable">Custom query to be executed</param>
         /// <param name="parameters">Parameters to apply.</param>
         /// <returns></returns>
-        private IList<T> ExecuteQuery(IQueryable<T> wholeDatasetQueryable, BaseQueryParameters parameters)
+        private IList<T> ExecuteQuery(IQueryable<T> wholeDatasetQueryable, QueryParameters parameters)
         {
             if (parameters == null)
             {
@@ -435,7 +409,7 @@ namespace Data.Common
             return entity.IsNew;
         }
 
-        private IQueryable<T> GetSingleQuery(BaseQueryParameters queryParameters)
+        private IQueryable<T> GetSingleQuery(QueryParameters queryParameters)
         {
             IQueryable<T> queryable = DbSet.AsQueryable();
 
@@ -446,10 +420,6 @@ namespace Data.Common
 
         private T InsertOrUpdateInternal(T entity, bool skipTrackingProperties = false)
         {
-            BeforeInsertOrUpdate(entity);
-
-            CheckEntityModifiable(entity);
-
             if (IsNew(entity))
             {
                 return DbSet.Add(entity);

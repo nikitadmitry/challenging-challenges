@@ -11,6 +11,15 @@ namespace Business.Identity.Mappings
         protected override void Configure()
         {
             ConfigureIdentityUserMap();
+            ConfigureIdentityRoleMap();
+        }
+
+        private void ConfigureIdentityRoleMap()
+        {
+            CreateMap<Role, IdentityRole>()
+                .IgnoreAllUnmapped()
+                .ForMember(r => r.Id, o => o.MapFrom(e => e.Id))
+                .ForMember(r => r.Name, o => o.MapFrom(e => e.Name));
         }
 
         private void ConfigureIdentityUserMap()
@@ -37,7 +46,12 @@ namespace Business.Identity.Mappings
                 .ForMember(t => t.PostedTasksQuantity, o => o.MapFrom(s => s.PostedTasksQuantity))
                 .ForMember(t => t.SolvedTasksQuantity, o => o.MapFrom(s => s.SolvedTasksQuantity))
                 .ForMember(t => t.Rating, o => o.MapFrom(s => s.Rating))
-                .ForMember(t => t.Achievements, o => o.MapFrom(s => s.Achievements.Select(x => x.Value).ToList()))
+                .ForMember(t => t.Achievements, o => 
+                    o.MapFrom(s => 
+                        s.Achievements.Select(x => x.Value).ToList()))
+                .ForMember(t => t.Roles, o =>
+                                    o.MapFrom(s =>
+                                        s.Roles.Select(x => x.Name).ToList()))
                 .ForMember(t => t.PasswordHash, o => o.MapFrom(s => s.PasswordHash))
                 .ForMember(t => t.SecurityStamp, o => o.MapFrom(s => s.SecurityStamp))
                 .ForMember(t => t.EmailConfirmed, o => o.MapFrom(s => s.EmailConfirmed));

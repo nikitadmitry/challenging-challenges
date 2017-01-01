@@ -21,7 +21,7 @@ namespace Data.Common
         /// <typeparam name="T"></typeparam>
         /// <param name="filter"></param>
         /// <returns></returns>
-        IList<T> GetAll<T>(BaseQueryParameters filter) where T: Entity;
+        IList<T> GetAll<T>(QueryParameters filter) where T: Entity;
 
         /// <summary>
         /// Gets all entities by specified filter.
@@ -36,7 +36,7 @@ namespace Data.Common
         /// <typeparam name="T">Entity type.</typeparam>
         /// <param name="filter">Query parameters to filter entities.</param>
         /// <returns>Entity <see cref="T"/> instance.</returns>
-        T Get<T>(BaseQueryParameters filter) where T : Entity;
+        T Get<T>(QueryParameters filter) where T : Entity;
 
         /// <summary>
         /// Gets entity by specified unique identifier.
@@ -60,7 +60,7 @@ namespace Data.Common
         /// <typeparam name="T">Entity type.</typeparam>
         /// <param name="filter">Query parameters to filter entities.</param>
         /// <returns>Entity <see cref="T"/> instance.</returns>
-        T GetReload<T>(BaseQueryParameters filter) where T : Entity;
+        T GetReload<T>(QueryParameters filter) where T : Entity;
 
         /// <summary>
         /// Retrieves entity from Data Source. Doesn't throw an exception if there is no entity matched the parameters.
@@ -68,14 +68,14 @@ namespace Data.Common
         /// <typeparam name="T">Entity to retrieve.</typeparam>
         /// <param name="parameters">Parameters to match.</param>
         /// <returns></returns>
-        T GetSingleOrDefault<T>(BaseQueryParameters parameters) where T : Entity;
+        T GetSingleOrDefault<T>(QueryParameters parameters) where T : Entity;
 
         /// <summary>
         /// Retrieves first entity that matches specified parameters. Doesn't throw an exception if there is no entity matched the parameters.
         /// </summary>
         /// <typeparam name="T">Entity to retrieve.</typeparam>
         /// <param name="parameters">Parameters to match.</param>
-        T GetFirstOrDefault<T>(BaseQueryParameters parameters) where T : Entity;
+        T GetFirstOrDefault<T>(QueryParameters parameters) where T : Entity;
 
         /// <summary>
         /// Saves entity in the repository.
@@ -97,7 +97,7 @@ namespace Data.Common
         /// </summary>
         /// <param name="parameters">Base query parameters.</param>
         /// <typeparam name="T">Entity type.</typeparam>
-        int Count<T>(BaseQueryParameters parameters) where T : Entity;
+        int Count<T>(QueryParameters parameters) where T : Entity;
 
         /// <summary>
         /// Creates new instance of an entity.

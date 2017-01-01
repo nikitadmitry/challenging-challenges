@@ -17,7 +17,7 @@ namespace Challenging_Challenges.Models.ViewModels
         [RegularExpression("^([A-Z][a-z]+ [A-Z][a-z]+)$", ErrorMessageResourceType = typeof(Localization),
             ErrorMessageResourceName = "NameValidationMessage")]
         [Display(ResourceType = typeof(Localization), Name = "FullName")]
-        [StringLength(256, MinimumLength = 5)]
+        [StringLength(50, MinimumLength = 5)]
         public string UserName { get; set; }
 
         [Required]
@@ -36,7 +36,7 @@ namespace Challenging_Challenges.Models.ViewModels
         [RegularExpression("^([A-Z][a-z]+ [A-Z][a-z]+)$", ErrorMessageResourceType = typeof (Localization),
             ErrorMessageResourceName = "NameValidationMessage")]
         [Display(ResourceType = typeof (Localization), Name = "FullName")]
-        [StringLength(256)]
+        [StringLength(50, MinimumLength = 5)]
         public string UserName { get; set; }
 
         [Required]

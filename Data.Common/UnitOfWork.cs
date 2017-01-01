@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Core.Objects;
-using System.Linq;
-using System.Linq.Expressions;
 using Data.Common.Query.QueryParameters;
 using Shared.Framework.Utilities;
 using Shared.Framework.Validation;
@@ -56,18 +53,6 @@ namespace Data.Common
             return context.SaveChanges();
         }
 
-        /// <summary>
-        /// Determines if unit of work implementation should search modified entities which inplement IRequireLastModifiedDateUpdateOnCommit interface 
-        /// and update LastModifiedDate for such entities on Commin operation
-        /// </summary>
-        protected virtual bool UpdateLastModifiedDateOnCommitEnabled
-        {
-            get
-            {
-                return false;
-            }
-        }
-
         public T Create<T>() where T : Entity
         {
             return Context.Set<T>().Create();
@@ -79,14 +64,14 @@ namespace Data.Common
         /// <typeparam name="T">Entity type.</typeparam>
         /// <param name="filter">Query parameters to filter entities.</param>
         /// <returns>List of entities and total number.</returns>
-        public IList<T> GetAll<T>(BaseQueryParameters filter) where T : Entity
+        public IList<T> GetAll<T>(QueryParameters filter) where T : Entity
         {
             return GetRepository<T>().GetAll(filter);
         }
 
         public IList<T> GetAll<T>() where T : Entity
         {
-            return GetAll<T>(BaseQueryParameters.Empty);
+            return GetAll<T>(QueryParameters.Empty);
         }
 
         /// <summary>
@@ -95,7 +80,7 @@ namespace Data.Common
         /// <typeparam name="T">Entity type.</typeparam>
         /// <param name="filter">Query parameters to filter entities.</param>
         /// <returns>Entity <see cref="T"/> instance.</returns>
-        public T Get<T>(BaseQueryParameters filter) where T : Entity
+        public T Get<T>(QueryParameters filter) where T : Entity
         {
             return GetRepository<T>().Get(filter);
         }
@@ -111,12 +96,12 @@ namespace Data.Common
             return GetRepository<T>().Get(id);
         }
 
-        public T GetSingleOrDefault<T>(BaseQueryParameters parameters) where T : Entity
+        public T GetSingleOrDefault<T>(QueryParameters parameters) where T : Entity
         {
             return GetRepository<T>().GetSingleOrDefault(parameters);
         }
 
-        public T GetFirstOrDefault<T>(BaseQueryParameters parameters) where T : Entity
+        public T GetFirstOrDefault<T>(QueryParameters parameters) where T : Entity
         {
             return GetRepository<T>().GetFirstOrDefault(parameters);
         }
@@ -141,7 +126,7 @@ namespace Data.Common
         /// </summary>
         /// <param name="parameters">Base query parameters.</param>
         /// <typeparam name="T">Entity type.</typeparam>
-        public int Count<T>(BaseQueryParameters parameters) where T : Entity
+        public int Count<T>(QueryParameters parameters) where T : Entity
         {
             return GetRepository<T>().Count(parameters);
         }
@@ -173,7 +158,7 @@ namespace Data.Common
             return entity;
         }
 
-        public T GetReload<T>(BaseQueryParameters filter) where T : Entity
+        public T GetReload<T>(QueryParameters filter) where T : Entity
         {
             var entity = Get<T>(filter);
             context.Entry(entity).Reload();

@@ -68,6 +68,12 @@ namespace Challenging_Challenges.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Administrator")]
+        public string AdminTest()
+        {
+            return "You are Administrator.";
+        }
+
         public ActionResult MobileTest()
         {
             //string user = "4e3c80ca-3fe0-49b6-aad0-be99d3243479";
@@ -129,7 +135,7 @@ namespace Challenging_Challenges.Controllers
             var pageRule = new PageRule
             {
                 Count = count,
-                Start = page * count
+                Start = (page-1) * count
             };
 
             switch (sort)
@@ -147,7 +153,7 @@ namespace Challenging_Challenges.Controllers
             }
             var totalCount = challengesService.GetChallengesCount();
 
-            var result = PagedListBuilder<ChallengesDescriptionViewModel>.Build(challengesViewModels, ++page, count,
+            var result = PagedListBuilder<ChallengesDescriptionViewModel>.Build(challengesViewModels, page, count,
                 totalCount);
 
             return result;

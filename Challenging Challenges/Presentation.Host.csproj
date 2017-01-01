@@ -235,7 +235,7 @@
     <Compile Include="Helpers\LuceneRegistry.cs" />
     <Compile Include="Helpers\MarkdownHelper.cs" />
     <Compile Include="Hubs\NotificationHub.cs" />
-    <Compile Include="Identity\UserStore.cs" />
+    <Compile Include="Identity\IdentityStore.cs" />
     <Compile Include="Infrastructure\AchievementsSignalRProvider.cs" />
     <Compile Include="Infrastructure\ComplexViewModelsProvider.cs" />
     <Compile Include="Infrastructure\FilesWorker.cs" />
@@ -315,12 +315,15 @@
     <Content Include="Content\Challenges\solve.min.css">
       <DependentUpon>solve.css</DependentUpon>
     </Content>
+    <Content Include="Content\Fonts\open-sans.css" />
+    <Content Include="Content\Fonts\titillium.css" />
     <Content Include="Content\Home\index.css">
       <DependentUpon>index.scss</DependentUpon>
     </Content>
     <Content Include="Content\Home\index.min.css">
       <DependentUpon>index.css</DependentUpon>
     </Content>
+    <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\navbar.css">
       <DependentUpon>navbar.scss</DependentUpon>
     </Content>
@@ -705,6 +708,7 @@
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
     <Content Include="Scripts\jquery.signalR-2.2.0.js" />
     <Content Include="Scripts\jquery.signalR-2.2.0.min.js" />
     <Content Include="Scripts\jquery.tagcanvas.min.js" />

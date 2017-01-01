@@ -9,9 +9,9 @@ namespace Data.Common.Query.QueryParameters
     /// Query parameters class.
     /// </summary>
     [Serializable]
-    public class BaseQueryParameters
+    public class QueryParameters
     {
-        public BaseQueryParameters()
+        public QueryParameters()
         {
             TrackChanges = true;
         }
@@ -34,7 +34,7 @@ namespace Data.Common.Query.QueryParameters
         /// <value>
         /// The sort settings.
         /// </value>
-        public virtual SortSettings SortSettings
+        public SortSettings SortSettings
         {
             get;
             set;
@@ -43,7 +43,7 @@ namespace Data.Common.Query.QueryParameters
         /// <summary>
         /// Represents filter rules to be applied in repository
         /// </summary>
-        public virtual FilterSettings FilterSettings
+        public FilterSettings FilterSettings
         {
             get;
             set;
@@ -67,11 +67,11 @@ namespace Data.Common.Query.QueryParameters
             set;
         }
 
-        public static BaseQueryParameters Empty
+        public static QueryParameters Empty
         {
             get
             {
-                return new BaseQueryParameters();
+                return new QueryParameters();
             }
         }
 

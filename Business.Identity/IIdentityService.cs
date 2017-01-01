@@ -34,5 +34,11 @@ namespace Business.Identity
 
         [OperationContract]
         void ConfirmEmail(Guid userId);
+
+        [OperationContract]
+        IdentityRole GetRoleById(Guid roleId);
+
+        [OperationContract]
+        IdentityRole GetRoleByName(string roleName);
     }
 }

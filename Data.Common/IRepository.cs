@@ -47,28 +47,28 @@ namespace Data.Common
         /// </summary>
         /// <param name="queryParameters">Parameters to much conditions for entity.</param>
         /// <returns>Returns all entities of the type that satisfies criteria.</returns>
-        T Get(BaseQueryParameters queryParameters);
+        T Get(QueryParameters queryParameters);
 
         /// <summary>
         /// Gets entity of type T from repository.
         /// </summary>
         /// <param name="queryParameters">Parameters to much conditions for entity.</param>
         /// <returns>Returns entity of the type that satisfies criteria or null.</returns>
-        T GetSingleOrDefault(BaseQueryParameters queryParameters);
+        T GetSingleOrDefault(QueryParameters queryParameters);
 
         /// <summary>
         /// Gets first entity of type T from repository.
         /// </summary>
         /// <param name="queryParameters">Parameters to much conditions for entity.</param>
         /// <returns>Returns first entity of the type that satisfies criteria or null.</returns>
-        T GetFirstOrDefault(BaseQueryParameters queryParameters);
+        T GetFirstOrDefault(QueryParameters queryParameters);
 
         /// <summary>
         /// Gets all entities for the repository
         /// </summary>
         /// <param name="parameters">The query.</param>
         /// <returns></returns>
-        IList<T> GetAll(BaseQueryParameters parameters);
+        IList<T> GetAll(QueryParameters parameters);
 
         /// <summary>
         /// Gets all entities for the repository
@@ -79,11 +79,11 @@ namespace Data.Common
         /// <summary>
         /// Gets Count of entities which match query parameters.
         /// </summary>
-        int Count(BaseQueryParameters parameters);
+        int Count(QueryParameters parameters);
 
         /// <summary>
         /// Indicates is there any entity matching query parameters.
         /// </summary>
-        bool Any(BaseQueryParameters parameters);
+        bool Any(QueryParameters parameters);
     }
 }

@@ -11,7 +11,8 @@ namespace Challenging_Challenges
                         "~/Scripts/app.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery-ui.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery-ajax").Include(
                         "~/Scripts/jquery.unobtrusive-ajax.min.js"));
@@ -52,7 +53,11 @@ namespace Challenging_Challenges
                     "~/Scripts/jquery.tagcanvas.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/signalr").Include(
-                   "~/Scripts/jquery.signalR-2.2.0.min.js"));
+                "~/Scripts/jquery.signalR-2.2.0.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/user-profile").Include(
+                    "~/Scripts/bootstrap-editable.min.js",
+                    "~/Scripts/jquery.knob.js"));
 
             // scripts above, styles below
 
@@ -60,7 +65,8 @@ namespace Challenging_Challenges
                       "~/Content/bootstrap.css",
                       "~/Content/navbar.css",
                       "~/Content/site.css",
-                      "~/Content/scrollbars.min.css"));
+                      "~/Content/scrollbars.min.css",
+                      "~/Content/jquery-ui.css"));
 
             bundles.Add(new StyleBundle("~/Content/light").Include(
                       "~/Content/Themes/bootstrap.light.min.css"));
@@ -99,6 +105,13 @@ namespace Challenging_Challenges
 
             bundles.Add(new StyleBundle("~/Content/achievement").Include(
                      "~/Content/Achievements/style.min.css"));
+
+            bundles.Add(new StyleBundle("~/Content/fonts").Include(
+                "~/Content/Fonts/titillium.css",
+                "~/Content/Fonts/open-sans.css"));
+
+            bundles.Add(new StyleBundle("~/Content/user-profile").Include(
+                      "~/Content/bootstrap-editable.css"));
 
             bundles.IgnoreList.Clear();
         }
