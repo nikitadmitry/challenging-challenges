@@ -2,7 +2,7 @@
   "userSecretsId": "aspnet-Presentation.Web-fe5d3fa8-f27f-4f25-93d9-4a0f6f18919e",
 
     "dependencies": {
-        "Autofac": "4.2.1",
+      "Autofac": "4.3.0",
         "Autofac.Extensions.DependencyInjection": "4.0.0",
         "Autofac.Wcf": "4.0.0",
         "Microsoft.AspNetCore.Authentication.Cookies": "1.0.0",
