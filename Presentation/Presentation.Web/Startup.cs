@@ -44,7 +44,7 @@ namespace Presentation.Web
             services.AddMvc();
 
             var builder = new ContainerBuilder();
-            DependencyRegistration.ConfigureContainer(builder);
+            DependencyRegistration.ConfigureContainer(builder, Configuration);
             builder.Populate(services);
             ApplicationContainer = builder.Build();
 
