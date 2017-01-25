@@ -18,15 +18,12 @@ namespace Data.Identity.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Users", t => t.User_Id)
                 .Index(t => t.User_Id);
-            
-            //AddColumn("dbo.Users", "EmailConfirmed", c => c.Boolean(nullable: false));
         }
         
         public override void Down()
         {
             DropForeignKey("dbo.Roles", "User_Id", "dbo.Users");
             DropIndex("dbo.Roles", new[] { "User_Id" });
-            //DropColumn("dbo.Users", "EmailConfirmed");
             DropTable("dbo.Roles");
         }
     }

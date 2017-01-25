@@ -18,10 +18,10 @@ namespace Business.Identity
         IdentityUser GetIdentityUserById(Guid userId);
 
         [OperationContract]
-        IdentityUser GetIdentityUserByUserName(string userName);
+        IdentityUser GetIdentityUserByUserName(string normalizedUserName);
 
         [OperationContract]
-        IdentityUser GetIdentityUserByEmail(string email);
+        IdentityUser GetIdentityUserByEmail(string normalizedEmail);
 
         [OperationContract]
         string GetUserNameById(Guid userId);

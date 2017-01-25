@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.AspNet.Identity;
 
 namespace Business.Identity.ViewModels
 {
-    public class IdentityUser: IUser<Guid>
+    public class IdentityUser
     {
         public Guid Id
         {
@@ -18,7 +17,19 @@ namespace Business.Identity.ViewModels
             set;
         }
 
+        public string NormalizedUserName
+        {
+            get;
+            set;
+        }
+
         public string Email
+        {
+            get;
+            set;
+        }
+
+        public string NormalizedEmail
         {
             get;
             set;

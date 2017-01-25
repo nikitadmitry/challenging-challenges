@@ -11,7 +11,7 @@ using Data.Identity.Enums;
 
 namespace Business.Achievements
 {
-    [ServiceBehavior(IncludeExceptionDetailInFaults = true)]
+    [ServiceBehavior(IncludeExceptionDetailInFaults = true, InstanceContextMode = InstanceContextMode.PerCall)]
     public class AchievementsService : IAchievementsService
     {
         private readonly IChallengesService challengesService;

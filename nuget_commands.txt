@@ -1,14 +1,17 @@
 enable-migrations -ContextProjectName Data.Identity -StartUpProjectName Data.Identity -ContextTypeName Data.Identity.Context.IdentityContext -ProjectName Data.Identity
 
-add-migration -ProjectName Data.Identity 
+EntityFramework\Add-Migration -ProjectName Data.Identity 
 
-Update-Database -ProjectName Data.Identity -ConnectionStringName IdentityConnection
+EntityFramework\Update-Database -ProjectName Data.Identity -ConnectionStringName IdentityConnection
 
+------------
+
+EntityFramework\Add-Migration
 
 ----------------------
 
 enable-migrations -ContextProjectName Data.Challenges -StartUpProjectName Data.Challenges -ContextTypeName Data.Challenges.Context.ChallengesContext -ProjectName Data.Challenges
 
-add-migration -ProjectName Data.Challenges 
+EntityFramework\add-migration -ProjectName Data.Challenges 
 
-Update-Database -ProjectName Data.Challenges -ConnectionStringName ChallengesConnection
+EntityFramework\Update-Database -ProjectName Data.Challenges -ConnectionStringName ChallengesConnection

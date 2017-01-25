@@ -5,7 +5,6 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.ServiceModel;
 using System.Text;
-using Autofac;
 using AutoMapper;
 using Business.Challenges.Private;
 using Business.Challenges.ViewModels;
@@ -23,37 +22,40 @@ using Shared.Framework.Validation;
 
 namespace Business.Challenges
 {
-    [ServiceBehavior(IncludeExceptionDetailInFaults = true)]
+    [ServiceBehavior(IncludeExceptionDetailInFaults = true, InstanceContextMode = InstanceContextMode.PerCall)]
     public class ChallengesService: IChallengesService
     {
         private readonly IChallengesUnitOfWork unitOfWork;
-        private readonly IIdentityService identityService;
+        private readonly Lazy<IIdentityService> identityService;
         private readonly ISearchIndexService searchIndexService;
         private readonly Lazy<IChallengeSolutionDispatcher> challengeSolutionDispatcher;
+        private readonly IMapper mapper;
 
         public ChallengesService(IChallengesUnitOfWork unitOfWork, 
-            IIdentityService identityService,
+            Lazy<IIdentityService> identityService,
             ISearchIndexService searchIndexService,
-            Lazy<IChallengeSolutionDispatcher> challengeSolutionDispatcher)
+            Lazy<IChallengeSolutionDispatcher> challengeSolutionDispatcher,
+            IMapper mapper)
         {
             this.unitOfWork = unitOfWork;
             this.identityService = identityService;
             this.searchIndexService = searchIndexService;
             this.challengeSolutionDispatcher = challengeSolutionDispatcher;
+            this.mapper = mapper;
         }
 
         public ChallengeViewModel AddChallenge(ChallengeViewModel challenge)
         {
             Contract.NotNull<ArgumentNullException>(challenge);
 
-            var challengeEntity = Mapper.Map<Challenge>(challenge);
+            var challengeEntity = mapper.Map<Challenge>(challenge);
 
             challengeEntity.TimeCreated = DateTime.Now;
 
             var updatedChallenge = unitOfWork.InsertOrUpdate(challengeEntity);
             unitOfWork.Commit();
 
-            return Mapper.Map<ChallengeViewModel>(updatedChallenge);
+            return mapper.Map<ChallengeViewModel>(updatedChallenge);
         }
 
         public void RemoveChallenge(Guid id)
@@ -69,18 +71,18 @@ namespace Business.Challenges
         {
             var challenge = unitOfWork.Get<Challenge>(id);
 
-            return Mapper.Map<ChallengeViewModel>(challenge);
+            return mapper.Map<ChallengeViewModel>(challenge);
         }
 
         public ChallengeFullViewModel GetChallengeFullViewModel(Guid id)
         {
             var challenge = unitOfWork.Get<Challenge>(id);
 
-            var challengeViewModel = Mapper.Map<ChallengeFullViewModel>(challenge);
+            var challengeViewModel = mapper.Map<ChallengeFullViewModel>(challenge);
 
             foreach (var comment in challenge.Comments)
             {
-                var userName = identityService.GetUserNameById(comment.UserId);
+                var userName = identityService.Value.GetUserNameById(comment.UserId);
                 challengeViewModel.Comments.Single(x => x.Id == comment.Id).UserName = userName;
             }
 
@@ -163,7 +165,7 @@ namespace Business.Challenges
             unitOfWork.InsertOrUpdate(challenge);
             unitOfWork.Commit();
 
-            identityService.AddRatingToUser(challenge.AuthorId, (rating - challenge.Rating) / 10);
+            identityService.Value.AddRatingToUser(challenge.AuthorId, (rating - challenge.Rating) / 10);
         }
 
         public void AddSolveAttempt(Guid challengeId, Guid userId)
@@ -198,13 +200,13 @@ namespace Business.Challenges
 
             var challengeEntity = unitOfWork.Get<Challenge>(challenge.Id);
 
-            Mapper.Map(challenge, challengeEntity);
+            mapper.Map(challenge, challengeEntity);
 
             var updatedChallenge = unitOfWork.InsertOrUpdate(challengeEntity);
 
             unitOfWork.Commit();
 
-            return Mapper.Map<ChallengeViewModel>(updatedChallenge);
+            return mapper.Map<ChallengeViewModel>(updatedChallenge);
         }
 
         public List<ChallengesDescriptionViewModel> GetLatestChallenges(PageRule pageRule)
@@ -220,7 +222,7 @@ namespace Business.Challenges
 
             var challenges = unitOfWork.GetAll<Challenge>(queryParameters);
 
-            return Mapper.Map<List<ChallengesDescriptionViewModel>>(challenges);
+            return mapper.Map<List<ChallengesDescriptionViewModel>>(challenges);
         }
 
         public List<ChallengesDescriptionViewModel> GetPopularChallenges(PageRule pageRule)
@@ -236,7 +238,7 @@ namespace Business.Challenges
 
             var challenges = unitOfWork.GetAll<Challenge>(queryParameters);
 
-            return Mapper.Map<List<ChallengesDescriptionViewModel>>(challenges);
+            return mapper.Map<List<ChallengesDescriptionViewModel>>(challenges);
         }
 
         public List<ChallengesDescriptionViewModel> GetUnsolvedChallenges(PageRule pageRule)
@@ -256,7 +258,7 @@ namespace Business.Challenges
 
             var challenges = unitOfWork.GetAll<Challenge>(queryParameters);
 
-            return Mapper.Map<List<ChallengesDescriptionViewModel>>(challenges);
+            return mapper.Map<List<ChallengesDescriptionViewModel>>(challenges);
         }
 
         public int GetChallengesCount()
@@ -287,14 +289,14 @@ namespace Business.Challenges
 
                 var viewModels = list.Select(searchIndex => 
                     unitOfWork.Get<Challenge>(searchIndex.Id))
-                    .Select(Mapper.Map<ChallengeInfoViewModel>).ToList();
+                    .Select(mapper.Map<ChallengeInfoViewModel>).ToList();
 
                 return viewModels;
             }
 
             var challenges = SearchChallengesOnDb(keyword, property, pageRule);
 
-            return Mapper.Map<List<ChallengeInfoViewModel>>(challenges);
+            return mapper.Map<List<ChallengeInfoViewModel>>(challenges);
         }
 
         public Guid GetChallengeAuthor(Guid challengeId)
@@ -348,7 +350,7 @@ namespace Business.Challenges
             if (typedValue != null)
             {
                 queryParameters.FilterSettings = FilterSettingsBuilder<Challenge>.Create()
-                    .AddFilterRule(GetPropertyExpression(property),
+                    .AddFilterRule(x => propertyInfo.GetValue(x),//GetPropertyExpression(property),
                         propertyInfo.PropertyType == typeof(string)
                             ? FilterOperator.Contains
                             : FilterOperator.IsEqualTo, typedValue).GetSettings();
@@ -404,7 +406,7 @@ namespace Business.Challenges
                     return x => x.Section;
                 case "Language":
                     return x => x.Language;
-                case "Title":
+                //case "Title":
                 default:
                     return x => x.Title;
             }

@@ -72,6 +72,10 @@
     <Compile Include="Migrations\201610301820384_AddUserRoles.Designer.cs">
       <DependentUpon>201610301820384_AddUserRoles.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701141501044_AddNormalizedProperties.cs" />
+    <Compile Include="Migrations\201701141501044_AddNormalizedProperties.Designer.cs">
+      <DependentUpon>201701141501044_AddNormalizedProperties.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Context\IdentityContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -98,6 +102,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610301820384_AddUserRoles.resx">
       <DependentUpon>201610301820384_AddUserRoles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701141501044_AddNormalizedProperties.resx">
+      <DependentUpon>201701141501044_AddNormalizedProperties.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

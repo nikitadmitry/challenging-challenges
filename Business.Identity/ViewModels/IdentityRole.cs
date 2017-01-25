@@ -1,9 +1,8 @@
 ﻿using System;
-using Microsoft.AspNet.Identity;
 
 namespace Business.Identity.ViewModels
 {
-    public class IdentityRole : IRole<Guid>
+    public class IdentityRole
     {
         public Guid Id
         {

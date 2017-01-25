@@ -5,7 +5,6 @@
         protected void Application_Start()
         {
             DependencyRegistration.ConfigureContainer();
-            AutoMapperConfig.RegisterMappings();
         }
     }
 }

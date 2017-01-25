@@ -9,21 +9,23 @@ using System.ServiceModel;
 
 namespace Business.SearchIndex
 {
-    [ServiceBehavior(IncludeExceptionDetailInFaults = true)]
+    [ServiceBehavior(IncludeExceptionDetailInFaults = true, InstanceContextMode = InstanceContextMode.PerCall)]
     public class SearchIndexService: ISearchIndexService
     {
         private readonly IChallengesUnitOfWork challengesUnitOfWork;
+        private readonly IMapper mapper;
 
-        public SearchIndexService(IChallengesUnitOfWork challengesUnitOfWork)
+        public SearchIndexService(IChallengesUnitOfWork challengesUnitOfWork, IMapper mapper)
         {
             this.challengesUnitOfWork = challengesUnitOfWork;
+            this.mapper = mapper;
         }
 
         public void UpdateIndex()
         {
             var challenges = challengesUnitOfWork.GetAll<Challenge>();
 
-            var searchIndices = Mapper.Map<List<ViewModels.SearchIndex>>(challenges);
+            var searchIndices = mapper.Map<List<ViewModels.SearchIndex>>(challenges);
 
             LuceneSearch.AddUpdateLuceneIndex(searchIndices);
         }

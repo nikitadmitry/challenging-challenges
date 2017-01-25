@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Autofac;
+using AutoMapper;
 using Business.Challenges.Mappings;
 using Business.Identity.Mappings;
 using Business.SearchIndex.Mappings;
@@ -7,11 +8,19 @@ namespace Business.Host
 {
     public static class AutoMapperConfig
     {
-        public static void RegisterMappings()
+        public static void RegisterMappings(ContainerBuilder builder)
         {
-            Mapper.AddProfile(new IdentityMapProfile());
-            Mapper.AddProfile(new ChallengesMapProfile());
-            Mapper.AddProfile(new SearchIndexMapProfile());
+            var mapperConfig = new MapperConfiguration(AddMappingProfiles);
+            var mapper = mapperConfig.CreateMapper();
+
+            builder.RegisterInstance(mapper).As<IMapper>();
+        }
+
+        private static void AddMappingProfiles(IMapperConfigurationExpression cfg)
+        {
+            cfg.AddProfile<IdentityMapProfile>();
+            cfg.AddProfile<ChallengesMapProfile>();
+            cfg.AddProfile<SearchIndexMapProfile>();
         }
     }
 }

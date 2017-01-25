@@ -5,13 +5,12 @@ using System.Text;
 using AutoMapper;
 using Business.Challenges.ViewModels;
 using Data.Challenges.Entities;
-using Shared.Framework.Automapper;
 
 namespace Business.Challenges.Mappings
 {
     public class ChallengesMapProfile: Profile
     {
-        protected override void Configure()
+        public ChallengesMapProfile()
         {
             ConfigureChallengeMap();
             ConfigureSolversMap();
@@ -21,7 +20,6 @@ namespace Business.Challenges.Mappings
         private void ConfigureChallengeMap()
         {
             CreateMap<Challenge, ChallengeViewModel>()
-                .IgnoreAllUnmapped()
                 .ForMember(t => t.Id, o => o.MapFrom(s => s.Id))
                 .ForMember(t => t.Answers, o => o.MapFrom(s => s.Answers.Select(x => x.Value).ToList()))
                 .ForMember(t => t.AuthorId, o => o.MapFrom(s => s.AuthorId))
@@ -35,7 +33,6 @@ namespace Business.Challenges.Mappings
                 
 
             CreateMap<ChallengeViewModel, Challenge>()
-                .IgnoreAllUnmapped()
                 .ForMember(t => t.Id, o => o.MapFrom(s => s.Id))
                 .ForMember(t => t.Answers, o => o.MapFrom(s => GetEntityAnswers(s.Answers)))
                 .ForMember(t => t.AuthorId, o => o.MapFrom(s => s.AuthorId))
@@ -48,7 +45,6 @@ namespace Business.Challenges.Mappings
                 .ForMember(t => t.Title, o => o.MapFrom(s => s.Title));
 
             CreateMap<Challenge, ChallengeFullViewModel>()
-                .IgnoreAllUnmapped()
                 .ForMember(t => t.Id, o => o.MapFrom(s => s.Id))
                 .ForMember(t => t.Answers, o => o.MapFrom(s => s.Answers.Select(x => x.Value).ToList()))
                 .ForMember(t => t.AuthorId, o => o.MapFrom(s => s.AuthorId))
@@ -64,7 +60,6 @@ namespace Business.Challenges.Mappings
                 .ForMember(t => t.TimesSolved, o => o.MapFrom(s => s.TimesSolved));
 
             CreateMap<ChallengeFullViewModel, Challenge>()
-                .IgnoreAllUnmapped()
                 .ForMember(t => t.Id, o => o.MapFrom(s => s.Id))
                 .ForMember(t => t.Answers, o => o.MapFrom(s => GetEntityAnswers(s.Answers)))
                 .ForMember(t => t.AuthorId, o => o.MapFrom(s => s.AuthorId))
@@ -80,13 +75,11 @@ namespace Business.Challenges.Mappings
                 .ForMember(t => t.TimesSolved, o => o.MapFrom(s => s.TimesSolved));
 
             CreateMap<Challenge, ChallengesDescriptionViewModel>()
-                .IgnoreAllUnmapped()
                 .ForMember(t => t.Id, o => o.MapFrom(s => s.Id))
                 .ForMember(t => t.Title, o => o.MapFrom(s => s.Title))
                 .ForMember(t => t.PreviewText, o => o.MapFrom(s => s.PreviewText));
 
             CreateMap<Challenge, ChallengeInfoViewModel>()
-                .IgnoreAllUnmapped()
                 .ForMember(t => t.Id, o => o.MapFrom(s => s.Id))
                 .ForMember(t => t.Title, o => o.MapFrom(s => s.Title))
                 .ForMember(t => t.PreviewText, o => o.MapFrom(s => s.PreviewText))
@@ -102,13 +95,11 @@ namespace Business.Challenges.Mappings
         private void ConfigureSolversMap()
         {
             CreateMap<Solver, SolverViewModel>()
-                .IgnoreAllUnmapped()
                 .ForMember(t => t.UserId, o => o.MapFrom(s => s.Id))
                 .ForMember(t => t.HasSolved, o => o.MapFrom(s => s.HasSolved));
 
 
             CreateMap<SolverViewModel, Solver>()
-                .IgnoreAllUnmapped()
                 .ForMember(t => t.Id, o => o.MapFrom(s => s.UserId))
                 .ForMember(t => t.HasSolved, o => o.MapFrom(s => s.HasSolved));
         }
@@ -116,13 +107,11 @@ namespace Business.Challenges.Mappings
         private void ConfigureCommentsMap()
         {
             CreateMap<Comment, CommentViewModel>()
-                .IgnoreAllUnmapped()
                 .ForMember(t => t.Id, o => o.MapFrom(s => s.Id))
                 .ForMember(t => t.Value, o => o.MapFrom(s => s.Value));
 
 
             CreateMap<CommentViewModel, Comment>()
-                .IgnoreAllUnmapped()
                 .ForMember(t => t.Id, o => o.MapFrom(s => s.Id))
                 .ForMember(t => t.Value, o => o.MapFrom(s => s.Value));
         }

@@ -12,27 +12,29 @@ using Shared.Framework.Validation;
 
 namespace Business.Identity
 {
-    [ServiceBehavior(IncludeExceptionDetailInFaults = true)]
+    [ServiceBehavior(IncludeExceptionDetailInFaults = true, InstanceContextMode = InstanceContextMode.PerCall)]
     public class IdentityService : IIdentityService
     {
         private readonly IIdentityUnitOfWork unitOfWork;
+        private readonly IMapper mapper;
 
-        public IdentityService(IIdentityUnitOfWork unitOfWork)
+        public IdentityService(IIdentityUnitOfWork unitOfWork, IMapper mapper)
         {
             this.unitOfWork = unitOfWork;
+            this.mapper = mapper;
         }
 
         public IdentityUser CreateIdentityUser(IdentityUser identityUser)
         {
             Contract.NotNull<ArgumentNullException>(identityUser);
 
-            var user = Mapper.Map<User>(identityUser);
+            var user = mapper.Map<User>(identityUser);
 
             var updatedUser = unitOfWork.InsertOrUpdate(user);
 
             unitOfWork.Commit();
 
-            return Mapper.Map<IdentityUser>(updatedUser);
+            return mapper.Map<IdentityUser>(updatedUser);
         }
 
         public IdentityUser UpdateIdentityUser(IdentityUser identityUser)
@@ -41,41 +43,41 @@ namespace Business.Identity
 
             var user = unitOfWork.Get<User>(identityUser.Id);
 
-            Mapper.Map(identityUser, user);
+            mapper.Map(identityUser, user);
 
             var updatedUser = unitOfWork.InsertOrUpdate(user);
 
             unitOfWork.Commit();
 
-            return Mapper.Map<IdentityUser>(updatedUser);
+            return mapper.Map<IdentityUser>(updatedUser);
         }
 
-        public IdentityUser GetIdentityUserByUserName(string userName)
+        public IdentityUser GetIdentityUserByUserName(string noramlizedUserName)
         {
             var parameters = new QueryParameters
             {
                 FilterSettings = FilterSettingsBuilder<User>.Create()
-                    .AddFilterRule(x => x.UserName, FilterOperator.IsEqualTo, userName)
+                    .AddFilterRule(x => x.NormalizedUserName, FilterOperator.IsEqualTo, noramlizedUserName)
                     .GetSettings()
             };
 
             var user = unitOfWork.GetSingleOrDefault<User>(parameters);
 
-            return Mapper.Map<IdentityUser>(user);
+            return mapper.Map<IdentityUser>(user);
         }
 
-        public IdentityUser GetIdentityUserByEmail(string email)
+        public IdentityUser GetIdentityUserByEmail(string normalizedEmail)
         {
             var parameters = new QueryParameters
             {
                 FilterSettings = FilterSettingsBuilder<User>.Create()
-                    .AddFilterRule(x => x.Email, FilterOperator.IsEqualTo, email)
+                    .AddFilterRule(x => x.NormalizedEmail, FilterOperator.IsEqualTo, normalizedEmail)
                     .GetSettings()
             };
 
             var user = unitOfWork.GetSingleOrDefault<User>(parameters);
 
-            return Mapper.Map<IdentityUser>(user);
+            return mapper.Map<IdentityUser>(user);
         }
 
         public string GetUserNameById(Guid userId)
@@ -111,7 +113,7 @@ namespace Business.Identity
 
             var users = unitOfWork.GetAll<User>(parameters);
 
-            return Mapper.Map<List<UserTopViewModel>>(users);
+            return mapper.Map<List<UserTopViewModel>>(users);
         }
 
         public void ConfirmEmail(Guid userId)
@@ -128,7 +130,7 @@ namespace Business.Identity
         {
             var role = unitOfWork.Get<Role>(roleId);
 
-            return Mapper.Map<IdentityRole>(role);
+            return mapper.Map<IdentityRole>(role);
         }
 
         public IdentityRole GetRoleByName(string roleName)
@@ -142,14 +144,14 @@ namespace Business.Identity
 
             var role = unitOfWork.GetSingleOrDefault<Role>(parameters);
 
-            return Mapper.Map<IdentityRole>(role);
+            return mapper.Map<IdentityRole>(role);
         }
 
         public IdentityUser GetIdentityUserById(Guid userId)
         {
             var user = unitOfWork.Get<User>(userId);
 
-            return Mapper.Map<IdentityUser>(user);
+            return mapper.Map<IdentityUser>(user);
         }
     }
 }

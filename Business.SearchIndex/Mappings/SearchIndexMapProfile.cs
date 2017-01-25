@@ -3,13 +3,12 @@ using System.Linq;
 using System.Text;
 using AutoMapper;
 using Data.Challenges.Entities;
-using Shared.Framework.Automapper;
 
 namespace Business.SearchIndex.Mappings
 {
     public class SearchIndexMapProfile: Profile
     {
-        protected override void Configure()
+        public SearchIndexMapProfile()
         {
             ConfigureSearchIndexMap();
         }
@@ -17,7 +16,6 @@ namespace Business.SearchIndex.Mappings
         public void ConfigureSearchIndexMap()
         {
             CreateMap<Challenge, ViewModels.SearchIndex>()
-                .IgnoreAllUnmapped()
                 .ForMember(t => t.Id, o => o.MapFrom(s => s.Id))
                 .ForMember(t => t.Condition, o => o.MapFrom(s => s.Condition))
                 .ForMember(t => t.PreviewText, o => o.MapFrom(s => s.PreviewText))

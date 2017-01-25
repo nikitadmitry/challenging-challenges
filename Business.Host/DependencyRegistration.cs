@@ -12,6 +12,8 @@ namespace Business.Host
 
             builder.RegisterModule(new DataModule());
             builder.RegisterModule(new BusinessModule());
+            AutoMapperConfig.RegisterMappings(builder);
+
 
             AutofacHostFactory.Container = builder.Build();
         }

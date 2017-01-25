@@ -10,9 +10,5 @@ namespace Data.Identity.Migrations
         {
             AutomaticMigrationsEnabled = false;
         }
-
-        protected override void Seed(IdentityContext context)
-        {
-        }
     }
 }
