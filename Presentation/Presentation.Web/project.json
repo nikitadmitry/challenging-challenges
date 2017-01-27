@@ -76,6 +76,6 @@
   },
 
   "tooling": {
-    "defaultNamespace": "PresentationWeb"
+    "defaultNamespace": "Presentation.Web"
   }
 }
