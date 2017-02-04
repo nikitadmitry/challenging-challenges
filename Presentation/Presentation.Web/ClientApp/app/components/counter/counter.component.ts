@@ -1,34 +1,32 @@
 import { Component } from '@angular/core';
-import { Http } from '@angular/http';
-import { AuthHttp, tokenNotExpired } from 'angular2-jwt';
+import { Actions } from '../../shared/actions'
+import { AuthService } from '../../shared/auth/auth.service'
 
 @Component({
     selector: 'counter',
-    template: require('./counter.component.html')
+    template: require('./counter.component.html'),
+    providers: [AuthService]
 })
 export class CounterComponent {
     public currentCount = 0;
 
-    constructor(private http: Http, private authHttp: AuthHttp) { }
+
+    constructor(private authService: AuthService) { }
 
     public incrementCounter() {
         this.currentCount++;
     }
 
      public isLoggedOn() {
-        return tokenNotExpired();
+         return this.authService.isLoggedOn();
     };
 
     public login() {
-            this.http.post('/Account/Login', {
-                userName: 'TestUser1',
-                password: 'qWaszx-12'
-            }).subscribe(response => {
-                localStorage.setItem('id_token', response.json() as string);
-            });
-        }
+        this.authService.login({ userName: 'TestUser1', password: 'qWaszx12' });
+        //this.authService.login({ userName: 'TestUser1', password: undefined });
+    }
 
     public logout() {
-        localStorage.removeItem('id_token');
+        this.authService.logout();
     }
 }

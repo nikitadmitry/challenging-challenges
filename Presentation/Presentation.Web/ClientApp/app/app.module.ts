@@ -1,14 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { UniversalModule } from 'angular2-universal';
-import { AppComponent } from './components/app/app.component'
-import { NavMenuComponent } from './components/navmenu/navmenu.component';
-import { HomeComponent } from './components/home/home.component';
-//import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
+import { AppComponent } from './app.component'
+import { NavMenuComponent } from './navmenu/navmenu.component';
+import { HomeComponent } from './home/home.component';
+import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
-import { ChallengesComponent } from './components/home/challenges/challenges.component';
-import { PaginatorModule } from 'primeng/primeng';
-import { AuthModule } from './auth.module';
+import { ChallengesComponent } from './home/challenges/challenges.component';
+import { AuthModule } from './auth/auth.module';
+import { GrowlModule } from 'primeng/primeng';
+import { MdDialogModule, MdButtonModule } from '@angular/material';
+import { AppRoutingModule } from './app-routing.module';
+import { FormsModule }   from '@angular/forms';
 
 @NgModule({
     bootstrap: [ AppComponent ],
@@ -16,21 +19,17 @@ import { AuthModule } from './auth.module';
         AppComponent,
         NavMenuComponent,
         CounterComponent,
-        //FetchDataComponent,
+        FetchDataComponent,
         ChallengesComponent,
-        HomeComponent,
-        AuthModule
+        HomeComponent      
     ],
     imports: [
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
-        RouterModule.forRoot([
-            { path: '', redirectTo: 'home', pathMatch: 'full' },
-            { path: 'home', component: HomeComponent },
-            { path: 'counter', component: CounterComponent },
-            { path: 'fetch-data', loadChildren: './components/fetchdata/fetchdata.module#FetchDataModule' /*#FetchDataModule*/ },
-            { path: '**', redirectTo: 'home' }
-        ]),
-        PaginatorModule
+        AppRoutingModule,
+        GrowlModule,
+        MdDialogModule, MdButtonModule,
+        AuthModule,
+        FormsModule
     ]
 })
 export class AppModule {

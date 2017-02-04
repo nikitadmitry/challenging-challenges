@@ -1,7 +1,4 @@
-﻿using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Business.Identity.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -9,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using Presentation.Web.Helpers;
 using Presentation.Web.Identity;
 using Presentation.Web.Models.AccountViewModels;
 using Shared.Framework.Utilities;
@@ -50,32 +47,24 @@ namespace Presentation.Web.Controllers
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        [ValidateModel]
+        public async Task<IActionResult> Login([FromBody]LoginViewModel model)
         {
-            if (ModelState.IsValid)
+            var user = await userManager.FindByNameAsync(model.UserName);
+
+            if (user.IsNotNull())
             {
-                var user = await userManager.FindByNameAsync(model.UserName);
+                var signInResult = await signInManager.CheckPasswordSignInAsync(user, model.Password, false);
 
-                if (user.IsNotNull())
+                if (signInResult.Succeeded)
                 {
-                    var signInResult = await signInManager.CheckPasswordSignInAsync(user, model.Password, false);
-
-                    if (signInResult.Succeeded)
-                    {
-                        var encodedJwt = await tokenProvider.Get(user);
-
-                        return Ok(new { token = encodedJwt });
-                    }
-
-                    return BadRequest("Password not correct");
+                    return await TokenResult(user);
                 }
 
-                return BadRequest("UserName not correct");
+                return BadRequest("Password not correct");
             }
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
+            return BadRequest("UserName not correct");
         }
 
         //
@@ -93,7 +82,7 @@ namespace Presentation.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        public async Task<IActionResult> Register([FromBody]RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -108,9 +97,7 @@ namespace Presentation.Web.Controllers
                     //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
                     //    $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
 
-                    var encodedJwt = await tokenProvider.Get(user);
-
-                    return Ok(new { token = encodedJwt });
+                    return await TokenResult(user);
                 }
             }
             
@@ -428,6 +415,16 @@ namespace Presentation.Web.Controllers
         }
 
         #region Helpers
+
+        private async Task<IActionResult> TokenResult(IdentityUser user)
+        {
+            var encodedJwt = await tokenProvider.Get(user);
+
+            return Ok(new
+            {
+                Token = encodedJwt
+            });
+        }
 
         private void AddErrors(IdentityResult result)
         {

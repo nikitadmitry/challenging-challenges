@@ -10,7 +10,7 @@ function authHttpServiceFactory(authConfig: AuthConfig, http: Http, options: Req
   providers: [
     {
       provide: AuthConfig,
-      useFactory: () => new AuthConfig()
+      useFactory: () => new AuthConfig ({ noJwtError: true })
     },
     {
       provide: AuthHttp,

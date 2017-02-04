@@ -24,14 +24,16 @@ namespace Presentation.Web
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
+
+            var secretKey = Configuration.GetValue<string>("AuthKey");
+            signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));
         }
 
         public IContainer ApplicationContainer { get; private set; }
 
         public IConfigurationRoot Configuration { get; }
 
-        private const string SecretKey = "needtogetthisfromenvironment";
-        private readonly SymmetricSecurityKey signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(SecretKey));
+        private readonly SymmetricSecurityKey signingKey;
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)

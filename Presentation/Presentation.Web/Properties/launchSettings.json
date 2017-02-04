@@ -20,6 +20,7 @@
       "launchBrowser": true,
       "launchUrl": "http://localhost:5000",
       "environmentVariables": {
+        "AuthKey": "E9D6F7D9-0D93-4D50-9A9D-43983606BB8C",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },

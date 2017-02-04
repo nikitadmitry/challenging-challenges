@@ -1,5 +1,4 @@
 ﻿import { Component, Input } from '@angular/core';
-//import { PaginatorModule } from 'primeng/primeng';
 
 @Component({
     selector: 'challenges',
