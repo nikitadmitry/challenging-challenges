@@ -9,11 +9,12 @@ var sharedConfig = {
     resolve: { extensions: [ '', '.js', '.ts' ] },
     output: {
         filename: '[name].js',
+        chunkFilename: '[id].[name].chunk.js',
         publicPath: '/dist/' // Webpack dev middleware, if enabled, handles requests for this URL prefix
     },
     module: {
         loaders: [
-            { test: /\.ts$/, include: /ClientApp/, loaders: ['ts-loader?silent=true', 'angular2-template-loader', 'angular2-router-loader'] },
+            { test: /\.ts$/, include: /ClientApp/, loaders: ['ts-loader?silent=true'] },
             { test: /\.html$/, loader: 'html-loader?minimize=false' },
             { test: /\.css$/, loader: 'to-string-loader!css-loader' },
             { test: /\.(png|jpg|jpeg|gif|svg)$/, loader: 'url-loader', query: { limit: 25000 } },

@@ -5,3 +5,14 @@
 <p>Current count: <strong>{{ currentCount }}</strong></p>
 
 <button (click)="incrementCounter()">Increment</button>
+
+<button (click)="login()">Login</button>
+
+<button (click)="logout()">Logout</button>
+
+<div *ngIf="isLoggedOn()">
+    Logged On!
+</div>
+<div *ngIf="!isLoggedOn()">
+    NOT Logged On!
+</div>

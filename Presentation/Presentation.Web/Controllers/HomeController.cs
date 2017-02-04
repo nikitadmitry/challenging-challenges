@@ -1,5 +1,7 @@
+using System.Linq;
 using Business.Identity;
 using Business.Identity.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,6 +33,14 @@ namespace Presentation.Web.Controllers
         public IActionResult Error()
         {
             return View();
+        }
+        
+        [Authorize]
+        public string Auth()
+        {
+            var claims = User.Claims.ToList();
+
+            return "YEA";
         }
     }
 }

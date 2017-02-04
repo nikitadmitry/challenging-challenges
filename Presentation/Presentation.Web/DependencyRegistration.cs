@@ -6,6 +6,7 @@ using Business.Challenges;
 using Business.Identity;
 using Business.SearchIndex;
 using Microsoft.Extensions.Configuration;
+using Presentation.Web.Identity;
 
 namespace Presentation.Web
 {
@@ -17,6 +18,8 @@ namespace Presentation.Web
             RegisterService<IIdentityService>(builder, configuration, "IdentityService");
             RegisterService<IAchievementsService>(builder, configuration, "AchievementsService");
             RegisterService<ISearchIndexService>(builder, configuration, "SearchIndexService");
+
+            builder.RegisterType(typeof(JwtTokenProvider)).AsSelf();
         }
 
         private static void RegisterService<T>(ContainerBuilder builder, IConfiguration configuration, string serviceName)

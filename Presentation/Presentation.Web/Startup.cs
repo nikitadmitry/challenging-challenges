@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Business.Identity.ViewModels;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Presentation.Web.Identity;
 
 namespace Presentation.Web
@@ -28,9 +30,14 @@ namespace Presentation.Web
 
         public IConfigurationRoot Configuration { get; }
 
+        private const string SecretKey = "needtogetthisfromenvironment";
+        private readonly SymmetricSecurityKey signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(SecretKey));
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddOptions();
+
             services.AddIdentity<IdentityUser, IdentityRole>(
                 o =>
                 {
@@ -42,6 +49,16 @@ namespace Presentation.Web
 
             // Add framework services.
             services.AddMvc();
+
+            var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
+            
+            // Configure JwtIssuerOptions
+            services.Configure<JwtIssuerOptions>(options =>
+            {
+                options.Issuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)];
+                options.Audience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)];
+                options.SigningCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
+            });
 
             var builder = new ContainerBuilder();
             DependencyRegistration.ConfigureContainer(builder, Configuration);
@@ -72,7 +89,30 @@ namespace Presentation.Web
 
             app.UseStaticFiles();
 
-            app.UseIdentity();
+            var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidIssuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)],
+
+                ValidateAudience = true,
+                ValidAudience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)],
+
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = signingKey,
+
+                RequireExpirationTime = true,
+                ValidateLifetime = true,
+
+                ClockSkew = TimeSpan.Zero
+            };
+
+            app.UseJwtBearerAuthentication(new JwtBearerOptions
+            {
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = true,
+                TokenValidationParameters = tokenValidationParameters
+            });
 
             app.UseMvc(routes =>
             {

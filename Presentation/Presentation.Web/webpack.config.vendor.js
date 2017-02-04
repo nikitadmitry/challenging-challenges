@@ -10,7 +10,7 @@ var sharedConfig = {
     module: {
         loaders: [
             { test: /\.json$/, loader: require.resolve('json-loader') },
-            { test: /\.(png|woff|woff2|eot|ttf|svg)(\?|$)/, loader: 'url-loader?limit=100000' }
+            { test: /\.(png|woff|woff2|eot|ttf|svg|gif)(\?|$)/, loader: 'url-loader?limit=100000' }
         ]
     },
     entry: {
@@ -23,6 +23,8 @@ var sharedConfig = {
             '@angular/platform-browser-dynamic',
             '@angular/router',
             '@angular/platform-server',
+            '@angular/forms',
+            '@angular/material',
             'angular2-universal',
             'angular2-universal-polyfills',
             'bootstrap',
@@ -32,6 +34,10 @@ var sharedConfig = {
             'event-source-polyfill',
             'jquery',
             'zone.js',
+            'font-awesome/css/font-awesome.css',
+            'primeng/components/paginator/paginator',
+            'primeng/resources/themes/bootstrap/theme.css',
+            'primeng/resources/primeng.min.css'
         ]
     },
     output: {

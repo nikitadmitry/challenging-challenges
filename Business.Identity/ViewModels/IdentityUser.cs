@@ -67,7 +67,19 @@ namespace Business.Identity.ViewModels
 
         public IList<string> Achievements;
 
-        public IList<string> Roles;
+        private IList<string> roles;
+
+        public IList<string> Roles
+        {
+            get
+            {
+                return roles ?? (roles = new List<string>());
+            }
+            set
+            {
+                roles = value;
+            }
+        }
 
         public virtual string PasswordHash
         {
