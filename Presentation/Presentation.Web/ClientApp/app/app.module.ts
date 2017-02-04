@@ -12,6 +12,7 @@ import { GrowlModule } from 'primeng/primeng';
 import { MdDialogModule, MdButtonModule } from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule }   from '@angular/forms';
+import { LoginComponent } from './auth/login/login.component';
 
 @NgModule({
     bootstrap: [ AppComponent ],
@@ -21,7 +22,8 @@ import { FormsModule }   from '@angular/forms';
         CounterComponent,
         FetchDataComponent,
         ChallengesComponent,
-        HomeComponent      
+        HomeComponent,
+        LoginComponent
     ],
     imports: [
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.

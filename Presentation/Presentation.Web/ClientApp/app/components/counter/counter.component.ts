@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Actions } from '../../shared/actions'
-import { AuthService } from '../../shared/auth/auth.service'
+import { AuthService } from '../../auth/auth.service'
 
 @Component({
     selector: 'counter',

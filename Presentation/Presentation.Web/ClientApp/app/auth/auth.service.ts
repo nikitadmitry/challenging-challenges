@@ -3,8 +3,8 @@ import { Http, Response } from '@angular/http';
 import { tokenNotExpired, JwtHelper, AuthConfig } from 'angular2-jwt';
 import { LoginViewModel } from './login/login.model';
 import { RegisterViewModel } from './register/register.model';
-import { Actions } from '../shared/actions'
-import { Observable } from 'rxjs/Observable'
+import { Actions } from '../shared/actions';
+import { Observable } from 'rxjs/Observable';
 import { Messages } from '../shared/messages';
 
 @Injectable()
