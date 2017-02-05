@@ -1,23 +1,18 @@
-<p-growl [value]="messages"></p-growl>
+<!--<p-growl [value]="messages"></p-growl>-->
 
 <mdl-layout mdl-layout-fixed-drawer #navLayout="mdlLayout">
     <!--<nav-menu [navLayout]="navLayout"></nav-menu>-->
     <mdl-layout-drawer>
-        <mdl-layout-title>CC</mdl-layout-title>
         <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" mdl-raised [routerLinkActive]="['mdl-color--light-green-400']" [routerLink]="['/home']" (click)="navLayout.closeDrawer()">Главная</a>
-            <a class="mdl-navigation__link" [routerLink]="['/counter']" (click)="navLayout.closeDrawer()">Counter</a>
-            <a class="mdl-navigation__link" (click)="navLayout.closeDrawer()">Link 3</a>
+            <a class="mdl-navigation__link" [routerLinkActive]="['mdl-color--light-green-400']" [routerLink]="['/home']" (click)="navLayout.closeDrawer()">Главная</a>
+            <a class="mdl-navigation__link" [routerLinkActive]="['mdl-color--light-green-400']" [routerLink]="['/counter']" (click)="navLayout.closeDrawer()">Counter</a>
+            <a class="mdl-navigation__link" [routerLinkActive]="['mdl-color--light-green-400']" (click)="navLayout.closeDrawer()">Link 3</a>
             <!--<auth></auth>-->
         </nav>
     </mdl-layout-drawer>
 
     <mdl-layout-content>
-        <div class='container-fluid' id="main-content">
-            <div class='row'>
-                <router-outlet></router-outlet>
-                <router-outlet name="popup"></router-outlet>
-            </div>
-        </div>
+        <router-outlet></router-outlet>
+        <router-outlet name="popup"></router-outlet>
     </mdl-layout-content>
 </mdl-layout>

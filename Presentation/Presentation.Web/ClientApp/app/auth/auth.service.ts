@@ -5,7 +5,7 @@ import { LoginViewModel } from './login/login.model';
 import { RegisterViewModel } from './register/register.model';
 import { Actions } from '../shared/actions';
 import { Observable } from 'rxjs/Observable';
-import { Messages } from '../shared/messages';
+//import { Messages } from '../shared/messages';
 
 @Injectable()
 export class AuthService {
@@ -39,7 +39,7 @@ export class AuthService {
 
     private handleError(errors: any[]): void {
         errors.forEach(error => {
-            Messages.push({severity: "error", detail: error, summary: "Error"});
+           // Messages.push({severity: "error", detail: error, summary: "Error"});
         });
     }
 

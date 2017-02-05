@@ -1,5 +1,5 @@
 import { Component, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { Messages } from './shared/messages';
+//import { Messages } from './shared/messages';
 
 @Component({
     selector: 'app',
@@ -8,7 +8,7 @@ import { Messages } from './shared/messages';
     encapsulation: ViewEncapsulation.None   
 })
 export class AppComponent implements OnDestroy {
-    messages = Messages;
+    //messages = Messages;
 
     ngOnDestroy(): void {
         document.body.appendChild(document.createElement("app"));

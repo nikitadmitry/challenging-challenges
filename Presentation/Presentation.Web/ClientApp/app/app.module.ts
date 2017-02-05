@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { UniversalModule } from 'angular2-universal';
-import { GrowlModule } from 'primeng/primeng';
+//import { GrowlModule } from 'primeng/primeng';
 import { FormsModule } from '@angular/forms';
 import { MdlModule } from 'angular2-mdl';
 
@@ -29,7 +29,7 @@ import { AppRoutingModule } from './app-routing.module';
         AppRoutingModule,
         MdlModule,
         AuthModule,
-        GrowlModule,
+        //GrowlModule,
         FormsModule
     ]
 })
