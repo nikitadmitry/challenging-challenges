@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { UniversalModule } from 'angular2-universal';
 import { GrowlModule } from 'primeng/primeng';
-import { MaterialModule } from '@angular/material';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { MdlModule } from 'angular2-mdl';
 
 import { AppComponent } from './app.component'
 import { NavMenuComponent } from './navmenu/navmenu.component';
@@ -27,9 +27,9 @@ import { AppRoutingModule } from './app-routing.module';
     imports: [
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
         AppRoutingModule,
+        MdlModule,
         AuthModule,
         GrowlModule,
-        MaterialModule.forRoot(),
         FormsModule
     ]
 })

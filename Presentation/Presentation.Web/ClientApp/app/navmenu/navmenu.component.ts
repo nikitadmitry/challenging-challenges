@@ -1,4 +1,5 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, Input } from '@angular/core';
+import { MdlLayoutComponent } from 'angular2-mdl';
 
 @Component({
     selector: 'nav-menu',
@@ -7,4 +8,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
     encapsulation: ViewEncapsulation.None
 })
 export class NavMenuComponent {
+    @Input()
+    navLayout: MdlLayoutComponent;
+    
 }

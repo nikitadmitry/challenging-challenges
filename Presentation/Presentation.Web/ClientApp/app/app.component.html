@@ -1,18 +1,23 @@
 <p-growl [value]="messages"></p-growl>
 
-<md-sidenav-container>
-    <md-sidenav #sidebar>
-        <nav-menu></nav-menu>
-    </md-sidenav>
+<mdl-layout mdl-layout-fixed-drawer #navLayout="mdlLayout">
+    <!--<nav-menu [navLayout]="navLayout"></nav-menu>-->
+    <mdl-layout-drawer>
+        <mdl-layout-title>CC</mdl-layout-title>
+        <nav class="mdl-navigation">
+            <a class="mdl-navigation__link" mdl-raised [routerLinkActive]="['mdl-color--light-green-400']" [routerLink]="['/home']" (click)="navLayout.closeDrawer()">Главная</a>
+            <a class="mdl-navigation__link" [routerLink]="['/counter']" (click)="navLayout.closeDrawer()">Counter</a>
+            <a class="mdl-navigation__link" (click)="navLayout.closeDrawer()">Link 3</a>
+            <!--<auth></auth>-->
+        </nav>
+    </mdl-layout-drawer>
 
-    <div class='container'>
-        <div class='row'>
-            <button md-button (click)="sidebar.open()">open sidebar</button>
-            <button md-button (click)="sidebar.close()">close sidebar</button>
-            <div class='col-sm-9 body-content'>
+    <mdl-layout-content>
+        <div class='container-fluid' id="main-content">
+            <div class='row'>
                 <router-outlet></router-outlet>
                 <router-outlet name="popup"></router-outlet>
             </div>
         </div>
-    </div>
-</md-sidenav-container>
+    </mdl-layout-content>
+</mdl-layout>

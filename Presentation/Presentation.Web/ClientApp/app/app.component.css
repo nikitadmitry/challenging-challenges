@@ -1,12 +1,8 @@
-.dark-primary-color    { background: #689F38; }
-.default-primary-color { background: #8BC34A; }
-.light-primary-color   { background: #DCEDC8; }
-.text-primary-color    { color: #212121; }
-.accent-color          { background: #FFC107; }
-.primary-text-color    { color: #212121; }
-.secondary-text-color  { color: #757575; }
-.divider-color         { border-color: #BDBDBD; }
+#main-content {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
 
-md-sidenav {
-  width: 200px;
+mdl-layout-drawer a {
+    text-decoration: none !important;
 }

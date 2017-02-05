@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { Http, RequestOptions } from '@angular/http';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { RouterModule, Routes } from '@angular/router';
-import { MaterialModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
+//import { MdlNonRootModule } from 'angular2-mdl';
 
 import { AuthComponent } from './auth.component';
 import { LoginComponent } from './login/login.component';
@@ -33,7 +33,7 @@ function authHttpServiceFactory(authConfig: AuthConfig, http: Http, options: Req
   entryComponents: [ LoginDialogComponent ],
   imports: [ 
     BrowserModule,
-    MaterialModule.forRoot()
+    //MdlNonRootModule.forRoot()
   ],
   exports: [
     AuthComponent

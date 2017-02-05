@@ -1,2 +1,2 @@
-<login *ngIf="!isLoggedOn()"></login>
+<login *ngIf="!authService.isLoggedOn()" (onDialogClosed)="onItemClicked.emit()"></login>
 <!--<register></register>-->

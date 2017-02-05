@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { MdDialog } from '@angular/material';
+import { Component, Output, EventEmitter } from '@angular/core';
 import {LoginDialogComponent} from './login-dialog.component';
 
 @Component({
@@ -7,16 +6,10 @@ import {LoginDialogComponent} from './login-dialog.component';
     template: require('./login.component.html')
 })
 export class LoginComponent {
-
-    constructor(public dialog: MdDialog) {}
+    @Output()
+    onDialogClosed: EventEmitter<void> = new EventEmitter<void>();
 
     openDialog() {
-        let dialogRef = this.dialog.open(LoginDialogComponent, {
-            height: '400px',
-            width: '600px',
-        });
-        dialogRef.afterClosed().subscribe(result => {
-            
-        });
+        
     }
 }

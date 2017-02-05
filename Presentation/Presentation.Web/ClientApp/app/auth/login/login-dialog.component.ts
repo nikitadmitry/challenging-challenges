@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { MdDialogRef } from '@angular/material';
 import { LoginViewModel } from './login.model';
 
 @Component({

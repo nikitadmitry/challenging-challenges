@@ -24,8 +24,8 @@ module.exports = (env) => {
                 '@angular/platform-browser-dynamic',
                 '@angular/router',
                 '@angular/platform-server',
-                //'angular2-universal',
-                //'angular2-universal-polyfills',
+                'angular2-universal',
+                'angular2-universal-polyfills',
                 'bootstrap',
                 'bootstrap/dist/css/bootstrap.css',
                 'es6-shim',
@@ -37,8 +37,7 @@ module.exports = (env) => {
                 'primeng/primeng',
                 'primeng/resources/themes/omega/theme.css',
                 'primeng/resources/primeng.min.css',
-                '@angular/material',
-                '@angular/material/core/theming/prebuilt/indigo-pink.css'
+                'angular2-mdl'
             ]
         },
         output: {
