@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MdDialog,Overlay,OverlayContainer } from '@angular/material';
+import { MdDialog } from '@angular/material';
 import {LoginDialogComponent} from './login-dialog.component';
 
 @Component({

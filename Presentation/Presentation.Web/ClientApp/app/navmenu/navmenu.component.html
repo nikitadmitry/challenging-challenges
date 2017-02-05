@@ -1,4 +1,13 @@
-<div class='main-nav'>
+<md-nav-list>
+    <a md-list-item class="default-primary-color" [routerLink]="['/home']">
+        Challenging Challenges
+    </a>
+    <a md-list-item [routerLinkActive]="['light-primary-color']" [routerLink]="['/counter']">
+        <md-icon>check_circle</md-icon> Counter
+    </a>
+</md-nav-list>
+
+<!--<div class='main-nav'>
     <div class='navbar navbar-inverse'>
         <div class='navbar-header'>
             <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'>
@@ -27,12 +36,8 @@
                         <span class='glyphicon glyphicon-th-list'></span> Fetch data
                     </a>
                 </li>
-                <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="[{ outlets: { auth: ['login'] } }]">
-                        <span class='glyphicon glyphicon-user'></span> Login
-                    </a>
-                </li>
+                <auth></auth>
             </ul>
         </div>
     </div>
-</div>
+</div>-->

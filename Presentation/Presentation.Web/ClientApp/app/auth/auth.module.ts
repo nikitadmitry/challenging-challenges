@@ -3,10 +3,11 @@ import { Http, RequestOptions } from '@angular/http';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { RouterModule, Routes } from '@angular/router';
 import { MaterialModule } from '@angular/material';
+import { BrowserModule } from '@angular/platform-browser';
 
+import { AuthComponent } from './auth.component';
 import { LoginComponent } from './login/login.component';
 import { LoginDialogComponent } from './login/login-dialog.component';
-import { AuthComponent } from './auth.component';
 
 function authHttpServiceFactory(authConfig: AuthConfig, http: Http, options: RequestOptions) {
   return new AuthHttp(authConfig, http, options);
@@ -14,9 +15,9 @@ function authHttpServiceFactory(authConfig: AuthConfig, http: Http, options: Req
 
 @NgModule({
   declarations: [
+    AuthComponent,
     LoginComponent,
-    LoginDialogComponent,
-    AuthComponent
+    LoginDialogComponent
   ],
   providers: [
     {
@@ -30,6 +31,12 @@ function authHttpServiceFactory(authConfig: AuthConfig, http: Http, options: Req
     }
   ],
   entryComponents: [ LoginDialogComponent ],
-  imports: [ MaterialModule ]
+  imports: [ 
+    BrowserModule,
+    MaterialModule.forRoot()
+  ],
+  exports: [
+    AuthComponent
+  ]
 })
 export class AuthModule { }
