@@ -11,8 +11,8 @@ const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'counter', component: CounterComponent },
     { path: 'fetch-data', component: FetchDataComponent },//'./components/fetchdata/fetchdata.module#FetchDataModule' /*#FetchDataModule*/ },
-    { path: '**', redirectTo: 'home' },
-    { path: 'login', component: LoginComponent }
+    { path: 'login', component: LoginComponent, outlet: 'popup' },
+    { path: '**', redirectTo: 'home' }
 ];
 
 @NgModule({

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MdDialog } from '@angular/material';
+import { MdDialog,Overlay,OverlayContainer } from '@angular/material';
 import {LoginDialogComponent} from './login-dialog.component';
 
 @Component({
@@ -11,7 +11,10 @@ export class LoginComponent {
     constructor(public dialog: MdDialog) {}
 
     openDialog() {
-        let dialogRef = this.dialog.open(LoginDialogComponent);
+        let dialogRef = this.dialog.open(LoginDialogComponent, {
+            height: '400px',
+            width: '600px',
+        });
         dialogRef.afterClosed().subscribe(result => {
             
         });

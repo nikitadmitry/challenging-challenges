@@ -1,12 +1,22 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { MdDialogRef } from '@angular/material';
 import { LoginViewModel } from './login.model';
 
 @Component({
-    template: require('./login-dialog.component.html'),
+    selector: 'login-dialog',
+    template: require('./login-dialog.component.html')
 })
 export class LoginDialogComponent {
     public model: LoginViewModel;
 
-    constructor(public dialogRef: MdDialogRef<LoginDialogComponent>) {}
+    constructor(private router: Router) { }
+
+    public login(): void {
+        this.router.navigate([{ outlets: { popup: null }}]);
+    }
+
+    public register(): void {
+
+    }
 }

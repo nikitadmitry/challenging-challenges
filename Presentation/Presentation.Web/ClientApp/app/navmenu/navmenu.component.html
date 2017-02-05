@@ -28,7 +28,7 @@
                     </a>
                 </li>
                 <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/login']">
+                    <a [routerLink]="[{ outlets: { auth: ['login'] } }]">
                         <span class='glyphicon glyphicon-user'></span> Login
                     </a>
                 </li>
