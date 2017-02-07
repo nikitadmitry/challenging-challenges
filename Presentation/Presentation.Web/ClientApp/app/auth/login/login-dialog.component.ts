@@ -33,7 +33,6 @@ export class LoginDialogComponent implements OnInit {
         this.loginForm = this.fb.group({
             userName: ["", Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(24)])],
             password: ["", Validators.compose([Validators.required, Validators.minLength(6)])]
-            // v Validators.pattern("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]{6,100}")]]
         });
     }
 

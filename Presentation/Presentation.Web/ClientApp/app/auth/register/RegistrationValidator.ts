@@ -1,45 +1,66 @@
+import { Injectable } from "@angular/core";
+
+import { AuthService } from "./../auth.service";
+
 interface ValidationResult {
     [key:string]: boolean;
 }
 
+@Injectable()
 export class RegistrationValidator {
-    static usernameTaken(control: any): Promise<ValidationResult> {
-        console.log("usernameTaken");
-        let q = new Promise((resolve, reject) => {
-            setTimeout(() => {
-                if (control.value === "David") {
-                    resolve({"usernameTaken": true});
-                } else {
-                    resolve(null);
-                }
-            }, 1000);
-        });
+    private usernameTimeout;
+    private emailTimeout;
+    private requestDebounce = 1500;
 
-        return q;
+    constructor(private authService: AuthService) { }
+
+    usernameTaken(control: any): Promise<ValidationResult> {
+        if (this.usernameTimeout) {
+            clearTimeout(this.usernameTimeout);
+        }
+        return new Promise((resolve, reject) => {
+            this.usernameTimeout = setTimeout(() => {
+                this.authService.isUsernameTaken(control.value)
+                    .then((isTaken: boolean) => {
+                    if (isTaken) {
+                        return {"usernameTaken": true};
+                    }
+                    return null;
+                });
+            }, this.requestDebounce);
+        });
     }
 
-    static emailRegistered(control: any): Promise<ValidationResult> {
-        console.log("emailRegistered");
-        let q = new Promise((resolve, reject) => {
-            setTimeout(() => {
-                if (control.value === "qwe@qwe.qwe") {
-                    resolve({"emailRegistered": true});
-                } else {
-                    resolve(null);
-                }
-            }, 1000);
+    emailRegistered(control: any): Promise<ValidationResult> {
+        if (this.emailTimeout) {
+            clearTimeout(this.emailTimeout);
+        }
+        return new Promise((resolve, reject) => {
+            this.emailTimeout = setTimeout(() => {
+                console.log("emailRegistered request");
+                    if (control.value === "qwe@qwe.qwe") {
+                        resolve({"emailRegistered": true});
+                    } else {
+                        resolve(null);
+                    }
+            }, this.requestDebounce);
         });
-
-        return q;
     }
 
-    static equalToPassword(control: any): ValidationResult {
-        console.log("equalToPassword");
+    email(control: any): ValidationResult {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (re.test(control.value)) {
+            return { email: false }
+        }
+        return null;
+    }
+
+    equalToPassword(control: any): ValidationResult {
         let v = control.value;
 
         let e = control.root.get("password");
 
-        if (e && v !== e.value) {
+        if (e && e.value !== "" && v !== e.value) {
             return { equalToPassword: false }
         }
 

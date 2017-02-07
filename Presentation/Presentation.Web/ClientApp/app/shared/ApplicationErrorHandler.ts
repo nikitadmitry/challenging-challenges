@@ -12,12 +12,12 @@ export class ApplicationErrorHandler implements ErrorHandler {
         this.notificationsService.error("Ошибка", error);
       });
 
-      // return;
+      return;
     }
 
-    // console.group( "ErrorHandler" );
-    // console.error( zoneError.message );
-    // console.error( zoneError.stack );
-    // console.groupEnd();
+    console.group( "ErrorHandler" );
+    console.error( zoneError.message );
+    console.error( zoneError.stack );
+    console.groupEnd();
   }
 }

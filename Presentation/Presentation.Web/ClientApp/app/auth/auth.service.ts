@@ -45,6 +45,23 @@ export class AuthService {
     public logout() {
         localStorage.removeItem(this.tokenName);
     }
+
+    public isUsernameTaken(userName: string): Promise<boolean> {
+        return this.http.get(Actions.account.checkUsernameAvailability(userName))
+            .map(x => !(x.json() as boolean))
+            .toPromise();
+    }
+
+    public isEmailRegistered(email: string): Promise<boolean> {
+        return this.http.get(Actions.account.checkEmailAvailability(email))
+            .map(x => !(x.json() as boolean))
+            .toPromise();
+    }
+
+    public isPasswordStrong(password: string): boolean {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(password);
+    }
 }
 
 interface TokenResponse {

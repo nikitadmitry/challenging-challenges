@@ -3,7 +3,17 @@
     var actions = {
         account: {
             login: '@Url.Action("Login", "Account")',
-            register: '@Url.Action("Register", "Account")'
+            register: '@Url.Action("Register", "Account")',
+            checkUsernameAvailability: function (userName) {
+                var url = '@Url.Action("CheckUsernameAvailability", "Account", new { userName = "1userName1" })';
+                url = url.replace("1userName1", userName);
+                return url;
+            },
+            checkEmailAvailability: function (email) {
+                var url = '@Url.Action("CheckEmailAvailability", "Account", new { email = "1email1" })';
+                url = url.replace("1email1", email);
+                return url.toString();
+            }
         }
     }
 

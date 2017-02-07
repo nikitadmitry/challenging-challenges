@@ -28,7 +28,7 @@
                     floating-label></mdl-textfield>
     </div>
     <div class="mdl-dialog__actions">
-        <button mdl-button [disabled]="registerForm.invalid" type="submit" mdl-button-type="raised" mdl-colored="primary" mdl-ripple>Регистрация</button>
+        <button mdl-button [disabled]="!registerForm.valid" type="submit" mdl-button-type="raised" mdl-colored="primary" mdl-ripple>Регистрация</button>
         <button mdl-button type="button" (click)="cancel()">Отмена</button>
     </div>
 </form>
