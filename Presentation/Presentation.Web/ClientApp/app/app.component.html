@@ -1,18 +1,20 @@
-<!--<p-growl [value]="messages"></p-growl>-->
+<simple-notifications [options]="options"></simple-notifications>
 
-<mdl-layout mdl-layout-fixed-drawer #navLayout="mdlLayout">
-    <!--<nav-menu [navLayout]="navLayout"></nav-menu>-->
+<mdl-layout mdl-layout-fixed-header mdl-layout-fixed-drawer>
+    <mdl-layout-header class="mdl-color--grey-100 mdl-color-text--grey-600">
+        <mdl-layout-header-row>
+            <mdl-layout-title>I lav angular 2</mdl-layout-title>
+            <mdl-layout-spacer></mdl-layout-spacer>
+            <mdl-textfield type="text" icon="search"></mdl-textfield>
+         </mdl-layout-header-row>
+    </mdl-layout-header>
     <mdl-layout-drawer>
-        <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" [routerLinkActive]="['mdl-color--light-green-400']" [routerLink]="['/home']" (click)="navLayout.closeDrawer()">Главная</a>
-            <a class="mdl-navigation__link" [routerLinkActive]="['mdl-color--light-green-400']" [routerLink]="['/counter']" (click)="navLayout.closeDrawer()">Counter</a>
-            <a class="mdl-navigation__link" [routerLinkActive]="['mdl-color--light-green-400']" (click)="navLayout.closeDrawer()">Link 3</a>
-            <!--<auth></auth>-->
-        </nav>
+        <nav-menu (onNavigated)="onNavigated()"></nav-menu>
     </mdl-layout-drawer>
 
     <mdl-layout-content>
         <router-outlet></router-outlet>
-        <router-outlet name="popup"></router-outlet>
     </mdl-layout-content>
 </mdl-layout>
+
+<dialog-outlet></dialog-outlet>

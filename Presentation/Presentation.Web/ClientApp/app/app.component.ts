@@ -1,16 +1,21 @@
-import { Component, OnDestroy, ViewEncapsulation } from '@angular/core';
-//import { Messages } from './shared/messages';
+import { Component, OnDestroy, ViewEncapsulation, ViewChild } from "@angular/core";
+import { MdlLayoutComponent } from "angular2-mdl";
 
 @Component({
-    selector: 'app',
-    template: require('./app.component.html'),
-    styles: [require('./app.component.css')],
-    encapsulation: ViewEncapsulation.None   
+    selector: "app",
+    template: require("./app.component.html"),
+    styles: [require("./app.component.css")],
+    encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnDestroy {
-    //messages = Messages;
+    @ViewChild(MdlLayoutComponent)
+    layout: MdlLayoutComponent;
 
     ngOnDestroy(): void {
         document.body.appendChild(document.createElement("app"));
+    }
+
+    onNavigated(): void {
+        this.layout.closeDrawerOnSmallScreens();
     }
 }

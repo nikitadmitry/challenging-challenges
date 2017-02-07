@@ -1,14 +1,16 @@
-import { Component, ViewEncapsulation, Input } from '@angular/core';
-import { MdlLayoutComponent } from 'angular2-mdl';
+import { Component, ViewEncapsulation, Output, EventEmitter } from "@angular/core";
 
 @Component({
-    selector: 'nav-menu',
-    template: require('./navmenu.component.html'),
-    styles: [require('./navmenu.component.css')],
+    selector: "nav-menu",
+    template: require("./navmenu.component.html"),
+    styles: [require("./navmenu.component.css")],
     encapsulation: ViewEncapsulation.None
 })
 export class NavMenuComponent {
-    @Input()
-    navLayout: MdlLayoutComponent;
-    
+    @Output("onNavigated")
+    onNavigatedEmitter: EventEmitter<void> = new EventEmitter<void>();
+
+    onNavigated(): void {
+        this.onNavigatedEmitter.emit();
+    }
 }

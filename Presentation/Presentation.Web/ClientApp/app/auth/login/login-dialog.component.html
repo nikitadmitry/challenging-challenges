@@ -1,8 +1,26 @@
-<h1 md-dialog-title>Войти</h1>
-<div md-dialog-content>
-    What would you like to do?
-</div>
-<div md-dialog-actions>
-  <button md-button (click)="login()">Войти</button>
-  <button md-button (click)="register()">Регистрация</button>
-</div>
+<h3 class="mdl-dialog__title">Вход</h3>
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+    <div class="mdl-dialog__content">
+        <mdl-textfield formControlName="userName"
+                    label="Имя пользователя"
+                    name="userName"
+                    type="text"
+                    formControlName="userName"
+                    floating-label></mdl-textfield>
+        <mdl-textfield formControlName="password"
+                    label="Пароль"
+                    name="password"
+                    type="password"
+                    formControlName="password"
+                    floating-label></mdl-textfield>
+
+        <p>Form value: {{ loginForm.value | json }}</p>
+        <p>Form valid: {{ loginForm.valid }}</p>
+        <p>userName valid: {{ loginForm.get("userName").valid }}</p>
+    </div>
+    <div class="mdl-dialog__actions">
+        <!--[disabled]="!loginForm.valid"-->
+        <button mdl-button type="submit" mdl-button-type="raised" mdl-colored="primary" mdl-ripple>Войти</button>
+        <button mdl-button type="button" (click)="cancel()">Отмена</button>
+    </div>
+</form>

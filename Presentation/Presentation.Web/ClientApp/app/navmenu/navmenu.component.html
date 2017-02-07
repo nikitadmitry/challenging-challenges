@@ -1,4 +1,14 @@
-
+<nav class="mdl-navigation">
+    <a class="mdl-navigation__link" 
+        [routerLinkActive]="['mdl-color--light-green-400']" 
+        [routerLink]="['/home']"
+        (click)="onNavigated()">Главная</a>
+    <a class="mdl-navigation__link" 
+        [routerLinkActive]="['mdl-color--light-green-400']" 
+        [routerLink]="['/counter']"
+        (click)="onNavigated()">Counter</a>
+    <auth (onNavigated)="onNavigated()"></auth>
+</nav>
 
 
 

@@ -14,6 +14,7 @@
     "@types/node": "^6.0.42",
     "angular2-jwt": "0.1.28",
     "angular2-mdl": "^2.13.0",
+    "angular2-notifications": "^0.4.53",
     "angular2-platform-node": "~2.0.11",
     "angular2-router-loader": "0.3.4",
     "angular2-template-loader": "^0.6.0",

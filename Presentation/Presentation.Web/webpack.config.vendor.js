@@ -37,7 +37,8 @@ module.exports = (env) => {
                 //'primeng/primeng',
                 //'primeng/resources/themes/omega/theme.css',
                 //'primeng/resources/primeng.min.css',
-                'angular2-mdl'
+                'angular2-mdl',
+                'angular2-notifications/components'
             ]
         },
         output: {
