@@ -1,0 +1,34 @@
+<h3 class="mdl-dialog__title">Регистрация</h3>
+<form [formGroup]="registerForm" (ngSubmit)="register()">
+    <div class="mdl-dialog__content">
+        <mdl-textfield formControlName="userName"
+                    label="Имя пользователя"
+                    name="userName"
+                    type="text"
+                    formControlName="userName"
+                    floating-label></mdl-textfield>
+        <mdl-textfield formControlName="email"
+                    label="Электронная почта"
+                    name="email"
+                    type="text"
+                    formControlName="email"
+                    floating-label></mdl-textfield>
+        <mdl-textfield formControlName="password"
+                    label="Пароль"
+                    name="password"
+                    type="password"
+                    formControlName="password"
+                    floating-label></mdl-textfield>
+        <mdl-textfield formControlName="confirmPassword"
+                    label="Подтверждение пароля"
+                    name="confirmPassword"
+                    type="password"
+                    formControlName="confirmPassword"
+                    error-msg="Пароли должны совпадать."
+                    floating-label></mdl-textfield>
+    </div>
+    <div class="mdl-dialog__actions">
+        <button mdl-button [disabled]="registerForm.invalid" type="submit" mdl-button-type="raised" mdl-colored="primary" mdl-ripple>Регистрация</button>
+        <button mdl-button type="button" (click)="cancel()">Отмена</button>
+    </div>
+</form>

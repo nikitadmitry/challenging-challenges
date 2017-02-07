@@ -9,12 +9,15 @@ export class ApplicationErrorHandler implements ErrorHandler {
       var errors: any[] = zoneError.rejection;
 
       errors.forEach(error => {
-        this.notificationsService.error("Ошибка", error, {timeOut: 5000});
+        this.notificationsService.error("Ошибка", error);
       });
 
-      return;
+      // return;
     }
 
-    debugger;
+    // console.group( "ErrorHandler" );
+    // console.error( zoneError.message );
+    // console.error( zoneError.stack );
+    // console.groupEnd();
   }
 }

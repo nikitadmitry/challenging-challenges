@@ -12,6 +12,7 @@ import { AuthService } from "../auth.service";
 })
 export class LoginDialogComponent implements OnInit {
     loginForm: FormGroup;
+    userName: string;
 
     validationMessages = {
         "userName": {
@@ -30,16 +31,16 @@ export class LoginDialogComponent implements OnInit {
 
     ngOnInit(): void {
         this.loginForm = this.fb.group({
-            userName: ["", [Validators.required, Validators.minLength(4), Validators.maxLength(24)]],
-            password: ["", [Validators.required, Validators.minLength(6), Validators.maxLength(100)]]
+            userName: ["", Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(24)])],
+            password: ["", Validators.compose([Validators.required, Validators.minLength(6)])]
+            // v Validators.pattern("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]{6,100}")]]
         });
     }
 
     login(): void {
-        this.authService.login(this.loginForm.value).then(() => this.closeDialog());
-        // , (error) => {
-        //     debugger;
-        // });
+        if (this.loginForm.valid) {
+            this.authService.login(this.loginForm.value).then(() => this.closeDialog());
+        }
     }
 
     cancel(): void {

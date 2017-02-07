@@ -12,15 +12,11 @@
                     name="password"
                     type="password"
                     formControlName="password"
+                    error-msg="Пароль должен содержать строчную букву, прописную букву, цифру и иметь длину более 6 символов."
                     floating-label></mdl-textfield>
-
-        <p>Form value: {{ loginForm.value | json }}</p>
-        <p>Form valid: {{ loginForm.valid }}</p>
-        <p>userName valid: {{ loginForm.get("userName").valid }}</p>
     </div>
     <div class="mdl-dialog__actions">
-        <!--[disabled]="!loginForm.valid"-->
-        <button mdl-button type="submit" mdl-button-type="raised" mdl-colored="primary" mdl-ripple>Войти</button>
+        <button mdl-button [disabled]="loginForm.invalid" type="submit" mdl-button-type="raised" mdl-colored="primary" mdl-ripple>Войти</button>
         <button mdl-button type="button" (click)="cancel()">Отмена</button>
     </div>
 </form>

@@ -1,3 +1,22 @@
 .mdl-padded {
   padding: 8px;
 }
+
+.simple-notification-wrapper {
+  z-index: 100002 !important;
+}
+
+mdl-textfield.ng-invalid.ng-touched .mdl-textfield__input {
+    border-color: #d50000;
+    box-shadow: none;
+}
+.mdl-textfield--floating-label.ng-invalid.ng-touched .mdl-textfield__label {
+    color: #d50000;
+    font-size: 12px
+}
+mdl-textfield.ng-invalid.ng-touched .mdl-textfield__label:after {
+    background-color: #d50000
+}
+mdl-textfield.ng-invalid.ng-touched .mdl-textfield__error {
+    visibility: visible;
+}

@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { AuthComponent } from "./auth.component";
 import { LoginDialogComponent } from "./login/login-dialog.component";
+import { RegisterDialogComponent } from "./register/register-dialog.component";
 
 function authHttpServiceFactory(authConfig: AuthConfig, http: Http, options: RequestOptions) {
   return new AuthHttp(authConfig, http, options);
@@ -15,7 +16,8 @@ function authHttpServiceFactory(authConfig: AuthConfig, http: Http, options: Req
 @NgModule({
   declarations: [
     AuthComponent,
-    LoginDialogComponent
+    LoginDialogComponent,
+    RegisterDialogComponent
   ],
   providers: [
     { provide: AuthConfig, useFactory: () => new AuthConfig ({ noJwtError: true }) },
@@ -29,6 +31,6 @@ function authHttpServiceFactory(authConfig: AuthConfig, http: Http, options: Req
   exports: [
     AuthComponent
   ],
-  entryComponents: [LoginDialogComponent]
+  entryComponents: [LoginDialogComponent, RegisterDialogComponent]
 })
 export class AuthModule { }
