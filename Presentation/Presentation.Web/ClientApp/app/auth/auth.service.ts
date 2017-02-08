@@ -42,20 +42,20 @@ export class AuthService {
         return Promise.reject(error.json());
     }
 
-    public logout() {
+    public logout(): void {
         localStorage.removeItem(this.tokenName);
     }
 
     public isUsernameTaken(userName: string): Promise<boolean> {
         return this.http.get(Actions.account.checkUsernameAvailability(userName))
-            .map(x => !(x.json() as boolean))
-            .toPromise();
+            .toPromise()
+            .then(x => !(x.json() as boolean));
     }
 
     public isEmailRegistered(email: string): Promise<boolean> {
         return this.http.get(Actions.account.checkEmailAvailability(email))
-            .map(x => !(x.json() as boolean))
-            .toPromise();
+            .toPromise()
+            .then(x => !(x.json() as boolean));
     }
 
     public isPasswordStrong(password: string): boolean {

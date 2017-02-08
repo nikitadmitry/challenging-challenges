@@ -6,7 +6,7 @@ import { AuthService } from "../auth.service";
 import { RegistrationValidator } from "./RegistrationValidator";
 
 @Component({
-    selector: "login",
+    selector: "register",
     template: require("./register-dialog.component.html"),
     styles: [require("./register-dialog.component.css")],
     providers: [AuthService, RegistrationValidator]
@@ -15,19 +15,19 @@ export class RegisterDialogComponent implements OnInit {
     registerForm: FormGroup;
     userName: string;
 
-    usernamePattern: string = "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]{6,100}";
-
     constructor(private authService: AuthService, private fb: FormBuilder,
-    private registerDialog: MdlDialogReference, private registrationValidator: RegistrationValidator) { }
+        private registerDialog: MdlDialogReference, private registrationValidator: RegistrationValidator) { }
 
     ngOnInit(): void {
         this.registerForm = this.fb.group({
             userName: ["", Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(24)]),
                 (control) => this.registrationValidator.usernameTaken(control)],
-            email: ["", Validators.compose([Validators.required, this.registrationValidator.email]),
-                this.registrationValidator.emailRegistered],
-            password: ["", Validators.compose([Validators.required, Validators.pattern(this.usernamePattern)])],
-            confirmPassword: ["", this.registrationValidator.equalToPassword]
+            email: ["", Validators.compose([Validators.required, (control) => this.registrationValidator.email(control)]),
+                (control) => this.registrationValidator.emailRegistered(control)],
+            password: ["", Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(100),
+                (control) => this.registrationValidator.passwordComplexity(control)])],
+            confirmPassword: ["", Validators.compose([Validators.required,
+                (control) => this.registrationValidator.equalToPassword(control)])]
         });
     }
 

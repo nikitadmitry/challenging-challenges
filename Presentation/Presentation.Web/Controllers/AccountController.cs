@@ -69,10 +69,10 @@ namespace Presentation.Web.Controllers
                     return await TokenResult(user);
                 }
 
-                return BadRequest("Password not correct");
+                return new ErrorObjectResult("Неверный пароль.");
             }
 
-            return BadRequest("UserName not correct");
+            return new ErrorObjectResult("Неверное имя пользователя.");
         }
 
         //
@@ -89,7 +89,7 @@ namespace Presentation.Web.Controllers
                 return await TokenResult(user);
             }
 
-            return BadRequest(result.Errors.Select(x => x.Description));
+            return new ErrorObjectResult(result.Errors.Select(x => x.Description));
         }
 
         // GET: /Account/ConfirmEmail

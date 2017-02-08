@@ -23,9 +23,9 @@ export class RegistrationValidator {
                 this.authService.isUsernameTaken(control.value)
                     .then((isTaken: boolean) => {
                     if (isTaken) {
-                        return {"usernameTaken": true};
+                        resolve({"usernameTaken": true});
                     }
-                    return null;
+                    resolve(null);
                 });
             }, this.requestDebounce);
         });
@@ -37,20 +37,29 @@ export class RegistrationValidator {
         }
         return new Promise((resolve, reject) => {
             this.emailTimeout = setTimeout(() => {
-                console.log("emailRegistered request");
-                    if (control.value === "qwe@qwe.qwe") {
+                this.authService.isEmailRegistered(control.value)
+                    .then((isTaken: boolean) => {
+                    if (isTaken) {
                         resolve({"emailRegistered": true});
-                    } else {
-                        resolve(null);
                     }
+                    resolve(null);
+                });
             }, this.requestDebounce);
         });
     }
 
+    passwordComplexity(control: any): ValidationResult {
+        var re: RegExp = new RegExp("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]");
+        if (!re.test(control.value)) {
+            return { passwordComplexity: false };
+        }
+        return null;
+    }
+
     email(control: any): ValidationResult {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if (re.test(control.value)) {
-            return { email: false }
+        if (!re.test(control.value)) {
+            return { email: false };
         }
         return null;
     }

@@ -12,7 +12,7 @@ export class AppComponent implements OnDestroy {
     layout: MdlLayoutComponent;
 
     public notificationOptions = {
-        timeOut: 0,
+        timeOut: 5000,
         theClass: "mdl-shadow--8dp",
     };
 

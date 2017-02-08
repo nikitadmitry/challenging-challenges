@@ -1,19 +1,16 @@
 <h3 class="mdl-dialog__title">Вход</h3>
 <form [formGroup]="loginForm" (ngSubmit)="login()">
     <div class="mdl-dialog__content">
-        <mdl-textfield formControlName="userName"
+        <mdl-textfield-validated [formControl]="loginForm.controls.userName"
                     label="Имя пользователя"
                     name="userName"
                     type="text"
-                    formControlName="userName"
-                    floating-label></mdl-textfield>
-        <mdl-textfield formControlName="password"
+                    floating-label></mdl-textfield-validated>
+        <mdl-textfield-validated [formControl]="loginForm.controls.password"
                     label="Пароль"
                     name="password"
                     type="password"
-                    formControlName="password"
-                    error-msg="Пароль должен содержать строчную букву, прописную букву, цифру и иметь длину более 6 символов."
-                    floating-label></mdl-textfield>
+                    floating-label></mdl-textfield-validated>
     </div>
     <div class="mdl-dialog__actions">
         <button mdl-button [disabled]="!loginForm.valid" type="submit" mdl-button-type="raised" mdl-colored="primary" mdl-ripple>Войти</button>

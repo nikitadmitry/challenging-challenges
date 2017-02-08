@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { MdlDialogReference } from "angular2-mdl";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
@@ -13,18 +13,6 @@ import { AuthService } from "../auth.service";
 export class LoginDialogComponent implements OnInit {
     loginForm: FormGroup;
     userName: string;
-
-    validationMessages = {
-        "userName": {
-            "required":      "Name is required.",
-            "minlength":     "Name must be at least 4 characters long.",
-            "maxlength":     "Name cannot be more than 24 characters long.",
-            "forbiddenName": "Someone named \"Bob\" cannot be a hero."
-        },
-        "password": {
-            "required": "Power is required."
-        }
-    };
 
     constructor(private authService: AuthService, private fb: FormBuilder,
     private loginDialog: MdlDialogReference) { }

@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AuthComponent } from "./auth.component";
 import { LoginDialogComponent } from "./login/login-dialog.component";
 import { RegisterDialogComponent } from "./register/register-dialog.component";
+import { MdlTextFieldValidatedModule } from "./../shared/shared-components/mdl-textfield-validated.component";
 
 function authHttpServiceFactory(authConfig: AuthConfig, http: Http, options: RequestOptions) {
   return new AuthHttp(authConfig, http, options);
@@ -26,7 +27,8 @@ function authHttpServiceFactory(authConfig: AuthConfig, http: Http, options: Req
   imports: [
     BrowserModule,
     MdlNonRootModule,
-    FormsModule, ReactiveFormsModule
+    FormsModule, ReactiveFormsModule,
+    MdlTextFieldValidatedModule
   ],
   exports: [
     AuthComponent

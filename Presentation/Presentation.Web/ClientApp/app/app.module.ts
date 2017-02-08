@@ -13,6 +13,7 @@ import { ChallengesComponent } from "./home/challenges/challenges.component";
 import { AuthModule } from "./auth/auth.module";
 import { AppRoutingModule } from "./app-routing.module";
 import { ApplicationErrorHandler } from "./shared/ApplicationErrorHandler";
+import { MdlTextFieldValidatedModule } from "./shared/shared-components/mdl-textfield-validated.component";
 
 @NgModule({
     bootstrap: [ AppComponent ],
@@ -30,7 +31,8 @@ import { ApplicationErrorHandler } from "./shared/ApplicationErrorHandler";
         SimpleNotificationsModule.forRoot(),
         MdlModule,
         AuthModule,
-        FormsModule, ReactiveFormsModule
+        FormsModule, ReactiveFormsModule,
+        MdlTextFieldValidatedModule
     ],
     providers: [
         {

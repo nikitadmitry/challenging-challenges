@@ -1,6 +1,7 @@
-import { ErrorHandler } from "@angular/core";
+import { ErrorHandler, Injectable } from "@angular/core";
 import { NotificationsService } from "angular2-notifications";
 
+@Injectable()
 export class ApplicationErrorHandler implements ErrorHandler {
   constructor(private notificationsService: NotificationsService) { }
 
@@ -9,7 +10,7 @@ export class ApplicationErrorHandler implements ErrorHandler {
       var errors: any[] = zoneError.rejection;
 
       errors.forEach(error => {
-        this.notificationsService.error("Ошибка", error);
+        setTimeout(() => this.notificationsService.error("Ошибка", error)); // we use setTimeout for dom rerender.
       });
 
       return;
