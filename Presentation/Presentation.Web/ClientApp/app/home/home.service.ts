@@ -5,6 +5,8 @@ import { Observable } from "rxjs/Observable";
 import { ChallengeCardViewModel } from "./challenges/challenge-card.model";
 import { SortedPageRule } from "../shared/models/SortedPageRule";
 import { Actions } from "../shared/actions";
+import "rxjs/add/operator/share";
+import "rxjs/add/operator/delay";
 
 @Injectable()
 export class HomeService {
@@ -13,6 +15,6 @@ export class HomeService {
 
     getChallenges(sortedPageRule: SortedPageRule): Observable<ChallengeCardViewModel[]> {
         return this.http.post(Actions.home.getChallenges, sortedPageRule)
-            .map(response => response.json() as ChallengeCardViewModel[]);
+            .map(response => response.json() as ChallengeCardViewModel[]).share();
     }
 }

@@ -7,6 +7,7 @@ import { HomeService } from "../home.service";
 @Component({
     selector: "latest-challenges",
     template: require("./challenges.component.html"),
+    styles: [require("./challenges.component.css")],
     providers: [HomeService]
 })
 export class LatestChallengesComponent extends ChallengesComponent {

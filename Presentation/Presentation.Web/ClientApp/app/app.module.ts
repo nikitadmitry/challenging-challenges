@@ -3,6 +3,7 @@ import { UniversalModule } from "angular2-universal";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MdlModule, DISABLE_NATIVE_VALIDITY_CHECKING } from "angular2-mdl";
 import { SimpleNotificationsModule, NotificationsService } from "angular2-notifications";
+import { Ng2PaginationModule } from "ng2-pagination";
 
 import { AppComponent } from "./app.component";
 import { NavMenuComponent } from "./navmenu/navmenu.component";
@@ -12,9 +13,11 @@ import { CounterComponent } from "./components/counter/counter.component";
 import { LatestChallengesComponent } from "./home/challenges/latest-challenges.component";
 import { ChallengeCardComponent } from "./home/challenges/challenge-card.component";
 import { AuthModule } from "./auth/auth.module";
-import { AppRoutingModule } from "./app-routing.module";
+import { AppRoutingModule } from "./routing/app-routing.module";
 import { ApplicationErrorHandler } from "./shared/ApplicationErrorHandler";
 import { MdlTextFieldValidatedModule } from "./shared/shared-components/mdl-textfield-validated.component";
+import { LoadingSpinnerComponent } from "./shared/shared-components/loading-spinner.component";
+import { PaginatorComponent } from "./shared/shared-components/paginator.component";
 
 @NgModule({
     bootstrap: [ AppComponent ],
@@ -25,7 +28,9 @@ import { MdlTextFieldValidatedModule } from "./shared/shared-components/mdl-text
         FetchDataComponent,
         HomeComponent,
         LatestChallengesComponent,
-        ChallengeCardComponent
+        ChallengeCardComponent,
+        LoadingSpinnerComponent,
+        PaginatorComponent
     ],
     imports: [
         UniversalModule, // must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
@@ -34,7 +39,8 @@ import { MdlTextFieldValidatedModule } from "./shared/shared-components/mdl-text
         MdlModule,
         AuthModule,
         FormsModule, ReactiveFormsModule,
-        MdlTextFieldValidatedModule
+        MdlTextFieldValidatedModule,
+        Ng2PaginationModule
     ],
     providers: [
         {

@@ -8,6 +8,7 @@ interface Account {
 
 interface Home {
     getChallenges: string;
+    getChallengesCount: string;
 }
 
 declare module actions {

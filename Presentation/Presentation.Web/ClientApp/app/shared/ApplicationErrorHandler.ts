@@ -2,8 +2,10 @@ import { ErrorHandler, Injectable } from "@angular/core";
 import { NotificationsService } from "angular2-notifications";
 
 @Injectable()
-export class ApplicationErrorHandler implements ErrorHandler {
-  constructor(private notificationsService: NotificationsService) { }
+export class ApplicationErrorHandler extends ErrorHandler {
+  constructor(private notificationsService: NotificationsService) {
+    super();
+  }
 
   handleError(zoneError: any): void {
     if(zoneError.rejection && Array.isArray(zoneError.rejection)) {
@@ -16,9 +18,6 @@ export class ApplicationErrorHandler implements ErrorHandler {
       return;
     }
 
-    console.group( "ErrorHandler" );
-    console.error( zoneError.message );
-    console.error( zoneError.stack );
-    console.groupEnd();
+    super.handleError(zoneError);
   }
 }

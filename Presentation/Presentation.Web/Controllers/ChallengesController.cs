@@ -22,5 +22,11 @@ namespace Presentation.Web.Controllers
         {
             return challengesService.GetChallenges(sortedPageRule);
         }
+
+        [HttpGet]
+        public int GetChallengesCount()
+        {
+            return challengesService.GetChallengesCount();
+        }
     }
 }

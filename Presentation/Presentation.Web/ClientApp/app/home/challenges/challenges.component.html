@@ -1,4 +1,10 @@
-﻿<h3>{{componentTitle}}</h3>
-<div class="mdl-grid mdl-cell--12-col">
-    <challenge-card *ngFor="let challenge of challenges" [challenge]="challenge"></challenge-card>
+﻿<div class="mdl-grid mdl-cell--12-col">
+    <h3 class="home-challenges-section__title">{{componentTitle}}</h3>
+    
+    <loading-spinner style="top: 60px" [active]="loadingSpinnerActive()"></loading-spinner>
+
+    <div class="mdl-grid mdl-cell--12-col" *ngIf="challengesLoaded">
+        <challenge-card class="mdl-cell--4-col" *ngFor="let challenge of challenges | paginate: config" [challenge]="challenge"></challenge-card>
+        <paginator (pageChange)="changePage($event)"></paginator>
+    </div>
 </div>
