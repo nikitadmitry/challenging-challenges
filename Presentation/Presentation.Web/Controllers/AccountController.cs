@@ -51,6 +51,14 @@ namespace Presentation.Web.Controllers
             return Ok(user.IsNull());
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetUserName()
+        {
+            var user = await GetCurrentUserAsync();
+
+            return Ok(user.UserName);
+        }
+
         //
         // POST: /Account/Login
         [HttpPost]

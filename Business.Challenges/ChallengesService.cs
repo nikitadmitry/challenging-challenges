@@ -14,6 +14,7 @@ using Data.Challenges.Context;
 using Data.Challenges.Entities;
 using Data.Common.Query.Builder;
 using Data.Common.Query.QueryParameters;
+using Data.Common.Query.Settings;
 using Lucene.Net.Search;
 using Shared.Framework.DataSource;
 using Shared.Framework.Resources;
@@ -209,56 +210,53 @@ namespace Business.Challenges
             return mapper.Map<ChallengeViewModel>(updatedChallenge);
         }
 
-        public List<ChallengesDescriptionViewModel> GetLatestChallenges(PageRule pageRule)
+        public List<ChallengesDescriptionViewModel> GetChallenges(SortedPageRule sortedPageRule)
         {
+            Contract.Requires<ArgumentException>(sortedPageRule.IsValid);
+            
             var queryParameters = new QueryParameters
             {
-                PageRule = pageRule,
-                SortSettings = SortSettingsBuilder<Challenge>
-                    .Create()
-                    .DescendingBy("TimeCreated")
-                    .GetSettings()
+                PageRule = sortedPageRule
             };
+
+            PrepareQueryParameters(queryParameters, sortedPageRule.SortingType);
 
             var challenges = unitOfWork.GetAll<Challenge>(queryParameters);
 
             return mapper.Map<List<ChallengesDescriptionViewModel>>(challenges);
         }
 
-        public List<ChallengesDescriptionViewModel> GetPopularChallenges(PageRule pageRule)
+        private void PrepareQueryParameters(QueryParameters queryParameters, SortingType sortingType)
         {
-            var queryParameters = new QueryParameters
+            switch (sortingType)
             {
-                PageRule = pageRule,
-                SortSettings = SortSettingsBuilder<Challenge>
-                    .Create()
-                    .DescendingBy("TimesSolved")
-                    .GetSettings()
-            };
+                case SortingType.Latest:
+                    queryParameters.SortSettings = SortSettingsBuilder<Challenge>
+                        .Create()
+                        .DescendingBy("TimeCreated")
+                        .GetSettings();
+                    break;
+                case SortingType.Popular:
+                    queryParameters.SortSettings = SortSettingsBuilder<Challenge>
+                        .Create()
+                        .DescendingBy("TimesSolved")
+                        .GetSettings();
+                    break;
+                case SortingType.Unsolved:
+                    queryParameters.SortSettings = SortSettingsBuilder<Challenge>
+                        .Create()
+                        .AscendingBy("TimeCreated")
+                        .GetSettings();
+                    break;
+            }
 
-            var challenges = unitOfWork.GetAll<Challenge>(queryParameters);
-
-            return mapper.Map<List<ChallengesDescriptionViewModel>>(challenges);
-        }
-
-        public List<ChallengesDescriptionViewModel> GetUnsolvedChallenges(PageRule pageRule)
-        {
-            var queryParameters = new QueryParameters
+            if (sortingType == SortingType.Unsolved)
             {
-                PageRule = pageRule,
-                SortSettings = SortSettingsBuilder<Challenge>
-                    .Create()
-                    .AscendingBy("TimeCreated")
-                    .GetSettings(),
-                FilterSettings = FilterSettingsBuilder<Challenge>
+                queryParameters.FilterSettings = FilterSettingsBuilder<Challenge>
                     .Create()
                     .AddFilterRule(x => x.TimesSolved, FilterOperator.IsEqualTo, 0)
-                    .GetSettings()
-            };
-
-            var challenges = unitOfWork.GetAll<Challenge>(queryParameters);
-
-            return mapper.Map<List<ChallengesDescriptionViewModel>>(challenges);
+                    .GetSettings();
+            }
         }
 
         public int GetChallengesCount()

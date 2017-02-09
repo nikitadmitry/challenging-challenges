@@ -2,6 +2,7 @@ import "angular2-universal-polyfills/browser";
 import { enableProdMode } from "@angular/core";
 import { platformUniversalDynamic } from "angular2-universal";
 import { AppModule } from "./app/app.module";
+import "rxjs/add/operator/map";
 // import 'bootstrap';
 
 // enable either Hot Module Reloading or production mode

@@ -6,7 +6,7 @@ export class ApplicationErrorHandler implements ErrorHandler {
   constructor(private notificationsService: NotificationsService) { }
 
   handleError(zoneError: any): void {
-    if(zoneError.rejection) {
+    if(zoneError.rejection && Array.isArray(zoneError.rejection)) {
       var errors: any[] = zoneError.rejection;
 
       errors.forEach(error => {

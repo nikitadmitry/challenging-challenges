@@ -1,0 +1,18 @@
+import { Injectable } from "@angular/core";
+import { Http } from "@angular/http";
+import { Observable } from "rxjs/Observable";
+
+import { ChallengeCardViewModel } from "./challenges/challenge-card.model";
+import { SortedPageRule } from "../shared/models/SortedPageRule";
+import { Actions } from "../shared/actions";
+
+@Injectable()
+export class HomeService {
+
+    constructor(private http: Http) { }
+
+    getChallenges(sortedPageRule: SortedPageRule): Observable<ChallengeCardViewModel[]> {
+        return this.http.post(Actions.home.getChallenges, sortedPageRule)
+            .map(response => response.json() as ChallengeCardViewModel[]);
+    }
+}

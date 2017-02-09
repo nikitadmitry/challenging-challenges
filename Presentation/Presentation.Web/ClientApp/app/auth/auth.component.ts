@@ -50,4 +50,8 @@ export class AuthComponent {
              this.onNavigated();
         });
     }
+
+    logout(): void {
+        this.authService.logout();
+    }
 }

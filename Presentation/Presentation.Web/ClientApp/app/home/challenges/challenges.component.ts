@@ -1,11 +1,32 @@
-﻿import { Component, Input } from '@angular/core';
+﻿import { OnInit } from "@angular/core";
 
-@Component({
-    selector: 'challenges',
-    template: require('./challenges.component.html')
-})
-export class ChallengesComponent {
-    @Input()
-    public sorting: number;
-    
+import { SortingType } from "../../shared/models/SortingType";
+import { SortedPageRule } from "../../shared/models/SortedPageRule";
+import { ChallengeCardViewModel } from "./challenge-card.model";
+import { HomeService } from "../home.service";
+
+const PAGE_SIZE: number = 9;
+
+export abstract class ChallengesComponent implements OnInit {
+    protected abstract sortingType: SortingType;
+    protected abstract componentTitle: string;
+
+    challenges: Array<ChallengeCardViewModel>;
+    page: number = 0;
+
+    constructor(private homeService: HomeService) { }
+
+    ngOnInit(): void {
+        this.homeService.getChallenges(this.getPageRule())
+            .subscribe((challenges) => this.challenges = challenges);
+    }
+
+    private getPageRule(): SortedPageRule {
+        let pageRule: SortedPageRule = new SortedPageRule();
+        pageRule.count = PAGE_SIZE;
+        pageRule.start = this.page * PAGE_SIZE;
+        pageRule.sortingType = this.sortingType;
+
+        return pageRule;
+    }
 }

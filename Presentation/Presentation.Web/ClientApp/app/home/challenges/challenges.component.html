@@ -1,2 +1,4 @@
-﻿
-{{sorting}}
+﻿<h3>{{componentTitle}}</h3>
+<div class="mdl-grid mdl-cell--12-col">
+    <challenge-card *ngFor="let challenge of challenges" [challenge]="challenge"></challenge-card>
+</div>

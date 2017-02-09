@@ -46,13 +46,7 @@ namespace Business.Challenges
         int GetChallengeTimesSolved(Guid challengeId);
 
         [OperationContract]
-        List<ChallengesDescriptionViewModel> GetLatestChallenges(PageRule pageRule);
-
-        [OperationContract]
-        List<ChallengesDescriptionViewModel> GetPopularChallenges(PageRule pageRule);
-
-        [OperationContract]
-        List<ChallengesDescriptionViewModel> GetUnsolvedChallenges(PageRule pageRule);
+        List<ChallengesDescriptionViewModel> GetChallenges(SortedPageRule sortedPageRule);
 
         [OperationContract]
         int GetChallengesCount();

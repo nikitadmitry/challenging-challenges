@@ -111,6 +111,8 @@
     <Compile Include="ViewModels\ChallengeViewModel.cs" />
     <Compile Include="ViewModels\CommentViewModel.cs" />
     <Compile Include="ViewModels\SolverViewModel.cs" />
+    <Compile Include="ViewModels\SortedPageRule.cs" />
+    <Compile Include="ViewModels\SortingType.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Business.CodeExecution\Business.CodeExecution.csproj">

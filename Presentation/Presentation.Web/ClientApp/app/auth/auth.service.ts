@@ -1,17 +1,18 @@
 import { Injectable } from "@angular/core";
 import { Http, Response } from "@angular/http";
-import { tokenNotExpired, AuthConfig } from "angular2-jwt";
+import { tokenNotExpired, AuthConfig, AuthHttp } from "angular2-jwt";
+import { Observable } from "rxjs/Observable";
+import "rxjs/add/operator/toPromise";
+
 import { LoginViewModel } from "./login/login.model";
 import { RegisterViewModel } from "./register/register.model";
 import { Actions } from "../shared/actions";
-import { Observable } from "rxjs/Observable";
-import "rxjs/add/operator/toPromise";
 
 @Injectable()
 export class AuthService {
     private tokenName: string = this.authConfig.getConfig().tokenName;
 
-    constructor(private http: Http, private authConfig: AuthConfig) { }
+    constructor(private http: Http, private authConfig: AuthConfig, private authHttp: AuthHttp) { }
 
     public isLoggedOn(): boolean {
          try {
@@ -40,6 +41,12 @@ export class AuthService {
 
     private handleError (error: any): any {
         return Promise.reject(error.json());
+    }
+
+    public getUserName(): Promise<string> {
+        return this.authHttp.get(Actions.account.getUserName)
+            .toPromise()
+            .then(x => x.text() as string);
     }
 
     public logout(): void {

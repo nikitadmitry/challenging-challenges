@@ -13,7 +13,11 @@
                 var url = '@Url.Action("CheckEmailAvailability", "Account", new { email = "1email1" })';
                 url = url.replace("1email1", email);
                 return url.toString();
-            }
+            },
+            getUserName: '@Url.Action("GetUserName", "Account")'
+        },
+        home: {
+            getChallenges: '@Url.Action("GetChallenges", "Challenges")'
         }
     }
 

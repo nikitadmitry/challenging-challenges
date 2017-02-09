@@ -9,7 +9,8 @@ import { NavMenuComponent } from "./navmenu/navmenu.component";
 import { HomeComponent } from "./home/home.component";
 import { FetchDataComponent } from "./components/fetchdata/fetchdata.component";
 import { CounterComponent } from "./components/counter/counter.component";
-import { ChallengesComponent } from "./home/challenges/challenges.component";
+import { LatestChallengesComponent } from "./home/challenges/latest-challenges.component";
+import { ChallengeCardComponent } from "./home/challenges/challenge-card.component";
 import { AuthModule } from "./auth/auth.module";
 import { AppRoutingModule } from "./app-routing.module";
 import { ApplicationErrorHandler } from "./shared/ApplicationErrorHandler";
@@ -22,8 +23,9 @@ import { MdlTextFieldValidatedModule } from "./shared/shared-components/mdl-text
         NavMenuComponent,
         CounterComponent,
         FetchDataComponent,
-        ChallengesComponent,
-        HomeComponent
+        HomeComponent,
+        LatestChallengesComponent,
+        ChallengeCardComponent
     ],
     imports: [
         UniversalModule, // must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.

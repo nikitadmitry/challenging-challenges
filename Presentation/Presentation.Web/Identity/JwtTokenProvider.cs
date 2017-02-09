@@ -22,7 +22,7 @@ namespace Presentation.Web.Identity
         {
             var claims = new[]
                     {
-                    new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+                    new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
                     new Claim(JwtRegisteredClaimNames.Jti, await jwtOptions.JtiGenerator()),
                     new Claim(JwtRegisteredClaimNames.Iat,
                                 ToUnixEpochDate(jwtOptions.IssuedAt).ToString(),

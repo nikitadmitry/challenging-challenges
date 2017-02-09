@@ -1,3 +1,7 @@
+<div class="cursor-pointer" *ngIf="isLoggedOn()">
+    <a class="mdl-navigation__link">Личный профиль</a>
+    <a class="mdl-navigation__link" (click)="logout()">Выйти</a>
+</div>
 <div class="cursor-pointer" *ngIf="!isLoggedOn()">
     <a class="mdl-navigation__link" (click)="openLoginDialog()">Войти</a>
     <a class="mdl-navigation__link" (click)="openRegistrationDialog()">Регистрация</a>
