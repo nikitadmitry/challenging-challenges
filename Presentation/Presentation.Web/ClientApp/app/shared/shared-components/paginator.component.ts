@@ -12,11 +12,8 @@ export class PaginatorComponent {
     @Output()
     pageChange: () => void;
 
-    config: PaginationInstance = {
-        id: this.paginatorId,
+    public config: PaginationInstance = {
         itemsPerPage: 10,
         currentPage: 1
     };
-
-    public paginatorId: string = "mdl-paginator";
 }

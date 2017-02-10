@@ -40,17 +40,18 @@
             }
         },
         {
+            "type": "chrome",
+            "request": "attach",
+            "name": "Attach to Chrome",
+            "url": "http://localhost:5000",
+            "webRoot": "${workspaceRoot}",
+            "port": 9222
+        },
+        {
             "name": ".NET Core Attach",
             "type": "coreclr",
             "request": "attach",
             "processId": "${command.pickProcess}"
-        },
-        {
-            "name": "Launch CHROME",
-            "type": "chrome",
-            "request": "launch",
-            "sourceMaps": true,
-            "file": "http://localhost:5000/home"
         },
     ]
 }

@@ -1,4 +1,4 @@
-﻿import { OnInit, Input, ViewChild } from "@angular/core";
+﻿import { OnInit, Input } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { PaginationInstance } from "ng2-pagination";
 import "rxjs/add/operator/merge";
@@ -8,7 +8,6 @@ import { SortingType } from "../../shared/models/SortingType";
 import { SortedPageRule } from "../../shared/models/SortedPageRule";
 import { ChallengeCardViewModel } from "./challenge-card.model";
 import { HomeService } from "../home.service";
-import { PaginatorComponent } from "../../shared/shared-components/paginator.component";
 
 const PAGE_SIZE: number = 9;
 
@@ -17,15 +16,12 @@ export abstract class ChallengesComponent implements OnInit {
     protected abstract componentTitle: string;
 
     challengesLoaded: boolean = false;
-    challenges: Array<ChallengeCardViewModel>;
+    challenges: Array<ChallengeCardViewModel> = new Array<ChallengeCardViewModel>;
     pageChanging: boolean = false;
     loadingSpinnerActive = () => !this.challengesLoaded || this.pageChanging;
 
     @Input("challengesCount")
     challengesCountObservable: Observable<number>;
-
-    @ViewChild(PaginatorComponent)
-    paginatorComponent: PaginatorComponent;
 
     config: PaginationInstance = {
         id: "mdl-paginator",
