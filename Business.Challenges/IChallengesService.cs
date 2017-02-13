@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ServiceModel;
 using Business.Challenges.ViewModels;
-using Shared.Framework.DataSource;
 
 namespace Business.Challenges
 {
@@ -55,7 +54,7 @@ namespace Business.Challenges
         string GetTagsAsStringByChallengeId(Guid challengeId);
 
         [OperationContract]
-        List<ChallengeInfoViewModel> GetByProperty(string keyword, string property, PageRule pageRule);
+        List<ChallengeInfoViewModel> SearchByRule(ChallengesPageRule pageRule);
 
         [OperationContract]
         Guid GetChallengeAuthor(Guid challengeId);

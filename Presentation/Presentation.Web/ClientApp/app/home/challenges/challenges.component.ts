@@ -4,19 +4,21 @@ import { PaginationInstance } from "ng2-pagination";
 import "rxjs/add/operator/merge";
 import "rxjs/add/operator/last";
 
-import { SortingType } from "../../shared/models/SortingType";
-import { SortedPageRule } from "../../shared/models/SortedPageRule";
+import { SortingType } from "./models/SortingType";
+import { SortedPageRule } from "./models/SortedPageRule";
 import { ChallengeCardViewModel } from "./challenge-card.model";
 import { HomeService } from "../home.service";
 
-const PAGE_SIZE: number = 9;
+const PAGE_SIZE: number = 6;
 
 export abstract class ChallengesComponent implements OnInit {
     protected abstract sortingType: SortingType;
     protected abstract componentTitle: string;
 
+    protected abstract paginatorId: string;
+
     challengesLoaded: boolean = false;
-    challenges: Array<ChallengeCardViewModel> = new Array<ChallengeCardViewModel>;
+    challenges: Array<ChallengeCardViewModel> = new Array<ChallengeCardViewModel>();
     pageChanging: boolean = false;
     loadingSpinnerActive = () => !this.challengesLoaded || this.pageChanging;
 
@@ -24,7 +26,7 @@ export abstract class ChallengesComponent implements OnInit {
     challengesCountObservable: Observable<number>;
 
     config: PaginationInstance = {
-        id: "mdl-paginator",
+        id: this.paginatorId,
         itemsPerPage: PAGE_SIZE,
         currentPage: 1
     };
@@ -57,7 +59,7 @@ export abstract class ChallengesComponent implements OnInit {
     }
 
     changePage(newPage: number): void {
-        //this.config.currentPage = newPage;
+        this.config.currentPage = newPage;
         this.loadChallenges();
     }
 

@@ -57,6 +57,7 @@ namespace Business.Identity.Mappings
                 .ForMember(t => t.EmailConfirmed, o => o.MapFrom(s => s.EmailConfirmed));
 
             CreateMap<User, UserTopViewModel>()
+                .ForMember(t => t.UserId, o => o.MapFrom(s => s.Id))
                 .ForMember(t => t.UserName, o => o.MapFrom(s => s.UserName))
                 .ForMember(t => t.Rating, o => o.MapFrom(s => s.Rating))
                 .ForMember(t => t.PostedChallenges, o => o.MapFrom(s => s.PostedTasksQuantity))

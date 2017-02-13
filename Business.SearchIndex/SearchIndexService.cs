@@ -45,7 +45,7 @@ namespace Business.SearchIndex
 
         public IEnumerable<string> GetTagsByTerm(string term, int limit)
         {
-            var searchIndices = LuceneSearch.Search(Sort.RELEVANCE, term, "Tags", 0, limit);
+            var searchIndices = LuceneSearch.Search(Sort.RELEVANCE, new[] { "Tags" }, term,  0, limit);
 
             List<string> tags = new List<string>();
 
@@ -62,9 +62,9 @@ namespace Business.SearchIndex
             return GetTagsByTerm(string.Empty, limit);
         }
 
-        public IEnumerable<ViewModels.SearchIndex> Search(Sort sort, string input, string fieldName, int page, int limit)
+        public IEnumerable<ViewModels.SearchIndex> Search(Sort sort, string[] fieldNames, string input, int page, int limit)
         {
-            return LuceneSearch.Search(sort, input, fieldName, page, limit);
+            return LuceneSearch.Search(sort, fieldNames, input, page, limit);
         }
     }
 }

@@ -20,3 +20,10 @@
 .mdl-textfield.ng-invalid.ng-touched .mdl-textfield__error {
     visibility: visible;
 }
+
+.mdl-select--floating-label.ng-dirty .mdl-textfield__label {
+    color: rgb(139,195,74);
+    font-size: 12px;
+    top: 4px;
+    visibility: visible !important;
+}

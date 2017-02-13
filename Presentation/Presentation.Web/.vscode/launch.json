@@ -43,9 +43,11 @@
             "type": "chrome",
             "request": "attach",
             "name": "Attach to Chrome",
-            "url": "http://localhost:5000",
+            "url": "http://localhost:5000/*",
+            "sourceMaps": true,
             "webRoot": "${workspaceRoot}",
-            "port": 9222
+            "port": 9222,
+            "sourceMapPathOverrides": { "webpack://./*": "${webRoot}/*" }
         },
         {
             "name": ".NET Core Attach",

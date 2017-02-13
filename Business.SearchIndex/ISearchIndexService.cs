@@ -24,6 +24,6 @@ namespace Business.SearchIndex
         IEnumerable<string> GetTags(int limit);
 
         [OperationContract]
-        IEnumerable<ViewModels.SearchIndex> Search(Sort sort, string input, string fieldName, int page, int limit);
+        IEnumerable<ViewModels.SearchIndex> Search(Sort sort, string[] fieldNames, string input, int page, int limit);
     }
 }

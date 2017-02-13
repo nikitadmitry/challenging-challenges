@@ -1,46 +1,39 @@
-using System.Linq;
+using System;
+using System.Collections.Generic;
 using Business.Identity;
 using Business.Identity.ViewModels;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+using Business.SearchIndex;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly UserManager<IdentityUser> userManager;
+        private readonly Lazy<IIdentityService> identityService;
+        private readonly Lazy<ISearchIndexService> searchIndexService;
 
-        public HomeController(UserManager<IdentityUser> userManager)
+        public HomeController(Lazy<IIdentityService> identityService,
+            Lazy<ISearchIndexService> searchIndexService)
         {
-            this.userManager = userManager;
+            this.identityService = identityService;
+            this.searchIndexService = searchIndexService;
         }
 
         public IActionResult Index()
         {
-            var test = User;
-            var test1 = HttpContext.User;
-            var user = userManager.GetUserAsync(HttpContext.User);
-
-            return View();
-        }
-
-        public IActionResult NavMenu()
-        {
-            return View();
-        }
-
-        public IActionResult Error()
-        {
             return View();
         }
         
-        [Authorize]
-        public string Auth()
+        public IEnumerable<UserTopViewModel> GetTopUsers()
         {
-            var claims = User.Claims.ToList();
+            return identityService.Value.GetTopUsers();
+        }
 
-            return "YEA";
+        public IEnumerable<string> GetTags()
+        {
+            const int numberOfTagsFetched = 50;
+
+            return searchIndexService.Value.GetTags(numberOfTagsFetched);
         }
     }
 }

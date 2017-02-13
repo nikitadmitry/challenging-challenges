@@ -15,13 +15,13 @@ namespace Business.SearchIndex
 {
     internal static class LuceneSearch
     {
-        private static readonly string luceneDir = HostingEnvironment.MapPath("~/LuceneIndex");
+        private static readonly string LuceneDir = HostingEnvironment.MapPath("~/LuceneIndex");
         private static FSDirectory directory;
         private static FSDirectory Directory
         {
             get
             {
-                if (directory == null) directory = FSDirectory.Open(new DirectoryInfo(luceneDir));
+                if (directory == null) directory = FSDirectory.Open(new DirectoryInfo(LuceneDir));
                 if (IndexWriter.IsLocked(directory)) IndexWriter.Unlock(directory);
                 try
                 {
@@ -96,13 +96,13 @@ namespace Business.SearchIndex
             }
         }
 
-        public static IEnumerable<ViewModels.SearchIndex> Search(Sort sort, string input = "", string fieldName = "", int page = 0, int hitsLimit = 10)
+        public static IEnumerable<ViewModels.SearchIndex> Search(Sort sort, string[] searchFields, string input = "", int page = 0, int hitsLimit = 10)
         {
             var terms = input.Trim().Replace("-", " ").Replace(",", " ").Split(' ')
                 .Where(x => !string.IsNullOrEmpty(x)).Select(x => x.Trim().TrimEnd('s','\'') + "*");
             input = string.Join(" ", terms);
 
-            return _search(sort, input, fieldName, page, hitsLimit);
+            return _search(sort, input, searchFields, page, hitsLimit);
         }
 
         public static void UpdateIndex(ViewModels.SearchIndex searchIndex)
@@ -118,7 +118,7 @@ namespace Business.SearchIndex
 
         public static IEnumerable<ViewModels.SearchIndex> GetIndexRecords(int page = 0, int hitsLimit = 1000)
         {
-            if (!System.IO.Directory.EnumerateFiles(luceneDir).Any()) return new List<ViewModels.SearchIndex>();
+            if (!System.IO.Directory.EnumerateFiles(LuceneDir).Any()) return new List<ViewModels.SearchIndex>();
 
             var searcher = new IndexSearcher(Directory, true);
             var reader = IndexReader.Open(Directory, true);
@@ -135,7 +135,7 @@ namespace Business.SearchIndex
             return MapLuceneToDataList(docs);
         }
 
-        private static IEnumerable<ViewModels.SearchIndex> _search(Sort sort, string searchQuery, string searchField, int page, int hitsLimit)
+        private static IEnumerable<ViewModels.SearchIndex> _search(Sort sort, string searchQuery, string[] searchFields, int page, int hitsLimit)
         {
             if (IndexReader.IndexExists(Directory))
                 using (var searcher = new IndexSearcher(Directory, true))
@@ -143,17 +143,9 @@ namespace Business.SearchIndex
                     var analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
                     IList<Document> luceneDocuments = new List<Document>();
                     int hitsUpperRange = (page + 1) * hitsLimit;
-                    QueryParser parser;
-                    if (!string.IsNullOrEmpty(searchField))
-                    {
-                        parser = new QueryParser(Lucene.Net.Util.Version.LUCENE_30, searchField, analyzer);
-                    }
-                    else
-                    {
-                        parser = new MultiFieldQueryParser
-                            (Lucene.Net.Util.Version.LUCENE_30, new[] { "Id", "AuthorId", "Title", "PreviewText", "Condition" ,
-                                "Difficulty", "Section", "Language", "Rating", "Tags", "TimesSolved" }, analyzer);
-                    }
+                    var parser = searchFields.Length == 1 
+                        ? new QueryParser(Lucene.Net.Util.Version.LUCENE_30, searchFields.Single(), analyzer) 
+                        : new MultiFieldQueryParser(Lucene.Net.Util.Version.LUCENE_30, searchFields, analyzer);
                     Query query = searchQuery.IsEmpty() ? new MatchAllDocsQuery() : ParseQuery(searchQuery, parser);
                     TopDocs results = searcher.Search(query, null, hitsUpperRange, sort);
                     ScoreDoc[] scoreDocs = results.ScoreDocs;

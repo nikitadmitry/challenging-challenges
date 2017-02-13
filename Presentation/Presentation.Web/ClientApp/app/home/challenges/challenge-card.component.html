@@ -3,7 +3,8 @@
         <h2 mdl-card-title-text>{{challenge.title}}</h2>
     </mdl-card-title>
     <mdl-card-supporting-text>
-        {{challenge.previewText}}
+        <!--{{challenge.previewText}}-->
+        <markdown [data]="challenge.previewText"></markdown>
     </mdl-card-supporting-text>
     <mdl-card-actions mdl-card-border>
         <button mdl-button mdl-colored mdl-ripple>Открыть</button>

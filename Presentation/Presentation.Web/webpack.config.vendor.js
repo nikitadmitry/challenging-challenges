@@ -26,20 +26,20 @@ module.exports = (env) => {
                 '@angular/platform-server',
                 'angular2-universal',
                 'angular2-universal-polyfills',
-                //'bootstrap',
-                //'bootstrap/dist/css/bootstrap.css',
                 'es6-shim',
                 'es6-promise',
                 'event-source-polyfill',
                 'jquery',
                 'zone.js',
-                'font-awesome/css/font-awesome.css',
-                //'primeng/primeng',
-                //'primeng/resources/themes/omega/theme.css',
-                //'primeng/resources/primeng.min.css',
                 'angular2-mdl',
                 'angular2-notifications/components',
-                'ng2-pagination'
+                'ng2-pagination',
+                'marked',
+                'rxjs',
+                '@angular2-mdl-ext/popover',
+                '@angular2-mdl-ext/popover/popover.css',
+                '@angular2-mdl-ext/select',
+                '@angular2-mdl-ext/select/select.css'
             ]
         },
         output: {

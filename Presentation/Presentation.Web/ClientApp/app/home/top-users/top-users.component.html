@@ -1,0 +1,2 @@
+<loading-spinner [active]="!usersLoaded"></loading-spinner>
+<mdl-table *ngIf="usersLoaded" mdl-shadow="4" [table-model]="users"></mdl-table>

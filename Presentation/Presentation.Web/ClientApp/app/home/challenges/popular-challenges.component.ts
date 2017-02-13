@@ -5,15 +5,15 @@ import { SortingType } from "./models/SortingType";
 import { HomeService } from "../home.service";
 
 @Component({
-    selector: "latest-challenges",
+    selector: "popular-challenges",
     template: require("./challenges.component.html"),
     styles: [require("./challenges.component.css")],
     providers: [HomeService]
 })
-export class LatestChallengesComponent extends ChallengesComponent {
-    protected sortingType: SortingType = SortingType.Latest;
-    protected componentTitle: string = "Последние задачи";
-    protected paginatorId: string = "latest-challenges-paginator";
+export class PopularChallengesComponent extends ChallengesComponent {
+    protected sortingType: SortingType = SortingType.Popular;
+    protected componentTitle: string = "Полулярные задачи";
+    protected paginatorId: string = "popular-challenges-paginator";
 
     constructor(homeService: HomeService) {
         super(homeService);

@@ -1,4 +1,4 @@
-import { PageRule } from "./PageRule";
+import { PageRule } from "../../../shared/models/PageRule";
 import { SortingType } from "./SortingType";
 
 export class SortedPageRule extends PageRule {

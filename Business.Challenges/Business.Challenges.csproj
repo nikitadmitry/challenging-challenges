@@ -97,6 +97,7 @@
     <Compile Include="IChallengesService.cs" />
     <Compile Include="Mappings\ChallengesMapProfile.cs" />
     <Compile Include="Private\ChallengeSolutionDispatcher.cs" />
+    <Compile Include="ViewModels\ChallengeSearchType.cs" />
     <Compile Include="ViewModels\ChallengeSolveResult.cs" />
     <Compile Include="Private\ChallengeSolvingStrategyBase.cs" />
     <Compile Include="Private\IChallengeSolutionDispatcher.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="ViewModels\ChallengeFullViewModel.cs" />
     <Compile Include="ViewModels\ChallengeInfoViewModel.cs" />
     <Compile Include="ViewModels\ChallengesDescriptionViewModel.cs" />
+    <Compile Include="ViewModels\ChallengesPageRule.cs" />
     <Compile Include="ViewModels\ChallengeType.cs" />
     <Compile Include="ViewModels\ChallengeViewModel.cs" />
     <Compile Include="ViewModels\CommentViewModel.cs" />

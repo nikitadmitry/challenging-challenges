@@ -1,7 +1,15 @@
-﻿namespace Business.Identity.ViewModels
+﻿using System;
+
+namespace Business.Identity.ViewModels
 {
     public class UserTopViewModel
     {
+        public Guid UserId
+        {
+            get;
+            set;
+        }
+
         public string UserName
         {
             get;

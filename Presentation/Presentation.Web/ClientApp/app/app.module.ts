@@ -6,41 +6,33 @@ import { SimpleNotificationsModule, NotificationsService } from "angular2-notifi
 import { Ng2PaginationModule } from "ng2-pagination";
 
 import { AppComponent } from "./app.component";
+import { HomeModule } from "./home/home.module";
 import { NavMenuComponent } from "./navmenu/navmenu.component";
-import { HomeComponent } from "./home/home.component";
-import { FetchDataComponent } from "./components/fetchdata/fetchdata.component";
-import { CounterComponent } from "./components/counter/counter.component";
-import { LatestChallengesComponent } from "./home/challenges/latest-challenges.component";
-import { ChallengeCardComponent } from "./home/challenges/challenge-card.component";
 import { AuthModule } from "./auth/auth.module";
 import { AppRoutingModule } from "./routing/app-routing.module";
 import { ApplicationErrorHandler } from "./shared/ApplicationErrorHandler";
-import { MdlTextFieldValidatedModule } from "./shared/shared-components/mdl-textfield-validated.component";
-import { LoadingSpinnerComponent } from "./shared/shared-components/loading-spinner.component";
-import { PaginatorComponent } from "./shared/shared-components/paginator.component";
+import { SharedModule } from "./shared/shared.module";
+import { ChallengesModule } from "./challenges/challenges.module";
 
 @NgModule({
     bootstrap: [ AppComponent ],
     declarations: [
         AppComponent,
-        NavMenuComponent,
-        CounterComponent,
-        FetchDataComponent,
-        HomeComponent,
-        LatestChallengesComponent,
-        ChallengeCardComponent,
-        LoadingSpinnerComponent,
-        PaginatorComponent
+        NavMenuComponent
     ],
     imports: [
         UniversalModule, // must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
-        AppRoutingModule,
         SimpleNotificationsModule.forRoot(),
         MdlModule,
         AuthModule,
-        FormsModule, ReactiveFormsModule,
-        MdlTextFieldValidatedModule,
-        Ng2PaginationModule
+        HomeModule,
+        FormsModule,
+        ReactiveFormsModule,
+        Ng2PaginationModule,
+        SharedModule,
+        ChallengesModule,
+
+        AppRoutingModule
     ],
     providers: [
         {

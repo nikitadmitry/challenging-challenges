@@ -1,0 +1,34 @@
+<div class="mdl-grid">
+  <div mdl-shadow="4" class="mdl-grid mdl-cell mdl-cell--12-col mdl-padded">
+    <div class="mdl-cell mdl-cell--3-col">
+      <mdl-select [(ngModel)]="selectedSearchTypes" multiple="true" floating-label
+        placeholder="Поля для поиска" (change)="onSearchTypesChange(selectedSearchTypes)">
+        <mdl-option [value]="allType"><em>Все</em></mdl-option>
+        <mdl-option *ngFor="let type of searchTypes" [value]="type.type">{{type.name}}</mdl-option>
+      </mdl-select>
+    </div>
+    <div class="mdl-cell mdl-cell--6-col">
+      <mdl-textfield
+        class="full-width"
+        type="text"
+        floating-label
+        label="Поисковой запрос"
+        [(ngModel)]="searchString"
+        autofocus></mdl-textfield>
+    </div>
+    <div class="mdl-cell mdl-cell--3-col button-cell">
+      <button [disabled]="isLoading" mdl-button mdl-button-type="raised" mdl-colored="accent" (click)="searchChallenges()">
+        <mdl-icon>search</mdl-icon>
+        Поиск
+      </button>
+      <button class="add-challenge-button" mdl-button mdl-button-type="raised" mdl-colored="primary">
+        <mdl-icon>add</mdl-icon>
+        Создать задачу
+      </button>
+    </div>
+  </div>
+  <div class="mdl-grid mdl-cell mdl-cell--12-col">
+      <loading-spinner [active]="isLoading"></loading-spinner>
+
+  </div>
+</div>

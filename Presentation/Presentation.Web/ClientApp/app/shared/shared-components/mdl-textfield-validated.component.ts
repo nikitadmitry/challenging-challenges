@@ -45,12 +45,3 @@ export class MdlTextFieldValidatedComponent extends MdlTextFieldComponent implem
     this.error = errorMessages && errorMessages.length > 0 ? errorMessages[0] : undefined;
   }
 }
-
-@NgModule({
-  imports: [CommonModule, FormsModule, MdlTextFieldModule],
-  exports: [MdlTextFieldValidatedComponent],
-  declarations: [MdlTextFieldValidatedComponent],
-})
-export class MdlTextFieldValidatedModule {
-
-}
