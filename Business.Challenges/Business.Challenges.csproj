@@ -97,6 +97,16 @@
     <Compile Include="IChallengesService.cs" />
     <Compile Include="Mappings\ChallengesMapProfile.cs" />
     <Compile Include="Private\ChallengeSolutionDispatcher.cs" />
+    <Compile Include="Private\SearchStrategies\ConditionSearchStrategy.cs" />
+    <Compile Include="Private\SearchStrategies\DifficultySearchStrategy.cs" />
+    <Compile Include="Private\SearchStrategies\EnumSearchStrategy.cs" />
+    <Compile Include="Private\SearchStrategies\IndexedSearchStrategyBase.cs" />
+    <Compile Include="Private\SearchStrategies\ISearchStrategy.cs" />
+    <Compile Include="Private\SearchStrategies\PreviewTextSearchStrategy.cs" />
+    <Compile Include="Private\SearchStrategies\SearchStrategyBase.cs" />
+    <Compile Include="Private\SearchStrategies\SectionSearchStrategy.cs" />
+    <Compile Include="Private\SearchStrategies\TagsSearchStrategy.cs" />
+    <Compile Include="Private\SearchStrategies\TitleSearchStrategy.cs" />
     <Compile Include="ViewModels\ChallengeSearchType.cs" />
     <Compile Include="ViewModels\ChallengeSolveResult.cs" />
     <Compile Include="Private\ChallengeSolvingStrategyBase.cs" />
@@ -115,6 +125,7 @@
     <Compile Include="ViewModels\SolverViewModel.cs" />
     <Compile Include="ViewModels\SortedPageRule.cs" />
     <Compile Include="ViewModels\SortingType.cs" />
+    <Compile Include="ViewModels\TestCaseViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Business.CodeExecution\Business.CodeExecution.csproj">

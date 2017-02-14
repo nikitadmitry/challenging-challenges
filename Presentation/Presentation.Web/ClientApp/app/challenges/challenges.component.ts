@@ -13,18 +13,17 @@ import { ChallengesPageRule } from "./models/ChallengesPageRule";
     providers: [ChallengesService]
 })
 export class ChallengesComponent implements OnInit {
-    private allType: number = ChallengeSearchType.All;
     private PAGE_SIZE: number = 10;
-    selectedSearchTypes: ChallengeSearchType[];
+    selectedSearchType: ChallengeSearchType = ChallengeSearchType.Title;
     searchString: string;
     searchTypes = [
+        {type: ChallengeSearchType.Title, name: "Название"},
         {type: ChallengeSearchType.Condition, name: "Условие"},
         {type: ChallengeSearchType.Difficulty, name: "Сложность"},
         {type: ChallengeSearchType.Language, name: "Язык"},
         {type: ChallengeSearchType.PreviewText, name: "Текст Превью"},
         {type: ChallengeSearchType.Section, name: "Раздел"},
-        {type: ChallengeSearchType.Tags, name: "Тэги"},
-        {type: ChallengeSearchType.Title, name: "Название"}
+        {type: ChallengeSearchType.Tags, name: "Тэги"}
     ];
     @ViewChild(MdlSelectComponent) searchTypeSelect: MdlSelectComponent;
     config: PaginationInstance = {
@@ -38,39 +37,11 @@ export class ChallengesComponent implements OnInit {
     constructor(private challengesService: ChallengesService) { }
 
     ngOnInit(): void {
-        this.setDefaultSearchType();
-
         this.challengesService.getChallengesCount()
             .subscribe(count => {
                 this.config.totalItems = count;
                 this.searchChallenges();
             });
-    }
-
-    onSearchTypesChange(): void {
-        if (this.selectedSearchTypes.length === 0) { // empty -> add "All"
-            this.setDefaultSearchType();
-        } else {
-            var lastAddedType: any = this.selectedSearchTypes[this.selectedSearchTypes.length - 1];
-
-            if (lastAddedType === this.allType) { // if added "All", remove all other.
-                this.setDefaultSearchType();
-            } else if (this.searchTypes.filter(x => x.type !== this.allType).every(x => this.selectedSearchTypes.indexOf(x.type) > -1)
-                || this.selectedSearchTypes.length === this.searchTypes.length) { // if selected all, remove all but "All"
-                this.setDefaultSearchType();
-            } else { // if added any other, remove "All"
-                var allIndex: number = this.selectedSearchTypes.indexOf(this.allType);
-                if (allIndex > -1) {
-                    this.selectedSearchTypes.splice(allIndex, 1);
-                }
-            }
-        }
-        this.searchTypeSelect.ngModel = this.selectedSearchTypes;
-        this.searchTypeSelect.writeValue(this.selectedSearchTypes);
-    }
-
-    private setDefaultSearchType(): void {
-        this.selectedSearchTypes = [this.allType];
     }
 
     searchChallenges(): void {
@@ -86,7 +57,7 @@ export class ChallengesComponent implements OnInit {
         pageRule.count = this.PAGE_SIZE;
         pageRule.start = (this.config.currentPage - 1) * this.PAGE_SIZE;
         pageRule.keyword = this.searchString;
-        pageRule.searchTypes = this.selectedSearchTypes;
+        pageRule.searchTypes = [this.selectedSearchType];
 
         return pageRule;
     }

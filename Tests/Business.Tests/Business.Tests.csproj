@@ -38,6 +38,10 @@
       <HintPath>..\..\packages\Autofac.Extras.Moq.4.0.0\lib\net45\Autofac.Extras.Moq.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="AutoMapper, Version=5.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AutoMapper.5.2.0\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="FluentAssertions, Version=4.18.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\FluentAssertions.4.18.0\lib\net45\FluentAssertions.dll</HintPath>
       <Private>True</Private>
@@ -61,13 +65,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutomapperTests.cs" />
     <Compile Include="CodeExecutorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Business.Challenges\Business.Challenges.csproj">
+      <Project>{532F5E1B-117C-4131-A9A7-8B96B3CEE237}</Project>
+      <Name>Business.Challenges</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Business.CodeExecution\Business.CodeExecution.csproj">
       <Project>{96305162-A7C2-4E9B-ADB3-D9B0946874EB}</Project>
       <Name>Business.CodeExecution</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Business.Identity\Business.Identity.csproj">
+      <Project>{B248D183-63B4-41F6-8182-E532200D5AEE}</Project>
+      <Name>Business.Identity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Business.SearchIndex\Business.SearchIndex.csproj">
+      <Project>{B25C08CC-9015-4AFB-B6B8-BDBCFABA9074}</Project>
+      <Name>Business.SearchIndex</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

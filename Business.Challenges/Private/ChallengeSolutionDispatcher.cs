@@ -28,8 +28,7 @@ namespace Business.Challenges.Private
 
             var challengeType = (ChallengeType) challenge.ChallengeType;
 
-            return challengeSolvingStrategies.Value[challengeType]
-                .Solve(challenge, userId, answer);
+            return challengeSolvingStrategies.Value[challengeType].Solve(challenge, userId, answer);
         }
     }
 }

@@ -1,10 +1,9 @@
 export enum ChallengeSearchType {
-    All = 1,
-    Title = 2,
-    Condition = 3,
-    Difficulty = 4,
-    Section = 5,
-    Language = 6,
-    PreviewText = 7,
-    Tags = 8
+    Title = 1,
+    Condition = 2,
+    Difficulty = 3,
+    Section = 4,
+    Language = 5,
+    PreviewText = 6,
+    Tags = 7
 }

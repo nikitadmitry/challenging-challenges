@@ -31,7 +31,7 @@ namespace Data.Challenges.Entities
             set;
         }
 
-        public byte Difficulty
+        public Difficulty Difficulty
         {
             get;
             set;

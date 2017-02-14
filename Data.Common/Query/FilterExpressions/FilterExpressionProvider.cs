@@ -100,9 +100,16 @@ namespace Data.Common.Query.FilterExpressions
             }
             else
             {
-                var operand = ((UnaryExpression)expression.Body).Operand;
+                if (expression.Body is UnaryExpression)
+                {
+                    var operand = ((UnaryExpression) expression.Body).Operand;
 
-                memberInfo = ((MemberExpression)operand).Member;
+                    memberInfo = ((MemberExpression) operand).Member;
+                }
+                else
+                {
+                    memberInfo = ((expression.Body as MethodCallExpression).Object as MemberExpression).Member;
+                }
             }
 
             return memberInfo;

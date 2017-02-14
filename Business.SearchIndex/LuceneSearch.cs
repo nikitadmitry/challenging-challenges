@@ -96,8 +96,13 @@ namespace Business.SearchIndex
             }
         }
 
-        public static IEnumerable<ViewModels.SearchIndex> Search(Sort sort, string[] searchFields, string input = "", int page = 0, int hitsLimit = 10)
+        public static IEnumerable<ViewModels.SearchIndex> Search(Sort sort, string[] searchFields, string input, int page = 0, int hitsLimit = 10)
         {
+            if (input.IsNullOrEmpty())
+            {
+                input = string.Empty;
+            }
+
             var terms = input.Trim().Replace("-", " ").Replace(",", " ").Split(' ')
                 .Where(x => !string.IsNullOrEmpty(x)).Select(x => x.Trim().TrimEnd('s','\'') + "*");
             input = string.Join(" ", terms);

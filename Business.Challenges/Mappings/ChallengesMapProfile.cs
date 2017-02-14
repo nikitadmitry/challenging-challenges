@@ -5,6 +5,8 @@ using System.Text;
 using AutoMapper;
 using Business.Challenges.ViewModels;
 using Data.Challenges.Entities;
+using Data.Challenges.Enums;
+using ChallengeType = Business.Challenges.ViewModels.ChallengeType;
 
 namespace Business.Challenges.Mappings
 {
@@ -12,11 +14,43 @@ namespace Business.Challenges.Mappings
     {
         public ChallengesMapProfile()
         {
+            ConfigureTestCasesMap();
             ConfigureChallengeMap();
             ConfigureSolversMap();
             ConfigureCommentsMap();
         }
-        
+
+        private void ConfigureTestCasesMap()
+        {
+            CreateMap<TestCaseViewModel, TestCase>()
+                .ForMember(e => e.Id, o => o.Ignore())
+                .ForMember(e => e.State, o => o.Ignore())
+                .ForMember(e => e.CodeParameters, o => o.ResolveUsing(wm =>
+                {
+                    var codeParameters = wm.InputParameters.Select(inputParameter =>
+                        new CodeParameter
+                        {
+                            Type = CodeParameterType.Input,
+                            Value = inputParameter
+                        }).ToList();
+
+                    codeParameters.AddRange(wm.OutputParameters.Select(outputParameter =>
+                        new CodeParameter
+                        {
+                            Type = CodeParameterType.Output,
+                            Value = outputParameter
+                        }));
+
+                    return codeParameters;
+                }));
+
+            CreateMap<TestCase, TestCaseViewModel>()
+                .ForMember(vm => vm.InputParameters, o => o.ResolveUsing(e => 
+                    e.InputParameters.Select(x => x.Value)))
+                .ForMember(vm => vm.OutputParameters, o => o.ResolveUsing(e => 
+                    e.OutputParameters.Select(x => x.Value)));
+        }
+
         private void ConfigureChallengeMap()
         {
             CreateMap<Challenge, ChallengeViewModel>()
@@ -29,12 +63,16 @@ namespace Business.Challenges.Mappings
                 .ForMember(t => t.PreviewText, o => o.MapFrom(s => s.PreviewText))
                 .ForMember(t => t.Section, o => o.MapFrom(s => s.Section))
                 .ForMember(t => t.Tags, o => o.MapFrom(s => s.Tags.Select(x => x.Value).ToList()))
-                .ForMember(t => t.Title, o => o.MapFrom(s => s.Title));
+                .ForMember(t => t.Title, o => o.MapFrom(s => s.Title))
+                .ForMember(t => t.SourceCode, o => o.Ignore());
                 
-
             CreateMap<ChallengeViewModel, Challenge>()
                 .ForMember(t => t.Id, o => o.MapFrom(s => s.Id))
-                .ForMember(t => t.Answers, o => o.MapFrom(s => GetEntityAnswers(s.Answers)))
+                .ForMember(t => t.Answers, o =>
+                {
+                    o.Condition(s => s.ChallengeType == ChallengeType.TextAnswered);
+                    o.MapFrom(s => GetEntityAnswers(s.Answers));
+                })
                 .ForMember(t => t.AuthorId, o => o.MapFrom(s => s.AuthorId))
                 .ForMember(t => t.Condition, o => o.MapFrom(s => s.Condition))
                 .ForMember(t => t.Difficulty, o => o.MapFrom(s => s.Difficulty))
@@ -42,7 +80,22 @@ namespace Business.Challenges.Mappings
                 .ForMember(t => t.PreviewText, o => o.MapFrom(s => s.PreviewText))
                 .ForMember(t => t.Section, o => o.MapFrom(s => s.Section))
                 .ForMember(t => t.Tags, o => o.MapFrom(s => GetEntityTags(s.Tags)))
-                .ForMember(t => t.Title, o => o.MapFrom(s => s.Title));
+                .ForMember(t => t.Title, o => o.MapFrom(s => s.Title))
+                .ForMember(t => t.TestCases, o =>
+                {
+                    o.Condition(s => s.ChallengeType == ChallengeType.CodeAnswered);
+                    o.MapFrom(s => s.TestCases);
+                })
+                .ForMember(t => t.SolutionSourceCode, o =>
+                {
+                    o.Condition(s => s.ChallengeType == ChallengeType.CodeAnswered);
+                    o.MapFrom(s => s.SourceCode);
+                })
+                .ForMember(t => t.Rating, o => o.Ignore())
+                .ForMember(t => t.NumberOfVotes, o => o.Ignore())
+                .ForMember(t => t.TimeCreated, o => o.Ignore())
+                .ForMember(t => t.TimesSolved, o => o.Ignore())
+                .ForMember(t => t.State, o => o.Ignore());
 
             CreateMap<Challenge, ChallengeFullViewModel>()
                 .ForMember(t => t.Id, o => o.MapFrom(s => s.Id))
@@ -57,7 +110,8 @@ namespace Business.Challenges.Mappings
                 .ForMember(t => t.Title, o => o.MapFrom(s => s.Title))
                 .ForMember(t => t.Comments, o => o.MapFrom(s => s.Comments))
                 .ForMember(t => t.Rating, o => o.MapFrom(s => s.Rating))
-                .ForMember(t => t.TimesSolved, o => o.MapFrom(s => s.TimesSolved));
+                .ForMember(t => t.TimesSolved, o => o.MapFrom(s => s.TimesSolved))
+                .ForMember(t => t.SourceCode, o => o.Ignore());
 
             CreateMap<ChallengeFullViewModel, Challenge>()
                 .ForMember(t => t.Id, o => o.MapFrom(s => s.Id))
@@ -72,7 +126,12 @@ namespace Business.Challenges.Mappings
                 .ForMember(t => t.Title, o => o.MapFrom(s => s.Title))
                 .ForMember(t => t.Comments, o => o.MapFrom(s => s.Comments))
                 .ForMember(t => t.Rating, o => o.MapFrom(s => s.Rating))
-                .ForMember(t => t.TimesSolved, o => o.MapFrom(s => s.TimesSolved));
+                .ForMember(t => t.TimesSolved, o => o.MapFrom(s => s.TimesSolved))
+                .ForMember(t => t.NumberOfVotes, o => o.Ignore())
+                .ForMember(t => t.TimeCreated, o => o.Ignore())
+                .ForMember(t => t.TimesSolved, o => o.Ignore())
+                .ForMember(t => t.State, o => o.Ignore())
+                .ForMember(t => t.SolutionSourceCode, o => o.Ignore());
 
             CreateMap<Challenge, ChallengesDescriptionViewModel>()
                 .ForMember(t => t.Id, o => o.MapFrom(s => s.Id))
@@ -101,19 +160,25 @@ namespace Business.Challenges.Mappings
 
             CreateMap<SolverViewModel, Solver>()
                 .ForMember(t => t.Id, o => o.MapFrom(s => s.UserId))
-                .ForMember(t => t.HasSolved, o => o.MapFrom(s => s.HasSolved));
+                .ForMember(t => t.HasSolved, o => o.MapFrom(s => s.HasSolved))
+                .ForMember(t => t.HasRated, o => o.Ignore())
+                .ForMember(t => t.NumberOfTries, o => o.Ignore())
+                .ForMember(t => t.State, o => o.Ignore());
         }
 
         private void ConfigureCommentsMap()
         {
             CreateMap<Comment, CommentViewModel>()
                 .ForMember(t => t.Id, o => o.MapFrom(s => s.Id))
-                .ForMember(t => t.Value, o => o.MapFrom(s => s.Value));
+                .ForMember(t => t.Value, o => o.MapFrom(s => s.Value))
+                .ForMember(t => t.UserName, o => o.Ignore());
 
 
             CreateMap<CommentViewModel, Comment>()
                 .ForMember(t => t.Id, o => o.MapFrom(s => s.Id))
-                .ForMember(t => t.Value, o => o.MapFrom(s => s.Value));
+                .ForMember(t => t.Value, o => o.MapFrom(s => s.Value))
+                .ForMember(t => t.UserId, o => o.Ignore())
+                .ForMember(t => t.State, o => o.Ignore());
         }
 
         private List<Tag> GetEntityTags(string tags)

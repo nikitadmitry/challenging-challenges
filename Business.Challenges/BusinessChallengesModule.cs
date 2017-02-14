@@ -1,5 +1,7 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
 using Business.Challenges.Private;
+using Business.Challenges.Private.SearchStrategies;
 using Business.Challenges.ViewModels;
 using Business.CodeExecution;
 
@@ -13,8 +15,23 @@ namespace Business.Challenges
             RegisterChallengeSolvingStrategies(builder);
             builder.RegisterModule(new BusinessCodeExecutionModule());
             builder.RegisterType<ChallengeSolutionDispatcher>().As<IChallengeSolutionDispatcher>();
+            RegisterSearchStrategies(builder);
 
             base.Load(builder);
+        }
+
+        private void RegisterSearchStrategies(ContainerBuilder builder)
+        {
+            Type[] searchStrategies = {
+                typeof(TitleSearchStrategy),
+                typeof(PreviewTextSearchStrategy),
+                typeof(SectionSearchStrategy),
+            };
+
+            foreach (var searchStrategy in searchStrategies)
+            {
+                builder.RegisterType(searchStrategy).As<ISearchStrategy>();
+            }
         }
 
         private void RegisterChallengeSolvingStrategies(ContainerBuilder builder)

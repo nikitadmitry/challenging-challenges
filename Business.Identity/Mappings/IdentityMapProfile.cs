@@ -24,6 +24,7 @@ namespace Business.Identity.Mappings
         {
             CreateMap<IdentityUser, User>()
                 .ForMember(t => t.Id, o => o.MapFrom(s => s.Id))
+                .ForMember(t => t.State, o => o.Ignore())
                 .ForMember(t => t.UserName, o => o.MapFrom(s => s.UserName))
                 .ForMember(t => t.Email, o => o.MapFrom(s => s.Email))
                 .ForMember(t => t.NormalizedUserName, o => o.MapFrom(s => s.NormalizedUserName))

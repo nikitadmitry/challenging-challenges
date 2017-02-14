@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.ServiceModel;
 using System.Text;
 using AutoMapper;
 using Business.Challenges.Private;
+using Business.Challenges.Private.SearchStrategies;
 using Business.Challenges.ViewModels;
 using Business.Identity;
 using Business.SearchIndex;
@@ -13,10 +13,8 @@ using Data.Challenges.Context;
 using Data.Challenges.Entities;
 using Data.Common.Query.Builder;
 using Data.Common.Query.QueryParameters;
-using Lucene.Net.Search;
 using Shared.Framework.DataSource;
 using Shared.Framework.Resources;
-using Shared.Framework.Utilities;
 using Shared.Framework.Validation;
 
 namespace Business.Challenges
@@ -26,21 +24,22 @@ namespace Business.Challenges
     {
         private readonly IChallengesUnitOfWork unitOfWork;
         private readonly Lazy<IIdentityService> identityService;
-        private readonly ISearchIndexService searchIndexService;
         private readonly Lazy<IChallengeSolutionDispatcher> challengeSolutionDispatcher;
         private readonly IMapper mapper;
+        private readonly IEnumerable<ISearchStrategy> searchStrategies;
 
         public ChallengesService(IChallengesUnitOfWork unitOfWork, 
             Lazy<IIdentityService> identityService,
             ISearchIndexService searchIndexService,
             Lazy<IChallengeSolutionDispatcher> challengeSolutionDispatcher,
-            IMapper mapper)
+            IMapper mapper,
+            IEnumerable<ISearchStrategy> searchStrategies)
         {
             this.unitOfWork = unitOfWork;
             this.identityService = identityService;
-            this.searchIndexService = searchIndexService;
             this.challengeSolutionDispatcher = challengeSolutionDispatcher;
             this.mapper = mapper;
+            this.searchStrategies = searchStrategies;
         }
 
         public ChallengeViewModel AddChallenge(ChallengeViewModel challenge)
@@ -280,57 +279,9 @@ namespace Business.Challenges
         {
             Contract.Assert<InvalidOperationException>(pageRule.IsValid);
 
-            var indexedProperties = pageRule.SearchTypes.Where(x => x.In(GetIndexedSearchTypes().ToArray())).ToList();
+            var searchType = pageRule.SearchTypes.FirstOrDefault();
 
-            List<ChallengeInfoViewModel> viewModels = new List<ChallengeInfoViewModel>();
-
-            if (indexedProperties.Any())
-            {
-                var list = searchIndexService.Search(new Sort(new SortField("Id", SortField.STRING, true)),
-                    ChallengeSearchTypesToString(indexedProperties), pageRule.Keyword, pageRule.Count * pageRule.Start, 
-                    pageRule.Count);
-
-                viewModels.AddRange(mapper.Map<List<ChallengeInfoViewModel>>(
-                    list.Select(searchIndex => unitOfWork.Get<Challenge>(searchIndex.Id))));
-            }
-
-            var challenges = SearchChallengesOnDb(pageRule.Keyword, viewModels,
-                ChallengeSearchTypesToString(pageRule.SearchTypes.Except(indexedProperties)), pageRule);
-
-            viewModels.AddRange(mapper.Map<List<ChallengeInfoViewModel>>(challenges));
-            
-            return viewModels;
-        }
-
-        private string[] ChallengeSearchTypesToString(IEnumerable<ChallengeSearchType> searchTypes)
-        {
-            var properties = new List<string>();
-
-            foreach (var challengeSearchType in searchTypes)
-            {
-                properties.Add(GetPropertyNameBySearchType(challengeSearchType));
-            }
-
-            return properties.ToArray();
-        }
-
-        private string GetPropertyNameBySearchType(ChallengeSearchType searchType)
-        {
-            switch (searchType)
-            {
-                case ChallengeSearchType.All:
-                    return string.Empty;
-                case ChallengeSearchType.Title:
-                case ChallengeSearchType.Condition:
-                case ChallengeSearchType.Difficulty:
-                case ChallengeSearchType.Section:
-                case ChallengeSearchType.Language:
-                case ChallengeSearchType.PreviewText:
-                case ChallengeSearchType.Tags:
-                    return searchType.ToString();
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(searchType), searchType, null);
-            }
+            return searchStrategies.First(x => x.IsApplicable(searchType)).Search(pageRule);
         }
 
         public Guid GetChallengeAuthor(Guid challengeId)
@@ -347,125 +298,6 @@ namespace Business.Challenges
             var solver = challenge.Solvers.SingleOrDefault(x => x.UserId == userId);
 
             return solver?.HasSolved ?? false;
-        }
-
-        private IList<Challenge> SearchChallengesOnDb(string keyword, List<ChallengeInfoViewModel> indexedModels,
-            string[] properties, PageRule pageRule)
-        {
-            var queryParameters = new QueryParameters
-            {
-                PageRule = pageRule
-            };
-
-            var filterSettingsBuilder = FilterSettingsBuilder<Challenge>.Create();
-
-            if (!keyword.IsNullOrEmpty())
-            {
-                PopulateFilterSettings(keyword, properties, filterSettingsBuilder);
-            }
-
-            SkipIndexedModels(filterSettingsBuilder, indexedModels);
-
-            queryParameters.FilterSettings = filterSettingsBuilder.GetSettings();
-
-            var challenges = unitOfWork.GetAll<Challenge>(queryParameters);
-            return challenges;
-        }
-
-        private void SkipIndexedModels(FilterSettingsBuilder<Challenge> filterSettingsBuilder,
-            List<ChallengeInfoViewModel> indexedModels)
-        {
-            if (indexedModels.Any())
-            {
-                filterSettingsBuilder.AddFilterRule(x => x.Id, FilterOperator.IsNotContainedIn,
-                    indexedModels.Select(x => x.Id));
-            }
-        }
-
-        private void PopulateFilterSettings(string keyword, string[] properties, 
-            FilterSettingsBuilder<Challenge> filterSettingsBuilder)
-        {
-            foreach (var property in properties)
-            {
-                var propertyInfo = GetPropertyInfo(property);
-
-                if (propertyInfo == null)
-                {
-                    return;
-                }
-
-                var typedValue = GetCastedPropertyValue(propertyInfo, keyword);
-
-                if (typedValue != null)
-                {
-                    filterSettingsBuilder.AddFilterRule(x => propertyInfo.GetValue(x),//GetPropertyExpression(property),
-                        propertyInfo.PropertyType == typeof(string)
-                            ? FilterOperator.Contains
-                            : FilterOperator.IsEqualTo, typedValue);
-                }
-            }
-        }
-
-        private object GetCastedPropertyValue(PropertyInfo propertyInfo, string value)
-        {
-            if (propertyInfo == null || string.IsNullOrEmpty(value))
-            {
-                return null;
-            }
-
-            if (propertyInfo.PropertyType == typeof(Guid))
-            {
-                Guid userId;
-                if (Guid.TryParse(value, out userId))
-                {
-                    return userId;
-                }
-
-                return null;
-            }
-
-            if (propertyInfo.PropertyType.IsEnum)
-            {
-                Type enumType = propertyInfo.PropertyType;
-                if (Enum.IsDefined(enumType, value))
-                {
-                    return Enum.Parse(enumType, value);
-                }
-
-                return null;
-            }
-
-            return Convert.ChangeType(value, propertyInfo.PropertyType);
-        }
-
-        private PropertyInfo GetPropertyInfo(string property)
-        {
-            return typeof(Challenge).GetProperty(property);
-        }
-
-        //private Expression<Func<Challenge, object>> GetPropertyExpression(string property)
-        //{
-        //    switch (property)
-        //    {
-        //        case "AuthorId":
-        //            return x => x.AuthorId;
-        //        case "Difficulty":
-        //            return x => x.Difficulty;
-        //        case "Section":
-        //            return x => x.Section;
-        //        case "Language":
-        //            return x => x.Language;
-        //        case "Title":
-        //        default:
-        //            return x => x.Title;
-        //    }
-        //}
-
-        private IEnumerable<ChallengeSearchType> GetIndexedSearchTypes()
-        {
-            yield return ChallengeSearchType.Condition;
-            yield return ChallengeSearchType.PreviewText;
-            yield return ChallengeSearchType.Tags;
         }
     }
 }

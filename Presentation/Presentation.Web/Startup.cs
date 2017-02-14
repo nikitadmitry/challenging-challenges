@@ -76,6 +76,7 @@ namespace Presentation.Web
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+            loggerFactory.AddFile("Logs/cc-{Date}.txt");
 
             if (env.IsDevelopment())
             {

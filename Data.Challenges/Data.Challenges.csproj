@@ -62,6 +62,7 @@
     <Compile Include="Entities\TestCase.cs" />
     <Compile Include="Enums\ChallengeType.cs" />
     <Compile Include="Enums\CodeParameterType.cs" />
+    <Compile Include="Enums\Difficulty.cs" />
     <Compile Include="Enums\Language.cs" />
     <Compile Include="Enums\Section.cs" />
     <Compile Include="Migrations\201604240110407_Initial.cs" />

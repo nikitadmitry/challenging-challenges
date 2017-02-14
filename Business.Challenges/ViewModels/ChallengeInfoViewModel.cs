@@ -41,7 +41,7 @@ namespace Business.Challenges.ViewModels
             set;
         }
 
-        public byte Difficulty
+        public Difficulty Difficulty
         {
             get;
             set;

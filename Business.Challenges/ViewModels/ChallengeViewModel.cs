@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Data.Challenges.Entities;
-using Shared.Framework.Resources;
 using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
 using Data.Challenges.Enums;
-using Shared.Framework.Validation;
 
 namespace Business.Challenges.ViewModels
 {
@@ -14,57 +11,37 @@ namespace Business.Challenges.ViewModels
     {
         public Guid Id { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Localization),
-            ErrorMessageResourceName = "IsRequired")]
-        [StringLength(100, ErrorMessageResourceType = typeof(Localization),
-            ErrorMessageResourceName = "LengthBetweenMessage", MinimumLength = 6)]
-        [Display(ResourceType = typeof(Localization), Name = "Title")]
+        [Required]
+        [StringLength(100, MinimumLength = 6)]
         public string Title { get; set; }
 
-        [StringLength(1000, ErrorMessageResourceType = typeof(Localization),
-            ErrorMessageResourceName = "LengthBetweenMessage", MinimumLength = 20)]
-        [Required(ErrorMessageResourceType = typeof(Localization),
-                            ErrorMessageResourceName = "IsRequired")]
-        [Display(ResourceType = typeof(Localization), Name = "PreviewText")]
-        [AllowHtml]
+        [StringLength(1000, MinimumLength = 20)]
+        [Required]
         public string PreviewText { get; set; }
 
-        [StringLength(1000, ErrorMessageResourceType = typeof(Localization),
-            ErrorMessageResourceName = "LengthBetweenMessage", MinimumLength = 20)]
-        [Required(ErrorMessageResourceType = typeof(Localization),
-                            ErrorMessageResourceName = "IsRequired")]
-        [Display(ResourceType = typeof(Localization), Name = "Condition")]
-        [AllowHtml]
+        [StringLength(1000, MinimumLength = 20)]
+        [Required]
         public string Condition { get; set; }
 
-        [StringLength(100, ErrorMessageResourceType = typeof(Localization),
-            ErrorMessageResourceName = "LengthBetweenMessage", MinimumLength = 3)]
-        [Display(ResourceType = typeof(Localization), Name = "Tags")]
+        [StringLength(100, MinimumLength = 3)]
         public string Tags { get; set; }
 
-        [Required]
-        [CollectionMinimumLengthValidation(1, 5)]
-        [Display(ResourceType = typeof(Localization), Name = "OfAnswers")]
         public List<string> Answers { get; set; }
 
-        [Required]
-        [Range(1, 5)]
-        [Display(ResourceType = typeof(Localization), Name = "Difficulty")]
-        public byte Difficulty { get; set; }
+        public IList<TestCaseViewModel> TestCases
+        {
+            get;
+            set;
+        }
 
-        [Required]
-        [Display(ResourceType = typeof(Localization), Name = "Section")]
+        public Difficulty Difficulty { get; set; }
+
         public Section Section { get; set; }
 
-        [Required]
-        [Display(ResourceType = typeof(Localization), Name = "Language")]
         public Language Language { get; set; }
 
-        [Required]
-        [Display(ResourceType = typeof(Localization), Name = "ChallengeType")]
         public ChallengeType ChallengeType { get; set; }
 
-        [Display(ResourceType = typeof(Localization), Name = "SourceCode")]
         public string SourceCode
         {
             get;
