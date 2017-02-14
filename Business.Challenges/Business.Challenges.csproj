@@ -102,6 +102,7 @@
     <Compile Include="Private\SearchStrategies\EnumSearchStrategy.cs" />
     <Compile Include="Private\SearchStrategies\IndexedSearchStrategyBase.cs" />
     <Compile Include="Private\SearchStrategies\ISearchStrategy.cs" />
+    <Compile Include="Private\SearchStrategies\LanguageSearchStrategy.cs" />
     <Compile Include="Private\SearchStrategies\PreviewTextSearchStrategy.cs" />
     <Compile Include="Private\SearchStrategies\SearchStrategyBase.cs" />
     <Compile Include="Private\SearchStrategies\SectionSearchStrategy.cs" />

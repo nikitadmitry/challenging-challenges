@@ -23,9 +23,13 @@ namespace Business.Challenges
         private void RegisterSearchStrategies(ContainerBuilder builder)
         {
             Type[] searchStrategies = {
-                typeof(TitleSearchStrategy),
+                typeof(ConditionSearchStrategy),
+                typeof(DifficultySearchStrategy),
+                typeof(LanguageSearchStrategy),
                 typeof(PreviewTextSearchStrategy),
                 typeof(SectionSearchStrategy),
+                typeof(TagsSearchStrategy),
+                typeof(TitleSearchStrategy)
             };
 
             foreach (var searchStrategy in searchStrategies)
