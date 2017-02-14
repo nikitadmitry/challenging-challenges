@@ -11,6 +11,6 @@ export class ChallengeCardComponent {
     challenge: ChallengeCardViewModel;
 
     showAditionalInfo(): void {
-        alert("OPPA");
+        alert("please add details");
     }
 }

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using Business.Identity;
 using Business.Identity.ViewModels;
 using Business.SearchIndex;
+using Hangfire;
 using Microsoft.AspNetCore.Mvc;
+using Presentation.Web.Lucene;
 
 namespace Presentation.Web.Controllers
 {
@@ -34,6 +36,13 @@ namespace Presentation.Web.Controllers
             const int numberOfTagsFetched = 50;
 
             return searchIndexService.Value.GetTags(numberOfTagsFetched);
+        }
+
+        public string Job()
+        {
+            BackgroundJob.Enqueue<LuceneIndexer>(x => x.Update());
+
+            return "OK";
         }
     }
 }

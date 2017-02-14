@@ -1,17 +1,15 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MdlModule } from "angular2-mdl";
 import { MdlSelectModule } from "@angular2-mdl-ext/select";
 
 import { LoadingSpinnerComponent } from "./shared-components/loading-spinner.component";
 import { MdlTextFieldValidatedComponent } from "./shared-components/mdl-textfield-validated.component";
-//import { PaginatorComponent } from "./shared-components/paginator.component";
 
 @NgModule({
     declarations: [
         LoadingSpinnerComponent,
-        //PaginatorComponent,
         MdlTextFieldValidatedComponent
     ],
     imports: [
@@ -23,9 +21,9 @@ import { MdlTextFieldValidatedComponent } from "./shared-components/mdl-textfiel
     exports: [
         CommonModule,
         FormsModule,
+        ReactiveFormsModule,
         LoadingSpinnerComponent,
         MdlModule,
-        //PaginatorComponent,
         MdlTextFieldValidatedComponent,
         MdlSelectModule
     ]

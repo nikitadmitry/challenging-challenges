@@ -12,15 +12,23 @@ module.exports = (env) => {
         resolve: { extensions: [ '.js', '.ts' ] },
         output: {
             filename: '[name].js',
+            chunkFilename: '[name].chunk.js',
             publicPath: '/dist/' // Webpack dev middleware, if enabled, handles requests for this URL prefix
         },
         module: {
-            rules: [
-                { test: /\.ts$/, include: /ClientApp/, use: ['awesome-typescript-loader?silent=true', /*'angular2-template-loader'*/] },
-                { test: /\.html$/, use: 'html-loader?minimize=false' },
-                { test: /\.css$/, use: ['to-string-loader', 'css-loader'] },
-                { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000' }
+            loaders: [
+                { test: /\.ts$/, include: /ClientApp/, loaders: ['awesome-typescript-loader?silent=true', /*'angular2-template-loader',*/ 'angular2-router-loader'] },
+                { test: /\.html$/, loader: 'html-loader?minimize=false' },
+                { test: /\.css$/, loader: 'to-string-loader!css-loader' },
+                { test: /\.(png|jpg|jpeg|gif|svg)$/, loader: 'url-loader', query: { limit: 25000 } },
+                { test: /\.json$/, loader: 'json-loader' }
             ]
+            // rules: [
+            //     { test: /\.ts$/, include: /ClientApp/, use: ['awesome-typescript-loader?silent=true', /*'angular2-template-loader'*/] },
+            //     { test: /\.html$/, use: 'html-loader?minimize=false' },
+            //     { test: /\.css$/, use: ['to-string-loader', 'css-loader'] },
+            //     { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000' }
+            // ]
         },
         plugins: [new CheckerPlugin()]
     };

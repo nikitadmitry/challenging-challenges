@@ -12,6 +12,12 @@
 
     <mdl-layout-content>
         <router-outlet></router-outlet>
+        <h3>{{ 'Title' | translate:lang }}</h3>
+
+        <h3>{{ 'Change language' | translate:lang }}</h3>
+
+        <button (click)="selectLanguage('en');">English</button>
+        <button (click)="selectLanguage('ru');">Russsss</button>
     </mdl-layout-content>
 </mdl-layout>
 

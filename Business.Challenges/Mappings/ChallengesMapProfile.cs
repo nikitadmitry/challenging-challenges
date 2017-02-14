@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using AutoMapper;
 using Business.Challenges.ViewModels;
 using Data.Challenges.Entities;
@@ -106,7 +105,7 @@ namespace Business.Challenges.Mappings
                 .ForMember(t => t.Language, o => o.MapFrom(s => s.Language))
                 .ForMember(t => t.PreviewText, o => o.MapFrom(s => s.PreviewText))
                 .ForMember(t => t.Section, o => o.MapFrom(s => s.Section))
-                .ForMember(t => t.Tags, o => o.MapFrom(s => GetViewModelTags(s.Tags.ToList())))
+                .ForMember(t => t.Tags, o => o.MapFrom(s => s.Tags.Select(x => x.Value)))
                 .ForMember(t => t.Title, o => o.MapFrom(s => s.Title))
                 .ForMember(t => t.Comments, o => o.MapFrom(s => s.Comments))
                 .ForMember(t => t.Rating, o => o.MapFrom(s => s.Rating))
@@ -147,7 +146,7 @@ namespace Business.Challenges.Mappings
                 .ForMember(t => t.Language, o => o.MapFrom(s => s.Language))
                 .ForMember(t => t.Rating, o => o.MapFrom(s => s.Rating))
                 .ForMember(t => t.Section, o => o.MapFrom(s => s.Section))
-                .ForMember(t => t.Tags, o => o.MapFrom(s => GetViewModelTags(s.Tags.ToList())))
+                .ForMember(t => t.Tags, o => o.MapFrom(s => s.Tags.Select(x => x.Value)))
                 .ForMember(t => t.TimesSolved, o => o.MapFrom(s => s.TimesSolved));
         }
 
@@ -198,18 +197,6 @@ namespace Business.Challenges.Mappings
             }
 
             return answersList;
-        }
-
-        private string GetViewModelTags(List<Tag> tags)
-        {
-            StringBuilder tagsAsString = new StringBuilder();
-
-            foreach (var tag in tags)
-            {
-                tagsAsString.Append($"{tag.Value} ");
-            }
-
-            return tagsAsString.ToString();
         }
     }
 }

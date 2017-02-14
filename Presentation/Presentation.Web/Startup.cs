@@ -3,6 +3,7 @@ using System.Text;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Business.Identity.ViewModels;
+using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Presentation.Web.Identity;
+using Presentation.Web.Lucene;
 
 namespace Presentation.Web
 {
@@ -29,7 +31,7 @@ namespace Presentation.Web
             signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));
         }
 
-        public IContainer ApplicationContainer { get; private set; }
+        private IContainer applicationContainer;
 
         public IConfigurationRoot Configuration { get; }
 
@@ -49,6 +51,8 @@ namespace Presentation.Web
                 .AddRoleStore<IdentityStore>()
                 .AddDefaultTokenProviders();
 
+            services.AddHangfire(c => c.UseSqlServerStorage(Configuration.GetConnectionString("IdentityConnection")));
+
             // Add framework services.
             services.AddMvc();
 
@@ -65,9 +69,11 @@ namespace Presentation.Web
             var builder = new ContainerBuilder();
             DependencyRegistration.ConfigureContainer(builder, Configuration);
             builder.Populate(services);
-            ApplicationContainer = builder.Build();
+            applicationContainer = builder.Build();
 
-            return new AutofacServiceProvider(ApplicationContainer);
+            GlobalConfiguration.Configuration.UseAutofacActivator(applicationContainer);
+
+            return new AutofacServiceProvider(applicationContainer);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,20 +82,21 @@ namespace Presentation.Web
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-            loggerFactory.AddFile("Logs/cc-{Date}.txt");
 
             if (env.IsDevelopment())
             {
-                //app.UseDeveloperExceptionPage();
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions {
                     HotModuleReplacement = true
                 });
-            }
-            else
-            {
-                //app.UseExceptionHandler("/Home/Error");
+
+                loggerFactory.AddFile("Logs/cc-{Date}.txt");
             }
 
+            app.UseHangfireDashboard();
+            app.UseHangfireServer();
+
+            LuceneIndexer.LaunchReccuringJob();
+            
             app.UseStaticFiles();
 
             var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
@@ -128,7 +135,7 @@ namespace Presentation.Web
                     defaults: new { controller = "Home", action = "Index" });
             });
 
-            appLifetime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());
+            appLifetime.ApplicationStopped.Register(() => applicationContainer.Dispose());
         }
     }
 }

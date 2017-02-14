@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Data.Challenges.Enums;
 
 namespace Business.Challenges.ViewModels
@@ -59,7 +60,7 @@ namespace Business.Challenges.ViewModels
             set;
         }
 
-        public string Tags
+        public List<string> Tags
         {
             get;
             set;

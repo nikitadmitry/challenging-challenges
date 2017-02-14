@@ -11,7 +11,8 @@ import { ChallengesComponent } from "./challenges.component";
     imports: [
         SharedModule,
         RouterModule.forChild([
-            { path: "challenges", component: ChallengesComponent }
+            { path: "", component: ChallengesComponent }
+            //{ path: "challenges", component: ChallengesComponent }
         ])
     ]
 })

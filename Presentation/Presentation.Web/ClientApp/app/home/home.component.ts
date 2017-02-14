@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Observable } from "rxjs/Observable";
+import { TranslationService } from "angular-l10n";
 
 import { ChallengesService } from "../challenges/challenges.service";
 
@@ -9,9 +10,12 @@ import { ChallengesService } from "../challenges/challenges.service";
     providers: [ChallengesService]
 })
 export class HomeComponent implements OnInit {
-    constructor(private challengesService: ChallengesService) { }
-
     challengesCount: Observable<number>;
+
+    constructor(translation: TranslationService, private challengesService: ChallengesService) {
+        translation.AddConfiguration().AddProvider("./assets/locale-home-");
+        translation.init();
+    }
 
     ngOnInit(): void {
         this.challengesCount = this.challengesService.getChallengesCount();
