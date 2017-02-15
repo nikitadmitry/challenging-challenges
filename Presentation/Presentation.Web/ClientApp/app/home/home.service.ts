@@ -15,7 +15,7 @@ export class HomeService {
 
     getChallenges(sortedPageRule: SortedPageRule): Observable<ChallengeCardViewModel[]> {
         return this.http.post(Actions.home.getChallenges, sortedPageRule)
-            .map(response => response.json() as ChallengeCardViewModel[]).share();
+            .map(response => response.json() as ChallengeCardViewModel[]);
     }
 
     getTopUsers(): Observable<any[]> {

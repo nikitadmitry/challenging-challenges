@@ -1,10 +1,10 @@
 <div class="cursor-pointer" *ngIf="isLoggedOn()">
-    <a class="mdl-navigation__link">Личный профиль</a>
-    <a class="mdl-navigation__link" (click)="logout()">Выйти</a>
+    <a class="mdl-navigation__link">{{'NavMenu.Auth.Profile' | translate:lang}}</a>
+    <a class="mdl-navigation__link" (click)="logout()">{{'NavMenu.Auth.SignOut' | translate:lang}}</a>
 </div>
 <div class="cursor-pointer" *ngIf="!isLoggedOn()">
-    <a class="mdl-navigation__link" (click)="openLoginDialog()">Войти</a>
-    <a class="mdl-navigation__link" (click)="openRegistrationDialog()">Регистрация</a>
+    <a class="mdl-navigation__link" (click)="openLoginDialog()">{{'NavMenu.Auth.SignIn' | translate:lang}}</a>
+    <a class="mdl-navigation__link" (click)="openRegistrationDialog()">{{'NavMenu.Auth.SignUp' | translate:lang}}</a>
 </div>
 
 <!--<login *ngIf="!authService.isLoggedOn()" (onDialogOpened)="onNavigated()"></login>-->

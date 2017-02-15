@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = (env) => {
     // Configuration in common to both client-side and server-side bundles
@@ -42,7 +43,10 @@ module.exports = (env) => {
             new webpack.DllReferencePlugin({
                 context: __dirname,
                 manifest: require('./wwwroot/dist/vendor-manifest.json')
-            })
+            }),
+            new CopyWebpackPlugin([{
+                from: './ClientApp/assets/*.*', to: "./wwwroot/assets/"
+            }])
         ].concat(isDevBuild ? [
             // Plugins that apply in development builds only
             new webpack.SourceMapDevToolPlugin({

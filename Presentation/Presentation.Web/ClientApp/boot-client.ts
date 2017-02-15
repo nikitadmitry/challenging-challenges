@@ -3,7 +3,8 @@ import { enableProdMode } from "@angular/core";
 import { platformUniversalDynamic } from "angular2-universal";
 import { AppModule } from "./app/app.module";
 import "rxjs/add/operator/map";
-// import 'bootstrap';
+import './assets/locale-en.json';
+import './assets/locale-ru.json';
 
 // enable either Hot Module Reloading or production mode
 if (module["hot"]) {

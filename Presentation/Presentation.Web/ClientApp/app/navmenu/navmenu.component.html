@@ -2,11 +2,11 @@
     <a class="mdl-navigation__link" 
         [routerLinkActive]="['mdl-color--light-green-400']" 
         [routerLink]="['/home']"
-        (click)="onNavigated()">Главная</a>
+        (click)="onNavigated()">{{ 'NavMenu.Main' | translate:lang }}</a>
     <a class="mdl-navigation__link" 
         [routerLinkActive]="['mdl-color--light-green-400']" 
         [routerLink]="['/challenges']"
-        (click)="onNavigated()">Задачи</a>
+        (click)="onNavigated()">{{ 'NavMenu.Challenges' | translate:lang }}</a>
     <auth (onNavigated)="onNavigated()"></auth>
 </nav>
 

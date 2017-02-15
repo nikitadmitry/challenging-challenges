@@ -12,6 +12,8 @@ export class AppComponent extends Translation implements OnDestroy {
     @ViewChild(MdlLayoutComponent)
     layout: MdlLayoutComponent;
 
+    languageChanged: boolean = this.locale.getCurrentLanguage() !== "en";
+
     public notificationOptions = {
         timeOut: 5000,
         theClass: "mdl-shadow--8dp",
@@ -19,16 +21,12 @@ export class AppComponent extends Translation implements OnDestroy {
 
     constructor(public locale: LocaleService, public translation: TranslationService) {
         super(translation);
+    }
 
-        this.locale.AddConfiguration()
-            .AddLanguages(["en", "ru"])
-            .SetCookieExpiration(30)
-            .DefineLanguage("en");
-        this.locale.init();
+    toggleLanguage(asd): void {
+        var language: string = this.languageChanged ? "ru" : "en";
 
-        this.translation.AddConfiguration()
-            .AddProvider("./assets/locale-");
-        this.translation.init();
+        this.locale.setCurrentLanguage(language);
     }
 
     selectLanguage(language: string): void {

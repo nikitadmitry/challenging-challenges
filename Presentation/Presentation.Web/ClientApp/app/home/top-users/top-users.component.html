@@ -1,2 +1,5 @@
 <loading-spinner [active]="!usersLoaded"></loading-spinner>
-<mdl-table *ngIf="usersLoaded" mdl-shadow="4" [table-model]="users"></mdl-table>
+<!--<mdl-table *ngIf="usersLoaded" mdl-shadow="4" [table-model]="users"></mdl-table>-->
+<ngx-datatable (activate)="openUserProfile($event)" [hidden]="!usersLoaded" class="material"
+        [headerHeight]="40"
+        [rowHeight]="40"></ngx-datatable>

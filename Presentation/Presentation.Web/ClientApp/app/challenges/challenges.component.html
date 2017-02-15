@@ -2,8 +2,7 @@
   <div mdl-shadow="4" class="mdl-grid mdl-cell mdl-cell--12-col mdl-padded">
     <div class="mdl-cell mdl-cell--3-col">
             <!-- multiple="true" (change)="onSearchTypesChange(selectedSearchTypes)"-->
-      <mdl-select [(ngModel)]="selectedSearchType" floating-label
-        placeholder="Поле для поиска">
+      <mdl-select [(ngModel)]="selectedSearchType" floating-label placeholder="{{ 'SearchField' | translate:lang }}">
         <!--<mdl-option [value]="allType"><em>Все</em></mdl-option>-->
         <mdl-option *ngFor="let type of searchTypes" [value]="type.type">{{type.name}}</mdl-option>
       </mdl-select>

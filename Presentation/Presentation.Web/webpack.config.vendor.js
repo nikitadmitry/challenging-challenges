@@ -40,7 +40,11 @@ module.exports = (env) => {
                 '@angular2-mdl-ext/popover/popover.css',
                 '@angular2-mdl-ext/select',
                 '@angular2-mdl-ext/select/select.css',
-                'angular-l10n'
+                'angular-l10n',
+                '@swimlane/ngx-datatable',
+                '@swimlane/ngx-datatable/release/index.css',
+                '@swimlane/ngx-datatable/release/material.css',
+                '@swimlane/ngx-datatable/release/assets/icons.css'
             ]
         },
         output: {

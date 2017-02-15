@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation, Output, EventEmitter } from "@angular/core";
+import { Translation, TranslationService } from "angular-l10n";
 
 @Component({
     selector: "nav-menu",
@@ -6,9 +7,13 @@ import { Component, ViewEncapsulation, Output, EventEmitter } from "@angular/cor
     styles: [require("./navmenu.component.css")],
     encapsulation: ViewEncapsulation.None
 })
-export class NavMenuComponent {
+export class NavMenuComponent extends Translation {
     @Output("onNavigated")
     onNavigatedEmitter: EventEmitter<void> = new EventEmitter<void>();
+
+    constructor(translationService: TranslationService) {
+        super(translationService);
+    }
 
     onNavigated(): void {
         this.onNavigatedEmitter.emit();

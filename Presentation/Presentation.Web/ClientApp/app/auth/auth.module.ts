@@ -4,11 +4,13 @@ import { AuthHttp, AuthConfig } from "angular2-jwt";
 import { BrowserModule } from "@angular/platform-browser";
 import { MdlNonRootModule } from "angular2-mdl";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { TranslationModule } from "angular-l10n";
 
 import { AuthComponent } from "./auth.component";
 import { LoginDialogComponent } from "./login/login-dialog.component";
 import { RegisterDialogComponent } from "./register/register-dialog.component";
-import { SharedModule } from "./../shared/shared.module";
+import { SharedModule } from "../shared/shared.module";
+import { MdlTextFieldValidatedComponent } from "../shared/shared-components/mdl-textfield-validated.component";
 
 function authHttpServiceFactory(authConfig: AuthConfig, http: Http, options: RequestOptions) {
   return new AuthHttp(authConfig, http, options);
@@ -18,7 +20,8 @@ function authHttpServiceFactory(authConfig: AuthConfig, http: Http, options: Req
   declarations: [
     AuthComponent,
     LoginDialogComponent,
-    RegisterDialogComponent
+    RegisterDialogComponent,
+    MdlTextFieldValidatedComponent
   ],
   providers: [
     { provide: AuthConfig, useFactory: () => new AuthConfig ({ noJwtError: true }) },
@@ -27,8 +30,10 @@ function authHttpServiceFactory(authConfig: AuthConfig, http: Http, options: Req
   imports: [
     BrowserModule,
     MdlNonRootModule,
-    FormsModule, ReactiveFormsModule,
-    SharedModule
+    FormsModule,
+    ReactiveFormsModule,
+    SharedModule,
+    TranslationModule
   ],
   exports: [
     AuthComponent

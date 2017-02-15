@@ -1,8 +1,8 @@
 ﻿import { OnInit, Input } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { PaginationInstance } from "ng2-pagination";
-import "rxjs/add/operator/merge";
-import "rxjs/add/operator/last";
+import { TranslationService, Translation } from "angular-l10n";
+import "rxjs/add/operator/publishReplay";
 
 import { SortingType } from "./models/SortingType";
 import { SortedPageRule } from "./models/SortedPageRule";
@@ -11,51 +11,49 @@ import { HomeService } from "../home.service";
 
 const PAGE_SIZE: number = 6;
 
-export abstract class ChallengesComponent implements OnInit {
+export abstract class ChallengesComponent extends Translation implements OnInit {
     protected abstract sortingType: SortingType;
-    protected abstract componentTitle: string;
+    protected abstract componentTitleId: string;
 
     protected abstract paginatorId: string;
 
-    challengesLoaded: boolean = false;
-    challenges: Array<ChallengeCardViewModel> = new Array<ChallengeCardViewModel>();
-    pageChanging: boolean = false;
-    loadingSpinnerActive = () => !this.challengesLoaded || this.pageChanging;
+    challenges: Observable<ChallengeCardViewModel[]>;
+    loadingSpinnerActive = () => this.challengesLoading || this.challengesCountLoading;
+    challengesLoading: boolean;
+    challengesCountLoading: boolean = true;
 
     @Input("challengesCount")
     challengesCountObservable: Observable<number>;
 
     config: PaginationInstance = {
-        id: this.paginatorId,
         itemsPerPage: PAGE_SIZE,
         currentPage: 1
     };
 
-    constructor(private homeService: HomeService) { }
+    constructor(private homeService: HomeService, translationService: TranslationService) {
+        super(translationService);
+    }
 
     ngOnInit(): void {
-        var challengesObservable: Observable<ChallengeCardViewModel[]> = this.loadChallenges();
+        this.loadChallenges();
+
+        this.config.id = this.paginatorId;
 
         this.challengesCountObservable.subscribe(count => {
             this.config.totalItems = count;
-        });
-
-        this.challengesCountObservable.merge(challengesObservable).last().subscribe((x) => {
-            this.challengesLoaded = true;
+            this.challengesCountLoading = false;
         });
     }
 
-    private loadChallenges(): Observable<ChallengeCardViewModel[]> {
-        this.pageChanging = true;
-        var challengesObservable: Observable<ChallengeCardViewModel[]>
-            = this.homeService.getChallenges(this.getPageRule());
+    private loadChallenges(): void {
+        this.challengesLoading = true;
+        this.challenges = this.homeService.getChallenges(this.getPageRule())
+            .publishReplay(1)
+            .refCount();
 
-        challengesObservable.subscribe((challenges) => {
-            this.challenges = challenges;
-            this.pageChanging = false;
+        this.challenges.subscribe((challenges) => {
+            this.challengesLoading = false;
         });
-
-        return challengesObservable;
     }
 
     changePage(newPage: number): void {

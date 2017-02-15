@@ -1,31 +1,28 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MdlModule } from "angular2-mdl";
-import { MdlSelectModule } from "@angular2-mdl-ext/select";
 
 import { LoadingSpinnerComponent } from "./shared-components/loading-spinner.component";
-import { MdlTextFieldValidatedComponent } from "./shared-components/mdl-textfield-validated.component";
+
+const sharedImports: any[] = [
+    LoadingSpinnerComponent
+];
+
+const sharedDeclarations: any[] = [
+    CommonModule,
+    MdlModule
+];
 
 @NgModule({
     declarations: [
-        LoadingSpinnerComponent,
-        MdlTextFieldValidatedComponent
+        sharedImports
     ],
     imports: [
-        CommonModule,
-        FormsModule,
-        MdlModule,
-        MdlSelectModule
+        sharedDeclarations
     ],
     exports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        LoadingSpinnerComponent,
-        MdlModule,
-        MdlTextFieldValidatedComponent,
-        MdlSelectModule
+        sharedDeclarations,
+        sharedImports
     ]
 })
 export class SharedModule { }

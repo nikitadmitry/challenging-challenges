@@ -1,8 +1,10 @@
 import { Component, EventEmitter, Output, ViewEncapsulation } from "@angular/core";
+import { MdlDialogService, MdlDialogReference } from "angular2-mdl";
+import { TranslationService, Translation } from "angular-l10n";
+
 import { AuthService } from "./auth.service";
 import { LoginDialogComponent } from "./login/login-dialog.component";
 import { RegisterDialogComponent } from "./register/register-dialog.component";
-import { MdlDialogService, MdlDialogReference } from "angular2-mdl";
 
 @Component({
     selector: "auth",
@@ -11,11 +13,14 @@ import { MdlDialogService, MdlDialogReference } from "angular2-mdl";
     providers: [AuthService],
     encapsulation: ViewEncapsulation.None
 })
-export class AuthComponent {
+export class AuthComponent extends Translation {
     @Output("onNavigated")
     onNavigatedEmitter: EventEmitter<void> = new EventEmitter<void>();
 
-    constructor(private authService: AuthService, private dialogService: MdlDialogService) { }
+    constructor(private authService: AuthService, private dialogService: MdlDialogService,
+        translationService: TranslationService) {
+            super(translationService);
+        }
 
     private onNavigated(): void {
         this.onNavigatedEmitter.emit();
