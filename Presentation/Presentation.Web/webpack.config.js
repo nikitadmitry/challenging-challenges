@@ -9,7 +9,7 @@ module.exports = (env) => {
     const isDevBuild = !(env && env.prod);
     const sharedConfig = {
         stats: { modules: false },
-        context: __dirname,
+        context: path.join(__dirname, 'ClientApp'),
         resolve: { extensions: [ '.js', '.ts' ] },
         output: {
             filename: '[name].js',
@@ -37,16 +37,16 @@ module.exports = (env) => {
     // Configuration for client-side bundle suitable for running in browsers
     const clientBundleOutputDir = './wwwroot/dist';
     const clientBundleConfig = merge(sharedConfig, {
-        entry: { 'main-client': './ClientApp/boot-client.ts' },
+        entry: { 'main-client': './boot-client.ts' },
         output: { path: path.join(__dirname, clientBundleOutputDir) },
         plugins: [
             new webpack.DllReferencePlugin({
                 context: __dirname,
                 manifest: require('./wwwroot/dist/vendor-manifest.json')
             }),
-            new CopyWebpackPlugin([{
-                from: './ClientApp/assets/*.*', to: "./wwwroot/assets/"
-            }])
+            new CopyWebpackPlugin([
+                { from: './assets/**/*', to: '../' }
+            ])
         ].concat(isDevBuild ? [
             // Plugins that apply in development builds only
             new webpack.SourceMapDevToolPlugin({
