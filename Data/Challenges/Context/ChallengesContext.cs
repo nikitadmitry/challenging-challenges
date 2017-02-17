@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Data.Entity.Infrastructure.Interception;
-using System.Linq;
-using System.Reflection;
 using Data.Challenges.Entities;
 using Data.Common.FullTextSearch;
 
@@ -24,8 +21,6 @@ namespace Data.Challenges.Context
 
         public ChallengesContext() : this("ChallengesConnection")
         {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            var res = assembly.GetManifestResourceNames();
         }
 
         public ChallengesContext(string connectionName) : base(connectionName)
