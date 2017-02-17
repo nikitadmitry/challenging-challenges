@@ -1,4 +1,4 @@
-﻿namespace Challenging_Challenges.Enums
+﻿namespace Presentation.Legacy.Enums
 {
     public enum PartialType
     {

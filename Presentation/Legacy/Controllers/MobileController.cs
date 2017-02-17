@@ -7,10 +7,10 @@
 //using System.Threading;
 //using System.Threading.Tasks;
 //using System.Web.Http;
-//using Challenging_Challenges.Infrastructure;
-//using Challenging_Challenges.Models.Mobile;
-//using Challenging_Challenges.Models.ViewModels;
-//using Challenging_Challenges.Providers;
+//using Presentation.Legacy.Infrastructure;
+//using Presentation.Legacy.Models.Mobile;
+//using Presentation.Legacy.Models.ViewModels;
+//using Presentation.Legacy.Providers;
 //using Data.Challenges.Context;
 //using Data.Identity.Entities;
 //using Microsoft.AspNet.Identity;
@@ -20,7 +20,7 @@
 //using Microsoft.Owin.Security.OAuth;
 
 //todo: uncomment if mobile auth is on
-//namespace Challenging_Challenges.Controllers
+//namespace Presentation.Legacy.Controllers
 //{
 //    [Authorize]
 //    [RoutePrefix("api/Mobile")]

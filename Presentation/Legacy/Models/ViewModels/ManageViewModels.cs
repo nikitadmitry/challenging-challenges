@@ -4,7 +4,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using Shared.Framework.Resources;
 
-namespace Challenging_Challenges.Models.ViewModels
+namespace Presentation.Legacy.Models.ViewModels
 {
     public class IndexViewModel
     {

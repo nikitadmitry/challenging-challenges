@@ -6,10 +6,10 @@ using System.Web;
 using System.Web.Mvc;
 using Business.Identity.ViewModels;
 using Microsoft.AspNet.Identity;
-using Challenging_Challenges.Models.ViewModels;
 using Microsoft.Owin.Security;
+using Presentation.Legacy.Models.ViewModels;
 
-namespace Challenging_Challenges.Controllers
+namespace Presentation.Legacy.Controllers
 {
     [Authorize]
     public class ManageController : BaseController

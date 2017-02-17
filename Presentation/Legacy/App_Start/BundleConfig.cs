@@ -1,6 +1,6 @@
 ﻿using System.Web.Optimization;
 
-namespace Challenging_Challenges
+namespace Presentation.Legacy
 {
     public class BundleConfig
     {

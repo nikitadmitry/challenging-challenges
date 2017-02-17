@@ -9,13 +9,12 @@ using Business.Challenges;
 using Business.Challenges.ViewModels;
 using Business.Identity;
 using Business.SearchIndex;
-using Challenging_Challenges.Helpers;
-using Challenging_Challenges.Infrastructure;
 using Microsoft.AspNet.Identity;
-using Shared.Framework.DataSource;
+using Presentation.Legacy.Helpers;
+using Presentation.Legacy.Infrastructure;
 using Shared.Framework.Resources;
 
-namespace Challenging_Challenges.Controllers
+namespace Presentation.Legacy.Controllers
 {
     [Authorize]
     [RoutePrefix("Challenges")]
@@ -72,19 +71,33 @@ namespace Challenging_Challenges.Controllers
 
             var totalCount = challengesService.GetChallengesCount();
 
-            var pageRule = new PageRule
+            var pageRule = new ChallengesPageRule
             {
                 Count = count,
-                Start = count * (page-1)
+                Start = count * (page-1),
+                Keyword = keyword,
+                SearchTypes = new []{GetSearchType(field)}
             };
 
             var pagedList =
                 PagedListBuilder<ChallengeInfoViewModel>.Build(
-                    challengesService.GetByProperty(keyword, field, pageRule), page, count, totalCount);
+                    challengesService.SearchByRule(pageRule), page, count, totalCount);
    
             return Request.IsAjaxRequest()
                 ? (ActionResult)PartialView("_ChallengesIndexList", pagedList)
                 : View(pagedList);
+        }
+
+        private ChallengeSearchType GetSearchType(string field)
+        {
+            ChallengeSearchType enumValue;
+
+            if (!Enum.TryParse(field, out enumValue))
+            {
+                enumValue = ChallengeSearchType.Title;
+            }
+
+            return enumValue;
         }
 
         public ActionResult ByUser(string userName)

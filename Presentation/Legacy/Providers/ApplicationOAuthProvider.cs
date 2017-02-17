@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
 
-namespace Challenging_Challenges.Providers
+namespace Presentation.Legacy.Providers
 {
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {

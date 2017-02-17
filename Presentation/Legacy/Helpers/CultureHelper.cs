@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
-namespace Challenging_Challenges.Helpers
+namespace Presentation.Legacy.Helpers
 {
     public static class CultureHelper
     {

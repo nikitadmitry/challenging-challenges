@@ -2,9 +2,9 @@
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
-using Challenging_Challenges.Helpers;
+using Presentation.Legacy.Helpers;
 
-namespace Challenging_Challenges.Controllers
+namespace Presentation.Legacy.Controllers
 {
     public class BaseController : Controller
     {

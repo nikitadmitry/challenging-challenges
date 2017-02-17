@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNet.Identity;
 
 namespace Business.Identity.ViewModels
 {
-    public class IdentityUser
+    public class IdentityUser : IUser<Guid>
     {
         public Guid Id
         {

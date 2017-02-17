@@ -6,7 +6,7 @@ using Business.Identity.ViewModels;
 using Microsoft.AspNet.Identity;
 using Shared.Framework.Validation;
 
-namespace Challenging_Challenges.Identity
+namespace Presentation.Legacy.Identity
 {
     public class IdentityStore 
         : IUserPasswordStore<IdentityUser, Guid>,

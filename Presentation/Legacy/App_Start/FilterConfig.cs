@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace Challenging_Challenges
+namespace Presentation.Legacy
 {
     public class FilterConfig
     {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Globalization;
 using Business.Achievements.ViewModels;
-using Challenging_Challenges.Hubs;
+using Presentation.Legacy.Hubs;
 using Shared.Framework.Resources;
 
-namespace Challenging_Challenges.Infrastructure
+namespace Presentation.Legacy.Infrastructure
 {
     public class AchievementsSignalRProvider : IAchievementsSignalRProvider
     {

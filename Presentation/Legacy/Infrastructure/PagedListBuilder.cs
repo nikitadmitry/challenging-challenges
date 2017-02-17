@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using PagedList;
 
-namespace Challenging_Challenges.Infrastructure
+namespace Presentation.Legacy.Infrastructure
 {
     public static class PagedListBuilder<T> where T: class
     {

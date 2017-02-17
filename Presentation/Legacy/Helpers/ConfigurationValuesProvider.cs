@@ -2,7 +2,7 @@
 using System.Configuration;
 using System.Globalization;
 
-namespace Challenging_Challenges.Helpers
+namespace Presentation.Legacy.Helpers
 {
     public static class ConfigurationValuesProvider   
     {

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.SignalR;
 
-namespace Challenging_Challenges.Hubs
+namespace Presentation.Legacy.Hubs
 {
     [Authorize]
     public class NotificationHub: Hub

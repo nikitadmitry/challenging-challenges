@@ -1,7 +1,7 @@
 ﻿using System;
 using Business.Achievements.ViewModels;
 
-namespace Challenging_Challenges.Infrastructure
+namespace Presentation.Legacy.Infrastructure
 {
     public interface IAchievementsSignalRProvider
     {

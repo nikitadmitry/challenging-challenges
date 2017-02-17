@@ -2,9 +2,10 @@
 using Microsoft.AspNet.SignalR;
 using Microsoft.Owin;
 using Owin;
+using Presentation.Legacy;
 
-[assembly: OwinStartupAttribute(typeof(Challenging_Challenges.Startup))]
-namespace Challenging_Challenges
+[assembly: OwinStartup(typeof(Startup))]
+namespace Presentation.Legacy
 {
     public partial class Startup
     {

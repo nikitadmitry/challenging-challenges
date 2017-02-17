@@ -3,7 +3,7 @@ using System.Web;
 using System.Web.Mvc;
 using MarkdownSharp;
 
-namespace Challenging_Challenges.Helpers
+namespace Presentation.Legacy.Helpers
 {
     /// <summary>
     /// Helper class for transforming Markdown.

@@ -4,7 +4,7 @@ using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 
-namespace Challenging_Challenges
+namespace Presentation.Legacy
 {
     public static class WebApiConfig
     {

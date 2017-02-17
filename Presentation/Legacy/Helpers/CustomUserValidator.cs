@@ -8,7 +8,7 @@ using Business.Identity.ViewModels;
 using Microsoft.AspNet.Identity;
 using Shared.Framework.Resources;
 
-namespace Challenging_Challenges.Helpers
+namespace Presentation.Legacy.Helpers
 {
     public class CustomUserValidator<TUser> : UserValidator<TUser, Guid> where TUser : IdentityUser
     {

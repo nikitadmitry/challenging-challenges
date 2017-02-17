@@ -9,12 +9,12 @@ using Business.Challenges;
 using Business.Identity;
 using Business.Identity.ViewModels;
 using Business.SearchIndex;
-using Challenging_Challenges.Helpers;
-using Challenging_Challenges.Identity;
-using Challenging_Challenges.Infrastructure;
 using Microsoft.AspNet.Identity;
+using Presentation.Legacy.Helpers;
+using Presentation.Legacy.Identity;
+using Presentation.Legacy.Infrastructure;
 
-namespace Challenging_Challenges
+namespace Presentation.Legacy
 {
     public class DependencyRegistration
     {
@@ -56,7 +56,7 @@ namespace Challenging_Challenges
             var businessAddress = ConfigurationValuesProvider.Get<string>("BusinessAddress");
 
             builder.Register(c => new ChannelFactory<T>(
-                    new WSHttpBinding(),
+                    new BasicHttpBinding(),
                     new EndpointAddress($"{businessAddress}{serviceName}.svc")))
                 .SingleInstance();
 

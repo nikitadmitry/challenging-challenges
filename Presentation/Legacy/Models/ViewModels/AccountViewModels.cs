@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Shared.Framework.Resources;
 
-namespace Challenging_Challenges.Models.ViewModels
+namespace Presentation.Legacy.Models.ViewModels
 {
     public class ForgotViewModel
     {

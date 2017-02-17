@@ -3,7 +3,7 @@ using Business.Challenges.ViewModels;
 using Business.Identity.ViewModels;
 using PagedList;
 
-namespace Challenging_Challenges.Models.ViewModels
+namespace Presentation.Legacy.Models.ViewModels
 {
     public class HomeChallengeViewModel
     {

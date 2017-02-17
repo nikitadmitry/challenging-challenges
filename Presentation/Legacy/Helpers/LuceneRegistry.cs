@@ -6,7 +6,7 @@ using Business.Achievements;
 using Business.SearchIndex;
 using FluentScheduler;
 
-namespace Challenging_Challenges.Helpers
+namespace Presentation.Legacy.Helpers
 {
     public class LuceneRegistry: Registry
     {

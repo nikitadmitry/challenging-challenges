@@ -8,15 +8,14 @@ using Business.Achievements.ViewModels;
 using Business.Challenges;
 using Business.Challenges.ViewModels;
 using Business.SearchIndex;
-using Challenging_Challenges.Enums;
-using Challenging_Challenges.Helpers;
-using Challenging_Challenges.Infrastructure;
-using Challenging_Challenges.Models.ViewModels;
 using Microsoft.AspNet.Identity;
 using PagedList;
-using Shared.Framework.DataSource;
+using Presentation.Legacy.Enums;
+using Presentation.Legacy.Helpers;
+using Presentation.Legacy.Infrastructure;
+using Presentation.Legacy.Models.ViewModels;
 
-namespace Challenging_Challenges.Controllers
+namespace Presentation.Legacy.Controllers
 {
     public class HomeController : BaseController
     {
@@ -130,27 +129,14 @@ namespace Challenging_Challenges.Controllers
         {
             var count = ConfigurationValuesProvider.Get<int>("DefaultMainPageCount");
 
-            IList<ChallengesDescriptionViewModel> challengesViewModels;
-
-            var pageRule = new PageRule
+            var pageRule = new SortedPageRule
             {
                 Count = count,
-                Start = (page-1) * count
+                Start = (page - 1) * count,
+                SortingType = (SortingType) sort
             };
 
-            switch (sort)
-            {
-                case SortType.Popular:
-                    challengesViewModels = challengesService.GetPopularChallenges(pageRule);
-                    break;
-                case SortType.Unsolved:
-                    challengesViewModels = challengesService.GetUnsolvedChallenges(pageRule);
-                    break;
-                case SortType.Latest:
-                default:
-                    challengesViewModels = challengesService.GetLatestChallenges(pageRule);
-                    break;
-            }
+            IList<ChallengesDescriptionViewModel> challengesViewModels = challengesService.GetChallenges(pageRule);
             var totalCount = challengesService.GetChallengesCount();
 
             var result = PagedListBuilder<ChallengesDescriptionViewModel>.Build(challengesViewModels, page, count,

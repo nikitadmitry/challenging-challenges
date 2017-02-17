@@ -4,13 +4,13 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Business.Identity;
+using Business.Identity.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
-using Challenging_Challenges.Models.ViewModels;
+using Presentation.Legacy.Models.ViewModels;
 using Shared.Framework.Resources;
-using IdentityUser = Business.Identity.ViewModels.IdentityUser;
 
-namespace Challenging_Challenges.Controllers
+namespace Presentation.Legacy.Controllers
 {
     [Authorize]
     public class AccountController : BaseController

@@ -1,4 +1,4 @@
-﻿namespace Challenging_Challenges.Models.Mobile
+﻿namespace Presentation.Legacy.Models.Mobile
 {
     public class UserLoginInfoViewModel
     {

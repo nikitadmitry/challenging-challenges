@@ -2,10 +2,8 @@
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Challenging_Challenges.Helpers;
-using FluentScheduler;
 
-namespace Challenging_Challenges
+namespace Presentation.Legacy
 {
     public class MvcApplication : System.Web.HttpApplication
     {

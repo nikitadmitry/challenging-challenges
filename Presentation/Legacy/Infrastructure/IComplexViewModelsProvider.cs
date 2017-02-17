@@ -1,6 +1,6 @@
-﻿using Challenging_Challenges.Models.ViewModels;
+﻿using Presentation.Legacy.Models.ViewModels;
 
-namespace Challenging_Challenges.Infrastructure
+namespace Presentation.Legacy.Infrastructure
 {
     public interface IComplexViewModelsProvider
     {

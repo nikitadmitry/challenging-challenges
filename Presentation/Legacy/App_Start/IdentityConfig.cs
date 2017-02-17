@@ -2,12 +2,12 @@
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
-using Challenging_Challenges.Helpers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using Presentation.Legacy.Helpers;
 using IdentityUser = Business.Identity.ViewModels.IdentityUser;
 
-namespace Challenging_Challenges
+namespace Presentation.Legacy
 {
     public class EmailService : IIdentityMessageService
     {

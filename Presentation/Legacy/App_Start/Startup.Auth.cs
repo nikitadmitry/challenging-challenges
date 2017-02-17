@@ -2,12 +2,12 @@
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
-using Owin;
-using Challenging_Challenges.Providers;
 using Microsoft.Owin.Security.DataProtection;
 using Microsoft.Owin.Security.OAuth;
+using Owin;
+using Presentation.Legacy.Providers;
 
-namespace Challenging_Challenges
+namespace Presentation.Legacy
 {
     public partial class Startup
     {
