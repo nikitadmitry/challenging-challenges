@@ -795,7 +795,7 @@
       <Project>{B25C08CC-9015-4AFB-B6B8-BDBCFABA9074}</Project>
       <Name>Business.SearchIndex</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Shared.Framework\Shared.Framework.csproj">
+    <ProjectReference Include="..\Shared\Framework\Shared.Framework.csproj">
       <Project>{150EBD2E-0220-4E95-A42E-A5E14E0DB467}</Project>
       <Name>Shared.Framework</Name>
     </ProjectReference>

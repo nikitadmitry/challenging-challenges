@@ -33,6 +33,25 @@
         }
       }
     },
+    "Shared.Framework/1.0.0": {
+      "type": "project",
+      "framework": ".NETFramework,Version=v4.6",
+      "compile": {
+        "bin/Debug/Shared.Framework.dll": {}
+      },
+      "runtime": {
+        "../../packages/AutoMapper.5.2.0/lib/net45/AutoMapper.dll": {},
+        "../../packages/Newtonsoft.Json.9.0.1/lib/net45/Newtonsoft.Json.dll": {},
+        "bin/Debug/Shared.Framework.dll": {}
+      },
+      "contentFiles": {
+        "bin/Debug/Shared.Framework.pdb": {
+          "buildAction": "None",
+          "codeLanguage": "any",
+          "copyToOutput": true
+        }
+      }
+    },
     "Business.Achievements/1.0.0": {
       "type": "project",
       "framework": ".NETFramework,Version=v4.6",
@@ -155,8 +174,8 @@
         "bin/Debug/Data.Challenges.dll": {}
       },
       "runtime": {
-        "../packages/EntityFramework.6.1.3/lib/net45/EntityFramework.SqlServer.dll": {},
-        "../packages/EntityFramework.6.1.3/lib/net45/EntityFramework.dll": {},
+        "../../packages/EntityFramework.6.1.3/lib/net45/EntityFramework.SqlServer.dll": {},
+        "../../packages/EntityFramework.6.1.3/lib/net45/EntityFramework.dll": {},
         "bin/Debug/Data.Challenges.dll": {}
       },
       "contentFiles": {
@@ -174,7 +193,7 @@
         "bin/Debug/Data.Common.dll": {}
       },
       "runtime": {
-        "../packages/EntityFramework.6.1.3/lib/net45/EntityFramework.dll": {},
+        "../../packages/EntityFramework.6.1.3/lib/net45/EntityFramework.dll": {},
         "bin/Debug/Data.Common.dll": {}
       },
       "contentFiles": {
@@ -192,33 +211,14 @@
         "bin/Debug/Data.Identity.dll": {}
       },
       "runtime": {
-        "../packages/EntityFramework.6.1.3/lib/net45/EntityFramework.SqlServer.dll": {},
-        "../packages/EntityFramework.6.1.3/lib/net45/EntityFramework.dll": {},
-        "../packages/Microsoft.AspNet.Identity.Core.2.2.1/lib/net45/Microsoft.AspNet.Identity.Core.dll": {},
-        "../packages/Microsoft.AspNet.Identity.EntityFramework.2.2.1/lib/net45/Microsoft.AspNet.Identity.EntityFramework.dll": {},
+        "../../packages/EntityFramework.6.1.3/lib/net45/EntityFramework.SqlServer.dll": {},
+        "../../packages/EntityFramework.6.1.3/lib/net45/EntityFramework.dll": {},
+        "../../packages/Microsoft.AspNet.Identity.Core.2.2.1/lib/net45/Microsoft.AspNet.Identity.Core.dll": {},
+        "../../packages/Microsoft.AspNet.Identity.EntityFramework.2.2.1/lib/net45/Microsoft.AspNet.Identity.EntityFramework.dll": {},
         "bin/Debug/Data.Identity.dll": {}
       },
       "contentFiles": {
         "bin/Debug/Data.Identity.pdb": {
-          "buildAction": "None",
-          "codeLanguage": "any",
-          "copyToOutput": true
-        }
-      }
-    },
-    "Shared.Framework/1.0.0": {
-      "type": "project",
-      "framework": ".NETFramework,Version=v4.6",
-      "compile": {
-        "bin/Debug/Shared.Framework.dll": {}
-      },
-      "runtime": {
-        "../packages/AutoMapper.5.2.0/lib/net45/AutoMapper.dll": {},
-        "../packages/Newtonsoft.Json.9.0.1/lib/net45/Newtonsoft.Json.dll": {},
-        "bin/Debug/Shared.Framework.dll": {}
-      },
-      "contentFiles": {
-        "bin/Debug/Shared.Framework.pdb": {
           "buildAction": "None",
           "codeLanguage": "any",
           "copyToOutput": true

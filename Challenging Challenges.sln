@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentation.Host", "Challe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{6631FCD4-16FD-4A8C-BAC1-49F0EF055285}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Common", "Data.Common\Data.Common.csproj", "{610FE3E7-21B8-4BBD-865F-32EA6BA15784}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Common", "Data\Common\Data.Common.csproj", "{610FE3E7-21B8-4BBD-865F-32EA6BA15784}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Identity", "Data.Identity\Data.Identity.csproj", "{6780FCD1-1B0C-4410-94B7-91C98B2333A1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Identity", "Data\Identity\Data.Identity.csproj", "{6780FCD1-1B0C-4410-94B7-91C98B2333A1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{A42CA661-3EDA-4917-8316-828739271322}"
 EndProject
@@ -17,11 +17,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentatio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.Host", "Business\Host\Business.Host.csproj", "{DE6F869A-56ED-43A9-8F3F-3CE5C53DB35C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Challenges", "Data.Challenges\Data.Challenges.csproj", "{3BC289F6-2AE2-4CD3-A5D4-AA6A549BCA9A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Challenges", "Data\Challenges\Data.Challenges.csproj", "{3BC289F6-2AE2-4CD3-A5D4-AA6A549BCA9A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{933C404F-9CF1-4D2C-8E76-51657A5A3B45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Framework", "Shared.Framework\Shared.Framework.csproj", "{150EBD2E-0220-4E95-A42E-A5E14E0DB467}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Framework", "Shared\Framework\Shared.Framework.csproj", "{150EBD2E-0220-4E95-A42E-A5E14E0DB467}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.Challenges", "Business\Challenges\Business.Challenges.csproj", "{532F5E1B-117C-4131-A9A7-8B96B3CEE237}"
 EndProject

@@ -42,6 +42,9 @@
         "dependencies": {
             "Business.Host": {
                 "target": "project"
+            },
+            "Shared.Framework": {
+                "target": "project"
             }
         }
     }

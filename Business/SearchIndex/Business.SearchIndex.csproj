@@ -104,15 +104,15 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Data.Challenges\Data.Challenges.csproj">
+    <ProjectReference Include="..\..\Data\Challenges\Data.Challenges.csproj">
       <Project>{3BC289F6-2AE2-4CD3-A5D4-AA6A549BCA9A}</Project>
       <Name>Data.Challenges</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Data.Common\Data.Common.csproj">
+    <ProjectReference Include="..\..\Data\Common\Data.Common.csproj">
       <Project>{610FE3E7-21B8-4BBD-865F-32EA6BA15784}</Project>
       <Name>Data.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Shared.Framework\Shared.Framework.csproj">
+    <ProjectReference Include="..\..\Shared\Framework\Shared.Framework.csproj">
       <Project>{150EBD2E-0220-4E95-A42E-A5E14E0DB467}</Project>
       <Name>Shared.Framework</Name>
     </ProjectReference>
