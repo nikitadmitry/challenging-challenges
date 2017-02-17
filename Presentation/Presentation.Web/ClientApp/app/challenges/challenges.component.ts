@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { MdlSelectComponent } from "@angular2-mdl-ext/select";
-import { PaginationInstance } from "ng2-pagination";
 import { Translation, TranslationService } from "angular-l10n";
+import { Observable } from "rxjs/Observable";
+import "rxjs/add/operator/publishReplay";
+import "rxjs/add/operator/merge";
+import "rxjs/add/observable/forkJoin";
 
 import { ChallengesService } from "../challenges/challenges.service";
 import { ChallengeSearchType } from "./models/ChallengeSearchType";
@@ -10,22 +13,17 @@ import { ChallengesPageRule } from "./models/ChallengesPageRule";
 @Component({
     selector: "challenges",
     template: require("./challenges.component.html"),
-    styles: [require("./challenges.component.css")],
     providers: [ChallengesService]
 })
 export class ChallengesComponent extends Translation implements OnInit {
     private PAGE_SIZE: number = 10;
     selectedSearchType: ChallengeSearchType = ChallengeSearchType.Title;
     searchString: string;
-    searchTypes: any[];
-    challenges: any[];
+    challenges: Observable<any>;
     isLoading: boolean = true;
-    @ViewChild(MdlSelectComponent) searchTypeSelect: MdlSelectComponent;
-    config: PaginationInstance = {
-        id: "search-challenges-paginator",
-        itemsPerPage: this.PAGE_SIZE,
-        currentPage: 1
-    };
+    private currentPage: number = 0;
+    previousPageEnabled: boolean = false;
+    nextPageEnabled: boolean = false;
 
     constructor(private challengesService: ChallengesService, translationService: TranslationService) {
         super(translationService);
@@ -33,48 +31,47 @@ export class ChallengesComponent extends Translation implements OnInit {
         this.translation.AddConfiguration()
             .AddProvider("./assets/locale-challenges-");
         this.translation.init();
-
-        this.translation.translationChanged.subscribe(() => {
-            this.initializeSearchTypes();
-            this.selectedSearchType = ChallengeSearchType.Title;
-        });
     }
 
     ngOnInit(): void {
-        this.challengesService.getChallengesCount()
-            .subscribe(count => {
-                this.config.totalItems = count;
-                this.searchChallenges();
-            });
+        this.searchChallenges();
     }
 
     searchChallenges(): void {
         this.isLoading = true;
-        this.challengesService.search(this.getPageRule()).subscribe(challenges => {
-            this.challenges = challenges;
+        this.challenges = this.challengesService.search(this.getPageRule())
+            .publishReplay(1)
+            .refCount();
+
+        this.challenges.subscribe(challenges => {
+            this.previousPageEnabled = this.currentPage > 0;
+            this.nextPageEnabled = challenges.length === this.PAGE_SIZE;
             this.isLoading = false;
         });
     }
 
-    private initializeSearchTypes(): void {
-        this.searchTypes = [
-            {type: ChallengeSearchType.Title, name: this.translation.translate("Title")},
-            {type: ChallengeSearchType.Condition, name: "Условие"},
-            {type: ChallengeSearchType.Difficulty, name: "Сложность"},
-            {type: ChallengeSearchType.Language, name: "Язык"},
-            {type: ChallengeSearchType.PreviewText, name: "Текст Превью"},
-            {type: ChallengeSearchType.Section, name: "Раздел"},
-            {type: ChallengeSearchType.Tags, name: "Тэги"}
-        ];
+    changeFilter(): void {
+        this.currentPage = 0;
+        this.searchChallenges();
     }
 
     private getPageRule(): ChallengesPageRule {
         let pageRule: ChallengesPageRule = new ChallengesPageRule();
         pageRule.count = this.PAGE_SIZE;
-        pageRule.start = (this.config.currentPage - 1) * this.PAGE_SIZE;
+        pageRule.start = this.currentPage * this.PAGE_SIZE;
         pageRule.keyword = this.searchString;
         pageRule.searchTypes = [this.selectedSearchType];
 
         return pageRule;
+    }
+
+    nextPage(): void {
+        this.currentPage++;
+        this.searchChallenges();
+    }
+
+    previousPage(): void {
+        this.currentPage--;
+        this.searchChallenges();
     }
 }

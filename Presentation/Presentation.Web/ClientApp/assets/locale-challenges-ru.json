@@ -1,5 +1,13 @@
 {
     "Title": "Название",
     "Condition": "Условие",
-    "SearchField": "Поле для поиска"
+    "Difficulty": "Сложность",
+    "Language": "Язык",
+    "PreviewText": "Текст Превью",
+    "Section": "Раздел",
+    "Tags": "Тэги",
+    "SearchField": "Поле для поиска",
+    "Keyword": "Ключевое слово",
+    "Search": "Поиск",
+    "CreateChallenge": "Создать задачу"
 }

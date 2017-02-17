@@ -1,0 +1,17 @@
+<mdl-card class="mdl-cell--12-col mdl-padded">
+    <mdl-card-title>
+        <h2 mdl-card-title-text>{{challenge.title}}</h2>
+    </mdl-card-title>
+    <mdl-card-supporting-text>
+        <!--{{challenge.previewText}}-->
+        <markdown [data]="challenge.previewText"></markdown>
+    </mdl-card-supporting-text>
+    <mdl-card-actions mdl-card-border>
+        <button mdl-button mdl-colored mdl-ripple>{{'Home.Open' | translate:lang}}</button>
+    </mdl-card-actions>
+    <mdl-card-menu>
+        <button mdl-button mdl-button-type="icon" (click)="showAditionalInfo()" mdl-ripple>
+        <mdl-icon>info</mdl-icon>
+    </button>
+    </mdl-card-menu>
+</mdl-card>

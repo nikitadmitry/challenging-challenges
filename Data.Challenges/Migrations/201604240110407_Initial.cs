@@ -85,7 +85,6 @@ namespace Data.Challenges.Migrations
                 .ForeignKey("dbo.Challenges", t => t.Challenge_Id, cascadeDelete: true)
                 .Index(t => t.Tag_Id)
                 .Index(t => t.Challenge_Id);
-            
         }
         
         public override void Down()

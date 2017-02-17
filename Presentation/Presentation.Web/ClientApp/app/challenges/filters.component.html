@@ -1,0 +1,28 @@
+<div class="mdl-grid">
+  <div mdl-shadow="4" class="mdl-grid mdl-cell mdl-cell--12-col mdl-padded">
+    <div class="mdl-cell mdl-cell--3-col">
+      <mdl-select floating-label [(ngModel)]="searchType" placeholder="{{ 'SearchField' | translate:lang }}">
+        <mdl-option *ngFor="let type of searchTypes" [value]="type.type">{{type.name}}</mdl-option>
+      </mdl-select>
+    </div>
+    <div class="mdl-cell mdl-cell--6-col">
+      <mdl-textfield
+        class="full-width"
+        type="text"
+        floating-label
+        label="{{ 'Keyword' | translate:lang }}"
+        [(ngModel)]="searchString"
+        autofocus></mdl-textfield>
+    </div>
+    <div class="mdl-cell mdl-cell--3-col button-cell">
+      <button [disabled]="isLoading" mdl-button mdl-button-type="raised" mdl-colored="primary" (click)="changeFilter.emit()">
+        <mdl-icon>search</mdl-icon>
+        {{ 'Search' | translate:lang }}
+      </button>
+      <button class="add-challenge-button" mdl-button mdl-button-type="raised" mdl-colored="accent">
+        <mdl-icon>add</mdl-icon>
+        {{ 'CreateChallenge' | translate:lang }}
+      </button>
+    </div>
+  </div>
+</div>

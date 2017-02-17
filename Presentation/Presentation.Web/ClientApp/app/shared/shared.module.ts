@@ -3,9 +3,11 @@ import { CommonModule } from "@angular/common";
 import { MdlModule } from "angular2-mdl";
 
 import { LoadingSpinnerComponent } from "./shared-components/loading-spinner.component";
+import { MarkdownComponent } from "./shared-components/markdown.component";
 
 const sharedImports: any[] = [
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    MarkdownComponent
 ];
 
 const sharedDeclarations: any[] = [

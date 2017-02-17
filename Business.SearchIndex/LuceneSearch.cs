@@ -104,7 +104,7 @@ namespace Business.SearchIndex
             }
 
             var terms = input.Trim().Replace("-", " ").Replace(",", " ").Split(' ')
-                .Where(x => !string.IsNullOrEmpty(x)).Select(x => x.Trim().TrimEnd('s','\'') + "*");
+                .Where(x => !string.IsNullOrEmpty(x)).Select(x => $"*{x.Trim().TrimEnd('s','\'')}*");
             input = string.Join(" ", terms);
 
             return _search(sort, input, searchFields, page, hitsLimit);

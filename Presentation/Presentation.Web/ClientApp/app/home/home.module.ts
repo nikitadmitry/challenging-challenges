@@ -10,7 +10,6 @@ import { ChallengeCardComponent } from "./challenges/challenge-card.component";
 import { LatestChallengesComponent } from "./challenges/latest-challenges.component";
 import { PopularChallengesComponent } from "./challenges/popular-challenges.component";
 import { UnsolvedChallengesComponent } from "./challenges/unsolved-challenges.component";
-import { MarkdownComponent } from "./challenges/markdown.component";
 import { TopUsersComponent } from "./top-users/top-users.component";
 import { SharedModule } from "../shared/shared.module";
 
@@ -21,7 +20,6 @@ import { SharedModule } from "../shared/shared.module";
         PopularChallengesComponent,
         UnsolvedChallengesComponent,
         HomeComponent,
-        MarkdownComponent,
         TopUsersComponent
     ],
     imports: [

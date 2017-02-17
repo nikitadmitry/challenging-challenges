@@ -51,7 +51,7 @@ export abstract class ChallengesComponent extends Translation implements OnInit 
             .publishReplay(1)
             .refCount();
 
-        this.challenges.subscribe((challenges) => {
+        this.challenges.subscribe(() => {
             this.challengesLoading = false;
         });
     }

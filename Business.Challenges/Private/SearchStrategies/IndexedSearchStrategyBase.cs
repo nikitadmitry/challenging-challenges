@@ -33,7 +33,7 @@ namespace Business.Challenges.Private.SearchStrategies
         public List<ChallengeInfoViewModel> Search(ChallengesPageRule pageRule)
         {
             var list = searchIndexService.Search(new Sort(new SortField("Id", SortField.STRING, true)),
-                new[] {SearchType.ToString()}, pageRule.Keyword, pageRule.Count * pageRule.Start, 
+                new[] {SearchType.ToString()}, pageRule.Keyword, pageRule.Start == 0 ? 0 : pageRule.Start / pageRule.Count, 
                 pageRule.Count);
 
             if (list.IsNotNull())

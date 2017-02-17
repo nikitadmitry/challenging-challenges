@@ -6,10 +6,14 @@ import { TranslationModule } from "angular-l10n";
 
 import { SharedModule } from "../shared/shared.module";
 import { ChallengesComponent } from "./challenges.component";
+import { ChallengeComponent } from "./challenge.component";
+import { FiltersComponent } from "./filters.component";
 
 @NgModule({
     declarations: [
-        ChallengesComponent
+        ChallengeComponent,
+        ChallengesComponent,
+        FiltersComponent
     ],
     imports: [
         SharedModule,

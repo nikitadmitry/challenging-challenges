@@ -1,5 +1,13 @@
 {
     "Title": "Title",
     "Condition": "Condition",
-    "SearchField": "Search Field"
+    "Difficulty": "Difficulty",
+    "Language": "Language",
+    "PreviewText": "Preview Description",
+    "Section": "Section",
+    "Tags": "Tags",
+    "SearchField": "Search Field",
+    "Keyword": "Keyword",
+    "Search": "Search",
+    "CreateChallenge": "Create Challenge"
 }
