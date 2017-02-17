@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentation.Host", "Challenging Challenges\Presentation.Host.csproj", "{AF6C9EF4-B9E2-4D09-9252-D163BD123FB4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentation.Legacy", "Presentation\Legacy\Presentation.Legacy.csproj", "{AF6C9EF4-B9E2-4D09-9252-D163BD123FB4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{6631FCD4-16FD-4A8C-BAC1-49F0EF055285}"
 EndProject
@@ -37,7 +37,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B6F1A650
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.Tests", "Tests\Business.Tests\Business.Tests.csproj", "{5D0AE141-2F74-4C92-86BD-F2E35748DE0E}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Presentation.Web", "Presentation\Presentation.Web\Presentation.Web.xproj", "{EE218BE7-EFE6-446E-9622-B43070B1CDD0}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Presentation.Web", "Presentation\Web\Presentation.Web.xproj", "{EE218BE7-EFE6-446E-9622-B43070B1CDD0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
