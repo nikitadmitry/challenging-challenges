@@ -1,0 +1,7 @@
+<div>
+     <button mdl-button mdl-button-type="raised" mdl-colored="primary" mdl-ripple
+        [disabled]="!previousPageEnabled" (click)="previousPage.emit()">Previous</button>
+    <button mdl-button mdl-button-type="raised" mdl-colored="primary" mdl-ripple
+        style="float: right"
+        [disabled]="!nextPageEnabled" (click)="nextPage.emit()">Next</button>
+</div>

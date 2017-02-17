@@ -27,10 +27,9 @@ namespace Data.Challenges.Context
 
             if (entity.Tags.All(t => t.Value != tag))
             {
-                var tagEntity = context.Tags.FirstOrDefault(t => t.Value == tag);
+                var tagEntity = context.Tags.FirstOrDefault(t => t.Value == tag) ??
+                                context.Tags.Add(new Tag { Value = tag });
 
-                if (tagEntity == null)
-                    tagEntity = context.Tags.Add(new Tag { Value = tag });
                 entity.Tags.Add(tagEntity);
             }
 

@@ -1,7 +1,7 @@
 import { Component, Input } from "@angular/core";
 import { TranslationService, Translation } from "angular-l10n";
 
-import { ChallengeInfoViewModel } from "./models/ChallengeInfoViewModel";
+import { ChallengeInfoViewModel } from "../models/ChallengeInfoViewModel";
 
 @Component({
     selector: "challenge",

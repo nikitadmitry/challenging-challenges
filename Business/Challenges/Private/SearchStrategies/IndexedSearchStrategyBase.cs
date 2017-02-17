@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
 using AutoMapper;
-using Business.Challenges.ViewModels;
 using Data.Challenges.Context;
 using Data.Challenges.Entities;
 using Data.Common.Query.Builder;
@@ -11,7 +10,8 @@ namespace Business.Challenges.Private.SearchStrategies
 {
     public abstract class IndexedSearchStrategyBase : SearchStrategyBase
     {
-        protected IndexedSearchStrategyBase(IChallengesUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
+        protected IndexedSearchStrategyBase(IFullTextIndexedChallengesUnitOfWork unitOfWork,
+            IMapper mapper) : base(unitOfWork, mapper)
         {
         }
 

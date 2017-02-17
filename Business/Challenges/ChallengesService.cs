@@ -26,6 +26,7 @@ namespace Business.Challenges
         private readonly Lazy<IChallengeSolutionDispatcher> challengeSolutionDispatcher;
         private readonly IMapper mapper;
         private readonly IEnumerable<ISearchStrategy> searchStrategies;
+        private const ChallengeSearchType DefaultSearchType = ChallengeSearchType.Title;
 
         public ChallengesService(IChallengesUnitOfWork unitOfWork, 
             Lazy<IIdentityService> identityService,
@@ -277,7 +278,9 @@ namespace Business.Challenges
         {
             Contract.Assert<InvalidOperationException>(pageRule.IsValid);
 
-            var searchType = pageRule.SearchTypes.FirstOrDefault();
+            var searchType = pageRule.SearchTypes.IsNullOrEmpty() 
+                ? DefaultSearchType 
+                : pageRule.SearchTypes.First();
 
             return searchStrategies.First(x => x.IsApplicable(searchType)).Search(pageRule);
         }

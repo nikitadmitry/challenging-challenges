@@ -4,8 +4,6 @@ using Business.Challenges.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Web.Helpers;
 
-// For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace Presentation.Web.Controllers
 {
     [Route("api/[controller]/[action]")]

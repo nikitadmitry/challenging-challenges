@@ -1,7 +1,5 @@
 ﻿using System.Data.Entity;
-using System.Data.Entity.Infrastructure.Interception;
 using Data.Challenges.Entities;
-using Data.Common.FullTextSearch;
 
 namespace Data.Challenges.Context
 {
@@ -25,7 +23,6 @@ namespace Data.Challenges.Context
 
         public ChallengesContext(string connectionName) : base(connectionName)
         {
-            DbInterception.Add(new FtsInterceptor());
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

@@ -9,7 +9,8 @@ namespace Business.Challenges.Private.SearchStrategies
 {
     public class ConditionSearchStrategy : IndexedSearchStrategyBase
     {
-        public ConditionSearchStrategy(IChallengesUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
+        public ConditionSearchStrategy(IFullTextIndexedChallengesUnitOfWork unitOfWork, IMapper mapper) 
+            : base(unitOfWork, mapper)
         {
         }
 

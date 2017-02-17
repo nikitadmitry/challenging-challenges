@@ -52,6 +52,8 @@
   <ItemGroup>
     <Compile Include="Context\ChallengesContext.cs" />
     <Compile Include="Context\ChallengesUnitOfWork.cs" />
+    <Compile Include="Context\FullTextIndexedChallengesContext.cs" />
+    <Compile Include="Context\IFullTextIndexedChallengesUnitOfWork.cs" />
     <Compile Include="Context\TagService.cs" />
     <Compile Include="Entities\Answer.cs" />
     <Compile Include="Entities\Challenge.cs" />

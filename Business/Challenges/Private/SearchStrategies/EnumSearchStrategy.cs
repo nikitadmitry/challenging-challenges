@@ -24,7 +24,7 @@ namespace Business.Challenges.Private.SearchStrategies
         {
             var preparedKeyword = keyword.ToLower();
 
-            if (SearchStrings.Any(x => x.Value.Contains(preparedKeyword)))
+            if (SearchStrings.Any(SearchPredicate(preparedKeyword)))
             {
                 var value = GetEnumFromKeyword(preparedKeyword);
 
@@ -32,9 +32,15 @@ namespace Business.Challenges.Private.SearchStrategies
             }
         }
 
+        private Func<KeyValuePair<TEnum, string[]>, bool> SearchPredicate(string keyword)
+        {
+            return x => x.Value.Any(key => key.Contains(keyword)) 
+                || x.Value.Any(keyword.Contains);
+        }
+
         private TEnum GetEnumFromKeyword(string keyword)
         {
-            return SearchStrings.First(x => x.Value.Any(keyword.Contains)).Key;
+            return SearchStrings.First(SearchPredicate(keyword)).Key;
         }
     }
 }

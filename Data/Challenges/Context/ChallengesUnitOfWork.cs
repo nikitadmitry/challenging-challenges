@@ -5,14 +5,15 @@ using Data.Common;
 
 namespace Data.Challenges.Context
 {
-    public class ChallengesUnitOfWork : UnitOfWork, IChallengesUnitOfWork
+    public class ChallengesUnitOfWork : UnitOfWork, IFullTextIndexedChallengesUnitOfWork
     {
         public ChallengesUnitOfWork(Func<DbContext, IRepository<Challenge>> challengesRepositoryFunc,
             Func<DbContext, IRepository<Answer>> answersRepositoryFunc,
             Func<DbContext, IRepository<Comment>> commentsRepositoryFunc,
             Func<DbContext, IRepository<Solver>> solversRepositoryFunc,
-            Func<DbContext, IRepository<Tag>> tagsRepositoryFunc)
-            : base(new ChallengesContext())
+            Func<DbContext, IRepository<Tag>> tagsRepositoryFunc,
+            ChallengesContext context)
+            : base(context)
         {
             RegisterRepository(challengesRepositoryFunc(Context));
             RegisterRepository(answersRepositoryFunc(Context));

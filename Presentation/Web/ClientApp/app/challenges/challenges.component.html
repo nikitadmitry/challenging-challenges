@@ -1,8 +1,17 @@
-<filters [(searchType)]="selectedSearchType" [(searchString)]="searchString" (changeFilter)="changeFilter()"></filters>
 <div class="mdl-grid">
+    <filters mdl-shadow="4" class="mdl-grid mdl-cell mdl-cell--12-col mdl-padded"
+      [(searchType)]="selectedSearchType" [(searchString)]="searchString" (changeFilter)="changeFilter()"></filters>
+
+    <paging-buttons class="mdl-cell mdl-cell--12-col" 
+      [nextPageEnabled]="nextPageEnabled" [previousPageEnabled]="previousPageEnabled"
+      (nextPage)="nextPage()" (previousPage)="previousPage()"></paging-buttons>
+
     <loading-spinner [active]="isLoading"></loading-spinner>
+
     <challenge mdl-shadow="4" class="mdl-cell mdl-cell--12-col" 
-      *ngFor="let challenge of challenges | async" [challenge]="challenge"></challenge>
-    <button [disabled]="!nextPageEnabled" (click)="nextPage()">Next</button>
-    <button [disabled]="!previousPageEnabled" (click)="previousPage()">Prev</button>
+      *ngFor="let challenge of challenges" [challenge]="challenge"></challenge>
+
+    <paging-buttons class="mdl-cell mdl-cell--12-col" 
+      [nextPageEnabled]="nextPageEnabled" [previousPageEnabled]="previousPageEnabled"
+      (nextPage)="nextPage()" (previousPage)="previousPage()"></paging-buttons>
 </div>

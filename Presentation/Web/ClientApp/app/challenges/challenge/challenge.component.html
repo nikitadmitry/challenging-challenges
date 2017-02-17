@@ -1,9 +1,8 @@
-<mdl-card class="mdl-cell--12-col mdl-padded">
+<mdl-card class="mdl-cell mdl-cell--12-col mdl-padded">
     <mdl-card-title>
         <h2 mdl-card-title-text>{{challenge.title}}</h2>
     </mdl-card-title>
     <mdl-card-supporting-text>
-        <!--{{challenge.previewText}}-->
         <markdown [data]="challenge.previewText"></markdown>
     </mdl-card-supporting-text>
     <mdl-card-actions mdl-card-border>

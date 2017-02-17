@@ -9,7 +9,8 @@ namespace Business.Challenges.Private.SearchStrategies
 {
     public class PreviewTextSearchStrategy : IndexedSearchStrategyBase
     {
-        public PreviewTextSearchStrategy(IChallengesUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
+        public PreviewTextSearchStrategy(IFullTextIndexedChallengesUnitOfWork unitOfWork, IMapper mapper) 
+            : base(unitOfWork, mapper)
         {
         }
 

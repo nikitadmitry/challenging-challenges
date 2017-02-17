@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from "@angular/core";
 import { Translation, TranslationService } from "angular-l10n";
 
-import { ChallengeSearchType } from "./models/ChallengeSearchType";
+import { ChallengeSearchType } from "../models/ChallengeSearchType";
 
 @Component({
     selector: "filters",

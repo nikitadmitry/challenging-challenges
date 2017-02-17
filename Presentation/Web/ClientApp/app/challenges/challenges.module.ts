@@ -6,14 +6,16 @@ import { TranslationModule } from "angular-l10n";
 
 import { SharedModule } from "../shared/shared.module";
 import { ChallengesComponent } from "./challenges.component";
-import { ChallengeComponent } from "./challenge.component";
-import { FiltersComponent } from "./filters.component";
+import { ChallengeComponent } from "./challenge/challenge.component";
+import { FiltersComponent } from "./filters/filters.component";
+import { PagingButtonsComponent } from "./paging-buttons/paging-buttons.component";
 
 @NgModule({
     declarations: [
         ChallengeComponent,
         ChallengesComponent,
-        FiltersComponent
+        FiltersComponent,
+        PagingButtonsComponent
     ],
     imports: [
         SharedModule,
