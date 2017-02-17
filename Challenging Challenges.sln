@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{A4
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{9FA0EB92-42C6-4BA7-8097-CA0A9569690C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.Host", "Business.Host\Business.Host.csproj", "{DE6F869A-56ED-43A9-8F3F-3CE5C53DB35C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.Host", "Business\Host\Business.Host.csproj", "{DE6F869A-56ED-43A9-8F3F-3CE5C53DB35C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Challenges", "Data.Challenges\Data.Challenges.csproj", "{3BC289F6-2AE2-4CD3-A5D4-AA6A549BCA9A}"
 EndProject
@@ -23,15 +23,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{933C40
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Framework", "Shared.Framework\Shared.Framework.csproj", "{150EBD2E-0220-4E95-A42E-A5E14E0DB467}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.Challenges", "Business.Challenges\Business.Challenges.csproj", "{532F5E1B-117C-4131-A9A7-8B96B3CEE237}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.Challenges", "Business\Challenges\Business.Challenges.csproj", "{532F5E1B-117C-4131-A9A7-8B96B3CEE237}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.Identity", "Business.Identity\Business.Identity.csproj", "{B248D183-63B4-41F6-8182-E532200D5AEE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.Identity", "Business\Identity\Business.Identity.csproj", "{B248D183-63B4-41F6-8182-E532200D5AEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.Achievements", "Business.Achievements\Business.Achievements.csproj", "{37C92161-45C9-481B-90A1-821007185720}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.Achievements", "Business\Achievements\Business.Achievements.csproj", "{37C92161-45C9-481B-90A1-821007185720}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.SearchIndex", "Business.SearchIndex\Business.SearchIndex.csproj", "{B25C08CC-9015-4AFB-B6B8-BDBCFABA9074}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.SearchIndex", "Business\SearchIndex\Business.SearchIndex.csproj", "{B25C08CC-9015-4AFB-B6B8-BDBCFABA9074}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.CodeExecution", "Business.CodeExecution\Business.CodeExecution.csproj", "{96305162-A7C2-4E9B-ADB3-D9B0946874EB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.CodeExecution", "Business\CodeExecution\Business.CodeExecution.csproj", "{96305162-A7C2-4E9B-ADB3-D9B0946874EB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B6F1A650-AF91-464F-8B47-17EED04C5C66}"
 EndProject

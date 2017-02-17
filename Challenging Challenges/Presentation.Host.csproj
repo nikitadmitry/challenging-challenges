@@ -775,23 +775,23 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Business.Achievements\Business.Achievements.csproj">
+    <ProjectReference Include="..\Business\Achievements\Business.Achievements.csproj">
       <Project>{37C92161-45C9-481B-90A1-821007185720}</Project>
       <Name>Business.Achievements</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Business.Challenges\Business.Challenges.csproj">
+    <ProjectReference Include="..\Business\Challenges\Business.Challenges.csproj">
       <Project>{532F5E1B-117C-4131-A9A7-8B96B3CEE237}</Project>
       <Name>Business.Challenges</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Business.Host\Business.Host.csproj">
+    <ProjectReference Include="..\Business\Host\Business.Host.csproj">
       <Project>{DE6F869A-56ED-43A9-8F3F-3CE5C53DB35C}</Project>
       <Name>Business.Host</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Business.Identity\Business.Identity.csproj">
+    <ProjectReference Include="..\Business\Identity\Business.Identity.csproj">
       <Project>{B248D183-63B4-41F6-8182-E532200D5AEE}</Project>
       <Name>Business.Identity</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Business.SearchIndex\Business.SearchIndex.csproj">
+    <ProjectReference Include="..\Business\SearchIndex\Business.SearchIndex.csproj">
       <Project>{B25C08CC-9015-4AFB-B6B8-BDBCFABA9074}</Project>
       <Name>Business.SearchIndex</Name>
     </ProjectReference>
