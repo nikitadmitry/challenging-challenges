@@ -4,10 +4,8 @@ using Autofac.Integration.Wcf;
 using Business.Achievements;
 using Business.Challenges;
 using Business.Identity;
-using Business.SearchIndex;
 using Microsoft.Extensions.Configuration;
 using Presentation.Web.Identity;
-using Presentation.Web.Lucene;
 
 namespace Presentation.Web
 {
@@ -18,10 +16,8 @@ namespace Presentation.Web
             RegisterService<IChallengesService>(builder, configuration, "ChallengesService");
             RegisterService<IIdentityService>(builder, configuration, "IdentityService");
             RegisterService<IAchievementsService>(builder, configuration, "AchievementsService");
-            RegisterService<ISearchIndexService>(builder, configuration, "SearchIndexService");
 
             builder.RegisterType(typeof(JwtTokenProvider)).AsSelf();
-            builder.RegisterType(typeof(LuceneIndexer)).AsSelf();
         }
 
         private static void RegisterService<T>(ContainerBuilder builder, IConfiguration configuration, string serviceName)

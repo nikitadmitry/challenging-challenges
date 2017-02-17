@@ -8,7 +8,6 @@ using Business.Achievements;
 using Business.Challenges;
 using Business.Identity;
 using Business.Identity.ViewModels;
-using Business.SearchIndex;
 using Microsoft.AspNet.Identity;
 using Presentation.Legacy.Helpers;
 using Presentation.Legacy.Identity;
@@ -44,7 +43,6 @@ namespace Presentation.Legacy
             RegisterService<IChallengesService>(builder, "ChallengesService");
             RegisterService<IIdentityService>(builder, "IdentityService");
             RegisterService<IAchievementsService>(builder, "AchievementsService");
-            RegisterService<ISearchIndexService>(builder, "SearchIndexService");
 
             Container = builder.Build();
 

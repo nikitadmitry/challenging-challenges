@@ -27,10 +27,7 @@ namespace Data.Common
             this.context = context;
         }
 
-        /// <summary>
-        /// Expose dbContext to subclasses.
-        /// </summary>
-        private DbContext Context
+        protected DbContext Context
         {
             get
             {

@@ -1,24 +1,19 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Business.Identity;
 using Business.Identity.ViewModels;
-using Business.SearchIndex;
-using Hangfire;
 using Microsoft.AspNetCore.Mvc;
-using Presentation.Web.Lucene;
 
 namespace Presentation.Web.Controllers
 {
     public class HomeController : Controller
     {
         private readonly Lazy<IIdentityService> identityService;
-        private readonly Lazy<ISearchIndexService> searchIndexService;
 
-        public HomeController(Lazy<IIdentityService> identityService,
-            Lazy<ISearchIndexService> searchIndexService)
+        public HomeController(Lazy<IIdentityService> identityService)
         {
             this.identityService = identityService;
-            this.searchIndexService = searchIndexService;
         }
 
         public IActionResult Index()
@@ -31,18 +26,13 @@ namespace Presentation.Web.Controllers
             return identityService.Value.GetTopUsers();
         }
 
+        /// <summary>
+        /// TODO.
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<string> GetTags()
         {
-            const int numberOfTagsFetched = 50;
-
-            return searchIndexService.Value.GetTags(numberOfTagsFetched);
-        }
-
-        public string Job()
-        {
-            BackgroundJob.Enqueue<LuceneIndexer>(x => x.Update());
-
-            return "OK";
+            return Enumerable.Empty<string>();
         }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Business.Achievements;
 using Business.Identity.ViewModels;
 using Hangfire;
 using Microsoft.AspNetCore.Builder;
@@ -12,7 +13,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Presentation.Web.Identity;
-using Presentation.Web.Lucene;
 
 namespace Presentation.Web
 {
@@ -95,7 +95,7 @@ namespace Presentation.Web
             app.UseHangfireDashboard();
             app.UseHangfireServer();
 
-            LuceneIndexer.LaunchReccuringJob();
+            RecurringJob.AddOrUpdate<IAchievementsService>(x => x.UpdateTopOne(), Cron.Daily);
             
             app.UseStaticFiles();
 

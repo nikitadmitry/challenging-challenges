@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 using System.Reflection;
+using Data.Common.FullTextSearch;
 using Shared.Framework.DataSource;
 
 namespace Data.Common.Query.FilterExpressions
@@ -151,11 +152,14 @@ namespace Data.Common.Query.FilterExpressions
                 return Expression.Or(compExpr, nullCompExpr);
             });
 
-            ExpressionCollection.Add(FilterOperator.IsLessThanOrEqualTo, (memberExpression, propertyInfo, value) =>
+            ExpressionCollection.Add(FilterOperator.FullText, (memberExpression, propertyInfo, value) =>
             {
-                var constant = GetConstantWithNullableCastHandle(memberExpression, propertyInfo, value);
+                var ftsValue = FtsInterceptor.Fts(Convert.ToString(value));
 
-                Expression compExpr = Expression.LessThanOrEqual(memberExpression, constant);
+                var constant = GetConstantWithNullableCastHandle(memberExpression, propertyInfo, ftsValue);
+
+                MethodInfo method = typeof(string).GetMethod("Contains", new[] { typeof(string) });
+                Expression compExpr = Expression.Call(memberExpression, method, constant);
                 return compExpr;
             });
         }

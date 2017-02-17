@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core";
-import { Translation, TranslationService } from "angular-l10n";
+import { TranslationService, Translation } from "angular-l10n";
 
 import { ChallengeInfoViewModel } from "./models/ChallengeInfoViewModel";
 

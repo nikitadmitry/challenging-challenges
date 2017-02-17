@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Business.Challenges.Mappings;
 using Business.Identity.Mappings;
-using Business.SearchIndex.Mappings;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Business.Tests
@@ -22,7 +21,6 @@ namespace Business.Tests
         {
             cfg.AddProfile<IdentityMapProfile>();
             cfg.AddProfile<ChallengesMapProfile>();
-            cfg.AddProfile<SearchIndexMapProfile>();
         }
     }
 }

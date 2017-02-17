@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FullTextSearch\FtsInterceptor.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Query\Builder\FilterSettingRuleContainer.cs" />
     <Compile Include="Query\Builder\FilterSettingsBuilder.cs" />

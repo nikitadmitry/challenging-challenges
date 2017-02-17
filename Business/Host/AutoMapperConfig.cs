@@ -2,7 +2,6 @@
 using AutoMapper;
 using Business.Challenges.Mappings;
 using Business.Identity.Mappings;
-using Business.SearchIndex.Mappings;
 
 namespace Business.Host
 {
@@ -20,7 +19,6 @@ namespace Business.Host
         {
             cfg.AddProfile<IdentityMapProfile>();
             cfg.AddProfile<ChallengesMapProfile>();
-            cfg.AddProfile<SearchIndexMapProfile>();
         }
     }
 }

@@ -71,6 +71,6 @@
 
         IsGreaterThanOrEqualToOrNull = 160,
 
-
+        FullText = 170
     }
 }

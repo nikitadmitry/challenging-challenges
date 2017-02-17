@@ -8,7 +8,6 @@ using Business.Challenges.Private;
 using Business.Challenges.Private.SearchStrategies;
 using Business.Challenges.ViewModels;
 using Business.Identity;
-using Business.SearchIndex;
 using Data.Challenges.Context;
 using Data.Challenges.Entities;
 using Data.Common.Query.Builder;
@@ -30,7 +29,6 @@ namespace Business.Challenges
 
         public ChallengesService(IChallengesUnitOfWork unitOfWork, 
             Lazy<IIdentityService> identityService,
-            ISearchIndexService searchIndexService,
             Lazy<IChallengeSolutionDispatcher> challengeSolutionDispatcher,
             IMapper mapper,
             IEnumerable<ISearchStrategy> searchStrategies)

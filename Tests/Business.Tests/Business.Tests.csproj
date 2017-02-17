@@ -82,10 +82,6 @@
       <Project>{B248D183-63B4-41F6-8182-E532200D5AEE}</Project>
       <Name>Business.Identity</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Business\SearchIndex\Business.SearchIndex.csproj">
-      <Project>{B25C08CC-9015-4AFB-B6B8-BDBCFABA9074}</Project>
-      <Name>Business.SearchIndex</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

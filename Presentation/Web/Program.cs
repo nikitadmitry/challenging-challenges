@@ -1,8 +1,6 @@
 using System.IO;
-using Hangfire;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Presentation.Web.Lucene;
 
 namespace Presentation.Web
 {

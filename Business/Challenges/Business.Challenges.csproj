@@ -137,10 +137,6 @@
       <Project>{B248D183-63B4-41F6-8182-E532200D5AEE}</Project>
       <Name>Business.Identity</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SearchIndex\Business.SearchIndex.csproj">
-      <Project>{B25C08CC-9015-4AFB-B6B8-BDBCFABA9074}</Project>
-      <Name>Business.SearchIndex</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Data\Challenges\Data.Challenges.csproj">
       <Project>{3BC289F6-2AE2-4CD3-A5D4-AA6A549BCA9A}</Project>
       <Name>Data.Challenges</Name>

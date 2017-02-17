@@ -1,17 +1,20 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Linq.Expressions;
+using AutoMapper;
 using Business.Challenges.ViewModels;
-using Business.SearchIndex;
 using Data.Challenges.Context;
+using Data.Challenges.Entities;
 
 namespace Business.Challenges.Private.SearchStrategies
 {
     public class ConditionSearchStrategy : IndexedSearchStrategyBase
     {
-        public ConditionSearchStrategy(ISearchIndexService searchIndexService, IChallengesUnitOfWork unitOfWork, 
-            IMapper mapper) : base(searchIndexService, unitOfWork, mapper)
+        public ConditionSearchStrategy(IChallengesUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
         {
         }
 
         protected override ChallengeSearchType SearchType => ChallengeSearchType.Condition;
+
+        protected override Expression<Func<Challenge, string>> PropertyExpression => x => x.Condition;
     }
 }

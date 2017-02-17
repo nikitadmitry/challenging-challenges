@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Linq.Expressions;
+using AutoMapper;
 using Business.Challenges.ViewModels;
 using Data.Challenges.Context;
 using Data.Challenges.Entities;
@@ -7,7 +9,7 @@ using Shared.Framework.DataSource;
 
 namespace Business.Challenges.Private.SearchStrategies
 {
-    public class TitleSearchStrategy : SearchStrategyBase
+    public class TitleSearchStrategy : IndexedSearchStrategyBase
     {
         public TitleSearchStrategy(IChallengesUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
         {
@@ -15,10 +17,6 @@ namespace Business.Challenges.Private.SearchStrategies
 
         protected override ChallengeSearchType SearchType => ChallengeSearchType.Title;
 
-        protected override void PopulateFilterSettings(FilterSettingsBuilder<Challenge> filterSettingsBuilder, 
-            string keyword)
-        {
-            filterSettingsBuilder.AddFilterRule(x => x.Title, FilterOperator.Contains, keyword);
-        }
+        protected override Expression<Func<Challenge, string>> PropertyExpression => x => x.Title;
     }
 }

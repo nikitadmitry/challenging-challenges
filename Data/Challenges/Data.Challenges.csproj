@@ -52,7 +52,6 @@
   <ItemGroup>
     <Compile Include="Context\ChallengesContext.cs" />
     <Compile Include="Context\ChallengesUnitOfWork.cs" />
-    <Compile Include="Context\FtsInterceptor.cs" />
     <Compile Include="Context\TagService.cs" />
     <Compile Include="Entities\Answer.cs" />
     <Compile Include="Entities\Challenge.cs" />
@@ -90,6 +89,10 @@
     <Compile Include="Migrations\201701011413310_AddSourceCodeToChallenge.Designer.cs">
       <DependentUpon>201701011413310_AddSourceCodeToChallenge.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702171338327_AddFullTextIndexAndCatalog.cs" />
+    <Compile Include="Migrations\201702171338327_AddFullTextIndexAndCatalog.Designer.cs">
+      <DependentUpon>201702171338327_AddFullTextIndexAndCatalog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Context\IChallengesUnitOfWork.cs" />
@@ -117,6 +120,9 @@
     <EmbeddedResource Include="Migrations\201701011413310_AddSourceCodeToChallenge.resx">
       <DependentUpon>201701011413310_AddSourceCodeToChallenge.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702171338327_AddFullTextIndexAndCatalog.resx">
+      <DependentUpon>201702171338327_AddFullTextIndexAndCatalog.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Data.Common.csproj">
@@ -127,6 +133,9 @@
       <Project>{150EBD2E-0220-4E95-A42E-A5E14E0DB467}</Project>
       <Name>Shared.Framework</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\Sql\AddFullTextIndexAndCatalog.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

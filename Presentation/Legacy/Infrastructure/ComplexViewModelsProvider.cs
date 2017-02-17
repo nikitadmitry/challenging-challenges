@@ -31,7 +31,7 @@ namespace Presentation.Legacy.Infrastructure
 
             var totalCount = challengesService.GetChallengesCount();
 
-            var pageRule = new SortedPageRule()
+            var pageRule = new SortedPageRule
             {
                 Count = count,
                 Start = 0
