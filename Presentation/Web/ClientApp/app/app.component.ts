@@ -23,8 +23,8 @@ export class AppComponent extends Translation implements OnDestroy {
         super(translation);
     }
 
-    toggleLanguage(asd): void {
-        var language: string = this.languageChanged ? "ru" : "en";
+    toggleLanguage(): void {
+        let language: string = this.languageChanged ? "ru" : "en";
 
         this.locale.setCurrentLanguage(language);
     }
