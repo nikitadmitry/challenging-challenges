@@ -244,5 +244,9 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 
-# lucene index
-LuceneIndex/
+# WebStorm settings
+**/.idea/workspace.xml
+**/.idea/tasks.xml
+**/.idea/dictionaries
+**/.idea/vcs.xml
+**/.idea/jsLibraryMappings.xml
