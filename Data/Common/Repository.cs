@@ -272,7 +272,7 @@ namespace Data.Common
         /// <param name="queryable">Queryable to apply parameters to</param>
         /// <param name="parameters">Parameters which should be applied to queryable</param>
         /// <returns>queryable with applied parameters</returns>
-        private IQueryable<T> ApplyListQueryParametersTypeSpecific(IQueryable<T> queryable,
+        protected virtual IQueryable<T> ApplyListQueryParametersTypeSpecific(IQueryable<T> queryable,
                                                                              QueryParameters parameters)
         {
             return queryable;

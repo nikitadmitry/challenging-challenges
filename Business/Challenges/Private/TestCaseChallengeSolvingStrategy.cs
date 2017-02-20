@@ -7,11 +7,14 @@ using Business.CodeExecution.ViewModels;
 using Data.Challenges.Context;
 using Data.Challenges.Entities;
 using Data.Challenges.Enums;
+using Shared.Framework.Dependency;
 using Shared.Framework.Resources;
 using Shared.Framework.Validation;
+using ChallengeType = Business.Challenges.ViewModels.ChallengeType;
 
 namespace Business.Challenges.Private
 {
+    [KeyedDependency(ChallengeType.CodeAnswered)]
     internal class TestCaseChallengeSolvingStrategy : ChallengeSolvingStrategyBase
     {
         private readonly ICodeExecutor codeExecutor;

@@ -93,7 +93,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChallengesService.cs" />
-    <Compile Include="BusinessChallengesModule.cs" />
     <Compile Include="IChallengesService.cs" />
     <Compile Include="Mappings\ChallengesMapProfile.cs" />
     <Compile Include="Private\ChallengeSolutionDispatcher.cs" />

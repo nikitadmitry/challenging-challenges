@@ -53,7 +53,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessCodeExecutionModule.cs" />
     <Compile Include="CodeExecutor.cs" />
     <Compile Include="ICodeExecutor.cs" />
     <Compile Include="Private\CodeExecutionRequestData.cs" />
@@ -66,6 +65,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Framework\Shared.Framework.csproj">
+      <Project>{150EBD2E-0220-4E95-A42E-A5E14E0DB467}</Project>
+      <Name>Shared.Framework</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

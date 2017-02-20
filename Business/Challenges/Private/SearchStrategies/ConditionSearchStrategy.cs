@@ -4,9 +4,11 @@ using AutoMapper;
 using Business.Challenges.ViewModels;
 using Data.Challenges.Context;
 using Data.Challenges.Entities;
+using Shared.Framework.Dependency;
 
 namespace Business.Challenges.Private.SearchStrategies
 {
+    [KeyedDependency(ChallengeSearchType.Condition)]
     public class ConditionSearchStrategy : IndexedSearchStrategyBase
     {
         public ConditionSearchStrategy(IFullTextIndexedChallengesUnitOfWork unitOfWork, IMapper mapper) 

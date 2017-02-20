@@ -51,7 +51,7 @@ namespace Presentation.Web
                 .AddRoleStore<IdentityStore>()
                 .AddDefaultTokenProviders();
 
-            services.AddHangfire(c => c.UseSqlServerStorage(Configuration.GetConnectionString("IdentityConnection")));
+            services.AddHangfire(c => c.UseSqlServerStorage(Configuration.GetConnectionString("HangfireConnection")));
 
             // Add framework services.
             services.AddMvc();
@@ -82,6 +82,8 @@ namespace Presentation.Web
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+            app.UseDeveloperExceptionPage();
 
             if (env.IsDevelopment())
             {

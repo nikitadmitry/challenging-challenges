@@ -4,9 +4,11 @@ using AutoMapper;
 using Business.Challenges.ViewModels;
 using Data.Challenges.Context;
 using Data.Challenges.Entities;
+using Shared.Framework.Dependency;
 
 namespace Business.Challenges.Private.SearchStrategies
 {
+    [KeyedDependency(ChallengeSearchType.PreviewText)]
     public class PreviewTextSearchStrategy : IndexedSearchStrategyBase
     {
         public PreviewTextSearchStrategy(IFullTextIndexedChallengesUnitOfWork unitOfWork, IMapper mapper) 

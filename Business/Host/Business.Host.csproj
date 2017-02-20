@@ -129,6 +129,8 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\cc-api - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\cc-api - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\ccbusiness - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\ccbusiness - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
@@ -144,12 +146,12 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assemblies.cs" />
     <Compile Include="AutoMapperConfig.cs" />
-    <Compile Include="DependencyRegistration.cs" />
+    <Compile Include="ContainerConfig.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Modules\BusinessModule.cs" />
     <Compile Include="Modules\DataModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -161,6 +163,10 @@
     <ProjectReference Include="..\Challenges\Business.Challenges.csproj">
       <Project>{532F5E1B-117C-4131-A9A7-8B96B3CEE237}</Project>
       <Name>Business.Challenges</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeExecution\Business.CodeExecution.csproj">
+      <Project>{96305162-A7C2-4E9B-ADB3-D9B0946874EB}</Project>
+      <Name>Business.CodeExecution</Name>
     </ProjectReference>
     <ProjectReference Include="..\Identity\Business.Identity.csproj">
       <Project>{b248d183-63b4-41f6-8182-e532200d5aee}</Project>

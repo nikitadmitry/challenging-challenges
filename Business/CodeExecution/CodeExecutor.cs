@@ -7,10 +7,11 @@ using Business.CodeExecution.Private;
 using Business.CodeExecution.ViewModels;
 using HtmlAgilityPack;
 using Newtonsoft.Json;
+using Shared.Framework.Dependency;
 
 namespace Business.CodeExecution
 {
-    public class CodeExecutor : ICodeExecutor
+    public class CodeExecutor : ICodeExecutor, IDependency
     {
         private const string IdeOneBaseUrl = "http://ideone.com/";
         private const string IdeOneSubmissionPostfix = "ideone/Index/submit/";

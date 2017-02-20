@@ -47,10 +47,5 @@ namespace Business.Challenges.Private.SearchStrategies
 
         protected abstract void PopulateFilterSettings(FilterSettingsBuilder<Challenge> filterSettingsBuilder,
             string keyword);
-
-        public bool IsApplicable(ChallengeSearchType searchType)
-        {
-            return searchType == SearchType;
-        }
     }
 }

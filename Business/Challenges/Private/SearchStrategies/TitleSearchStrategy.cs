@@ -4,9 +4,11 @@ using AutoMapper;
 using Business.Challenges.ViewModels;
 using Data.Challenges.Context;
 using Data.Challenges.Entities;
+using Shared.Framework.Dependency;
 
 namespace Business.Challenges.Private.SearchStrategies
 {
+    [KeyedDependency(ChallengeSearchType.Title)]
     public class TitleSearchStrategy : IndexedSearchStrategyBase
     {
         public TitleSearchStrategy(IFullTextIndexedChallengesUnitOfWork unitOfWork, IMapper mapper) 

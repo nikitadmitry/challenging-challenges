@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using Business.Challenges.ViewModels;
+using Shared.Framework.Dependency;
 
 namespace Business.Challenges.Private.SearchStrategies
 {
-    public interface ISearchStrategy
+    public interface ISearchStrategy : IDependency
     {
-        bool IsApplicable(ChallengeSearchType searchType);
-
         List<ChallengeInfoViewModel> Search(ChallengesPageRule pageRule);
     }
 }

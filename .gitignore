@@ -250,3 +250,7 @@ ModelManifest.xml
 **/.idea/dictionaries
 **/.idea/vcs.xml
 **/.idea/jsLibraryMappings.xml
+
+# Publish settings
+/Business/Host/Properties/PublishProfiles
+/Presentation/Web/Properties/PublishProfiles

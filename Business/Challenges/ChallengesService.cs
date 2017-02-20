@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
+using Autofac.Features.Indexed;
 using AutoMapper;
 using Business.Challenges.Private;
 using Business.Challenges.Private.SearchStrategies;
@@ -13,26 +14,27 @@ using Data.Challenges.Entities;
 using Data.Common.Query.Builder;
 using Data.Common.Query.QueryParameters;
 using Shared.Framework.DataSource;
+using Shared.Framework.Dependency;
 using Shared.Framework.Resources;
 using Shared.Framework.Validation;
 
 namespace Business.Challenges
 {
     [ServiceBehavior(IncludeExceptionDetailInFaults = true, InstanceContextMode = InstanceContextMode.PerCall)]
-    public class ChallengesService: IChallengesService
+    public class ChallengesService: IChallengesService, IDependency
     {
         private readonly IChallengesUnitOfWork unitOfWork;
         private readonly Lazy<IIdentityService> identityService;
         private readonly Lazy<IChallengeSolutionDispatcher> challengeSolutionDispatcher;
         private readonly IMapper mapper;
-        private readonly IEnumerable<ISearchStrategy> searchStrategies;
+        private readonly IIndex<ChallengeSearchType, Lazy<ISearchStrategy>> searchStrategies;
         private const ChallengeSearchType DefaultSearchType = ChallengeSearchType.Title;
 
         public ChallengesService(IChallengesUnitOfWork unitOfWork, 
             Lazy<IIdentityService> identityService,
             Lazy<IChallengeSolutionDispatcher> challengeSolutionDispatcher,
             IMapper mapper,
-            IEnumerable<ISearchStrategy> searchStrategies)
+            IIndex<ChallengeSearchType, Lazy<ISearchStrategy>> searchStrategies)
         {
             this.unitOfWork = unitOfWork;
             this.identityService = identityService;
@@ -282,7 +284,7 @@ namespace Business.Challenges
                 ? DefaultSearchType 
                 : pageRule.SearchTypes.First();
 
-            return searchStrategies.First(x => x.IsApplicable(searchType)).Search(pageRule);
+            return searchStrategies[searchType].Value.Search(pageRule);
         }
 
         public Guid GetChallengeAuthor(Guid challengeId)

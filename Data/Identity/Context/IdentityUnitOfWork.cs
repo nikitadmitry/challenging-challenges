@@ -9,8 +9,9 @@ namespace Data.Identity.Context
     {
         public IdentityUnitOfWork(
             Func<DbContext, IRepository<User>> usersRepositoryFunc,
-            Func<DbContext, IRepository<Role>> rolesRepositoryFunc)
-            : base(new IdentityContext())
+            Func<DbContext, IRepository<Role>> rolesRepositoryFunc,
+            IdentityContext identityContext)
+            : base(identityContext)
         {
             RegisterRepository(usersRepositoryFunc(Context));
             RegisterRepository(rolesRepositoryFunc(Context));

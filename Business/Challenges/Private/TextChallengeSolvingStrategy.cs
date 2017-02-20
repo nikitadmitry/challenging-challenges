@@ -3,10 +3,12 @@ using System.Linq;
 using Business.Challenges.ViewModels;
 using Data.Challenges.Context;
 using Data.Challenges.Entities;
+using Shared.Framework.Dependency;
 using Shared.Framework.Resources;
 
 namespace Business.Challenges.Private
 {
+    [KeyedDependency(ChallengeType.TextAnswered)]
     internal class TextChallengeSolvingStrategy : ChallengeSolvingStrategyBase
     {
         public TextChallengeSolvingStrategy(IChallengesUnitOfWork unitOfWork)

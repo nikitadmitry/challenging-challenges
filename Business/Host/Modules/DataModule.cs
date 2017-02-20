@@ -1,9 +1,12 @@
-﻿using Autofac;
+﻿using System;
+using System.Linq;
+using System.Reflection;
+using Autofac;
 using Autofac.Core;
-using Autofac.Core.Activators.Reflection;
+using Autofac.Util;
 using Data.Challenges.Context;
 using Data.Common;
-using Data.Identity.Context;
+using Module = Autofac.Module;
 
 namespace Business.Host.Modules
 {
@@ -11,25 +14,50 @@ namespace Business.Host.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>));
-            builder.RegisterType(typeof(UnitOfWork)).As(typeof(IUnitOfWork));
+            var dataAssemblies = Assemblies.Data().ToArray();
 
-            builder.RegisterType(typeof(ChallengesContext)).AsSelf().InstancePerLifetimeScope();
-            builder.RegisterType(typeof(FullTextIndexedChallengesContext)).AsSelf().InstancePerLifetimeScope();
+            RegisterRepositories(builder, dataAssemblies);
+            RegisterUnitOfWorks(builder, dataAssemblies);
+            RegisterContexts(builder, dataAssemblies);
 
-            builder.RegisterType(typeof(ChallengesUnitOfWork)).As(typeof(IChallengesUnitOfWork))
+            base.Load(builder);
+        }
+
+        private void RegisterContexts(ContainerBuilder builder, Assembly[] dataAssemblies)
+        {
+            builder.RegisterAssemblyTypes(dataAssemblies)
+                .Where(t => t.Name.EndsWith("Context", StringComparison.Ordinal))
+                .AsSelf()
                 .InstancePerLifetimeScope();
+        }
+
+        private void RegisterRepositories(ContainerBuilder builder, Assembly[] dataAssemblies)
+        {
+            builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>));
+
+            builder.RegisterAssemblyTypes(dataAssemblies)
+                .Where(t => t.Name.EndsWith("Repository", StringComparison.Ordinal))
+                .AsImplementedInterfaces();
+        }
+
+        private void RegisterUnitOfWorks(ContainerBuilder builder, Assembly[] dataAssemblies)
+        {
+            dataAssemblies.SelectMany( a => a.GetLoadableTypes())
+                .Where(t => t.IsAssignableTo<IUnitOfWork>()).ToList()
+                .ForEach(t => RegisterUnitOfWork(t, builder));
+
             builder.RegisterType<ChallengesUnitOfWork>()
                 .WithParameter(new ResolvedParameter(
                    (pi, ctx) => pi.ParameterType == typeof(ChallengesContext),
                    (pi, ctx) => ctx.Resolve<FullTextIndexedChallengesContext>()))
-                .As(typeof(IFullTextIndexedChallengesUnitOfWork))
-                .InstancePerLifetimeScope();
+                .As(typeof(IFullTextIndexedChallengesUnitOfWork));
+        }
 
-            builder.RegisterType(typeof(IdentityUnitOfWork)).As(typeof(IIdentityUnitOfWork))
+        private void RegisterUnitOfWork(Type type, ContainerBuilder builder)
+        {
+            builder.RegisterTypes(type)
+                .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
-
-            base.Load(builder);
         }
     }
 }

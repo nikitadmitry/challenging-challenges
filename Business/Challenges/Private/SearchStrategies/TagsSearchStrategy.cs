@@ -7,10 +7,12 @@ using Data.Challenges.Entities;
 using Data.Common.Query.Builder;
 using Data.Common.Query.QueryParameters;
 using Shared.Framework.DataSource;
+using Shared.Framework.Dependency;
 using Shared.Framework.Validation;
 
 namespace Business.Challenges.Private.SearchStrategies
 {
+    [KeyedDependency(ChallengeSearchType.Tags)]
     public class TagsSearchStrategy : ISearchStrategy
     {
         private readonly IChallengesUnitOfWork unitOfWork;

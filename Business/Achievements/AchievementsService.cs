@@ -8,11 +8,12 @@ using Data.Common.Query.QueryParameters;
 using Data.Identity.Context;
 using Data.Identity.Entities;
 using Data.Identity.Enums;
+using Shared.Framework.Dependency;
 
 namespace Business.Achievements
 {
     [ServiceBehavior(IncludeExceptionDetailInFaults = true, InstanceContextMode = InstanceContextMode.PerCall)]
-    public class AchievementsService : IAchievementsService
+    public class AchievementsService : IAchievementsService, IDependency
     {
         private readonly IChallengesService challengesService;
         private readonly IIdentityUnitOfWork identityUnitOfWork;

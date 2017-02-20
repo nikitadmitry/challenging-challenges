@@ -8,12 +8,13 @@ using Data.Common.Query.QueryParameters;
 using Data.Identity.Context;
 using Data.Identity.Entities;
 using Shared.Framework.DataSource;
+using Shared.Framework.Dependency;
 using Shared.Framework.Validation;
 
 namespace Business.Identity
 {
     [ServiceBehavior(IncludeExceptionDetailInFaults = true, InstanceContextMode = InstanceContextMode.PerCall)]
-    public class IdentityService : IIdentityService
+    public class IdentityService : IIdentityService, IDependency
     {
         private readonly IIdentityUnitOfWork unitOfWork;
         private readonly IMapper mapper;

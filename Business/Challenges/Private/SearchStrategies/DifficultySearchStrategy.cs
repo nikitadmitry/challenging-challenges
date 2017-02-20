@@ -6,9 +6,11 @@ using Business.Challenges.ViewModels;
 using Data.Challenges.Context;
 using Data.Challenges.Entities;
 using Data.Challenges.Enums;
+using Shared.Framework.Dependency;
 
 namespace Business.Challenges.Private.SearchStrategies
 {
+    [KeyedDependency(ChallengeSearchType.Difficulty)]
     public class DifficultySearchStrategy : EnumSearchStrategy<Difficulty>
     {
         public DifficultySearchStrategy(IChallengesUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
