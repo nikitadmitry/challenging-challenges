@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using AutoMapper;
 using Business.Challenges.ViewModels;
 using Data.Challenges.Context;
 using Data.Challenges.Entities;
+using Data.Challenges.Repositories;
 using Data.Common.Query.Builder;
-using Data.Common.Query.QueryParameters;
-using Shared.Framework.Validation;
 
 namespace Business.Challenges.Private.SearchStrategies
 {
@@ -22,20 +20,19 @@ namespace Business.Challenges.Private.SearchStrategies
             this.mapper = mapper;
         }
 
-        public List<ChallengeInfoViewModel> Search(ChallengesPageRule pageRule)
+        public List<ChallengeInfoViewModel> Search(ChallengesSearchOptions searchOptions)
         {
-            Contract.Assert<InvalidOperationException>(pageRule.IsValid);
-
-            var queryParameters = new QueryParameters
+            var queryParameters = new ChallengeQueryParameters
             {
-                PageRule = pageRule
+                PageRule = searchOptions.PageRule,
+                IncludeTags = true
             };
 
             var filterSettingsBuilder = FilterSettingsBuilder<Challenge>.Create();
 
-            if (!pageRule.Keyword.IsNullOrEmpty())
+            if (!searchOptions.Keyword.IsNullOrEmpty())
             {
-                PopulateFilterSettings(filterSettingsBuilder, pageRule.Keyword);
+                PopulateFilterSettings(filterSettingsBuilder, searchOptions.Keyword);
             }
 
             queryParameters.FilterSettings = filterSettingsBuilder.GetSettings();

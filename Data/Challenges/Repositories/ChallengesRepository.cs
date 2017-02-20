@@ -26,9 +26,15 @@ namespace Data.Challenges.Repositories
         {
             if (parameters != null)
             {
+                if (parameters.IncludeTags)
+                {
+                    queryable = queryable.Include(x => x.Tags);
+                }
+
                 if (!parameters.Tags.IsNullOrEmpty())
                 {
-                    queryable = queryable.Where(x => x.Tags.Any(t => t.Value.Equals(parameters.Tags)));
+                    queryable = queryable.Where(
+                        x => x.Tags.Any(t => parameters.Tags.Any(p => p.Equals(t.Value))));
                 }
             }
 

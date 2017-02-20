@@ -4,7 +4,7 @@ import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/share";
 
 import { Actions } from "../shared/actions";
-import { ChallengesPageRule } from "./models/ChallengesPageRule";
+import { ChallengesSearchOptions } from "./models/ChallengesSearchOptions";
 
 @Injectable()
 export class ChallengesService {
@@ -16,8 +16,8 @@ export class ChallengesService {
             .map(response => response.json() as number).share();
     }
 
-    search(pageRule: ChallengesPageRule): Observable<any> {
-        return this.http.post(Actions.challenges.searchChallenges, pageRule)
+    search(searchOptions: ChallengesSearchOptions): Observable<any> {
+        return this.http.post(Actions.challenges.searchChallenges, searchOptions)
             .map(response => response.json());
     }
 }

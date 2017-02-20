@@ -276,15 +276,17 @@ namespace Business.Challenges
             return tagsAsString.ToString();
         }
 
-        public List<ChallengeInfoViewModel> SearchByRule(ChallengesPageRule pageRule)
+        public List<ChallengeInfoViewModel> SearchByRule(ChallengesSearchOptions searchOptions)
         {
-            Contract.Assert<InvalidOperationException>(pageRule.IsValid);
+            Contract.NotNull<ArgumentNullException>(searchOptions);
+            Contract.NotNull<ArgumentException>(searchOptions.PageRule);
+            Contract.Assert<InvalidOperationException>(searchOptions.PageRule.IsValid);
 
-            var searchType = pageRule.SearchTypes.IsNullOrEmpty() 
-                ? DefaultSearchType 
-                : pageRule.SearchTypes.First();
+            var searchType = searchOptions.SearchTypes.IsNullOrEmpty() 
+                ? DefaultSearchType
+                : searchOptions.SearchTypes.First();
 
-            return searchStrategies[searchType].Value.Search(pageRule);
+            return searchStrategies[searchType].Value.Search(searchOptions);
         }
 
         public Guid GetChallengeAuthor(Guid challengeId)

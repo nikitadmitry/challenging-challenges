@@ -1,7 +1,8 @@
 import { PageRule } from "../../shared/models/PageRule";
 import { ChallengeSearchType } from "./ChallengeSearchType";
 
-export class ChallengesPageRule extends PageRule {
+export class ChallengesSearchOptions {
     keyword: string;
+    pageRule: PageRule;
     searchTypes: ChallengeSearchType[];
 }

@@ -30,9 +30,9 @@ namespace Presentation.Web.Controllers
 
         [HttpPost]
         [ValidateModel]
-        public List<ChallengeInfoViewModel> Search([FromBody]ChallengesPageRule pageRule)
+        public List<ChallengeInfoViewModel> Search([FromBody]ChallengesSearchOptions searchOptions)
         {
-            return challengesService.SearchByRule(pageRule);
+            return challengesService.SearchByRule(searchOptions);
         }
     }
 }

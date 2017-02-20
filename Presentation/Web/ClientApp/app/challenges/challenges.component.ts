@@ -7,7 +7,8 @@ import "rxjs/add/observable/forkJoin";
 
 import { ChallengesService } from "../challenges/challenges.service";
 import { ChallengeSearchType } from "./models/ChallengeSearchType";
-import { ChallengesPageRule } from "./models/ChallengesPageRule";
+import { ChallengesSearchOptions } from "./models/ChallengesSearchOptions";
+import {PageRule} from "../shared/models/PageRule";
 
 @Component({
     selector: "challenges",
@@ -41,7 +42,7 @@ export class ChallengesComponent extends Translation implements OnInit {
         this.isLoading = true;
         this.previousPageEnabled = this.currentPage > 0;
 
-        this.challengesService.search(this.getPageRule()).subscribe(challenges => {
+        this.challengesService.search(this.getSearchOptions()).subscribe(challenges => {
             this.challenges = challenges;
             this.nextPageEnabled = challenges.length === this.PAGE_SIZE;
             this.isLoading = false;
@@ -53,16 +54,19 @@ export class ChallengesComponent extends Translation implements OnInit {
         this.searchChallenges();
     }
 
-    private getPageRule(): ChallengesPageRule {
-        let pageRule: ChallengesPageRule = new ChallengesPageRule();
+    private getSearchOptions(): ChallengesSearchOptions {
+        let searchOptions: ChallengesSearchOptions = new ChallengesSearchOptions();
+        let pageRule = new PageRule();
         pageRule.count = this.PAGE_SIZE;
         pageRule.start = this.currentPage * this.PAGE_SIZE;
-        pageRule.keyword = this.searchString;
+
+        searchOptions.pageRule = pageRule;
+        searchOptions.keyword = this.searchString;
         if (this.selectedSearchType) {
-            pageRule.searchTypes = [this.selectedSearchType];
+            searchOptions.searchTypes = [this.selectedSearchType];
         }
 
-        return pageRule;
+        return searchOptions;
     }
 
     nextPage(): void {

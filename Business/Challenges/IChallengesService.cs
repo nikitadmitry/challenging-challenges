@@ -54,7 +54,7 @@ namespace Business.Challenges
         string GetTagsAsStringByChallengeId(Guid challengeId);
 
         [OperationContract]
-        List<ChallengeInfoViewModel> SearchByRule(ChallengesPageRule pageRule);
+        List<ChallengeInfoViewModel> SearchByRule(ChallengesSearchOptions searchOptions);
 
         [OperationContract]
         Guid GetChallengeAuthor(Guid challengeId);

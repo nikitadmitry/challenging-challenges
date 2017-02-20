@@ -118,7 +118,7 @@
     <Compile Include="ViewModels\ChallengeFullViewModel.cs" />
     <Compile Include="ViewModels\ChallengeInfoViewModel.cs" />
     <Compile Include="ViewModels\ChallengesDescriptionViewModel.cs" />
-    <Compile Include="ViewModels\ChallengesPageRule.cs" />
+    <Compile Include="ViewModels\ChallengesSearchOptions.cs" />
     <Compile Include="ViewModels\ChallengeType.cs" />
     <Compile Include="ViewModels\ChallengeViewModel.cs" />
     <Compile Include="ViewModels\CommentViewModel.cs" />

@@ -6,6 +6,6 @@ namespace Business.Challenges.Private.SearchStrategies
 {
     public interface ISearchStrategy : IDependency
     {
-        List<ChallengeInfoViewModel> Search(ChallengesPageRule pageRule);
+        List<ChallengeInfoViewModel> Search(ChallengesSearchOptions searchOptions);
     }
 }
