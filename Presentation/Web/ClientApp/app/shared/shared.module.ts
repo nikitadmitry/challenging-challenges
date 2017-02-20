@@ -5,22 +5,22 @@ import { MdlModule } from "angular2-mdl";
 import { LoadingSpinnerComponent } from "./shared-components/loading-spinner.component";
 import { MarkdownComponent } from "./shared-components/markdown.component";
 
-const sharedImports: any[] = [
+const sharedDeclarations: any[] = [
     LoadingSpinnerComponent,
     MarkdownComponent
 ];
 
-const sharedDeclarations: any[] = [
+const sharedImports: any[] = [
     CommonModule,
     MdlModule
 ];
 
 @NgModule({
     declarations: [
-        sharedImports
+        sharedDeclarations
     ],
     imports: [
-        sharedDeclarations
+        sharedImports
     ],
     exports: [
         sharedDeclarations,

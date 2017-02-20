@@ -37,16 +37,16 @@
       "type": "project",
       "framework": ".NETFramework,Version=v4.6",
       "compile": {
-        "bin/Release/Shared.Framework.dll": {}
+        "bin/Debug/Shared.Framework.dll": {}
       },
       "runtime": {
         "../../packages/AutoMapper.5.2.0/lib/net45/AutoMapper.dll": {},
         "../../packages/Autofac.4.3.0/lib/net45/Autofac.dll": {},
         "../../packages/Newtonsoft.Json.9.0.1/lib/net45/Newtonsoft.Json.dll": {},
-        "bin/Release/Shared.Framework.dll": {}
+        "bin/Debug/Shared.Framework.dll": {}
       },
       "contentFiles": {
-        "bin/Release/Shared.Framework.pdb": {
+        "bin/Debug/Shared.Framework.pdb": {
           "buildAction": "None",
           "codeLanguage": "any",
           "copyToOutput": true
@@ -57,14 +57,14 @@
       "type": "project",
       "framework": ".NETFramework,Version=v4.6",
       "compile": {
-        "bin/Release/Business.Achievements.dll": {}
+        "bin/Debug/Business.Achievements.dll": {}
       },
       "runtime": {
         "../../packages/Microsoft.AspNet.Identity.Core.2.2.1/lib/net45/Microsoft.AspNet.Identity.Core.dll": {},
-        "bin/Release/Business.Achievements.dll": {}
+        "bin/Debug/Business.Achievements.dll": {}
       },
       "contentFiles": {
-        "bin/Release/Business.Achievements.pdb": {
+        "bin/Debug/Business.Achievements.pdb": {
           "buildAction": "None",
           "codeLanguage": "any",
           "copyToOutput": true
@@ -75,7 +75,7 @@
       "type": "project",
       "framework": ".NETFramework,Version=v4.6",
       "compile": {
-        "bin/Release/Business.Challenges.dll": {}
+        "bin/Debug/Business.Challenges.dll": {}
       },
       "runtime": {
         "../../packages/AutoMapper.5.2.0/lib/net45/AutoMapper.dll": {},
@@ -90,10 +90,10 @@
         "../../packages/Microsoft.AspNet.WebPages.3.2.3/lib/net45/System.Web.WebPages.dll": {},
         "../../packages/Microsoft.Web.Infrastructure.1.0.0.0/lib/net40/Microsoft.Web.Infrastructure.dll": {},
         "../../packages/SharpZipLib.0.86.0/lib/20/ICSharpCode.SharpZipLib.dll": {},
-        "bin/Release/Business.Challenges.dll": {}
+        "bin/Debug/Business.Challenges.dll": {}
       },
       "contentFiles": {
-        "bin/Release/Business.Challenges.pdb": {
+        "bin/Debug/Business.Challenges.pdb": {
           "buildAction": "None",
           "codeLanguage": "any",
           "copyToOutput": true
@@ -104,16 +104,16 @@
       "type": "project",
       "framework": ".NETFramework,Version=v4.6",
       "compile": {
-        "bin/Release/Business.CodeExecution.dll": {}
+        "bin/Debug/Business.CodeExecution.dll": {}
       },
       "runtime": {
         "../../packages/Autofac.4.3.0/lib/net45/Autofac.dll": {},
         "../../packages/HtmlAgilityPack.1.4.9.5/lib/Net45/HtmlAgilityPack.dll": {},
         "../../packages/Newtonsoft.Json.9.0.1/lib/net45/Newtonsoft.Json.dll": {},
-        "bin/Release/Business.CodeExecution.dll": {}
+        "bin/Debug/Business.CodeExecution.dll": {}
       },
       "contentFiles": {
-        "bin/Release/Business.CodeExecution.pdb": {
+        "bin/Debug/Business.CodeExecution.pdb": {
           "buildAction": "None",
           "codeLanguage": "any",
           "copyToOutput": true
@@ -124,15 +124,15 @@
       "type": "project",
       "framework": ".NETFramework,Version=v4.6",
       "compile": {
-        "bin/Release/Business.Identity.dll": {}
+        "bin/Debug/Business.Identity.dll": {}
       },
       "runtime": {
         "../../packages/AutoMapper.5.2.0/lib/net45/AutoMapper.dll": {},
         "../../packages/Microsoft.AspNet.Identity.Core.2.2.1/lib/net45/Microsoft.AspNet.Identity.Core.dll": {},
-        "bin/Release/Business.Identity.dll": {}
+        "bin/Debug/Business.Identity.dll": {}
       },
       "contentFiles": {
-        "bin/Release/Business.Identity.pdb": {
+        "bin/Debug/Business.Identity.pdb": {
           "buildAction": "None",
           "codeLanguage": "any",
           "copyToOutput": true
@@ -143,15 +143,15 @@
       "type": "project",
       "framework": ".NETFramework,Version=v4.6",
       "compile": {
-        "bin/Release/Data.Challenges.dll": {}
+        "bin/Debug/Data.Challenges.dll": {}
       },
       "runtime": {
         "../../packages/EntityFramework.6.1.3/lib/net45/EntityFramework.SqlServer.dll": {},
         "../../packages/EntityFramework.6.1.3/lib/net45/EntityFramework.dll": {},
-        "bin/Release/Data.Challenges.dll": {}
+        "bin/Debug/Data.Challenges.dll": {}
       },
       "contentFiles": {
-        "bin/Release/Data.Challenges.pdb": {
+        "bin/Debug/Data.Challenges.pdb": {
           "buildAction": "None",
           "codeLanguage": "any",
           "copyToOutput": true
@@ -162,14 +162,14 @@
       "type": "project",
       "framework": ".NETFramework,Version=v4.6",
       "compile": {
-        "bin/Release/Data.Common.dll": {}
+        "bin/Debug/Data.Common.dll": {}
       },
       "runtime": {
         "../../packages/EntityFramework.6.1.3/lib/net45/EntityFramework.dll": {},
-        "bin/Release/Data.Common.dll": {}
+        "bin/Debug/Data.Common.dll": {}
       },
       "contentFiles": {
-        "bin/Release/Data.Common.pdb": {
+        "bin/Debug/Data.Common.pdb": {
           "buildAction": "None",
           "codeLanguage": "any",
           "copyToOutput": true
@@ -180,17 +180,17 @@
       "type": "project",
       "framework": ".NETFramework,Version=v4.6",
       "compile": {
-        "bin/Release/Data.Identity.dll": {}
+        "bin/Debug/Data.Identity.dll": {}
       },
       "runtime": {
         "../../packages/EntityFramework.6.1.3/lib/net45/EntityFramework.SqlServer.dll": {},
         "../../packages/EntityFramework.6.1.3/lib/net45/EntityFramework.dll": {},
         "../../packages/Microsoft.AspNet.Identity.Core.2.2.1/lib/net45/Microsoft.AspNet.Identity.Core.dll": {},
         "../../packages/Microsoft.AspNet.Identity.EntityFramework.2.2.1/lib/net45/Microsoft.AspNet.Identity.EntityFramework.dll": {},
-        "bin/Release/Data.Identity.dll": {}
+        "bin/Debug/Data.Identity.dll": {}
       },
       "contentFiles": {
-        "bin/Release/Data.Identity.pdb": {
+        "bin/Debug/Data.Identity.pdb": {
           "buildAction": "None",
           "codeLanguage": "any",
           "copyToOutput": true

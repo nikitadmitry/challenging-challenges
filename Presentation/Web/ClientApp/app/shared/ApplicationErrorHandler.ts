@@ -1,9 +1,11 @@
 import { ErrorHandler, Injectable } from "@angular/core";
 import { NotificationsService } from "angular2-notifications";
+import {TranslationService} from "angular-l10n";
 
 @Injectable()
 export class ApplicationErrorHandler extends ErrorHandler {
-    constructor(private notificationsService: NotificationsService) {
+    constructor(private notificationsService: NotificationsService,
+                private translationService: TranslationService) {
         super();
     }
 
@@ -19,7 +21,9 @@ export class ApplicationErrorHandler extends ErrorHandler {
         }
 
         if (zoneError.status === 500) {
-            this.displayError("Произошла ошибка на сервере. Попробуйте перезагрузить страницу.");
+            var serverError = this.translationService.translate("Common.ServerError");
+            this.displayError(serverError);
+            setTimeout(() => location.reload(), 5000);
             return;
         }
 

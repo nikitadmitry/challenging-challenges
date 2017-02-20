@@ -16,7 +16,7 @@ namespace Business.Identity.ViewModels
             set;
         }
 
-        public double Rating
+        public int Rating
         {
             get;
             set;

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using AutoMapper;
 using Business.Identity.ViewModels;
 using Data.Identity.Entities;
@@ -60,7 +61,7 @@ namespace Business.Identity.Mappings
             CreateMap<User, UserTopViewModel>()
                 .ForMember(t => t.UserId, o => o.MapFrom(s => s.Id))
                 .ForMember(t => t.UserName, o => o.MapFrom(s => s.UserName))
-                .ForMember(t => t.Rating, o => o.MapFrom(s => s.Rating))
+                .ForMember(t => t.Rating, o => o.MapFrom(s => Math.Round(s.Rating)))
                 .ForMember(t => t.PostedChallenges, o => o.MapFrom(s => s.PostedTasksQuantity))
                 .ForMember(t => t.SolvedChallenges, o => o.MapFrom(s => s.SolvedTasksQuantity));
         }

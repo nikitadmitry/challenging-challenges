@@ -1,49 +1,48 @@
-import { Component, ViewChild, OnInit } from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import { TranslationService } from "angular-l10n";
-import { DatatableComponent } from "@swimlane/ngx-datatable";
 
 import { HomeService } from "../home.service";
 
 @Component({
     selector: "top-users",
     template: require("./top-users.component.html"),
-    providers: [HomeService]
+    providers: [HomeService],
+    styles: [`
+        mdl-list-item {
+            cursor: pointer;
+        }
+    `]
 })
 export class TopUsersComponent implements OnInit {
     usersLoaded: boolean = false;
-
-    @ViewChild(DatatableComponent)
-    usersTable : DatatableComponent;
+    users: Array<any>;
 
     constructor(private homeService: HomeService, private translation: TranslationService) { }
 
     ngOnInit(): void {
         this.translation.translationChanged.subscribe(() => {
-            this.initializeTableColumns();
+            this.initializeDescriptions();
         });
 
-        this.homeService.getTopUsers().subscribe(users => {
-            this.initUsersTable(users);
+        this.homeService.getTopUsers().subscribe((users) => {
+            this.users = users;
+            this.initializeDescriptions();
             this.usersLoaded = true;
         });
     }
 
-    private initUsersTable(users: any[]): void {
-        this.initializeTableColumns();
-        this.usersTable.rows = users;
-        this.usersTable.sorts = [{prop: "rating", dir: "desc"}];
+    initializeDescriptions() {
+        this.users.forEach(user => this.setDescription(user));
     }
 
-    private initializeTableColumns(): void {
-        this.usersTable.columns = [
-            { prop: "userName", name: this.translation.translate("Home.UserName"), sortable: false },
-            { prop: "rating", name: this.translation.translate("Home.Rating"), sortable: false },
-            { prop: "solvedChallenges", name: this.translation.translate("Home.SolvedChallenges"), sortable: false },
-            { prop: "postedChallenges", name: this.translation.translate("Home.PostedChallenges"), sortable: false }
-        ];
+    openUserProfile(userId: string): void {
+        console.debug(userId);
     }
 
-    openUserProfile(e: any): void {
-        console.debug(e.row.userId);
+    private setDescription(user: any) {
+        var descriptionTemplate = this.translation.translate("Home.TopUserDescriptionTemplate");
+        user.description = descriptionTemplate.replace("solvedChallenges", user.solvedChallenges)
+            .replace("postedChallenges", user.postedChallenges)
+            .replace("rating", user.rating);
     }
 }

@@ -103,8 +103,9 @@ namespace Business.Identity
             var parameters = new QueryParameters
             {
                 SortSettings = SortSettingsBuilder<User>.Create()
-                    .DescendingBy("Rating")
+                    .DescendingBy(x => x.Rating)
                     .GetSettings(),
+
                 PageRule = new PageRule
                 {
                     Count = 10,

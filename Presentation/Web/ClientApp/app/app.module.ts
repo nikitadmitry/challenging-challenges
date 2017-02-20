@@ -1,8 +1,8 @@
 import { NgModule, ErrorHandler, APP_INITIALIZER } from "@angular/core";
 import { UniversalModule } from "angular2-universal";
-import { DISABLE_NATIVE_VALIDITY_CHECKING } from "angular2-mdl";
+import {DISABLE_NATIVE_VALIDITY_CHECKING} from "angular2-mdl";
 import { SimpleNotificationsModule, NotificationsService } from "angular2-notifications";
-import { TranslationModule } from "angular-l10n";
+import {TranslationModule, TranslationService} from "angular-l10n";
 import { FormsModule } from "@angular/forms";
 
 import { AppComponent } from "./app.component";
@@ -12,6 +12,7 @@ import { AppRoutingModule } from "./routing/app-routing.module";
 import { ApplicationErrorHandler } from "./shared/ApplicationErrorHandler";
 import { SharedModule } from "./shared/shared.module";
 import { LocalizationConfig, initLocalization } from "./localization/LocalizationConfig";
+import {HomeModule} from "./home/home.module";
 
 @NgModule({
     bootstrap: [ AppComponent ],
@@ -26,7 +27,8 @@ import { LocalizationConfig, initLocalization } from "./localization/Localizatio
         AuthModule,
         SharedModule,
         FormsModule,
-        AppRoutingModule
+        AppRoutingModule,
+        HomeModule
     ],
     providers: [
         LocalizationConfig,
@@ -42,8 +44,9 @@ import { LocalizationConfig, initLocalization } from "./localization/Localizatio
         },
         {
             provide: ErrorHandler,
-            useFactory: (notificationsService) => new ApplicationErrorHandler(notificationsService),
-            deps: [NotificationsService]
+            useFactory: (notificationsService, translationService) =>
+                new ApplicationErrorHandler(notificationsService, translationService),
+            deps: [NotificationsService, TranslationService]
         }
     ]
 })

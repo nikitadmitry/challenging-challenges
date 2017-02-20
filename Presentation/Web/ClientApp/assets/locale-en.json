@@ -1,4 +1,7 @@
 {
+    "Common": {
+      "ServerError": "Server error occurred. Page will be automatically refreshed."
+    },
     "NavMenu": {
         "Main": "Main Page",
         "Challenges": "Challenges",
@@ -17,6 +20,8 @@
         "PostedChallenges": "Posted Challenges",
         "LatestChallenges": "Latest Challenges",
         "PopularChallenges": "Popular Challenges",
-        "UnsolvedChallenges": "Unsolved Challenges"
+        "UnsolvedChallenges": "Unsolved Challenges",
+        "TopUsers": "Top Users",
+        "TopUserDescriptionTemplate": "Solved solvedChallenges Challenges and created postedChallenges Challenges to achieve level rating."
     } 
 }

@@ -1,5 +1,19 @@
+<h3 [hidden]="!usersLoaded" translate>Home.TopUsers</h3>
 <loading-spinner [active]="!usersLoaded"></loading-spinner>
 <!--<mdl-table *ngIf="usersLoaded" mdl-shadow="4" [table-model]="users"></mdl-table>-->
-<ngx-datatable (activate)="openUserProfile($event)" [hidden]="!usersLoaded" class="material striped"
-        [headerHeight]="40"
-        [rowHeight]="40"></ngx-datatable>
+<!--<ngx-datatable (activate)="openUserProfile($event)" [hidden]="!usersLoaded" class="material striped"-->
+        <!--[headerHeight]="40" [rowHeight]="40"></ngx-datatable>-->
+<mdl-list [hidden]="!usersLoaded">
+    <mdl-list-item *ngFor="let user of users" lines="3" mdl-ripple (click)="openUserProfile(user.userId)">
+        <mdl-list-item-primary-content>
+            <mdl-icon mdl-list-item-avatar>person</mdl-icon>
+            <span>{{user.userName}}</span>
+            <mdl-list-item-text-body>
+                {{user.description}}
+            </mdl-list-item-text-body>
+        </mdl-list-item-primary-content>
+        <mdl-list-item-secondary-content>
+            <a href="#"><mdl-icon>open_in_new</mdl-icon></a>
+        </mdl-list-item-secondary-content>
+    </mdl-list-item>
+</mdl-list>

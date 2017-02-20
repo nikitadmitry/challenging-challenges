@@ -9,5 +9,7 @@
     "SearchField": "Search Field",
     "Keyword": "Search Query",
     "Search": "Search",
-    "CreateChallenge": "Create Challenge"
+    "CreateChallenge": "Create Challenge",
+    "Previous": "Previous",
+    "Next": "Next"
 }

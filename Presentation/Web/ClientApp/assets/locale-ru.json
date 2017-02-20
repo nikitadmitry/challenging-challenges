@@ -1,4 +1,7 @@
 {
+    "Common": {
+        "ServerError": "Произошла ошибка на сервере. Страница будет автоматически перезагружена."
+    },
     "NavMenu": {
         "Main": "Главная",
         "Challenges": "Задачи",
@@ -17,6 +20,8 @@
         "PostedChallenges": "Созданные задачи",
         "LatestChallenges": "Последние задачи",
         "PopularChallenges": "Популярные задачи",
-        "UnsolvedChallenges": "Нерешенные задачи"
+        "UnsolvedChallenges": "Нерешенные задачи",
+        "TopUsers": "Топ Пользователей",
+        "TopUserDescriptionTemplate": "Решил solvedChallenges задач и создал postedChallenges задач чтобы достичь уровня rating."
     }
 }

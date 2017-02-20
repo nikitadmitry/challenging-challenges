@@ -9,5 +9,7 @@
     "SearchField": "Поле для поиска",
     "Keyword": "Поисковой запрос",
     "Search": "Поиск",
-    "CreateChallenge": "Создать задачу"
+    "CreateChallenge": "Создать задачу",
+    "Previous": "Назад",
+    "Next": "Вперед"
 }
