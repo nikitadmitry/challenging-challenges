@@ -10,6 +10,7 @@ interface Home {
     getChallenges: string;
     getChallengesCount: string;
     getTopUsers: string;
+    getPopularTags: string;
 }
 
 interface Challenges {

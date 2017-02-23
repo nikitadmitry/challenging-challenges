@@ -25,6 +25,7 @@ export class ChallengesComponent extends Translation implements OnInit {
     private currentPage: number = 0;
     previousPageEnabled: boolean = false;
     nextPageEnabled: boolean = false;
+    noChallenges: boolean = false;
 
     constructor(private challengesService: ChallengesService, translationService: TranslationService) {
         super(translationService);
@@ -46,6 +47,7 @@ export class ChallengesComponent extends Translation implements OnInit {
             this.challenges = challenges;
             this.nextPageEnabled = challenges.length === this.PAGE_SIZE;
             this.isLoading = false;
+            this.noChallenges = challenges.length === 0;
         });
     }
 

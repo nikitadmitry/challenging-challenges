@@ -30,9 +30,11 @@ namespace Presentation.Web.Controllers
         /// TODO.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<string> GetTags()
+        public IEnumerable<string> GetPopularTags()
         {
-            return Enumerable.Empty<string>();
+            yield return "TAG1";
+            yield return "TAG14";
+            yield return "TAG22";
         }
     }
 }

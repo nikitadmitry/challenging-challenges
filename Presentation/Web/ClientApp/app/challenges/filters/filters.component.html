@@ -14,11 +14,11 @@
     autofocus></mdl-textfield>
 </div>
 <div class="mdl-cell mdl-cell--3-col button-cell">
-  <button mdl-button mdl-button-type="raised" mdl-colored="primary" (click)="changeFilter.emit()">
+  <button mdl-button mdl-colored="primary" mdl-ripple (click)="changeFilter.emit()">
     <mdl-icon>search</mdl-icon>
     {{ 'Search' | translate:lang }}
   </button>
-  <button class="add-challenge-button" mdl-button mdl-button-type="raised" mdl-colored="accent">
+  <button mdl-button mdl-ripple mdl-colored="accent">
     <mdl-icon>add</mdl-icon>
     {{ 'CreateChallenge' | translate:lang }}
   </button>

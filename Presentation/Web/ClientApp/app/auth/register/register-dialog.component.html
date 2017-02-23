@@ -1,29 +1,30 @@
-<h3 class="mdl-dialog__title">Регистрация</h3>
+<h3 class="mdl-dialog__title" translate>Auth.Registration</h3>
 <form [formGroup]="registerForm" (ngSubmit)="register()">
     <div class="mdl-dialog__content">
         <mdl-textfield-validated [formControl]="registerForm.controls.userName"
-                    label="Имя пользователя"
+                    label="{{ 'Auth.UserName' | translate:lang }}"
                     name="userName"
                     type="text"
                     floating-label></mdl-textfield-validated>
         <mdl-textfield-validated [formControl]="registerForm.controls.email"
-                    label="Электронная почта"
+                    label="{{ 'Auth.Email' | translate:lang }}"
                     name="email"
                     type="text"
                     floating-label></mdl-textfield-validated>
         <mdl-textfield-validated [formControl]="registerForm.controls.password"
-                    label="Пароль"
+                    label="{{ 'Auth.Password' | translate:lang }}"
                     name="password"
                     type="password"
                     floating-label></mdl-textfield-validated>
         <mdl-textfield-validated [formControl]="registerForm.controls.confirmPassword"
-                    label="Подтверждение пароля"
+                    label="{{ 'Auth.PasswordConfirmation' | translate:lang }}"
                     name="confirmPassword"
                     type="password"
                     floating-label></mdl-textfield-validated>
     </div>
     <div class="mdl-dialog__actions">
-        <button mdl-button [disabled]="!registerForm.valid" type="submit" mdl-button-type="raised" mdl-colored="primary" mdl-ripple>Регистрация</button>
-        <button mdl-button type="button" (click)="cancel()">Отмена</button>
+        <button mdl-button [disabled]="!registerForm.valid" type="submit" mdl-button-type="raised"
+                mdl-colored="primary" mdl-ripple translate>Auth.Registration</button>
+        <button mdl-button type="button" (click)="cancel()" translate>Common.Cancel</button>
     </div>
 </form>

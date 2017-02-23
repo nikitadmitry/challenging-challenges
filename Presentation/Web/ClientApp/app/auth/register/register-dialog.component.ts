@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 import { AuthService } from "../auth.service";
 import { RegistrationValidator } from "./RegistrationValidator";
+import {Translation, TranslationService} from "angular-l10n";
 
 @Component({
     selector: "register",
@@ -11,12 +12,16 @@ import { RegistrationValidator } from "./RegistrationValidator";
     styles: [require("./register-dialog.component.css")],
     providers: [AuthService, RegistrationValidator]
 })
-export class RegisterDialogComponent implements OnInit {
+export class RegisterDialogComponent extends Translation implements OnInit {
     registerForm: FormGroup;
     userName: string;
 
     constructor(private authService: AuthService, private fb: FormBuilder,
-        private registerDialog: MdlDialogReference, private registrationValidator: RegistrationValidator) { }
+        private registerDialog: MdlDialogReference,
+        private registrationValidator: RegistrationValidator,
+        translationService: TranslationService) {
+        super(translationService);
+    }
 
     ngOnInit(): void {
         this.registerForm = this.fb.group({

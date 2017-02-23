@@ -1,6 +1,7 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { MdlDialogReference } from "angular2-mdl";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { TranslationService, Translation } from "angular-l10n";
 
 import { AuthService } from "../auth.service";
 
@@ -10,12 +11,14 @@ import { AuthService } from "../auth.service";
     styles: [require("./login-dialog.component.css")],
     providers: [AuthService]
 })
-export class LoginDialogComponent implements OnInit {
+export class LoginDialogComponent extends Translation implements OnInit {
     loginForm: FormGroup;
     userName: string;
 
     constructor(private authService: AuthService, private fb: FormBuilder,
-    private loginDialog: MdlDialogReference) { }
+    private loginDialog: MdlDialogReference, translationService: TranslationService ) {
+        super(translationService);
+    }
 
     ngOnInit(): void {
         this.loginForm = this.fb.group({
@@ -23,6 +26,8 @@ export class LoginDialogComponent implements OnInit {
             password: ["", Validators.compose([Validators.required, Validators.minLength(6)])]
         });
     }
+
+    private localize
 
     login(): void {
         if (this.loginForm.valid) {

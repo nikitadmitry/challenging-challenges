@@ -22,4 +22,9 @@ export class HomeService {
         return this.http.get(Actions.home.getTopUsers)
             .map(response => response.json() as any[]);
     }
+
+    getPopularTags(): Observable<string[]> {
+        return this.http.get(Actions.home.getPopularTags)
+            .map(response => response.json() as string[]);
+    }
 }

@@ -31,6 +31,7 @@ export class ApplicationErrorHandler extends ErrorHandler {
     }
 
     private displayError(error: string): void {
-        setTimeout(() => this.notificationsService.error("Ошибка", error)); // we use setTimeout for dom rerender.
+        setTimeout(() => this.notificationsService.error(
+            this.translationService.translate("Common.Error"), error)); // we use setTimeout for dom re-render.
     }
 }

@@ -40,9 +40,7 @@ export class TopUsersComponent implements OnInit {
     }
 
     private setDescription(user: any) {
-        var descriptionTemplate = this.translation.translate("Home.TopUserDescriptionTemplate");
-        user.description = descriptionTemplate.replace("solvedChallenges", user.solvedChallenges)
-            .replace("postedChallenges", user.postedChallenges)
-            .replace("rating", user.rating);
+        user.description = this.translation.translate("Home.TopUserDescriptionTemplate",
+            [user.solvedChallenges, user.postedChallenges,user.rating]);
     }
 }

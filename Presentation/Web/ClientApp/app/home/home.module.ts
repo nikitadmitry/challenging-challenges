@@ -3,7 +3,6 @@ import { RouterModule } from "@angular/router";
 import { NgModule } from "@angular/core";
 import { Ng2PaginationModule } from "ng2-pagination";
 import { TranslationModule } from "angular-l10n";
-import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 
 import { HomeComponent } from "./home.component";
 import { ChallengeCardComponent } from "./challenges/challenge-card.component";
@@ -27,8 +26,7 @@ import { SharedModule } from "../shared/shared.module";
         Ng2PaginationModule,
         RouterModule.forChild([{ path: "", component: HomeComponent }]),
         SharedModule,
-        TranslationModule,
-        NgxDatatableModule
+        TranslationModule
     ],
     exports: [HomeComponent]
 })

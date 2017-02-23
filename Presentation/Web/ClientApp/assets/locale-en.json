@@ -1,6 +1,8 @@
 {
     "Common": {
-      "ServerError": "Server error occurred. Page will be automatically refreshed."
+      "ServerError": "Server error occurred. Page will be automatically refreshed.",
+      "Cancel": "Cancel",
+      "Error": "Error"
     },
     "NavMenu": {
         "Main": "Main Page",
@@ -12,16 +14,32 @@
             "SignOut": "Sign Out"
         }
     },
+    "Auth": {
+      "Login": "Login",
+      "UserName": "User Name",
+      "Password": "Password",
+      "LoginDialogTitle": "Login",
+      "Email": "Email Address",
+      "PasswordConfirmation": "Password Confirmation",
+      "Registration": "Registration"
+    },
     "Home": {
         "Open": "Open",
-        "UserName": "User Name",
-        "Rating": "Rating",
-        "SolvedChallenges": "Solved Challenges",
-        "PostedChallenges": "Posted Challenges",
         "LatestChallenges": "Latest Challenges",
         "PopularChallenges": "Popular Challenges",
         "UnsolvedChallenges": "Unsolved Challenges",
         "TopUsers": "Top Users",
-        "TopUserDescriptionTemplate": "Solved solvedChallenges Challenges and created postedChallenges Challenges to achieve level rating."
-    } 
+        "TopUserDescriptionTemplate": "Solved {{0}} Challenges and created {{1}} Challenges to achieve level {{2}}.",
+        "PopularTags": "Popular Tags"
+    },
+    "Validation": {
+      "required": "Field is required.",
+      "minlength": "Minimal field length is {{0}} symbols.",
+      "maxlength": "Maximal field length is {{0}} symbols.",
+      "email": "Input correct Email Address.",
+      "usernameTaken": "Provided User Name is already registered.",
+      "emailRegistered": "Email Address is in use.",
+      "passwordComplexity": "Password must contain lowercase, uppercase letter and number.",
+      "equalToPassword": "Passwords must match"
+    }
 }

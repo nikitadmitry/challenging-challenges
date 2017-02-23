@@ -1,6 +1,8 @@
 {
     "Common": {
-        "ServerError": "Произошла ошибка на сервере. Страница будет автоматически перезагружена."
+        "ServerError": "Произошла ошибка на сервере. Страница будет автоматически перезагружена.",
+        "Cancel": "Отмена",
+        "Error": "Ошибка"
     },
     "NavMenu": {
         "Main": "Главная",
@@ -12,16 +14,32 @@
             "SignOut": "Выйти"
         }
     },
+    "Auth": {
+        "Login": "Войти",
+        "UserName": "Имя Пользователя",
+        "Password": "Пароль",
+        "LoginDialogTitle": "Вход",
+        "Email": "Электронная почта",
+        "PasswordConfirmation": "Подтверждеие пароля",
+        "Registration": "Регистрация"
+    },
     "Home": {
         "Open": "Открыть",
-        "UserName": "Имя Пользователя",
-        "Rating": "Рейтинг",
-        "SolvedChallenges": "Решенные задачи",
-        "PostedChallenges": "Созданные задачи",
         "LatestChallenges": "Последние задачи",
         "PopularChallenges": "Популярные задачи",
         "UnsolvedChallenges": "Нерешенные задачи",
         "TopUsers": "Топ Пользователей",
-        "TopUserDescriptionTemplate": "Решил solvedChallenges задач и создал postedChallenges задач чтобы достичь уровня rating."
+        "TopUserDescriptionTemplate": "Решил {{0}} задач и создал {{1}} задач чтобы достичь уровня {{2}}.",
+        "PopularTags": "Популярные Теги"
+    },
+    "Validation": {
+        "required": "Поле обязательно для заполнения.",
+        "minlength": "Минимальная длина поля {{0}} символов.",
+        "maxlength": "Максимальная длина поля {{0}} символов.",
+        "email": "Введите корректный адрес.",
+        "usernameTaken": "Введенное имя уже зарегистрировано.",
+        "emailRegistered": "Адрес уже используется.",
+        "passwordComplexity": "Пароль должен содержать прописную, заглавную буквы и цифру.",
+        "equalToPassword": "Пароли должны совпадать."
     }
 }

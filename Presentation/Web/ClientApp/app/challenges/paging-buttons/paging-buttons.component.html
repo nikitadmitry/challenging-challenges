@@ -1,9 +1,9 @@
 <div>
-     <button mdl-button mdl-button-type="raised" mdl-colored="primary" mdl-ripple
+     <button mdl-button mdl-ripple
         [disabled]="!previousPageEnabled" (click)="previousPage.emit()" translate>
          <mdl-icon>undo</mdl-icon> Previous
      </button>
-    <button mdl-button mdl-button-type="raised" mdl-colored="primary" mdl-ripple
+    <button mdl-button mdl-ripple
         style="float: right" [disabled]="!nextPageEnabled" (click)="nextPage.emit()" translate>
         <mdl-icon>redo</mdl-icon>  Next
     </button>

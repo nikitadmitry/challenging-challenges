@@ -2,16 +2,19 @@
     <filters mdl-shadow="4" class="mdl-grid mdl-cell mdl-cell--12-col mdl-padded"
       [(searchType)]="selectedSearchType" [(searchString)]="searchString" (changeFilter)="changeFilter()"></filters>
 
-    <paging-buttons class="mdl-cell mdl-cell--12-col" 
+    <paging-buttons class="mdl-cell mdl-cell--12-col" [hidden]="noChallenges"
       [nextPageEnabled]="nextPageEnabled" [previousPageEnabled]="previousPageEnabled"
       (nextPage)="nextPage()" (previousPage)="previousPage()"></paging-buttons>
 
     <loading-spinner [active]="isLoading"></loading-spinner>
 
-    <challenge mdl-shadow="4" class="mdl-cell mdl-cell--12-col" 
-      *ngFor="let challenge of challenges" [challenge]="challenge"></challenge>
+    <div [hidden]="!noChallenges" class="no-search-results">
+        <h2>Search returned no results.</h2>
+    </div>
 
-    <paging-buttons class="mdl-cell mdl-cell--12-col" 
+    <challenge mdl-shadow="4" *ngFor="let challenge of challenges" class="mdl-cell mdl-cell--12-col" [challenge]="challenge"></challenge>
+
+    <paging-buttons class="mdl-cell mdl-cell--12-col" [hidden]="noChallenges"
       [nextPageEnabled]="nextPageEnabled" [previousPageEnabled]="previousPageEnabled"
       (nextPage)="nextPage()" (previousPage)="previousPage()"></paging-buttons>
 </div>

@@ -6,10 +6,6 @@
     padding: 15px 0;
 }
 
-.add-challenge-button {
-    float: right;
-}
-
 :host >>> .mdl-select .mdl-textfield {
     width: 100%;
 }

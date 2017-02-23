@@ -5,7 +5,12 @@ import { ChallengeInfoViewModel } from "../models/ChallengeInfoViewModel";
 
 @Component({
     selector: "challenge",
-    template: require("./challenge.component.html")
+    template: require("./challenge.component.html"),
+    styles: [`
+        mdl-card-supporting-text {
+            min-height: 55px;
+        }    
+    `]
 })
 export class ChallengeComponent extends Translation {
     @Input()

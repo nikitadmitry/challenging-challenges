@@ -1,4 +1,4 @@
-<mdl-card class="mdl-cell mdl-cell--12-col mdl-padded">
+<mdl-card class="mdl-cell mdl-cell--12-col">
     <mdl-card-title>
         <h2 mdl-card-title-text>{{challenge.title}}</h2>
     </mdl-card-title>
@@ -9,8 +9,8 @@
         <button mdl-button mdl-colored mdl-ripple>{{'Home.Open' | translate:lang}}</button>
     </mdl-card-actions>
     <mdl-card-menu>
-        <button mdl-button mdl-button-type="icon" (click)="showAditionalInfo()" mdl-ripple>
-        <mdl-icon>info</mdl-icon>
-    </button>
+        <button mdl-button mdl-button-type="raised" mdl-colored="primary" mdl-ripple>
+            <mdl-icon>launch</mdl-icon> {{'Challenges.Open' | translate:lang}}
+        </button>
     </mdl-card-menu>
 </mdl-card>

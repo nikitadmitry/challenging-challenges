@@ -1,8 +1,11 @@
 import { Injectable } from "@angular/core";
 import { AbstractControl } from "@angular/forms";
+import { TranslationService } from "angular-l10n";
 
 @Injectable()
 export class FormControlValidationMessagesBuilder {
+    constructor(private translationService: TranslationService) { }
+
     public build(control: AbstractControl): Array<string> {
         if (!control.errors) {
             return new Array<string>();
@@ -20,23 +23,12 @@ export class FormControlValidationMessagesBuilder {
     }
 
     private getErrorMessage(errorName: string, errorContext: any): string {
+        var errorTemplate = this.translationService.translate("Validation." + errorName);
         switch (errorName) {
-            case "required":
-                return `Поле обязательно для заполнения.`;
             case "minlength":
-                return `Минимальная длина поля ${errorContext.requiredLength} символа.`;
+                return `Минимальная длина поля ${errorContext.requiredLength}.`;
             case "maxlength":
-                return `Максимальная длина поля ${errorContext.requiredLength} символа.`;
-            case "email":
-                return "Введите корректный адрес.";
-            case "usernameTaken":
-                return "Введенное имя уже зарегистрировано.";
-            case "emailRegistered":
-                return "Адрес уже используется.";
-            case "passwordComplexity":
-                return "Пароль должен содержать прописную, заглавную буквы и цифру.";
-            case "equalToPassword":
-                return "Пароли должны совпадать.";
+                return `Максимальная длина поля ${errorContext.requiredLength}.`;
             default:
                 return "";
         }
