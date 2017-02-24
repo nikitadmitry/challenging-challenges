@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { Translation, TranslationService } from "angular-l10n";
-import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/publishReplay";
 import "rxjs/add/operator/merge";
 import "rxjs/add/observable/forkJoin";

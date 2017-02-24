@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AutoMapper;
+using Business.Challenges.Exceptions;
 using Business.Challenges.ViewModels;
 using Data.Challenges.Context;
 using Data.Challenges.Entities;
@@ -32,7 +34,14 @@ namespace Business.Challenges.Private.SearchStrategies
 
             if (!searchOptions.Keyword.IsNullOrEmpty())
             {
-                PopulateFilterSettings(filterSettingsBuilder, searchOptions.Keyword);
+                try
+                {
+                    PopulateFilterSettings(filterSettingsBuilder, searchOptions.Keyword);
+                }
+                catch (NoResultsException)
+                {
+                    return new List<ChallengeInfoViewModel>();
+                }
             }
 
             queryParameters.FilterSettings = filterSettingsBuilder.GetSettings();

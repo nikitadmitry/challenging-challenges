@@ -26,6 +26,11 @@ export class FiltersComponent extends Translation {
         });
     }
 
+    submit(): void {
+
+        this.changeFilter.emit();
+    }
+
     private initializeSearchTypes(): void {
         this.searchTypes = [
             {type: ChallengeSearchType.Title, name: this.translation.translate("Title")},

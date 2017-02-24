@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using AutoMapper;
+using Business.Challenges.Exceptions;
 using Data.Challenges.Context;
 using Data.Challenges.Entities;
 using Data.Common.Query.Builder;
@@ -32,7 +33,7 @@ namespace Business.Challenges.Private.SearchStrategies
             }
             else
             {
-                filterSettingsBuilder.AddFilterRule(PropertyExpression, FilterOperator.IsEqualTo, -1);
+                throw new NoResultsException();
             }
         }
 
