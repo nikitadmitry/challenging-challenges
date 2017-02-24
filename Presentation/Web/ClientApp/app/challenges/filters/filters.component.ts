@@ -9,14 +9,10 @@ import { ChallengeSearchType } from "../models/ChallengeSearchType";
     styles: [require("./filters.component.css")]
 })
 export class FiltersComponent extends Translation {
-    @Input() set searchType(value: ChallengeSearchType) {
-        this.searchTypeChange.emit(value);
-    };
+    @Input() searchType: ChallengeSearchType;
     @Output() searchTypeChange: EventEmitter<ChallengeSearchType> = new EventEmitter<ChallengeSearchType>();
 
-    @Input() set searchString(value: string) {
-        this.searchStringChange.emit(value);
-    };
+    @Input() searchString: string;
     @Output() searchStringChange: EventEmitter<string> = new EventEmitter<string>();
 
     searchTypes: any[];

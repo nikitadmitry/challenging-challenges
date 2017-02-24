@@ -16,9 +16,9 @@
             <span *ngIf="challenge.rating < 1 && challenge.rating > 0" mdl-chip-contact class="mdl-color--red-800 mdl-color-text--white">D</span>
             <span *ngIf="challenge.rating === 0" mdl-chip-contact class="mdl-color-text--white">0</span>
         </mdl-chip>
-        <mdl-chip mdl-label="{{challenge.difficulty | enum:'difficulty' | translate:lang }}"></mdl-chip>
-        <mdl-chip mdl-label="{{challenge.language | enum:'language' | translate:lang }}"></mdl-chip>
-        <button *ngFor="let tag of challenge.tags" class="tag-button" mdl-button [mdl-toggle-menu]="menu" mdl-ripple>{{tag}}</button>
+        <mdl-chip (click)="searchByDifficulty(challenge.difficulty)" mdl-label="{{challenge.difficulty | enum:'difficulty' | translate:lang }}"></mdl-chip>
+        <mdl-chip (click)="searchByLanguage(challenge.language)" mdl-label="{{challenge.language | enum:'language' | translate:lang }}"></mdl-chip>
+        <button (click)="searchByTag(tag)" *ngFor="let tag of challenge.tags" class="tag-button" mdl-button mdl-ripple>{{tag}}</button>
     </mdl-card-actions>
     <mdl-card-menu>
         <div>

@@ -28,6 +28,20 @@ export class ChallengeComponent extends Translation {
         this.redirect(ChallengeSearchType.Section, keyword);
     }
 
+    searchByDifficulty(difficulty: number): void {
+        var keyword = this.translation.translate(this.enumPipe.transform(difficulty, "difficulty"));
+        this.redirect(ChallengeSearchType.Difficulty, keyword);
+    }
+
+    searchByLanguage(language: number): void {
+        var keyword = this.translation.translate(this.enumPipe.transform(language, "language"));
+        this.redirect(ChallengeSearchType.Language, keyword);
+    }
+
+    searchByTag(tag: string): void {
+        this.redirect(ChallengeSearchType.Tags, tag);
+    }
+
     private redirect(searchType: ChallengeSearchType, keyword: string): void {
         var redirectModel = new RedirectSearchModel();
         redirectModel.searchType = searchType;

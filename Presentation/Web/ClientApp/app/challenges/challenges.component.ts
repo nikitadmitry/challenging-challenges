@@ -9,6 +9,7 @@ import { ChallengesService } from "../challenges/challenges.service";
 import { ChallengeSearchType } from "./models/ChallengeSearchType";
 import { ChallengesSearchOptions } from "./models/ChallengesSearchOptions";
 import {PageRule} from "../shared/models/PageRule";
+import {RedirectSearchModel} from "./models/RedirectSearchModel";
 
 @Component({
     selector: "challenges",
@@ -51,7 +52,13 @@ export class ChallengesComponent extends Translation implements OnInit {
         });
     }
 
-    changeFilter(): void {
+    redirect(redirectModel: RedirectSearchModel): void {
+        this.selectedSearchType = redirectModel.searchType;
+        this.searchString = redirectModel.keyword;
+        this.onChangeFilter();
+    }
+
+    onChangeFilter(): void {
         this.currentPage = 0;
         this.searchChallenges();
     }

@@ -30,6 +30,10 @@ namespace Business.Challenges.Private.SearchStrategies
 
                 filterSettingsBuilder.AddFilterRule(PropertyExpression, FilterOperator.IsEqualTo, value);
             }
+            else
+            {
+                filterSettingsBuilder.AddFilterRule(PropertyExpression, FilterOperator.IsEqualTo, -1);
+            }
         }
 
         private Func<KeyValuePair<TEnum, string[]>, bool> SearchPredicate(string keyword)
