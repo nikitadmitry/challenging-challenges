@@ -1,0 +1,15 @@
+mdl-card-supporting-text {
+    min-height: 55px;
+}
+
+.tag-button {
+    vertical-align: top;
+}
+
+mdl-chip {
+    cursor: pointer;
+}
+
+.open-button {
+    margin-bottom: 10px;
+}

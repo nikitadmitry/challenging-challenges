@@ -139,6 +139,35 @@
         }
       }
     },
+    "Business.SearchIndex/1.0.0": {
+      "type": "project",
+      "framework": ".NETFramework,Version=v4.6",
+      "compile": {
+        "bin/Debug/Business.SearchIndex.dll": {}
+      },
+      "runtime": {
+        "../../packages/Antlr.3.4.1.9004/lib/Antlr3.Runtime.dll": {},
+        "../../packages/AutoMapper.5.2.0/lib/net45/AutoMapper.dll": {},
+        "../../packages/Lucene.Net.3.0.3/lib/NET40/Lucene.Net.dll": {},
+        "../../packages/Microsoft.AspNet.Razor.3.2.3/lib/net45/System.Web.Razor.dll": {},
+        "../../packages/Microsoft.AspNet.WebPages.3.2.3/lib/net45/System.Web.Helpers.dll": {},
+        "../../packages/Microsoft.AspNet.WebPages.3.2.3/lib/net45/System.Web.WebPages.Deployment.dll": {},
+        "../../packages/Microsoft.AspNet.WebPages.3.2.3/lib/net45/System.Web.WebPages.Razor.dll": {},
+        "../../packages/Microsoft.AspNet.WebPages.3.2.3/lib/net45/System.Web.WebPages.dll": {},
+        "../../packages/Microsoft.Web.Infrastructure.1.0.0.0/lib/net40/Microsoft.Web.Infrastructure.dll": {},
+        "../../packages/Newtonsoft.Json.9.0.1/lib/net45/Newtonsoft.Json.dll": {},
+        "../../packages/SharpZipLib.0.86.0/lib/20/ICSharpCode.SharpZipLib.dll": {},
+        "../../packages/WebGrease.1.5.2/lib/WebGrease.dll": {},
+        "bin/Debug/Business.SearchIndex.dll": {}
+      },
+      "contentFiles": {
+        "bin/Debug/Business.SearchIndex.pdb": {
+          "buildAction": "None",
+          "codeLanguage": "any",
+          "copyToOutput": true
+        }
+      }
+    },
     "Data.Challenges/1.0.0": {
       "type": "project",
       "framework": ".NETFramework,Version=v4.6",

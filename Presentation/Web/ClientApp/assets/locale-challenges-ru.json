@@ -12,5 +12,26 @@
     "CreateChallenge": "Создать задачу",
     "Previous": "Назад",
     "Next": "Вперед",
-    "Open": "Открыть"
+    "Open": "Открыть",
+    "Rating": "Рейтинг",
+    "section": {
+        "section-0": "C#",
+        "section-1": "Java",
+        "section-2": "Ruby",
+        "section-3": "Python",
+        "section-4": "Другое"
+    },
+    "difficulty": {
+        "difficulty-0": "Очень легко",
+        "difficulty-1": "Легко",
+        "difficulty-2": "Средне",
+        "difficulty-3": "Сложно",
+        "difficulty-4": "Очень сложно"
+    },
+    "language": {
+        "language-0": "Английский",
+        "language-1": "Русский"
+    },
+    "NotSolved": "Задача не решена.",
+    "BeFirst": "Будь первым!"
 }

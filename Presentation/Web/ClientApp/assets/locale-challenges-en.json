@@ -12,5 +12,26 @@
     "CreateChallenge": "Create Challenge",
     "Previous": "Previous",
     "Next": "Next",
-    "Open": "Open"
+    "Open": "Open",
+    "Rating": "Rating",
+    "section": {
+        "section-0": "C#",
+        "section-1": "Java",
+        "section-2": "Ruby",
+        "section-3": "Python",
+        "section-4": "Other"
+    },
+    "difficulty": {
+        "difficulty-0": "Very Easy",
+        "difficulty-1": "Easy",
+        "difficulty-2": "Intermediate",
+        "difficulty-3": "Hard",
+        "difficulty-4": "Very Hard"
+    },
+    "language": {
+        "language-0": "English",
+        "language-1": "Russian"
+    },
+    "NotSolved": "Not yet solved.",
+    "BeFirst": "Be First!"
 }
