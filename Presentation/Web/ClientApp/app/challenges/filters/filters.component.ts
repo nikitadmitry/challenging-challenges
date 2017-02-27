@@ -27,6 +27,8 @@ export class FiltersComponent extends Translation {
     }
 
     submit(): void {
+        this.searchTypeChange.emit(this.searchType);
+        this.searchStringChange.emit(this.searchString);
 
         this.changeFilter.emit();
     }
