@@ -21,11 +21,11 @@ namespace Business.Challenges.Private.SearchStrategies
 
         protected override IDictionary<Difficulty, string[]> SearchStrings { get; } = new Dictionary<Difficulty, string[]>
         {
-            {Difficulty.VeryEasy, new []{"very easy","очень легк","очень прост"}},
-            {Difficulty.Easy, new []{"easy","легк","прост"}},
+            {Difficulty.VeryEasy, new []{"very easy","очень легко","очень прост"}},
+            {Difficulty.Easy, new []{"easy","легко","прост"}},
             {Difficulty.Intermediate, new []{"средн","intermediate","average"}},
-            {Difficulty.Hard, new []{"hard","тяжел","тяжёл","сложн"}},
-            {Difficulty.VeryHard, new []{"insane","very hard","очень сложн"}}
+            {Difficulty.Hard, new []{"hard","тяжел","тяжёл","сложно"}},
+            {Difficulty.VeryHard, new []{"insane","very hard","очень сложно"}}
         };
 
         protected override Expression<Func<Challenge, Difficulty>> PropertyExpression => x => x.Difficulty;

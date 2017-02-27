@@ -8,6 +8,7 @@ using Data.Challenges.Context;
 using Data.Challenges.Entities;
 using Data.Common.Query.Builder;
 using Shared.Framework.DataSource;
+using Shared.Framework.Utilities;
 
 namespace Business.Challenges.Private.SearchStrategies
 {
@@ -43,9 +44,18 @@ namespace Business.Challenges.Private.SearchStrategies
                 || x.Value.Any(keyword.Contains);
         }
 
+        private Func<KeyValuePair<TEnum, string[]>, bool> StrictSearchPredicate(string keyword)
+        {
+            return x => x.Value.Any(key => key.Equals(keyword)) 
+                || x.Value.Any(keyword.Equals);
+        }
+
         private TEnum GetEnumFromKeyword(string keyword)
         {
-            return SearchStrings.First(SearchPredicate(keyword)).Key;
+            var strictString = SearchStrings.FirstOrDefault(StrictSearchPredicate(keyword));
+            return strictString.IsNotNull() 
+                ? strictString.Key 
+                : SearchStrings.First(SearchPredicate(keyword)).Key;
         }
     }
 }
