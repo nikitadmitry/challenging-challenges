@@ -24,8 +24,8 @@ import {EnumPipe} from "../shared/pipes/enum.pipe";
         MdlSelectModule,
         FormsModule,
         RouterModule.forChild([
-            { path: "", redirectTo: "search", pathMatch: "full" },
-            { path: "search", component: ChallengesComponent }
+            { path: "", component: ChallengesComponent },
+            { path: "**", redirectTo: "" }
         ]),
         TranslationModule.forChild()
     ]
