@@ -10,9 +10,13 @@ import { Translation, TranslationService } from "angular-l10n";
 export class NavMenuComponent extends Translation {
     @Output("onNavigated")
     onNavigatedEmitter: EventEmitter<void> = new EventEmitter<void>();
-
+    flag: boolean = true;
     constructor(translationService: TranslationService) {
         super(translationService);
+    }
+
+    toggleFlag(): void {
+        this.flag = !this.flag;
     }
 
     onNavigated(): void {

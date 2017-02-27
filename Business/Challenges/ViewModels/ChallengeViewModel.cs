@@ -24,7 +24,7 @@ namespace Business.Challenges.ViewModels
         public string Condition { get; set; }
 
         [StringLength(100, MinimumLength = 3)]
-        public string Tags { get; set; }
+        public List<string> Tags { get; set; }
 
         public List<string> Answers { get; set; }
 
@@ -52,25 +52,6 @@ namespace Business.Challenges.ViewModels
         {
             get;
             set;
-        }
-
-        public List<Tag> GetTags()
-        {
-            return Tags?.Trim().Split(new[] { ",", " " }, StringSplitOptions.RemoveEmptyEntries).Select(tag => new Tag { Value = tag }).ToList();
-        }
-
-        public List<Answer> GetAnswers()
-        {
-            List<Answer> answersList = new List<Answer>();
-
-            int i = 0;
-            foreach (string answer in Answers.TakeWhile(answer => i != 5).Where(answer => !answer.Equals(String.Empty)))
-            {
-                answersList.Add(new Answer { Value = answer });
-                i++;
-            }
-
-            return answersList;
         }
     }
 }

@@ -22,7 +22,8 @@
     </mdl-card-actions>
     <mdl-card-menu>
         <div>
-            <button class="open-button" mdl-button mdl-button-type="raised" mdl-colored="primary" mdl-ripple>
+            <button class="open-button" mdl-button mdl-button-type="raised" mdl-colored="primary" mdl-ripple
+                (click)="openChallenge()">
                 <mdl-icon>launch</mdl-icon> {{'Challenges.Open' | translate:lang}}
             </button>
             <br>

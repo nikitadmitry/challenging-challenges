@@ -6,7 +6,12 @@
     <a class="mdl-navigation__link" 
         [routerLinkActive]="['mdl-color--light-green-400']" 
         [routerLink]="['/challenges']"
-        (click)="onNavigated()">{{ 'NavMenu.Challenges' | translate:lang }}</a>
+        (click)="onNavigated();">{{ 'NavMenu.Challenges' | translate:lang }}</a>
+    <a class="mdl-navigation__link"
+       [hidden]="flag"
+       [routerLinkActive]="['mdl-color--light-green-400']"
+       [routerLink]="['/challenges']"
+       (click)="onNavigated()">C#</a>
     <auth (onNavigated)="onNavigated()"></auth>
 </nav>
 

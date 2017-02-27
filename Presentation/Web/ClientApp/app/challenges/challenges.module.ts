@@ -9,15 +9,13 @@ import { ChallengesComponent } from "./challenges.component";
 import { ChallengeComponent } from "./challenge/challenge.component";
 import { FiltersComponent } from "./filters/filters.component";
 import { PagingButtonsComponent } from "./paging-buttons/paging-buttons.component";
-import {EnumPipe} from "../shared/pipes/enum.pipe";
 
 @NgModule({
     declarations: [
         ChallengeComponent,
         ChallengesComponent,
         FiltersComponent,
-        PagingButtonsComponent,
-        EnumPipe
+        PagingButtonsComponent
     ],
     imports: [
         SharedModule,

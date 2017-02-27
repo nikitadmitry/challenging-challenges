@@ -61,5 +61,7 @@ namespace Business.Challenges
 
         [OperationContract]
         bool CheckIfSolved(Guid challengeId, Guid userId);
+
+        ChallengeDetailsModel GetChallenge(Guid challengeId, Guid userId);
     }
 }

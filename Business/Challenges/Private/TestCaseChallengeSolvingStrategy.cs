@@ -49,7 +49,7 @@ namespace Business.Challenges.Private
                 if (!testCaseValidationResult.IsSolved)
                 {
                     testCaseValidationResult.ErrorMessage = codeExecutionResult.IsValid
-                        ? GetTestCaseExecutionMessage(testCase.OutputParameters, codeExecutionResult.Output)
+                        ? GetTestCaseExecutionMessage(testCase.InputParameters, codeExecutionResult.Output)
                         : codeExecutionResult.ErrorMessage;
 
                     break;
@@ -59,11 +59,11 @@ namespace Business.Challenges.Private
             return testCaseValidationResult;
         }
 
-        private string GetTestCaseExecutionMessage(IEnumerable<CodeParameter> testCaseOutputParameters, 
+        private string GetTestCaseExecutionMessage(IEnumerable<CodeParameter> testCaseInputParameters, 
             IEnumerable<string> codeExecutionOutput)
         {
             return string.Format(Localization.WrongTestCaseOutputTemplate, 
-                string.Join(", ", testCaseOutputParameters.Select(x => x.Value)),
+                string.Join(", ", testCaseInputParameters.Select(x => x.Value)),
                 string.Join(", ", codeExecutionOutput));
         }
 

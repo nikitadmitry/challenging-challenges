@@ -7,6 +7,7 @@ const routes: Routes = [
     { path: "", redirectTo: "home", pathMatch: "full" },
     { path: "home", component: HomeComponent },
     { path: "challenges", loadChildren: "../challenges/challenges.module#ChallengesModule" },
+    { path: "challenge", loadChildren: "../challenge/challenge.module#ChallengeModule" },
     { path: "**", redirectTo: "home" }
 ];
 

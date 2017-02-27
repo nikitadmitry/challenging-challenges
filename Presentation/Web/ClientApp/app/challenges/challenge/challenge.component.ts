@@ -5,6 +5,7 @@ import { ChallengeInfoViewModel } from "../models/ChallengeInfoViewModel";
 import {RedirectSearchModel} from "../models/RedirectSearchModel";
 import {ChallengeSearchType} from "../models/ChallengeSearchType";
 import {EnumPipe} from "../../shared/pipes/enum.pipe";
+import {Router} from "@angular/router";
 
 @Component({
     selector: "challenge",
@@ -19,8 +20,13 @@ export class ChallengeComponent extends Translation {
     @Output("redirect")
     redirectEmitter: EventEmitter<RedirectSearchModel> = new EventEmitter<RedirectSearchModel>();
 
-    constructor(translationService: TranslationService, private enumPipe: EnumPipe) {
+    constructor(translationService: TranslationService, private enumPipe: EnumPipe,
+        private router: Router) {
         super(translationService);
+    }
+
+    openChallenge(): void {
+        this.router.navigate(["./challenge", this.challenge.id]);
     }
 
     searchBySection(section: number): void {

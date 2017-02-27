@@ -1258,7 +1258,7 @@ namespace Shared.Framework.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Expected output to be {0}, but found {1}..
+        ///   Looks up a localized string similar to Test failed for input parameters: [{0}]. Execution result is [{1}]..
         /// </summary>
         public static string WrongTestCaseOutputTemplate {
             get {

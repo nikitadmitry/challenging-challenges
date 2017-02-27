@@ -520,7 +520,7 @@
     <value>Provided answer is not a valid one.</value>
   </data>
   <data name="WrongTestCaseOutputTemplate" xml:space="preserve">
-    <value>Expected output to be {0}, but found {1}.</value>
+    <value>Test failed for input parameters: [{0}]. Execution result is [{1}].</value>
   </data>
   <data name="ChallengeType" xml:space="preserve">
     <value>Challenge Type</value>

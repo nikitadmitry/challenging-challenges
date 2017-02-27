@@ -88,22 +88,6 @@ namespace Business.Challenges
             return challengeViewModel;
         }
 
-        public void AddSolver(Guid challengeId, Guid userId)
-        {
-            var challenge = unitOfWork.Get<Challenge>(challengeId);
-
-            if (challenge.Solvers.Any(x => x.UserId == userId))
-            {
-                return;
-            }
-
-            challenge.Solvers.Add(Solver.Create(userId));
-
-            unitOfWork.InsertOrUpdate(challenge);
-
-            unitOfWork.Commit();
-        }
-
         public void AddComment(Guid challengeId, Guid userId, string message)
         {
             Contract.NotDefault<InvalidOperationException, Guid>(userId, "userId must not be default");
@@ -303,6 +287,23 @@ namespace Business.Challenges
             var solver = challenge.Solvers.SingleOrDefault(x => x.UserId == userId);
 
             return solver?.HasSolved ?? false;
+        }
+
+        public ChallengeDetailsModel GetChallenge(Guid challengeId, Guid userId)
+        {
+            var challenge = unitOfWork.Get<Challenge>(challengeId);
+
+            if (challenge.Solvers.All(x => x.UserId != userId) 
+                || challenge.AuthorId != userId)
+            {
+                challenge.Solvers.Add(Solver.Create(userId));
+
+                unitOfWork.InsertOrUpdate(challenge);
+
+                unitOfWork.Commit();
+            }
+            //todo
+            return mapper.Map<ChallengeDetailsModel>(challenge);
         }
     }
 }

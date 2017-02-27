@@ -108,6 +108,7 @@
     <Compile Include="Private\SearchStrategies\SectionSearchStrategy.cs" />
     <Compile Include="Private\SearchStrategies\TagsSearchStrategy.cs" />
     <Compile Include="Private\SearchStrategies\TitleSearchStrategy.cs" />
+    <Compile Include="ViewModels\ChallengeDetailsModel.cs" />
     <Compile Include="ViewModels\ChallengeSearchType.cs" />
     <Compile Include="ViewModels\ChallengeSolveResult.cs" />
     <Compile Include="Private\ChallengeSolvingStrategyBase.cs" />

@@ -78,7 +78,7 @@ namespace Business.Challenges.Mappings
                 .ForMember(t => t.Language, o => o.MapFrom(s => s.Language))
                 .ForMember(t => t.PreviewText, o => o.MapFrom(s => s.PreviewText))
                 .ForMember(t => t.Section, o => o.MapFrom(s => s.Section))
-                .ForMember(t => t.Tags, o => o.MapFrom(s => GetEntityTags(s.Tags)))
+                .ForMember(t => t.Tags, o => o.MapFrom(s => s.Tags.Select(tag => new Tag { Value = tag })))
                 .ForMember(t => t.Title, o => o.MapFrom(s => s.Title))
                 .ForMember(t => t.TestCases, o =>
                 {
@@ -121,7 +121,7 @@ namespace Business.Challenges.Mappings
                 .ForMember(t => t.Language, o => o.MapFrom(s => s.Language))
                 .ForMember(t => t.PreviewText, o => o.MapFrom(s => s.PreviewText))
                 .ForMember(t => t.Section, o => o.MapFrom(s => s.Section))
-                .ForMember(t => t.Tags, o => o.MapFrom(s => GetEntityTags(s.Tags)))
+                .ForMember(t => t.Tags, o => o.MapFrom(s => s.Tags.Select(tag => new Tag { Value = tag })))
                 .ForMember(t => t.Title, o => o.MapFrom(s => s.Title))
                 .ForMember(t => t.Comments, o => o.MapFrom(s => s.Comments))
                 .ForMember(t => t.Rating, o => o.MapFrom(s => s.Rating))
@@ -178,11 +178,6 @@ namespace Business.Challenges.Mappings
                 .ForMember(t => t.Value, o => o.MapFrom(s => s.Value))
                 .ForMember(t => t.UserId, o => o.Ignore())
                 .ForMember(t => t.State, o => o.Ignore());
-        }
-
-        private List<Tag> GetEntityTags(string tags)
-        {
-            return tags?.Trim().Split(new[] { ",", " " }, StringSplitOptions.RemoveEmptyEntries).Select(tag => new Tag { Value = tag }).ToList();
         }
 
         private List<Answer> GetEntityAnswers(List<string> answers)

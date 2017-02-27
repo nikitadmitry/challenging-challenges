@@ -4,10 +4,12 @@ import { MdlModule } from "angular2-mdl";
 
 import { LoadingSpinnerComponent } from "./shared-components/loading-spinner.component";
 import { MarkdownComponent } from "./shared-components/markdown.component";
+import {EnumPipe} from "./pipes/enum.pipe";
 
 const sharedDeclarations: any[] = [
     LoadingSpinnerComponent,
-    MarkdownComponent
+    MarkdownComponent,
+    EnumPipe
 ];
 
 const sharedImports: any[] = [
