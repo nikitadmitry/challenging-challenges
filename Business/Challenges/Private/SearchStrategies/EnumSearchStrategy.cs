@@ -53,7 +53,7 @@ namespace Business.Challenges.Private.SearchStrategies
         private TEnum GetEnumFromKeyword(string keyword)
         {
             var strictString = SearchStrings.FirstOrDefault(StrictSearchPredicate(keyword));
-            return strictString.IsNotNull() 
+            return strictString.Value.IsNotNull()
                 ? strictString.Key 
                 : SearchStrings.First(SearchPredicate(keyword)).Key;
         }

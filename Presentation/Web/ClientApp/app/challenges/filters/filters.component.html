@@ -3,7 +3,7 @@
     <mdl-option *ngFor="let type of searchTypes" [value]="type.type">{{type.name}}</mdl-option>
   </mdl-select>
 </div>
-<div class="mdl-cell mdl-cell--6-col">
+<div class="mdl-cell mdl-cell--6-col search-string-container">
   <mdl-textfield
     class="full-width"
     type="text"
@@ -12,6 +12,9 @@
     [(ngModel)]="searchString"
     (keyup.enter)="submit()"
     autofocus></mdl-textfield>
+  <button [hidden]="!searchString" mdl-button mdl-button-type="icon" (click)="clear()">
+    <mdl-icon>clear</mdl-icon>
+  </button>
 </div>
 <div class="mdl-cell mdl-cell--3-col button-cell">
   <button mdl-button mdl-colored="primary" mdl-ripple (click)="submit()">

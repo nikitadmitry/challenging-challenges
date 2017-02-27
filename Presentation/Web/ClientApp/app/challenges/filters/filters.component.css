@@ -9,3 +9,11 @@
 :host >>> .mdl-select .mdl-textfield {
     width: 100%;
 }
+
+.search-string-container {
+    display: inherit;
+}
+
+.search-string-container button {
+    margin-top: 20px;
+}

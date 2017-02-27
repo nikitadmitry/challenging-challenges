@@ -16,7 +16,7 @@ export class FiltersComponent extends Translation {
     @Output() searchStringChange: EventEmitter<string> = new EventEmitter<string>();
 
     searchTypes: any[];
-    @Output() changeFilter: EventEmitter<void> = new EventEmitter<void>();
+    @Output() changeFilter: EventEmitter<void> = new EventEmitter<void>(true);
 
     constructor(translationService: TranslationService) {
         super(translationService);
@@ -31,6 +31,12 @@ export class FiltersComponent extends Translation {
         this.searchStringChange.emit(this.searchString);
 
         this.changeFilter.emit();
+    }
+
+    clear(): void {
+        this.searchType = undefined;
+        this.searchString = undefined;
+        this.submit();
     }
 
     private initializeSearchTypes(): void {

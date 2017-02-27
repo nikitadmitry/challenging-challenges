@@ -44,7 +44,7 @@ export class ChallengesComponent extends Translation implements OnInit {
         this.previousPageEnabled = this.currentPage > 0;
 
         this.challengesService.search(this.getSearchOptions()).subscribe(challenges => {
-            this.challenges = challenges;
+            setTimeout(() => this.challenges = challenges, 100); // this is to fix animation lag on Search Query field
             this.nextPageEnabled = challenges.length === this.PAGE_SIZE;
             this.isLoading = false;
             this.noChallenges = challenges.length === 0;
