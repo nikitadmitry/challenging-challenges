@@ -51,5 +51,14 @@ namespace Presentation.Web.Controllers
         {
             return challengesService.SearchByRule(searchOptions);
         }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<ChallengeSolveResult> Solve(Guid challengeId, [FromBody]string answer)
+        {
+            var user = await userManager.Value.GetUserAsync(User);
+
+            return challengesService.TryToSolve(challengeId, user.Id, answer);
+        }
     }
 }

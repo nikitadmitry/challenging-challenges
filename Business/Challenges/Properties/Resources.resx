@@ -120,7 +120,7 @@
   <data name="Answer_Template_CSharp" xml:space="preserve">
     <value>using System;
 
-public class Test
+public class Challenge
 {
 	public static void Main()
 	{
@@ -136,7 +136,7 @@ import java.lang.*;
 import java.io.*;
 
 /* Name of the class has to be "Main" only if the class is public. */
-class Ideone
+class Challenge
 {
 	public static void main (String[] args) throws java.lang.Exception
 	{

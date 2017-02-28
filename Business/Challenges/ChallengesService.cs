@@ -155,14 +155,17 @@ namespace Business.Challenges
             identityService.Value.AddRatingToUser(challenge.AuthorId, (rating - challenge.Rating) / 10);
         }
 
-        public void AddSolveAttempt(Guid challengeId, Guid userId)
+        private void AddSolveAttempt(Guid challengeId, Guid userId)
         {
             Contract.NotDefault<InvalidOperationException, Guid>(userId, "user id must be not default");
 
-            var challenge = unitOfWork.Get<Challenge>(challengeId);
+            var parameters = FilterSettingsBuilder<Solver>.Create()
+                .AddFilterRule(x => x.ChallengeId, FilterOperator.IsEqualTo, challengeId)
+                .AddFilterRule(x => x.UserId, FilterOperator.IsEqualTo, userId)
+                .ToListQueryParameters();
 
-            var solver = challenge.Solvers.Single(x => x.UserId == userId);
-
+            var solver = unitOfWork.GetFirstOrDefault<Solver>(parameters);
+            
             solver.NumberOfTries++;
 
             unitOfWork.InsertOrUpdate(solver);
@@ -171,6 +174,8 @@ namespace Business.Challenges
 
         public ChallengeSolveResult TryToSolve(Guid challengeId, Guid userId, string answer)
         {
+            AddSolveAttempt(challengeId, userId);
+
             return challengeSolutionDispatcher.Value.Solve(challengeId, userId, answer);
         }
 

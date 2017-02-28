@@ -33,9 +33,6 @@ namespace Business.Challenges
         void RateChallenge(Guid challengeId, Guid userId, int rating);
 
         [OperationContract]
-        void AddSolveAttempt(Guid challengeId, Guid userId);
-
-        [OperationContract]
         ChallengeSolveResult TryToSolve(Guid challengeId, Guid userId, string answer);
 
         [OperationContract]

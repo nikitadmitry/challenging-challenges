@@ -56,7 +56,7 @@ export class ChallengeDetailsComponent extends Translation implements OnInit {
     private prepareView() {
         this.editor.setReadOnly(this.challenge.isAuthor);
         if (!this.challenge.isAuthor) {
-            this.editor.getEditor().setValue(this.challenge.answerTemplate, -1);
+            this.answer = this.challenge.answerTemplate;
         }
 
         this.editor.getEditor().commands.addCommand({
@@ -67,6 +67,9 @@ export class ChallengeDetailsComponent extends Translation implements OnInit {
     }
 
     submit() {
-        alert("submit");
+        this.challengesService.solve(this.challenge.id, this.answer).subscribe((response) => {
+            debugger;
+            console.log(response);
+        })
     }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import {Http, URLSearchParams} from "@angular/http";
+import {Http, URLSearchParams, RequestOptions, Headers} from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/share";
 
@@ -20,6 +20,17 @@ export class ChallengesService {
 
     search(searchOptions: ChallengesSearchOptions): Observable<any> {
         return this.http.post(Actions.challenges.searchChallenges, searchOptions)
+            .map(response => response.json());
+    }
+
+    solve(challengeId: string, answer: string): Observable<any> {
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+
+        let params = new URLSearchParams();
+        params.set('challengeId', challengeId);
+
+        return this.authHttp.post(Actions.challenges.solve, JSON.stringify(answer), { search: params, headers: headers })
             .map(response => response.json());
     }
 

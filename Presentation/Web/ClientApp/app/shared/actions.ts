@@ -16,6 +16,7 @@ interface Home {
 interface Challenges {
     searchChallenges: string;
     getChallenge: string;
+    solve: string;
 }
 
 declare module actions {

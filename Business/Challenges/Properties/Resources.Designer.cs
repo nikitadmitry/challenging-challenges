@@ -63,7 +63,7 @@ namespace Business.Challenges.Properties {
         /// <summary>
         ///   Looks up a localized string similar to using System;
         ///
-        ///public class Test
+        ///public class Challenge
         ///{
         ///	public static void Main()
         ///	{
@@ -85,7 +85,7 @@ namespace Business.Challenges.Properties {
         ///import java.io.*;
         ///
         ////* Name of the class has to be &quot;Main&quot; only if the class is public. */
-        ///class Ideone
+        ///class Challenge
         ///{
         ///	public static void main (String[] args) throws java.lang.Exception
         ///	{
