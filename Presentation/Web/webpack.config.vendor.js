@@ -40,7 +40,15 @@ module.exports = (env) => {
                 '@angular2-mdl-ext/popover/popover.css',
                 '@angular2-mdl-ext/select',
                 '@angular2-mdl-ext/select/select.css',
-                'angular-l10n'
+                'angular-l10n',
+                'brace',
+                'brace/mode/csharp',
+                'brace/mode/java',
+                'brace/mode/ruby',
+                'brace/mode/python',
+                'brace/mode/text',
+                'brace/theme/eclipse',
+                'ng2-ace-editor'
             ]
         },
         output: {

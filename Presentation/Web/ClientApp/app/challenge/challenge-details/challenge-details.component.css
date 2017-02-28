@@ -1,0 +1,12 @@
+.challenge-answer {
+    min-height: 400px;
+}
+
+.challenge-condition {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.section-title {
+    margin: 0;
+}

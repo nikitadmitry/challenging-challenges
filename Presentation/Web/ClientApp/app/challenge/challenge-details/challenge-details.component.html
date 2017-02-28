@@ -1,3 +1,21 @@
-<div>
-    Challenge opened! id = {{challengeId}}
+<div class="mdl-grid mdl-cell--12-col">
+    <loading-spinner [active]="!challenge"></loading-spinner>
+
+    <div class="mdl-grid mdl-cell--12-col" [hidden]="!challenge">
+        <challenge-description *ngIf="challenge" [challenge]="challenge" class="mdl-cell mdl-cell--12-col mdl-padded"></challenge-description>
+        <div class="mdl-cell mdl-cell--6-col mdl-padded">
+            <h5 class="section-title">Condition</h5>
+        </div>
+        <div class="mdl-cell mdl-cell--6-col mdl-padded">
+            <h5 class="section-title">Answer</h5>
+        </div>
+        <div mdl-shadow="2" class="challenge-condition mdl-cell mdl-cell--6-col mdl-padded">
+            <markdown *ngIf="challenge" [data]="challenge.condition"></markdown>
+        </div>
+        <div mdl-shadow="2" class="challenge-answer mdl-cell mdl-cell--6-col">
+            <ace-editor style="height:100%" [options]="editorOptions" [(text)]="answer"></ace-editor>
+        </div>
+
+        <challenge-actions (submit)="submit()" *ngIf="challenge" [challenge]="challenge" class="mdl-cell mdl-cell--12-col"></challenge-actions>
+    </div>
 </div>

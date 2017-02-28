@@ -1,14 +1,15 @@
-import { Component, Input, Output, EventEmitter } from "@angular/core";
+import {Component, Input, Output, EventEmitter, ViewChild, AfterViewInit} from "@angular/core";
 import { Translation, TranslationService } from "angular-l10n";
 
 import { ChallengeSearchType } from "../models/ChallengeSearchType";
+import {MdlSelectComponent} from "@angular2-mdl-ext/select";
 
 @Component({
     selector: "filters",
     template: require("./filters.component.html"),
     styles: [require("./filters.component.css")]
 })
-export class FiltersComponent extends Translation {
+export class FiltersComponent extends Translation implements AfterViewInit {
     @Input() searchType: ChallengeSearchType;
     @Output() searchTypeChange: EventEmitter<ChallengeSearchType> = new EventEmitter<ChallengeSearchType>();
 
@@ -17,6 +18,7 @@ export class FiltersComponent extends Translation {
 
     searchTypes: any[];
     @Output() changeFilter: EventEmitter<void> = new EventEmitter<void>(true);
+    @ViewChild("searchTypeSelect") searchTypeSelect: MdlSelectComponent;
 
     constructor(translationService: TranslationService) {
         super(translationService);
@@ -24,6 +26,10 @@ export class FiltersComponent extends Translation {
         this.translation.translationChanged.subscribe(() => {
             this.initializeSearchTypes();
         });
+    }
+
+    ngAfterViewInit(): void {
+        setTimeout(() => this.searchTypeSelect.writeValue(this.searchType), 500); // component is bugged first time.
     }
 
     submit(): void {

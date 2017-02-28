@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Resources;
 using System.ServiceModel;
 using System.Text;
 using Autofac.Features.Indexed;
 using AutoMapper;
 using Business.Challenges.Private;
 using Business.Challenges.Private.SearchStrategies;
+using Business.Challenges.Properties;
 using Business.Challenges.ViewModels;
 using Business.Identity;
 using Data.Challenges.Context;
 using Data.Challenges.Entities;
+using Data.Challenges.Enums;
 using Data.Common.Query.Builder;
 using Data.Common.Query.QueryParameters;
 using Shared.Framework.DataSource;
@@ -296,6 +299,7 @@ namespace Business.Challenges
 
             var viewModel = mapper.Map<ChallengeDetailsModel>(challenge);
             viewModel.AuthorName = identityService.Value.GetIdentityUserById(challenge.AuthorId).UserName;
+            viewModel.AnswerTemplate = GetAnswerTemplate(challenge.Section);
 
             if (challenge.AuthorId == userId)
             {
@@ -316,6 +320,14 @@ namespace Business.Challenges
             }
 
             return viewModel;
+        }
+
+        private string GetAnswerTemplate(Section section)
+        {
+            var resourceName = $"Answer_Template_{section}";
+
+            ResourceManager rm = new ResourceManager(typeof(Resources));
+            return rm.GetString(resourceName);
         }
 
         private void CreateSolver(Guid userId, Challenge challenge)

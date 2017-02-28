@@ -16,5 +16,6 @@ namespace Business.Challenges.ViewModels
         public string AuthorName { get; set; }
         public bool IsAuthor { get; set; }
         public bool IsSolved { get; set; }
+        public string AnswerTemplate { get; set; }
     }
 }

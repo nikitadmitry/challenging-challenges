@@ -1,0 +1,12 @@
+<button (click)="submit.emit()" *ngIf="!challenge.isSolved && !challenge.isAuthor" class="button-right" mdl-button mdl-button-type="raised" mdl-colored="primary" mdl-ripple>
+    <mdl-icon>done</mdl-icon>
+    Submit
+</button>
+<button *ngIf="challenge.isAuthor" class="button-right" mdl-button mdl-button-type="raised" mdl-colored="primary" mdl-ripple>
+    <mdl-icon>build</mdl-icon>
+    Edit
+</button>
+<button [routerLink]="['/challenges']" mdl-button mdl-button-type="raised" mdl-colored="primary" mdl-ripple>
+    <mdl-icon>keyboard_arrow_left</mdl-icon>
+    To Challenge List
+</button>

@@ -1,0 +1,13 @@
+<h3>{{challenge.title}}</h3>
+<mdl-chip (click)="openAuthor()" class="contact-chip mdl-color--accent" mdl-label="{{challenge.authorName}}"></mdl-chip>
+<mdl-chip mdl-label="{{challenge.section | enum:'section' | translate:lang }}"></mdl-chip>
+<mdl-chip mdl-label="{{ 'Rating' | translate:lang }}">
+    <span *ngIf="challenge.rating >= 4.5" mdl-chip-contact class="mdl-color--primary mdl-color-text--white">A+</span>
+    <span *ngIf="challenge.rating < 4.5 && challenge.rating >= 4" mdl-chip-contact class="mdl-color--light-green-300 mdl-color-text--white">A</span>
+    <span *ngIf="challenge.rating < 4 && challenge.rating >= 3" mdl-chip-contact class="mdl-color--lime-500 mdl-color-text--white">B+</span>
+    <span *ngIf="challenge.rating < 3 && challenge.rating >= 2" mdl-chip-contact class="mdl-color--yellow-600 mdl-color-text--white">B</span>
+    <span *ngIf="challenge.rating < 2 && challenge.rating >= 1" mdl-chip-contact class="mdl-color--red-400 mdl-color-text--white">C</span>
+    <span *ngIf="challenge.rating < 1 && challenge.rating > 0" mdl-chip-contact class="mdl-color--red-800 mdl-color-text--white">D</span>
+    <span *ngIf="challenge.rating === 0" mdl-chip-contact class="mdl-color-text--white">0</span>
+</mdl-chip>
+<mdl-chip mdl-label="{{challenge.difficulty | enum:'difficulty' | translate:lang }}"></mdl-chip>

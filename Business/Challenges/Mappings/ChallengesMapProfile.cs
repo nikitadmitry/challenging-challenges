@@ -32,7 +32,8 @@ namespace Business.Challenges.Mappings
                 .ForMember(x => x.Id, o => o.MapFrom(s => s.Id))
                 .ForMember(x => x.Rating, o => o.MapFrom(s => s.Rating))
                 .ForMember(x => x.Section, o => o.MapFrom(s => s.Section))
-                .ForMember(x => x.Title, o => o.MapFrom(s => s.Title));
+                .ForMember(x => x.Title, o => o.MapFrom(s => s.Title))
+                .ForMember(x => x.AnswerTemplate, o => o.Ignore());
         }
 
         private void ConfigureTestCasesMap()

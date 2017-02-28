@@ -11,4 +11,5 @@ export class ChallengeDetailsModel {
     authorName: string;
     isAuthor: boolean;
     isSolved: boolean;
+    answerTemplate: string;
 }

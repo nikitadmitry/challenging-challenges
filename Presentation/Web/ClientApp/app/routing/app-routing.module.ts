@@ -3,6 +3,7 @@ import { RouterModule, Routes } from "@angular/router";
 
 import {HomeComponent} from "../home/home.component";
 import {AuthGuard} from "../shared/services/auth-guard.service";
+import {AuthService} from "../auth/auth.service";
 
 const routes: Routes = [
     { path: "", redirectTo: "home", pathMatch: "full" },
@@ -13,7 +14,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule],
+    providers: [AuthGuard,AuthService]
 })
 export class AppRoutingModule {}

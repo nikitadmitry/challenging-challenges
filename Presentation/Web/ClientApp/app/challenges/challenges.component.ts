@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import {Component, OnInit, AfterViewInit} from "@angular/core";
 import { Translation, TranslationService } from "angular-l10n";
 import "rxjs/add/operator/publishReplay";
 import "rxjs/add/operator/merge";
@@ -36,6 +36,7 @@ export class ChallengesComponent extends Translation implements OnInit {
     }
 
     ngOnInit(): void {
+        this.loadFilters();
         this.searchChallenges();
     }
 
@@ -61,6 +62,7 @@ export class ChallengesComponent extends Translation implements OnInit {
 
     onChangeFilter(): void {
         this.currentPage = 0;
+        this.saveFilters();
         this.searchChallenges();
     }
 
@@ -87,5 +89,19 @@ export class ChallengesComponent extends Translation implements OnInit {
     previousPage(): void {
         this.currentPage--;
         this.searchChallenges();
+    }
+
+    private saveFilters() {
+        localStorage.setItem("search_filters",
+            JSON.stringify({ searchString: this.searchString, searchType: this.selectedSearchType }));
+    }
+
+    private loadFilters() {
+        var filtersString = localStorage.getItem("search_filters");
+        if (filtersString) {
+            let filters = JSON.parse(filtersString);
+            this.searchString = filters.searchString;
+            this.selectedSearchType = filters.searchType;
+        }
     }
 }
