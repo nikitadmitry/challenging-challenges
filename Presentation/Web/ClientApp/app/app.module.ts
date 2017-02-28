@@ -24,11 +24,11 @@ import {HomeModule} from "./home/home.module";
         UniversalModule, // must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
         SimpleNotificationsModule.forRoot(),
         TranslationModule.forRoot(),
-        AuthModule,
         SharedModule,
         FormsModule,
         AppRoutingModule,
-        HomeModule
+        HomeModule,
+        AuthModule
     ],
     providers: [
         LocalizationConfig,

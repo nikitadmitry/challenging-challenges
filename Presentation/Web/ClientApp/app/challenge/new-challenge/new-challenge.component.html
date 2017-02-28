@@ -1,0 +1,32 @@
+<div class="mdl-grid mdl-cell--12-col">
+    <h3>New Challenge</h3>
+    <form [formGroup]="challengeForm" (ngSubmit)="submit()">
+        <div>
+            <mdl-textfield-validated [formControl]="challengeForm.controls.userName"
+                                     label="{{ 'Auth.UserName' | translate:lang }}"
+                                     name="userName"
+                                     type="text"
+                                     floating-label></mdl-textfield-validated>
+            <mdl-textfield-validated [formControl]="challengeForm.controls.email"
+                                     label="{{ 'Auth.Email' | translate:lang }}"
+                                     name="email"
+                                     type="text"
+                                     floating-label></mdl-textfield-validated>
+            <mdl-textfield-validated [formControl]="challengeForm.controls.password"
+                                     label="{{ 'Auth.Password' | translate:lang }}"
+                                     name="password"
+                                     type="password"
+                                     floating-label></mdl-textfield-validated>
+            <mdl-textfield-validated [formControl]="challengeForm.controls.confirmPassword"
+                                     label="{{ 'Auth.PasswordConfirmation' | translate:lang }}"
+                                     name="confirmPassword"
+                                     type="password"
+                                     floating-label></mdl-textfield-validated>
+        </div>
+        <div>
+            <button mdl-button [disabled]="!challengeForm.valid" type="submit" mdl-button-type="raised"
+                    mdl-colored="primary" mdl-ripple>Done!</button>
+            <button mdl-button type="button" (click)="cancel()" translate>Common.Cancel</button>
+        </div>
+    </form>
+</div>

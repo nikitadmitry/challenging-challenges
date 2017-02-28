@@ -22,9 +22,9 @@ namespace Business.Challenges.Private.SearchStrategies
         protected override IDictionary<Section, string[]> SearchStrings { get; } = new Dictionary<Section, string[]>
         {
             {Section.CSharp, new []{"c#","csharp","sharp","#",".net"}},
-            {Section.Java, new []{"java","oracle"}},
+            {Section.Java, new []{"java","джава","oracle"}},
             {Section.Python, new []{"python","py","питон"}},
-            {Section.Ruby, new []{"ruby"}},
+            {Section.Ruby, new []{"ruby","руби"}},
             {Section.Other, new []{"other","другое"}}
         };
 

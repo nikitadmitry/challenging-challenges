@@ -9,6 +9,7 @@ import { SharedModule } from "../shared/shared.module";
 import { ChallengeDetailsComponent } from "./challenge-details/challenge-details.component";
 import {ChallengeDescriptionComponent} from "./challenge-details/challenge-description/challenge-description.component";
 import {ChallengeActionsComponent} from "./challenge-details/challenge-actions/challenge-actions.component";
+import {NewChallengeComponent} from "./new-challenge/new-challenge.component";
 
 @NgModule({
     declarations: [
@@ -16,13 +17,15 @@ import {ChallengeActionsComponent} from "./challenge-details/challenge-actions/c
         AceEditorComponent,
         ChallengeDetailsComponent,
         ChallengeDescriptionComponent,
-        ChallengeActionsComponent
+        ChallengeActionsComponent,
+        NewChallengeComponent
     ],
     imports: [
         SharedModule,
         MdlSelectModule,
         FormsModule,
         RouterModule.forChild([
+            { path: "new", component: NewChallengeComponent },
             { path: ":id", component: ChallengeDetailsComponent }
         ]),
         TranslationModule.forChild()

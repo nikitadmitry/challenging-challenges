@@ -23,14 +23,17 @@ export class FormControlValidationMessagesBuilder {
     }
 
     private getErrorMessage(errorName: string, errorContext: any): string {
-        var errorTemplate = this.translationService.translate("Validation." + errorName);
+        let errorParameters: any[];
+
         switch (errorName) {
             case "minlength":
-                return `Минимальная длина поля ${errorContext.requiredLength}.`;
             case "maxlength":
-                return `Максимальная длина поля ${errorContext.requiredLength}.`;
+                errorParameters = [errorContext.requiredLength];
+                break;
             default:
-                return "";
+                errorParameters = [];
         }
+
+        return this.translationService.translate("Validation." + errorName, errorParameters);
     }
 }

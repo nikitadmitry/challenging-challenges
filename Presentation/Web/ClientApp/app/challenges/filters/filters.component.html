@@ -21,7 +21,7 @@
     <mdl-icon>search</mdl-icon>
     {{ 'Search' | translate:lang }}
   </button>
-  <button mdl-button mdl-ripple mdl-colored="accent">
+  <button [routerLink]="['/challenge/new']" mdl-button mdl-ripple mdl-colored="accent">
     <mdl-icon>add</mdl-icon>
     {{ 'CreateChallenge' | translate:lang }}
   </button>
