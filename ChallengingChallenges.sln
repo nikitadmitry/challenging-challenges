@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentation.Legacy", "Presentation\Legacy\Presentation.Legacy.csproj", "{AF6C9EF4-B9E2-4D09-9252-D163BD123FB4}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{6631FCD4-16FD-4A8C-BAC1-49F0EF055285}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Common", "Data\Common\Data.Common.csproj", "{610FE3E7-21B8-4BBD-865F-32EA6BA15784}"
@@ -43,9 +41,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{AF6C9EF4-B9E2-4D09-9252-D163BD123FB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AF6C9EF4-B9E2-4D09-9252-D163BD123FB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AF6C9EF4-B9E2-4D09-9252-D163BD123FB4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{610FE3E7-21B8-4BBD-865F-32EA6BA15784}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{610FE3E7-21B8-4BBD-865F-32EA6BA15784}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{610FE3E7-21B8-4BBD-865F-32EA6BA15784}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -95,7 +90,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{AF6C9EF4-B9E2-4D09-9252-D163BD123FB4} = {9FA0EB92-42C6-4BA7-8097-CA0A9569690C}
 		{610FE3E7-21B8-4BBD-865F-32EA6BA15784} = {6631FCD4-16FD-4A8C-BAC1-49F0EF055285}
 		{6780FCD1-1B0C-4410-94B7-91C98B2333A1} = {6631FCD4-16FD-4A8C-BAC1-49F0EF055285}
 		{DE6F869A-56ED-43A9-8F3F-3CE5C53DB35C} = {A42CA661-3EDA-4917-8316-828739271322}
