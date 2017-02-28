@@ -4,16 +4,8 @@
         account: {
             login: '@Url.Action("Login", "Account")',
             register: '@Url.Action("Register", "Account")',
-            checkUsernameAvailability: function (userName) {
-                var url = '@Url.Action("CheckUsernameAvailability", "Account", new { userName = "1userName1" })';
-                url = url.replace("1userName1", userName);
-                return url;
-            },
-            checkEmailAvailability: function (email) {
-                var url = '@Url.Action("CheckEmailAvailability", "Account", new { email = "1email1" })';
-                url = url.replace("1email1", email);
-                return url.toString();
-            },
+            checkUsernameAvailability: '@Url.Action("CheckUsernameAvailability", "Account")',
+            checkEmailAvailability: '@Url.Action("CheckEmailAvailability", "Account")',
             getUserName: '@Url.Action("GetUserName", "Account")'
         },
         home: {
@@ -23,7 +15,8 @@
             getPopularTags: '@Url.Action("GetPopularTags", "Home")'
         },
         challenges: {
-            searchChallenges: '@Url.Action("Search", "Challenges")'
+            searchChallenges: '@Url.Action("Search", "Challenges")',
+            getChallenge: '@Url.Action("GetChallenge", "Challenges")'
         }
     }
 

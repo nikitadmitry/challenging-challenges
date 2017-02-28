@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Business.Challenges.ViewModels;
@@ -17,6 +16,23 @@ namespace Business.Challenges.Mappings
             ConfigureChallengeMap();
             ConfigureSolversMap();
             ConfigureCommentsMap();
+            ConfigureChallengeDetailsModelMap();
+        }
+
+        private void ConfigureChallengeDetailsModelMap()
+        {
+            CreateMap<Challenge, ChallengeDetailsModel>()
+                .ForMember(x => x.AuthorId, o => o.MapFrom(s => s.AuthorId))
+                .ForMember(x => x.AuthorName, o => o.Ignore())
+                .ForMember(x => x.IsAuthor, o => o.Ignore())
+                .ForMember(x => x.IsSolved, o => o.Ignore())
+                .ForMember(x => x.ChallengeType, o => o.MapFrom(s => s.ChallengeType))
+                .ForMember(x => x.Condition, o => o.MapFrom(s => s.Condition))
+                .ForMember(x => x.Difficulty, o => o.MapFrom(s => s.Difficulty))
+                .ForMember(x => x.Id, o => o.MapFrom(s => s.Id))
+                .ForMember(x => x.Rating, o => o.MapFrom(s => s.Rating))
+                .ForMember(x => x.Section, o => o.MapFrom(s => s.Section))
+                .ForMember(x => x.Title, o => o.MapFrom(s => s.Title));
         }
 
         private void ConfigureTestCasesMap()

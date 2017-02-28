@@ -11,6 +11,12 @@ namespace Data.Challenges.Entities
             set;
         }
 
+        public Guid ChallengeId
+        {
+            get;
+            set;
+        }
+
         public bool HasSolved
         {
             get;

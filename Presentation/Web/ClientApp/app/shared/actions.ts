@@ -1,8 +1,8 @@
 interface Account {
     login: string;
     register: string;
-    checkUsernameAvailability: (string) => string;
-    checkEmailAvailability: (string) => string;
+    checkUsernameAvailability: string;
+    checkEmailAvailability: string;
     getUserName: string;
 }
 
@@ -15,6 +15,7 @@ interface Home {
 
 interface Challenges {
     searchChallenges: string;
+    getChallenge: string;
 }
 
 declare module actions {

@@ -24,9 +24,6 @@ namespace Business.Challenges
         ChallengeFullViewModel GetChallengeFullViewModel(Guid id);
 
         [OperationContract]
-        void AddSolver(Guid challengeId, Guid userId);
-
-        [OperationContract]
         void AddComment(Guid challengeId, Guid userId, string message);
 
         [OperationContract]

@@ -10,7 +10,7 @@ import { AuthComponent } from "./auth.component";
 import { LoginDialogComponent } from "./login/login-dialog.component";
 import { RegisterDialogComponent } from "./register/register-dialog.component";
 import { SharedModule } from "../shared/shared.module";
-import { MdlTextFieldValidatedComponent } from "../shared/shared-components/mdl-textfield-validated.component";
+import { MdlTextFieldValidatedComponent } from "../shared/components/mdl-textfield-validated.component";
 
 function authHttpServiceFactory(authConfig: AuthConfig, http: Http, options: RequestOptions) {
   return new AuthHttp(authConfig, http, options);

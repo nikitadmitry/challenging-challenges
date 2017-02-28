@@ -16,6 +16,7 @@ using Data.Common.Query.QueryParameters;
 using Shared.Framework.DataSource;
 using Shared.Framework.Dependency;
 using Shared.Framework.Resources;
+using Shared.Framework.Utilities;
 using Shared.Framework.Validation;
 
 namespace Business.Challenges
@@ -293,17 +294,47 @@ namespace Business.Challenges
         {
             var challenge = unitOfWork.Get<Challenge>(challengeId);
 
-            if (challenge.Solvers.All(x => x.UserId != userId) 
-                || challenge.AuthorId != userId)
+            var viewModel = mapper.Map<ChallengeDetailsModel>(challenge);
+            viewModel.AuthorName = identityService.Value.GetIdentityUserById(challenge.AuthorId).UserName;
+
+            if (challenge.AuthorId == userId)
             {
-                challenge.Solvers.Add(Solver.Create(userId));
-
-                unitOfWork.InsertOrUpdate(challenge);
-
-                unitOfWork.Commit();
+                viewModel.IsAuthor = true;
             }
-            //todo
-            return mapper.Map<ChallengeDetailsModel>(challenge);
+            else
+            {
+                var solver = GetSolver(challengeId, userId);
+
+                if (solver.IsNull())
+                {
+                    CreateSolver(userId, challenge);
+                }
+                else
+                {
+                    viewModel.IsSolved = solver.HasSolved;
+                }
+            }
+
+            return viewModel;
+        }
+
+        private void CreateSolver(Guid userId, Challenge challenge)
+        {
+            challenge.Solvers.Add(Solver.Create(userId));
+
+            unitOfWork.InsertOrUpdate(challenge);
+
+            unitOfWork.Commit();
+        }
+
+        private Solver GetSolver(Guid challengeId, Guid userId)
+        {
+            var queryParameters = FilterSettingsBuilder<Solver>.Create()
+                .AddFilterRule(x => x.ChallengeId, FilterOperator.IsEqualTo, challengeId)
+                .AddFilterRule(x => x.UserId, FilterOperator.IsEqualTo, userId)
+                .ToListQueryParameters();
+
+            return unitOfWork.GetFirstOrDefault<Solver>(queryParameters);
         }
     }
 }

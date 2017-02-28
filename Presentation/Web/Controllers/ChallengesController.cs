@@ -1,6 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Business.Challenges;
 using Business.Challenges.ViewModels;
+using Business.Identity.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.Web.Helpers;
 
@@ -10,10 +15,22 @@ namespace Presentation.Web.Controllers
     public class ChallengesController : Controller
     {
         private readonly IChallengesService challengesService;
+        private readonly Lazy<UserManager<IdentityUser>> userManager;
 
-        public ChallengesController(IChallengesService challengesService)
+        public ChallengesController(IChallengesService challengesService,
+            Lazy<UserManager<IdentityUser>> userManager)
         {
             this.challengesService = challengesService;
+            this.userManager = userManager;
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<ChallengeDetailsModel> GetChallenge(Guid challengeId)
+        {
+            var user = await userManager.Value.GetUserAsync(User);
+
+            return challengesService.GetChallenge(challengeId, user.Id);
         }
 
         [HttpPost]

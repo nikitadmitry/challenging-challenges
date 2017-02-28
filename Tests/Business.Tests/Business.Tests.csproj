@@ -82,6 +82,10 @@
       <Project>{B248D183-63B4-41F6-8182-E532200D5AEE}</Project>
       <Name>Business.Identity</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Shared\Framework\Shared.Framework.csproj">
+      <Project>{150ebd2e-0220-4e95-a42e-a5e14e0db467}</Project>
+      <Name>Shared.Framework</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

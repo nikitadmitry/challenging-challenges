@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Http, Response } from "@angular/http";
+import {Http, Response, URLSearchParams} from "@angular/http";
 import { tokenNotExpired, AuthConfig, AuthHttp } from "angular2-jwt";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/toPromise";
@@ -54,13 +54,19 @@ export class AuthService {
     }
 
     public isUsernameTaken(userName: string): Promise<boolean> {
-        return this.http.get(Actions.account.checkUsernameAvailability(userName))
+        let params = new URLSearchParams();
+        params.set('userName', userName);
+
+        return this.http.get(Actions.account.checkUsernameAvailability, { search: params })
             .toPromise()
             .then(x => !(x.json() as boolean));
     }
 
     public isEmailRegistered(email: string): Promise<boolean> {
-        return this.http.get(Actions.account.checkEmailAvailability(email))
+        let params = new URLSearchParams();
+        params.set('email', email);
+
+        return this.http.get(Actions.account.checkEmailAvailability, { search: params })
             .toPromise()
             .then(x => !(x.json() as boolean));
     }

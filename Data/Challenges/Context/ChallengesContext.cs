@@ -40,6 +40,7 @@ namespace Data.Challenges.Context
             modelBuilder.Entity<Challenge>()
                         .HasMany(a => a.Solvers)
                         .WithOptional()
+                        .HasForeignKey(x => x.ChallengeId)
                         .WillCascadeOnDelete();
         }
     }
