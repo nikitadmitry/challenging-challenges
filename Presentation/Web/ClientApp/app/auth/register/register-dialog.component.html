@@ -1,24 +1,20 @@
 <h3 class="mdl-dialog__title" translate>Auth.Registration</h3>
 <form [formGroup]="registerForm" (ngSubmit)="register()">
     <div class="mdl-dialog__content">
-        <mdl-textfield-validated [formControl]="registerForm.controls.userName"
+        <mdl-textfield-validated [formControl]="registerForm.get('userName')"
                     label="{{ 'Auth.UserName' | translate:lang }}"
-                    name="userName"
                     type="text"
                     floating-label></mdl-textfield-validated>
-        <mdl-textfield-validated [formControl]="registerForm.controls.email"
+        <mdl-textfield-validated [formControl]="registerForm.get('email')"
                     label="{{ 'Auth.Email' | translate:lang }}"
-                    name="email"
                     type="text"
                     floating-label></mdl-textfield-validated>
-        <mdl-textfield-validated [formControl]="registerForm.controls.password"
+        <mdl-textfield-validated [formControl]="registerForm.get('password')"
                     label="{{ 'Auth.Password' | translate:lang }}"
-                    name="password"
                     type="password"
                     floating-label></mdl-textfield-validated>
-        <mdl-textfield-validated [formControl]="registerForm.controls.confirmPassword"
+        <mdl-textfield-validated [formControl]="registerForm.get('confirmPassword')"
                     label="{{ 'Auth.PasswordConfirmation' | translate:lang }}"
-                    name="confirmPassword"
                     type="password"
                     floating-label></mdl-textfield-validated>
     </div>

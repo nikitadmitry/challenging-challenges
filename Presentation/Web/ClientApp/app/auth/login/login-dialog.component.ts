@@ -27,8 +27,6 @@ export class LoginDialogComponent extends Translation implements OnInit {
         });
     }
 
-    private localize
-
     login(): void {
         if (this.loginForm.valid) {
             this.authService.login(this.loginForm.value).then(() => this.closeDialog());

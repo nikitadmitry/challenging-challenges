@@ -11,6 +11,7 @@ import "brace/theme/eclipse";
 
 import {ChallengesService} from "../../challenges/challenges.service";
 import {FormGroup, Validators, FormBuilder} from "@angular/forms";
+//import {EnumSelectService} from "../../shared/services/enum-select.service";
 
 @Component({
     selector: "new-challenge",
@@ -24,21 +25,25 @@ export class NewChallengeComponent extends Translation {
 
     constructor(private challengesService: ChallengesService,
                 translationService: TranslationService,
-                private fb: FormBuilder) {
+                private fb: FormBuilder,
+                //private enumSelectService: EnumSelectService
+    ) {
         super(translationService);
 
         this.translation.AddConfiguration()
             .AddProvider("./assets/locale-challenges-");
         this.translation.init();
-    }
 
-    ngOnInit(): void {
         this.challengeForm = this.fb.group({
-            userName: ["", Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(24)])],
-            email: ["", Validators.compose([Validators.required])],
+            title: ["", Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(30)])],
+            section: ["", Validators.compose([Validators.required])],
             password: ["", Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(100)])],
             confirmPassword: ["", Validators.compose([Validators.required])]
         });
+    }
+
+    ngOnInit(): void {
+
     }
 
     submit() {

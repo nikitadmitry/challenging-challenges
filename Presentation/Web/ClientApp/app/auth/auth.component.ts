@@ -3,6 +3,7 @@ import { TranslationService, Translation } from "angular-l10n";
 
 import { AuthService } from "./auth.service";
 import {AuthDialogsService} from "./auth-dialogs.service";
+import {Router} from "@angular/router";
 
 @Component({
     selector: "auth",
@@ -16,7 +17,7 @@ export class AuthComponent extends Translation {
     onNavigatedEmitter: EventEmitter<void> = new EventEmitter<void>();
 
     constructor(private authService: AuthService, translationService: TranslationService,
-                private authDialogsService: AuthDialogsService) {
+                private authDialogsService: AuthDialogsService, private router: Router) {
             super(translationService);
         }
 
@@ -42,5 +43,6 @@ export class AuthComponent extends Translation {
 
     logout(): void {
         this.authService.logout();
+        this.router.navigate(["home"]);
     }
 }

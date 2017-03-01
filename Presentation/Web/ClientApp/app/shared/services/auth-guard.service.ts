@@ -13,7 +13,6 @@ export class AuthGuard implements CanActivate {
             return true;
         } else {
             this.authDialogsService.openLoginDialog();
-            //this.router.navigate(['unauthorized']);
             return false;
         }
     }

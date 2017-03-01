@@ -2,13 +2,15 @@ import {NgModule} from "@angular/core";
 import {MdlTextFieldValidatedComponent} from "./mdl-textfield-validated.component";
 import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
+import {MdlTextFieldModule} from "angular2-mdl";
 @NgModule({
     declarations: [
         MdlTextFieldValidatedComponent
     ],
     imports: [
         CommonModule,
-        FormsModule
+        FormsModule,
+        MdlTextFieldModule
     ],
     exports: [
         MdlTextFieldValidatedComponent

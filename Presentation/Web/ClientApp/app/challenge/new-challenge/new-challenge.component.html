@@ -1,32 +1,35 @@
-<div class="mdl-grid mdl-cell--12-col">
-    <h3>New Challenge</h3>
-    <form [formGroup]="challengeForm" (ngSubmit)="submit()">
-        <div>
-            <mdl-textfield-validated [formControl]="challengeForm.controls.userName"
-                                     label="{{ 'Auth.UserName' | translate:lang }}"
-                                     name="userName"
+<div class="mdl-grid mdl-cell--12-col mdl-padded">
+    <div class="mdl-cell mdl-cell--12-col">
+        <h3>New Challenge</h3>
+    </div>
+    <form class="mdl-cell mdl-cell--12-col" [formGroup]="challengeForm" (ngSubmit)="submit()">
+        <p>
+            <mdl-textfield-validated [formControl]="challengeForm.get('title')"
+                                     label="Title"
                                      type="text"
                                      floating-label></mdl-textfield-validated>
-            <mdl-textfield-validated [formControl]="challengeForm.controls.email"
+        </p>
+        <p>
+            <mdl-textfield-validated [formControl]="challengeForm.get('section')"
                                      label="{{ 'Auth.Email' | translate:lang }}"
-                                     name="email"
                                      type="text"
                                      floating-label></mdl-textfield-validated>
-            <mdl-textfield-validated [formControl]="challengeForm.controls.password"
+            <mdl-textfield-validated [formControl]="challengeForm.get('password')"
                                      label="{{ 'Auth.Password' | translate:lang }}"
-                                     name="password"
                                      type="password"
                                      floating-label></mdl-textfield-validated>
-            <mdl-textfield-validated [formControl]="challengeForm.controls.confirmPassword"
+            <mdl-textfield-validated [formControl]="challengeForm.get('confirmPassword')"
                                      label="{{ 'Auth.PasswordConfirmation' | translate:lang }}"
-                                     name="confirmPassword"
                                      type="password"
                                      floating-label></mdl-textfield-validated>
-        </div>
-        <div>
-            <button mdl-button [disabled]="!challengeForm.valid" type="submit" mdl-button-type="raised"
+        </p>
+        <div class="mdl-cell mdl-cell--12-col">
+            <button [routerLink]="['/challenges']" mdl-button mdl-button-type="raised" mdl-ripple>
+                <mdl-icon>keyboard_arrow_left</mdl-icon>
+                To Challenges List
+            </button>
+            <button style="float:right" mdl-button [disabled]="!challengeForm.valid" type="submit" mdl-button-type="raised"
                     mdl-colored="primary" mdl-ripple>Done!</button>
-            <button mdl-button type="button" (click)="cancel()" translate>Common.Cancel</button>
         </div>
     </form>
 </div>

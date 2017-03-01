@@ -27,8 +27,8 @@ import {EnumPipeModule} from "../shared/pipes/enum.pipe";
         EnumPipeModule,
         MdlNonRootModule,
         LoadingSpinnerModule,
-        MdlSelectModule,
         FormsModule,
+        MdlSelectModule,
         RouterModule.forChild([
             { path: "", component: ChallengesComponent },
             { path: "**", redirectTo: "" }

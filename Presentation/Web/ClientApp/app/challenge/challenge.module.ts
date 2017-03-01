@@ -1,7 +1,7 @@
 import { RouterModule } from "@angular/router";
 import { NgModule } from "@angular/core";
 import { MdlSelectModule } from "@angular2-mdl-ext/select";
-import { FormsModule } from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { TranslationModule } from "angular-l10n";
 import { AceEditorDirective, AceEditorComponent } from 'ng2-ace-editor';
 
@@ -27,13 +27,14 @@ import {MarkdownModule} from "../shared/components/markdown.component";
     ],
     imports: [
         CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
         EnumPipeModule,
         MarkdownModule,
         MdlNonRootModule,
         LoadingSpinnerModule,
         MdlSelectModule,
         MdlTextFieldValidatedModule,
-        FormsModule,
         RouterModule.forChild([
             { path: "new", component: NewChallengeComponent },
             { path: ":id", component: ChallengeDetailsComponent }

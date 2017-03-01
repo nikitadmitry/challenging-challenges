@@ -27,7 +27,7 @@
                 <mdl-icon>launch</mdl-icon> {{'Challenges.Open' | translate:lang}}
             </button>
             <br>
-            <div *ngIf="challenge.timesSolved > 0">Solved 5 times</div>
+            <div *ngIf="challenge.timesSolved > 0">Solved {{challenge.timesSolved}} time(s)</div>
             <div *ngIf="challenge.timesSolved === 0">
                 {{ 'NotSolved' | translate:lang }}
                 <br>

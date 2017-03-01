@@ -1,14 +1,12 @@
 <h3 class="mdl-dialog__title" translate>Auth.LoginDialogTitle</h3>
 <form [formGroup]="loginForm" (ngSubmit)="login()">
     <div class="mdl-dialog__content">
-        <mdl-textfield-validated [formControl]="loginForm.controls.userName"
+        <mdl-textfield-validated [formControl]="loginForm.get('userName')"
                     label="{{ 'Auth.UserName' | translate:lang }}"
-                    name="userName"
                     type="text"
                     floating-label></mdl-textfield-validated>
-        <mdl-textfield-validated [formControl]="loginForm.controls.password"
+        <mdl-textfield-validated [formControl]="loginForm.get('password')"
                     label="{{ 'Auth.Password' | translate:lang }}"
-                    name="password"
                     type="password"
                     floating-label></mdl-textfield-validated>
     </div>

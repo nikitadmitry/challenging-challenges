@@ -3,11 +3,13 @@ import { Translation, TranslationService } from "angular-l10n";
 
 import { ChallengeSearchType } from "../models/ChallengeSearchType";
 import {MdlSelectComponent} from "@angular2-mdl-ext/select";
+import {EnumSelectService} from "../../shared/services/enum-select.service";
 
 @Component({
     selector: "filters",
     template: require("./filters.component.html"),
-    styles: [require("./filters.component.css")]
+    styles: [require("./filters.component.css")],
+    providers: [EnumSelectService]
 })
 export class FiltersComponent extends Translation implements AfterViewInit {
     @Input() searchType: ChallengeSearchType;
@@ -20,7 +22,7 @@ export class FiltersComponent extends Translation implements AfterViewInit {
     @Output() changeFilter: EventEmitter<void> = new EventEmitter<void>(true);
     @ViewChild("searchTypeSelect") searchTypeSelect: MdlSelectComponent;
 
-    constructor(translationService: TranslationService) {
+    constructor(translationService: TranslationService, private enumSelectService: EnumSelectService) {
         super(translationService);
 
         this.translation.translationChanged.subscribe(() => {
@@ -46,14 +48,6 @@ export class FiltersComponent extends Translation implements AfterViewInit {
     }
 
     private initializeSearchTypes(): void {
-        this.searchTypes = [
-            {type: ChallengeSearchType.Title, name: this.translation.translate("Title")},
-            {type: ChallengeSearchType.Condition, name: this.translation.translate("Condition")},
-            {type: ChallengeSearchType.Difficulty, name: this.translation.translate("Difficulty")},
-            {type: ChallengeSearchType.Language, name: this.translation.translate("Language")},
-            {type: ChallengeSearchType.PreviewText, name: this.translation.translate("PreviewText")},
-            {type: ChallengeSearchType.Section, name: this.translation.translate("Section")},
-            {type: ChallengeSearchType.Tags, name: this.translation.translate("Tags")}
-        ];
+        this.searchTypes = this.enumSelectService.convertToSelectValues(ChallengeSearchType);
     }
 }

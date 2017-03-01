@@ -4,7 +4,11 @@ import { TranslationService } from "angular-l10n";
 
 @Injectable()
 export class FormControlValidationMessagesBuilder {
-    constructor(private translationService: TranslationService) { }
+    constructor(private translationService: TranslationService) {
+        this.translationService.AddConfiguration()
+            .AddProvider("./assets/locale-");
+        this.translationService.init();
+    }
 
     public build(control: AbstractControl): Array<string> {
         if (!control.errors) {
