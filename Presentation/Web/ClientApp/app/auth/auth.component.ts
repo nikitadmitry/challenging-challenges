@@ -1,24 +1,22 @@
 import { Component, EventEmitter, Output, ViewEncapsulation } from "@angular/core";
-import { MdlDialogService, MdlDialogReference } from "angular2-mdl";
 import { TranslationService, Translation } from "angular-l10n";
 
 import { AuthService } from "./auth.service";
-import { LoginDialogComponent } from "./login/login-dialog.component";
-import { RegisterDialogComponent } from "./register/register-dialog.component";
+import {AuthDialogsService} from "./auth-dialogs.service";
 
 @Component({
     selector: "auth",
     template: require("./auth.component.html"),
     styles: [require("./auth.component.css")],
-    providers: [AuthService],
+    providers: [AuthService, AuthDialogsService],
     encapsulation: ViewEncapsulation.None
 })
 export class AuthComponent extends Translation {
     @Output("onNavigated")
     onNavigatedEmitter: EventEmitter<void> = new EventEmitter<void>();
 
-    constructor(private authService: AuthService, private dialogService: MdlDialogService,
-        translationService: TranslationService) {
+    constructor(private authService: AuthService, translationService: TranslationService,
+                private authDialogsService: AuthDialogsService) {
             super(translationService);
         }
 
@@ -31,28 +29,14 @@ export class AuthComponent extends Translation {
     }
 
     openLoginDialog(): void {
-        this.dialogService.showCustomDialog({
-            component: LoginDialogComponent,
-            isModal: true,
-            styles: {"width": "350px"},
-            clickOutsideToClose: true,
-            enterTransitionDuration: 400,
-            leaveTransitionDuration: 400
-        }).subscribe((dialogReference: MdlDialogReference) => {
-             this.onNavigated();
+        this.authDialogsService.openLoginDialog().subscribe(() => {
+            this.onNavigated();
         });
     }
 
     openRegistrationDialog(): void {
-        this.dialogService.showCustomDialog({
-            component: RegisterDialogComponent,
-            isModal: true,
-            styles: {"width": "350px"},
-            clickOutsideToClose: true,
-            enterTransitionDuration: 400,
-            leaveTransitionDuration: 400
-        }).subscribe((dialogReference: MdlDialogReference) => {
-             this.onNavigated();
+        this.authDialogsService.openRegistrationDialog().subscribe(() => {
+            this.onNavigated();
         });
     }
 

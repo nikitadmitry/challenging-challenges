@@ -4,11 +4,15 @@ import { MdlSelectModule } from "@angular2-mdl-ext/select";
 import { FormsModule } from "@angular/forms";
 import { TranslationModule } from "angular-l10n";
 
-import { SharedModule } from "../shared/shared.module";
 import { ChallengesComponent } from "./challenges.component";
 import { ChallengeComponent } from "./challenge/challenge.component";
 import { FiltersComponent } from "./filters/filters.component";
 import { PagingButtonsComponent } from "./paging-buttons/paging-buttons.component";
+import {MdlNonRootModule} from "angular2-mdl";
+import {LoadingSpinnerModule} from "../shared/components/loading-spinner.component/loading-spinner.module";
+import {CommonModule} from "@angular/common";
+import {MarkdownModule} from "../shared/components/markdown.component";
+import {EnumPipeModule} from "../shared/pipes/enum.pipe";
 
 @NgModule({
     declarations: [
@@ -18,7 +22,11 @@ import { PagingButtonsComponent } from "./paging-buttons/paging-buttons.componen
         PagingButtonsComponent
     ],
     imports: [
-        SharedModule,
+        CommonModule,
+        MarkdownModule,
+        EnumPipeModule,
+        MdlNonRootModule,
+        LoadingSpinnerModule,
         MdlSelectModule,
         FormsModule,
         RouterModule.forChild([

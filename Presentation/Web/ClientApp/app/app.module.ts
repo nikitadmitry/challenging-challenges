@@ -1,6 +1,6 @@
 import { NgModule, ErrorHandler, APP_INITIALIZER } from "@angular/core";
 import { UniversalModule } from "angular2-universal";
-import {DISABLE_NATIVE_VALIDITY_CHECKING} from "angular2-mdl";
+import {DISABLE_NATIVE_VALIDITY_CHECKING, MdlModule} from "angular2-mdl";
 import { SimpleNotificationsModule, NotificationsService } from "angular2-notifications";
 import {TranslationModule, TranslationService} from "angular-l10n";
 import { FormsModule } from "@angular/forms";
@@ -10,9 +10,9 @@ import { NavMenuComponent } from "./navmenu/navmenu.component";
 import { AuthModule } from "./auth/auth.module";
 import { AppRoutingModule } from "./routing/app-routing.module";
 import { ApplicationErrorHandler } from "./shared/ApplicationErrorHandler";
-import { SharedModule } from "./shared/shared.module";
 import { LocalizationConfig, initLocalization } from "./localization/LocalizationConfig";
 import {HomeModule} from "./home/home.module";
+import {LoadingSpinnerModule} from "./shared/components/loading-spinner.component/loading-spinner.module";
 
 @NgModule({
     bootstrap: [ AppComponent ],
@@ -24,7 +24,8 @@ import {HomeModule} from "./home/home.module";
         UniversalModule, // must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
         SimpleNotificationsModule.forRoot(),
         TranslationModule.forRoot(),
-        SharedModule,
+        MdlModule,
+        LoadingSpinnerModule,
         FormsModule,
         AppRoutingModule,
         HomeModule,

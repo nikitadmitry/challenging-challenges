@@ -8,9 +8,8 @@ import { TranslationModule } from "angular-l10n";
 import { AuthComponent } from "./auth.component";
 import { LoginDialogComponent } from "./login/login-dialog.component";
 import { RegisterDialogComponent } from "./register/register-dialog.component";
-import { MdlTextFieldValidatedComponent } from "../shared/components/mdl-textfield-validated.component";
-import {CommonModule} from "@angular/common";
 import {MdlNonRootModule} from "angular2-mdl";
+import {MdlTextFieldValidatedModule} from "../shared/components/mdl-textfield-validated.component/mdl-textfield-validated.module";
 
 function authHttpServiceFactory(authConfig: AuthConfig, http: Http, options: RequestOptions) {
   return new AuthHttp(authConfig, http, options);
@@ -20,8 +19,7 @@ function authHttpServiceFactory(authConfig: AuthConfig, http: Http, options: Req
   declarations: [
     AuthComponent,
     LoginDialogComponent,
-    RegisterDialogComponent,
-    MdlTextFieldValidatedComponent
+    RegisterDialogComponent
   ],
   providers: [
     { provide: AuthConfig, useFactory: () => new AuthConfig ({ noJwtError: true }) },
@@ -31,12 +29,14 @@ function authHttpServiceFactory(authConfig: AuthConfig, http: Http, options: Req
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    CommonModule,
-    MdlNonRootModule,
-    TranslationModule
+    TranslationModule,
+    MdlTextFieldValidatedModule,
+    MdlNonRootModule
   ],
   exports: [
-    AuthComponent
+    AuthComponent,
+    LoginDialogComponent,
+    RegisterDialogComponent
   ],
   entryComponents: [LoginDialogComponent, RegisterDialogComponent]
 })

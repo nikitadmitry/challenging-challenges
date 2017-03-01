@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { FormsModule, NG_VALUE_ACCESSOR, ControlValueAccessor, FormControl } from "@angular/forms";
 import { MdlTextFieldComponent, DISABLE_NATIVE_VALIDITY_CHECKING, MdlTextFieldModule } from "angular2-mdl";
 
-import { FormControlValidationMessagesBuilder } from "../validation/FormControlValidationMessagesBuilder";
+import { FormControlValidationMessagesBuilder } from "../../validation/FormControlValidationMessagesBuilder";
 
 @Component({
   selector: "mdl-textfield-validated",

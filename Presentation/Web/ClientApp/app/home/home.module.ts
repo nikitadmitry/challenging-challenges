@@ -10,7 +10,9 @@ import { LatestChallengesComponent } from "./challenges/latest-challenges.compon
 import { PopularChallengesComponent } from "./challenges/popular-challenges.component";
 import { UnsolvedChallengesComponent } from "./challenges/unsolved-challenges.component";
 import { TopUsersComponent } from "./top-users/top-users.component";
-import { SharedModule } from "../shared/shared.module";
+import {MdlNonRootModule} from "angular2-mdl";
+import {MarkdownModule} from "../shared/components/markdown.component";
+import {LoadingSpinnerModule} from "../shared/components/loading-spinner.component/loading-spinner.module";
 
 @NgModule({
     declarations: [
@@ -23,9 +25,11 @@ import { SharedModule } from "../shared/shared.module";
     ],
     imports: [
         CommonModule,
+        LoadingSpinnerModule,
         Ng2PaginationModule,
         RouterModule.forChild([{ path: "", component: HomeComponent }]),
-        SharedModule,
+        MarkdownModule,
+        MdlNonRootModule,
         TranslationModule
     ],
     exports: [HomeComponent]

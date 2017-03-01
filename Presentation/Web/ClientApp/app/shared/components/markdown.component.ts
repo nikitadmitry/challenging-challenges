@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from "@angular/core";
+import {Component, Input, OnChanges, NgModule} from "@angular/core";
 import * as marked from "marked";
 
 @Component({
@@ -19,3 +19,9 @@ export class MarkdownComponent implements OnChanges {
     this.convertedData = md.parse(this.data);
   }
 }
+
+@NgModule({
+    declarations: [MarkdownComponent],
+    exports: [MarkdownComponent]
+})
+export class MarkdownModule { }
