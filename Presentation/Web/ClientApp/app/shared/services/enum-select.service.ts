@@ -9,8 +9,8 @@ export class EnumSelectService {
         return Object.keys(e).map(k => e[k]).filter(v => typeof v === "string")
             .map(_name => {
                 return {
-                    type: e[_name] as number,
-                    name: this.translation.translate(prefix ? prefix + "." + _name : _name)
+                    value: e[_name] as number,
+                    name: this.translation.translate(prefix ? `${prefix}.${prefix}-${e[_name]}` : _name)
                 };
             });
     }

@@ -1,10 +1,13 @@
 import {ChallengeType} from "./ChallengeType";
+import {Difficulty} from "./Difficulty";
+import {Section} from "./Section";
+
 export class ChallengeDetailsModel {
     id: string;
     title: string;
     condition: string;
-    difficulty: number;
-    section: number;
+    difficulty: Difficulty;
+    section: Section;
     rating: number;
     challengeType: ChallengeType;
     authorId: string;

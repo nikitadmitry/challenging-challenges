@@ -48,7 +48,9 @@ module.exports = (env) => {
                 'brace/mode/python',
                 'brace/mode/text',
                 'brace/theme/eclipse',
-                'ng2-ace-editor'
+                'ng2-ace-editor',
+                'simplemde',
+                'simplemde/dist/simplemde.min.css'
             ]
         },
         output: {

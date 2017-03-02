@@ -1,5 +1,5 @@
 <div class="mdl-grid">
-    <filters mdl-shadow="4" class="mdl-grid mdl-cell mdl-cell--12-col mdl-padded"
+    <filters mdl-shadow="2" class="mdl-grid mdl-cell mdl-cell--12-col mdl-padded"
       [(searchType)]="selectedSearchType" [(searchString)]="searchString" (changeFilter)="onChangeFilter()"></filters>
 
     <paging-buttons class="mdl-cell mdl-cell--12-col" [hidden]="noChallenges"
@@ -12,7 +12,7 @@
         <h2>Search returned no results.</h2>
     </div>
 
-    <challenge (redirect)="redirect($event)" mdl-shadow="4" *ngFor="let challenge of challenges" class="mdl-cell mdl-cell--12-col" [challenge]="challenge"></challenge>
+    <challenge (redirect)="redirect($event)" mdl-shadow="2" *ngFor="let challenge of challenges" class="mdl-cell mdl-cell--12-col" [challenge]="challenge"></challenge>
 
     <paging-buttons class="mdl-cell mdl-cell--12-col" [hidden]="noChallenges"
       [nextPageEnabled]="nextPageEnabled" [previousPageEnabled]="previousPageEnabled"

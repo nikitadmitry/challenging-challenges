@@ -1,6 +1,6 @@
 <div class="mdl-cell mdl-cell--3-col">
   <mdl-select #searchTypeSelect floating-label [(ngModel)]="searchType" placeholder="{{ 'SearchField' | translate:lang }}">
-    <mdl-option *ngFor="let type of searchTypes" [value]="type.type">{{type.name}}</mdl-option>
+    <mdl-option *ngFor="let type of searchTypes" [value]="type.value">{{type.name}}</mdl-option>
   </mdl-select>
 </div>
 <div class="mdl-cell mdl-cell--6-col search-string-container">
