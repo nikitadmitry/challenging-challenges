@@ -1,8 +1,8 @@
 import {
-    Component, Renderer, ElementRef, Optional, Inject, forwardRef, Input, ViewEncapsulation, OnChanges, OnInit
+    Component, Renderer, ElementRef, Optional, Inject, forwardRef, Input, ViewEncapsulation, OnInit
 } from "@angular/core";
 import {
-    NG_VALUE_ACCESSOR, FormControl, ControlValueAccessor
+    NG_VALUE_ACCESSOR, FormControl
 } from "@angular/forms";
 import { MdlTextFieldComponent, DISABLE_NATIVE_VALIDITY_CHECKING } from "angular2-mdl";
 
@@ -29,7 +29,7 @@ import { FormControlValidationMessagesBuilder } from "../../validation/FormContr
     ],
     encapsulation: ViewEncapsulation.None
 })
-export class MdlTextFieldValidatedComponent extends MdlTextFieldComponent {
+export class MdlTextFieldValidatedComponent extends MdlTextFieldComponent implements OnInit {
     private error: string;
     @Input() formControl: FormControl;
 
@@ -39,12 +39,8 @@ export class MdlTextFieldValidatedComponent extends MdlTextFieldComponent {
         super(renderer, elmRef, nativeCheckGlobalDisabled);
     }
 
-    public registerOnChange(fn: any): void {
-        super.registerOnChange((value, e) => {
-            fn(value, e);
-            this.formControl.setValue(value);
-            this.updateError();
-        });
+    ngOnInit() {
+        this.formControl.statusChanges.subscribe(() => this.updateError());
     }
 
     private updateError(): void {
