@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Resources;
 using System.ServiceModel;
 using System.Text;
 using Autofac.Features.Indexed;
 using AutoMapper;
 using Business.Challenges.Private;
 using Business.Challenges.Private.SearchStrategies;
-using Business.Challenges.Properties;
 using Business.Challenges.ViewModels;
 using Business.Identity;
 using Data.Challenges.Context;
 using Data.Challenges.Entities;
-using Data.Challenges.Enums;
 using Data.Common.Query.Builder;
 using Data.Common.Query.QueryParameters;
 using Shared.Framework.DataSource;
@@ -32,19 +29,22 @@ namespace Business.Challenges
         private readonly Lazy<IChallengeSolutionDispatcher> challengeSolutionDispatcher;
         private readonly IMapper mapper;
         private readonly IIndex<ChallengeSearchType, Lazy<ISearchStrategy>> searchStrategies;
+        private readonly Lazy<SourceCodeTemplateCollector> sourceCodeTemplateCollector;
         private const ChallengeSearchType DefaultSearchType = ChallengeSearchType.Title;
 
         public ChallengesService(IChallengesUnitOfWork unitOfWork, 
             Lazy<IIdentityService> identityService,
             Lazy<IChallengeSolutionDispatcher> challengeSolutionDispatcher,
             IMapper mapper,
-            IIndex<ChallengeSearchType, Lazy<ISearchStrategy>> searchStrategies)
+            IIndex<ChallengeSearchType, Lazy<ISearchStrategy>> searchStrategies,
+            Lazy<SourceCodeTemplateCollector> sourceCodeTemplateCollector)
         {
             this.unitOfWork = unitOfWork;
             this.identityService = identityService;
             this.challengeSolutionDispatcher = challengeSolutionDispatcher;
             this.mapper = mapper;
             this.searchStrategies = searchStrategies;
+            this.sourceCodeTemplateCollector = sourceCodeTemplateCollector;
         }
 
         public ChallengeViewModel AddChallenge(ChallengeViewModel challenge)
@@ -304,7 +304,7 @@ namespace Business.Challenges
 
             var viewModel = mapper.Map<ChallengeDetailsModel>(challenge);
             viewModel.AuthorName = identityService.Value.GetIdentityUserById(challenge.AuthorId).UserName;
-            viewModel.AnswerTemplate = GetAnswerTemplate(challenge.Section);
+            viewModel.AnswerTemplate = GetSourceCodeTemplate((BusinessSection)challenge.Section);
 
             if (challenge.AuthorId == userId)
             {
@@ -327,14 +327,6 @@ namespace Business.Challenges
             return viewModel;
         }
 
-        private string GetAnswerTemplate(Section section)
-        {
-            var resourceName = $"Answer_Template_{section}";
-
-            ResourceManager rm = new ResourceManager(typeof(Resources));
-            return rm.GetString(resourceName);
-        }
-
         private void CreateSolver(Guid userId, Challenge challenge)
         {
             challenge.Solvers.Add(Solver.Create(userId));
@@ -352,6 +344,11 @@ namespace Business.Challenges
                 .ToListQueryParameters();
 
             return unitOfWork.GetFirstOrDefault<Solver>(queryParameters);
+        }
+
+        public string GetSourceCodeTemplate(BusinessSection section)
+        {
+            return sourceCodeTemplateCollector.Value.GetTemplate(section);
         }
     }
 }

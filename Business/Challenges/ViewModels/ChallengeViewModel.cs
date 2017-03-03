@@ -36,7 +36,7 @@ namespace Business.Challenges.ViewModels
 
         public Difficulty Difficulty { get; set; }
 
-        public Section Section { get; set; }
+        public BusinessSection Section { get; set; }
 
         public Language Language { get; set; }
 

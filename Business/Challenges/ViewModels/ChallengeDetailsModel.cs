@@ -9,7 +9,7 @@ namespace Business.Challenges.ViewModels
         public string Title { get; set; }
         public string Condition { get; set; }
         public Difficulty Difficulty { get; set; }
-        public Section Section { get; set; }
+        public BusinessSection Section { get; set; }
         public double Rating { get; set; }
         public ChallengeType ChallengeType { get; set; }
         public Guid AuthorId { get; set; }

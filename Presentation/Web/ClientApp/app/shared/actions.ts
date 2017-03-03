@@ -17,6 +17,7 @@ interface Challenges {
     searchChallenges: string;
     getChallenge: string;
     solve: string;
+    getSourceCodeTemplate: string;
 }
 
 declare module actions {

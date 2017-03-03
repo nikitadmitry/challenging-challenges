@@ -12,12 +12,13 @@ import "brace/theme/eclipse";
 
 import {ChallengeDetailsModel} from "../models/challenge.model";
 import {ChallengesService} from "../../challenges/challenges.service";
+import {EditorModeResolver} from "../services/editor-mode-resolver.service";
 
 @Component({
     selector: "challenge-details",
     template: require("./challenge-details.component.html"),
     styles: [require("./challenge-details.component.css")],
-    providers: [ChallengesService]
+    providers: [ChallengesService, EditorModeResolver]
 })
 export class ChallengeDetailsComponent extends Translation implements OnInit {
     challenge: ChallengeDetailsModel;
@@ -30,7 +31,8 @@ export class ChallengeDetailsComponent extends Translation implements OnInit {
 
     constructor(private route: ActivatedRoute,
                 private challengesService: ChallengesService,
-                translationService: TranslationService) {
+                translationService: TranslationService,
+                private editorModeResolver: EditorModeResolver) {
         super(translationService);
 
         this.translation.AddConfiguration()
@@ -48,22 +50,22 @@ export class ChallengeDetailsComponent extends Translation implements OnInit {
             })
         });
 
+        this.editor.getEditor().commands.addCommand({
+            name: "submit",
+            bindKey: "Alt-Enter",
+            exec: () => this.submit()
+        });
+
         this.editor.getEditor().$blockScrolling = Infinity;
-        this.editor.setMode("csharp");
         this.editor.setTheme("eclipse");
     }
 
     private prepareView() {
         this.editor.setReadOnly(this.challenge.isAuthor);
         if (!this.challenge.isAuthor) {
-            this.answer = this.challenge.answerTemplate;
+            this.editor.getEditor().setValue(this.challenge.answerTemplate, 1);
         }
-
-        this.editor.getEditor().commands.addCommand({
-            name: "submit",
-            bindKey: "Alt-Enter",
-            exec: () => this.submit()
-        });
+        this.editor.setMode(this.editorModeResolver.resolve(this.challenge.section));
     }
 
     submit() {

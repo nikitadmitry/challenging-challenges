@@ -60,5 +60,11 @@ namespace Presentation.Web.Controllers
 
             return challengesService.TryToSolve(challengeId, user.Id, answer);
         }
+
+        [HttpGet]
+        public string GetSourceCodeTemplate(BusinessSection section)
+        {
+            return challengesService.GetSourceCodeTemplate(section);
+        }
     }
 }

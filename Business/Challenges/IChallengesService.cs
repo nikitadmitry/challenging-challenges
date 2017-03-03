@@ -45,6 +45,9 @@ namespace Business.Challenges
         int GetChallengesCount();
 
         [OperationContract]
+        string GetSourceCodeTemplate(BusinessSection section);
+
+        [OperationContract]
         string GetTagsAsStringByChallengeId(Guid challengeId);
 
         [OperationContract]

@@ -7,6 +7,8 @@ import { Actions } from "../shared/actions";
 import { ChallengesSearchOptions } from "./models/ChallengesSearchOptions";
 import {ChallengeDetailsModel} from "../challenge/models/challenge.model";
 import {AuthHttp} from "angular2-jwt";
+import {SourceCodeTemplate} from "./models/SourceCodeTemplate";
+import {Section} from "../challenge/models/Section";
 
 @Injectable()
 export class ChallengesService {
@@ -32,6 +34,14 @@ export class ChallengesService {
 
         return this.authHttp.post(Actions.challenges.solve, JSON.stringify(answer), { search: params, headers: headers })
             .map(response => response.json());
+    }
+
+    getSourceCodeTemplate(section: Section): Observable<string> {
+        let params = new URLSearchParams();
+        params.set('section', section.toString());
+
+        return this.http.get(Actions.challenges.getSourceCodeTemplate, { search: params })
+            .map(response => response.text() as string);
     }
 
     getChallenge(challengeId: string): Observable<ChallengeDetailsModel> {

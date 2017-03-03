@@ -3,26 +3,30 @@
         <h3>New Challenge</h3>
     </div>
     <form class="mdl-cell mdl-cell--12-col" [formGroup]="challengeForm" (ngSubmit)="submit()">
-        <p class="mdl-cell mdl-cell--12-col">
-            <mdl-textfield-validated class="mdl-cell mdl-cell--8-col" [formControl]="challengeForm.get('title')"
+        <p>
+            <mdl-textfield-validated class="mdl-cell--12-col" [formControl]="challengeForm.get('title')"
                                      label="Title"
                                      type="text"
                                      floating-label></mdl-textfield-validated>
-            <mdl-switch class="mdl-cell mdl-cell--3-col" formControlName="codeAnswered" mdl-ripple>Code Answered</mdl-switch>
         </p>
-        <p class="mdl-cell mdl-cell--12-col">
-            <mdl-select class="mdl-cell mdl-cell--4-col" #sectionSelect floating-label formControlName="section" placeholder="Section">
+        <p>
+            <mdl-select class="challenge__first-row-field" #sectionSelect floating-label formControlName="section" placeholder="Section">
                 <mdl-option *ngFor="let section of sections" [value]="section.value">{{section.name}}</mdl-option>
             </mdl-select>
-            <mdl-select class="mdl-cell mdl-cell--4-col" floating-label formControlName="difficulty" placeholder="Difficulty">
+            <mdl-switch class="mdl-cell--3-col" formControlName="codeAnswered">Code Answered</mdl-switch>
+        </p>
+        <p>
+            <mdl-select class="challenge__first-row-field" floating-label formControlName="difficulty" placeholder="Difficulty">
                 <mdl-option *ngFor="let difficulty of difficulties" [value]="difficulty.value">{{difficulty.name}}</mdl-option>
             </mdl-select>
-            <mdl-select class="mdl-cell mdl-cell--4-col" floating-label formControlName="language" placeholder="Language">
+            <mdl-select floating-label formControlName="language" placeholder="Language">
                 <mdl-option *ngFor="let language of languages" [value]="language.value">{{language.name}}</mdl-option>
             </mdl-select>
         </p>
         <textarea #previewEditor></textarea>
-        <textarea class="hidden" #conditionEditor></textarea>
+        <span class="mdl-textfield__error challenge__markdown-editor-error">{{getErrorForControl(challengeForm.get('previewText'))}}</span>
+        <textarea #conditionEditor></textarea>
+        <span class="mdl-textfield__error challenge__markdown-editor-error">{{getErrorForControl(challengeForm.get('condition'))}}</span>
         <div [hidden]="challengeForm.get('codeAnswered').value">
             <label class="mdl-cell mdl-cell--12-col">Answers</label>
             <mdl-textfield class="mdl-cell mdl-cell--12-col"
@@ -34,10 +38,11 @@
         <div [hidden]="!challengeForm.get('codeAnswered').value">
             <label class="mdl-cell mdl-cell--12-col">Answer</label>
             <ace-editor style="height:500px" [(text)]="answer"></ace-editor>
+            <label class="mdl-cell mdl-cell--12-col">Test Cases</label>
+            <mdl-textfield label="Input Parameter 1" floating-label></mdl-textfield>
+            <mdl-textfield label="Output Parameter 1" floating-label></mdl-textfield>
         </div>
-
-        <label class="mdl-cell mdl-cell--12-col">Tags</label>
-        <mdl-textfield class="mdl-cell mdl-cell--12-col"></mdl-textfield>
+        <mdl-textfield class="mdl-cell mdl-cell--12-col" label="Tags" floating-label></mdl-textfield>
 
         <div class="mdl-cell mdl-cell--12-col">
             <button [routerLink]="['/challenges']" mdl-button mdl-button-type="raised" mdl-ripple>

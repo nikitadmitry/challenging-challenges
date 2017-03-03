@@ -48,7 +48,7 @@ namespace Business.Challenges.ViewModels
             set;
         }
 
-        public Section Section
+        public BusinessSection Section
         {
             get;
             set;

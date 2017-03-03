@@ -1,0 +1,12 @@
+.challenge__markdown-editor-error {
+    visibility: visible !important;
+    margin-top: -28px;
+}
+
+.challenge__first-row-field {
+    margin-right: 20px;
+}
+
+.challenge__tags {
+    margin-top: 20px;
+}
