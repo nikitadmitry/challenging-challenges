@@ -7,5 +7,7 @@ namespace Business.Challenges.ViewModels
         public List<string> InputParameters { get; set; }
 
         public List<string> OutputParameters { get; set; }
+
+        public bool IsPublic { get; set; }
     }
 }

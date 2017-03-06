@@ -41,6 +41,7 @@ namespace Business.Challenges.Mappings
             CreateMap<TestCaseViewModel, TestCase>()
                 .ForMember(e => e.Id, o => o.Ignore())
                 .ForMember(e => e.State, o => o.Ignore())
+                .ForMember(e => e.IsPublic, o => o.MapFrom(wm => wm.IsPublic))
                 .ForMember(e => e.CodeParameters, o => o.ResolveUsing(wm =>
                 {
                     var codeParameters = wm.InputParameters.Select(inputParameter =>
@@ -61,6 +62,7 @@ namespace Business.Challenges.Mappings
                 }));
 
             CreateMap<TestCase, TestCaseViewModel>()
+                .ForMember(vm => vm.IsPublic, o => o.MapFrom(e => e.IsPublic))
                 .ForMember(vm => vm.InputParameters, o => o.ResolveUsing(e => 
                     e.InputParameters.Select(x => x.Value)))
                 .ForMember(vm => vm.OutputParameters, o => o.ResolveUsing(e => 

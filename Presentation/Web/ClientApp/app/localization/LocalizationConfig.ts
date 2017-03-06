@@ -14,8 +14,7 @@ export class LocalizationConfig {
         this.locale.init();
 
         this.translation.AddConfiguration()
-            .AddProvider("./assets/locale-")
-            .AddProvider("./assets/locale-challenges-");
+            .AddProvider("./assets/locale-");
 
         let promise: Promise<any> = new Promise((resolve: any) => {
             this.translation.translationChanged.subscribe(() => {

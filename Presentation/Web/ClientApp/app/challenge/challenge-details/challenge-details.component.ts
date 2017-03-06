@@ -61,10 +61,18 @@ export class ChallengeDetailsComponent extends Translation implements OnInit {
     }
 
     private prepareView() {
-        this.editor.setReadOnly(this.challenge.isAuthor);
-        if (!this.challenge.isAuthor) {
-            this.editor.getEditor().setValue(this.challenge.answerTemplate, 1);
+        this.editor.setReadOnly(this.challenge.isAuthor || this.challenge.isSolved);
+        let answerText: string;
+        if (this.challenge.isAuthor) {
+            answerText = "You are an author.";
+        } else if (this.challenge.isSolved) {
+            answerText = "You have solved this challenge.";
         }
+        else {
+            answerText = this.challenge.answerTemplate;
+        }
+        this.editor.getEditor().setValue(answerText, 1);
+
         this.editor.setMode(this.editorModeResolver.resolve(this.challenge.section));
     }
 

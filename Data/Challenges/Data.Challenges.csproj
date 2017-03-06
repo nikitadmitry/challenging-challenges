@@ -99,6 +99,10 @@
     <Compile Include="Migrations\201702280754401_AddLinkToChallengeToSolver.Designer.cs">
       <DependentUpon>201702280754401_AddLinkToChallengeToSolver.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703061213324_AddIsPublicPropertyToTestCase.cs" />
+    <Compile Include="Migrations\201703061213324_AddIsPublicPropertyToTestCase.Designer.cs">
+      <DependentUpon>201703061213324_AddIsPublicPropertyToTestCase.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Context\IChallengesUnitOfWork.cs" />
@@ -145,6 +149,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201702280754401_AddLinkToChallengeToSolver.resx">
       <DependentUpon>201702280754401_AddLinkToChallengeToSolver.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703061213324_AddIsPublicPropertyToTestCase.resx">
+      <DependentUpon>201703061213324_AddIsPublicPropertyToTestCase.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\Sql\AddFullTextIndexAndCatalog.sql" />
   </ItemGroup>

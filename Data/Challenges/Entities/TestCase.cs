@@ -14,6 +14,12 @@ namespace Data.Challenges.Entities
             set;
         }
 
+        public bool IsPublic
+        {
+            get;
+            set;
+        }
+
         [NotMapped]
         public IEnumerable<CodeParameter> InputParameters
         {
