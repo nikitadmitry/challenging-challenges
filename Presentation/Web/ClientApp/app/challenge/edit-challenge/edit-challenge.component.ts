@@ -21,16 +21,16 @@ import {FormControlValidationMessagesBuilder} from "../../shared/validation/Form
 import {EditorModeResolver} from "../services/editor-mode-resolver.service";
 
 @Component({
-    selector: "new-challenge",
-    template: require("./new-challenge.component.html"),
-    styles: [require("./new-challenge.component.css")],
+    selector: "edit-challenge",
+    template: require("./edit-challenge.component.html"),
+    styles: [require("./edit-challenge.component.css")],
     providers: [
         ChallengesService,EnumSelectService,
         FormControlValidationMessagesBuilder,
         EditorModeResolver
     ]
 })
-export class NewChallengeComponent extends Translation implements OnInit {
+export class EditChallengeComponent extends Translation implements OnInit {
     challengeForm: FormGroup;
     @ViewChild(AceEditorComponent) editor: AceEditorComponent;
     sections: any[];

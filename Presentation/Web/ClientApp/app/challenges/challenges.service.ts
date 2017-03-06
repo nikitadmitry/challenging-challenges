@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import {Http, URLSearchParams, RequestOptions, Headers} from "@angular/http";
+import {Http, URLSearchParams, Headers} from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/share";
 
@@ -7,7 +7,6 @@ import { Actions } from "../shared/actions";
 import { ChallengesSearchOptions } from "./models/ChallengesSearchOptions";
 import {ChallengeDetailsModel} from "../challenge/models/challenge.model";
 import {AuthHttp} from "angular2-jwt";
-import {SourceCodeTemplate} from "./models/SourceCodeTemplate";
 import {Section} from "../challenge/models/Section";
 
 @Injectable()
