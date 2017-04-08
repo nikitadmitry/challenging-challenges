@@ -4,11 +4,12 @@ import "rxjs/add/operator/publishReplay";
 import "rxjs/add/operator/merge";
 import "rxjs/add/observable/forkJoin";
 
-import { ChallengesService } from "../challenges/challenges.service";
+import { ChallengesService } from "./challenges.service";
 import { ChallengeSearchType } from "./models/ChallengeSearchType";
 import { ChallengesSearchOptions } from "./models/ChallengesSearchOptions";
 import {PageRule} from "../shared/models/PageRule";
 import {RedirectSearchModel} from "./models/RedirectSearchModel";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
     selector: "challenges",
@@ -27,7 +28,8 @@ export class ChallengesComponent extends Translation implements OnInit {
     nextPageEnabled: boolean = false;
     noChallenges: boolean = false;
 
-    constructor(private challengesService: ChallengesService, translationService: TranslationService) {
+    constructor(private challengesService: ChallengesService, translationService: TranslationService,
+                private route: ActivatedRoute) {
         super(translationService);
 
         this.translation.AddConfiguration()
@@ -37,6 +39,7 @@ export class ChallengesComponent extends Translation implements OnInit {
 
     ngOnInit(): void {
         this.loadFilters();
+        this.parseRouteParameters();
         this.searchChallenges();
     }
 
@@ -97,11 +100,21 @@ export class ChallengesComponent extends Translation implements OnInit {
     }
 
     private loadFilters() {
-        var filtersString = localStorage.getItem("search_filters");
+        const filtersString = localStorage.getItem("search_filters");
         if (filtersString) {
             let filters = JSON.parse(filtersString);
             this.searchString = filters.searchString;
             this.selectedSearchType = filters.searchType;
         }
+    }
+
+    private parseRouteParameters() {
+        this.route.params.subscribe(params => {
+            let searchText = params['searchText'];
+            if (searchText !== undefined) {
+                this.selectedSearchType = ChallengeSearchType.Title;
+                this.searchString = searchText;
+            }
+        });
     }
 }

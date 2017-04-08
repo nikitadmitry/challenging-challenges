@@ -3,7 +3,8 @@
         <mdl-layout-header-row>
             <mdl-layout-title>Challenging Challenges</mdl-layout-title>
             <mdl-layout-spacer></mdl-layout-spacer>
-            <mdl-textfield type="text" icon="search"></mdl-textfield>
+            <form (ngSubmit)="search()">
+                <mdl-textfield [(ngModel)]="searchText" type="text" icon="search" name="searchText"></mdl-textfield></form>
             <mdl-icon-toggle mdl-ripple [(ngModel)]="languageChanged" (click)="toggleLanguage()">translate</mdl-icon-toggle>
          </mdl-layout-header-row>
     </mdl-layout-header>

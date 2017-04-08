@@ -71,7 +71,7 @@ export class EditChallengeComponent extends Translation implements OnInit {
     }
 
     getErrorForControl(fc: FormControl): string {
-        var errors = this.errorBuilder.build(fc);
+        let errors = this.errorBuilder.build(fc);
         return errors.length > 0 ? errors[0] : undefined
     }
 
