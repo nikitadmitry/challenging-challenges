@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {UserService} from "./user.service";
+import {UserService} from "../user.service";
 import * as $ from "jquery";
+import { MdlDialogComponent } from "angular2-mdl/components";
 require("jquery-knob");
 
 @Component({
@@ -11,7 +12,10 @@ require("jquery-knob");
     providers: [UserService]
 })
 export class ProfileComponent implements OnInit {
+    @ViewChild("editAboutDialog") editAboutDialog: MdlDialogComponent;
     model: UserModel;
+    newAbout: string;
+
     constructor(route: ActivatedRoute, private userService: UserService) {
         route.params.subscribe((params) => {
             this.userService.getUser(params["id"]).subscribe((model) => {
@@ -23,6 +27,11 @@ export class ProfileComponent implements OnInit {
 
     ngOnInit() {
 
+    }
+
+    saveAbout() {
+        alert("oppa");
+        this.editAboutDialog.close();
     }
 
     initKnobs() {

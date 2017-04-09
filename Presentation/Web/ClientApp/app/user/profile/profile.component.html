@@ -1,0 +1,51 @@
+<div>
+    <loading-spinner [active]="!model"></loading-spinner>
+
+    <div *ngIf="model">
+        <h3 class="user-name">{{model.userName}}</h3>
+        <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--4-col">
+                <div class="mdl-grid">
+                    <h4 class="mdl-cell">About</h4>
+                    <button class="mdl-cell" #editAboutButton mdl-button mdl-ripple (click)="editAboutDialog.show()">Edit</button>
+                </div>
+                <div>{{model.about}}</div>
+                <h4>Contact information</h4>
+                <div>Email address: {{model.email}}</div>
+            </div>
+            <div class="mdl-cell mdl-cell--4-col" style="padding-left: 100px;">
+                <h4 style="margin-left: 40px;">User Level</h4>
+                <input id="user-level" value="{{model.level}}" />
+
+                <h4>Solved challenges</h4>
+                <input id="user-solvedChallenges" value="{{model.solvedChallenges}}" />
+
+                <h4>Posted challenges</h4>
+                <input id="user-postedChallenges" value="{{model.postedChallenges}}" />
+            </div>
+            <div class="mdl-cell mdl-cell--4-col">
+                <h4>Posted Challenges</h4>
+            </div>
+        </div>
+
+        <mdl-dialog #editAboutDialog
+                    [mdl-dialog-config]="{
+                    clickOutsideToClose: true,
+                    styles:{'width': '300px'},
+                    isModal:true,
+                    openFrom: editAboutButton,
+                    enterTransitionDuration: 400,
+                    leaveTransitionDuration: 400}"
+                    (show)="newAbout = ''">
+        <h3 class="mdl-dialog__title">Edit About</h3>
+        <div class="mdl-dialog__content">
+            <mdl-textfield style="margin-top: -25px; width: 100%;" [(ngModel)]="newAbout" 
+                rows="5" maxrows="7" floating-label autofocus></mdl-textfield>
+        </div>
+        <div class="mdl-dialog__actions">
+            <button mdl-button (click)="saveAbout()" mdl-button-type="raised" mdl-colored="primary" mdl-ripple>Save</button>
+            <button mdl-button (click)="editAboutDialog.close()" mdl-ripple>Cancel</button>
+        </div>
+        </mdl-dialog>
+    </div>
+</div>
