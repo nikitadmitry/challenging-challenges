@@ -11,6 +11,7 @@ const routes: Routes = [
     { path: "home", component: HomeComponent },
     { path: "challenges", loadChildren: "../challenges/challenges.module#ChallengesModule" },
     { path: "challenge", loadChildren: "../challenge/challenge.module#ChallengeModule", canActivate: [AuthGuard] },
+    { path: "user", loadChildren: "../user/user.module#UserModule", canActivate: [AuthGuard] },
     { path: "**", redirectTo: "home" }
 ];
 

@@ -137,6 +137,10 @@
     <Compile Include="ViewModels\TestCaseViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Business.Common\Business.Common.csproj">
+      <Project>{e4e9bf7a-cb57-484d-aa0c-ef6a4c6c5077}</Project>
+      <Name>Business.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CodeExecution\Business.CodeExecution.csproj">
       <Project>{96305162-a7c2-4e9b-adb3-d9b0946874eb}</Project>
       <Name>Business.CodeExecution</Name>

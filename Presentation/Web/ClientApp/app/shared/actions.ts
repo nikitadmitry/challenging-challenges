@@ -20,10 +20,15 @@ interface Challenges {
     getSourceCodeTemplate: string;
 }
 
+interface User {
+    getUserById: string;
+}
+
 declare module actions {
     var account: Account;
     var home: Home;
     var challenges: Challenges;
+    var user: User;
 }
 
 export var Actions = actions;

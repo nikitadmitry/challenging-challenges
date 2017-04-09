@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{37C92161-45C9-481B-90A1-821007185720}</ProjectGuid>
+    <ProjectGuid>{E4E9BF7A-CB57-484D-AA0C-EF6A4C6C5077}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Business.Achievements</RootNamespace>
-    <AssemblyName>Business.Achievements</AssemblyName>
+    <RootNamespace>Business.Common</RootNamespace>
+    <AssemblyName>Business.Common</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,13 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,35 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AchievementsService.cs" />
-    <Compile Include="IAchievementsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Business.Common\Business.Common.csproj">
-      <Project>{E4E9BF7A-CB57-484D-AA0C-EF6A4C6C5077}</Project>
-      <Name>Business.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Challenges\Business.Challenges.csproj">
-      <Project>{532F5E1B-117C-4131-A9A7-8B96B3CEE237}</Project>
-      <Name>Business.Challenges</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Data\Common\Data.Common.csproj">
-      <Project>{610FE3E7-21B8-4BBD-865F-32EA6BA15784}</Project>
-      <Name>Data.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Data\Identity\Data.Identity.csproj">
-      <Project>{6780FCD1-1B0C-4410-94B7-91C98B2333A1}</Project>
-      <Name>Data.Identity</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Shared\Framework\Shared.Framework.csproj">
-      <Project>{150EBD2E-0220-4E95-A42E-A5E14E0DB467}</Project>
-      <Name>Shared.Framework</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
+    <Compile Include="ViewModels\AchievementType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -41,6 +41,7 @@
     "isomorphic-fetch": "^2.2.1",
     "jqcloud2": "^2.0.2",
     "jquery": "^2.2.1",
+    "jquery-knob": "^1.2.11",
     "json-loader": "^0.5.4",
     "marked": "^0.3.6",
     "ng2-pagination": "^2.0.0",

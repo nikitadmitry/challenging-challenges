@@ -1,0 +1,29 @@
+<div>
+    <loading-spinner [active]="!model"></loading-spinner>
+
+    <div *ngIf="model">
+        <h3 class="user-name">{{model.userName}}</h3>
+        <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--4-col">
+                <h4>About</h4>
+                <mdl-textfield style="margin-top: -25px; width: 100%;" (readonly)="model.isReadOnly"
+                               [(ngModel)]="model.about" rows="5" maxrows="7"></mdl-textfield>
+                <h4>Contact information</h4>
+                <div>Email address: {{model.email}}</div>
+            </div>
+            <div class="mdl-cell mdl-cell--4-col" style="padding-left: 100px;">
+                <h4 style="margin-left: 40px;">User Level</h4>
+                <input id="user-level" value="{{model.level}}" />
+
+                <h4>Solved challenges</h4>
+                <input id="user-solvedChallenges" value="{{model.solvedChallenges}}" />
+
+                <h4>Posted challenges</h4>
+                <input id="user-postedChallenges" value="{{model.postedChallenges}}" />
+            </div>
+            <div class="mdl-cell mdl-cell--4-col">
+                <h4>Posted Challenges</h4>
+            </div>
+        </div>
+    </div>
+</div>

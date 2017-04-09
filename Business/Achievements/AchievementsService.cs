@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.ServiceModel;
-using Business.Achievements.ViewModels;
 using Business.Challenges;
+using Business.Common.ViewModels;
 using Data.Common.Query.Builder;
 using Data.Common.Query.QueryParameters;
 using Data.Identity.Context;

@@ -10,6 +10,12 @@ namespace Business.Challenges.ViewModels
             set;
         }
 
+        public Guid ChallengeId
+        {
+            get;
+            set;
+        }
+
         public bool HasSolved
         {
             get;

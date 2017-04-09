@@ -1,6 +1,6 @@
 {
     "Common": {
-      "ServerError": "Server error occurred. Page will be automatically refreshed.",
+      "ServerError": "Server error occurred. Please refresh the page.",
       "Cancel": "Cancel",
       "Error": "Error"
     },

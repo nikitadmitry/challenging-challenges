@@ -40,5 +40,8 @@ namespace Business.Identity
 
         [OperationContract]
         IdentityRole GetRoleByName(string roleName);
+
+        [OperationContract]
+        UserModel GetUser(Guid userId);
     }
 }

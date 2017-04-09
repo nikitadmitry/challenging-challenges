@@ -28,7 +28,8 @@
         "Hangfire.Core": "1.6.8",
         "Hangfire.AspNetCore": "1.6.8",
         "Hangfire.SqlServer": "1.6.8",
-        "Hangfire.Autofac": "2.2.0"
+      "Hangfire.Autofac": "2.2.0",
+      "Microsoft.AspNet.Identity.Core": "2.2.1"
     },
 
   "tools": {
@@ -40,9 +41,9 @@
   "frameworks": {
     "net46": {
         "dependencies": {
-            "Business.Host": {
-                "target": "project"
-            },
+          "Business.Host": {
+            "target": "project"
+          },
             "Shared.Framework": {
                 "target": "project"
             }

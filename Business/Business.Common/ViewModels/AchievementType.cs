@@ -1,4 +1,4 @@
-﻿namespace Business.Achievements.ViewModels
+﻿namespace Business.Common.ViewModels
 {
     public enum AchievementType
     {

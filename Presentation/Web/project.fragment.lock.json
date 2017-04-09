@@ -120,6 +120,23 @@
         }
       }
     },
+    "Business.Common/1.0.0": {
+      "type": "project",
+      "framework": ".NETFramework,Version=v4.6",
+      "compile": {
+        "bin/Debug/Business.Common.dll": {}
+      },
+      "runtime": {
+        "bin/Debug/Business.Common.dll": {}
+      },
+      "contentFiles": {
+        "bin/Debug/Business.Common.pdb": {
+          "buildAction": "None",
+          "codeLanguage": "any",
+          "copyToOutput": true
+        }
+      }
+    },
     "Business.Identity/1.0.0": {
       "type": "project",
       "framework": ".NETFramework,Version=v4.6",

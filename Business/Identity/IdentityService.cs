@@ -13,7 +13,7 @@ using Shared.Framework.Validation;
 
 namespace Business.Identity
 {
-    [ServiceBehavior(IncludeExceptionDetailInFaults = true, InstanceContextMode = InstanceContextMode.PerCall)]
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall)]
     public class IdentityService : IIdentityService, IDependency
     {
         private readonly IIdentityUnitOfWork unitOfWork;
@@ -154,6 +154,13 @@ namespace Business.Identity
             var user = unitOfWork.Get<User>(userId);
 
             return mapper.Map<IdentityUser>(user);
+        }
+
+        public UserModel GetUser(Guid userId)
+        {
+            var user = unitOfWork.Get<User>(userId);
+
+            return mapper.Map<UserModel>(user);
         }
     }
 }

@@ -1,6 +1,7 @@
 import {Component, Input} from "@angular/core";
 import {Translation, TranslationService} from "angular-l10n";
 import {ChallengeDetailsModel} from "../../models/challenge.model";
+import {Router} from "@angular/router";
 
 @Component({
     selector: "challenge-description",
@@ -10,7 +11,7 @@ import {ChallengeDetailsModel} from "../../models/challenge.model";
 export class ChallengeDescriptionComponent extends Translation {
     @Input() challenge: ChallengeDetailsModel;
 
-    constructor(translationService: TranslationService) {
+    constructor(translationService: TranslationService, private router: Router) {
         super(translationService);
 
         this.translation.AddConfiguration()
@@ -19,6 +20,6 @@ export class ChallengeDescriptionComponent extends Translation {
     }
 
     openAuthor() {
-        alert('opened user with id ' + this.challenge.authorId);
+        this.router.navigate(["user", this.challenge.authorId]);
     }
 }

@@ -1,5 +1,5 @@
 <div class="cursor-pointer" *ngIf="isLoggedOn()">
-    <a class="mdl-navigation__link">{{'NavMenu.Auth.Profile' | translate:lang}}</a>
+    <a class="mdl-navigation__link" (click)="goToProfile();">{{'NavMenu.Auth.Profile' | translate:lang}}</a>
     <a class="mdl-navigation__link" (click)="logout()">{{'NavMenu.Auth.SignOut' | translate:lang}}</a>
 </div>
 <div class="cursor-pointer" *ngIf="!isLoggedOn()">

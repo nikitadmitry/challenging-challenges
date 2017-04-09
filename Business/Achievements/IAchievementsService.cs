@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ServiceModel;
-using Business.Achievements.ViewModels;
+using Business.Common.ViewModels;
 
 namespace Business.Achievements
 {

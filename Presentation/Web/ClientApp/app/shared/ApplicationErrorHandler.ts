@@ -23,7 +23,6 @@ export class ApplicationErrorHandler extends ErrorHandler {
         if (zoneError.status === 500) {
             var serverError = this.translationService.translate("Common.ServerError");
             this.displayError(serverError);
-            setTimeout(() => location.replace("/home"), 5000);
             return;
         }
 

@@ -173,7 +173,8 @@ namespace Business.Challenges.Mappings
         {
             CreateMap<Solver, SolverViewModel>()
                 .ForMember(t => t.UserId, o => o.MapFrom(s => s.Id))
-                .ForMember(t => t.HasSolved, o => o.MapFrom(s => s.HasSolved));
+                .ForMember(t => t.HasSolved, o => o.MapFrom(s => s.HasSolved))
+                .ForMember(t => t.ChallengeId, o => o.MapFrom(s => s.ChallengeId));
 
 
             CreateMap<SolverViewModel, Solver>()
@@ -181,7 +182,8 @@ namespace Business.Challenges.Mappings
                 .ForMember(t => t.HasSolved, o => o.MapFrom(s => s.HasSolved))
                 .ForMember(t => t.HasRated, o => o.Ignore())
                 .ForMember(t => t.NumberOfTries, o => o.Ignore())
-                .ForMember(t => t.State, o => o.Ignore());
+                .ForMember(t => t.State, o => o.Ignore())
+                .ForMember(t => t.ChallengeId, o => o.MapFrom(s => s.ChallengeId));
         }
 
         private void ConfigureCommentsMap()
