@@ -30,8 +30,11 @@ export class ProfileComponent implements OnInit {
     }
 
     saveAbout() {
-        alert("oppa");
-        this.editAboutDialog.close();
+        this.userService.setAbout(this.newAbout)
+            .subscribe(() => {
+                this.model.about = this.newAbout;
+                this.editAboutDialog.close();
+            });
     }
 
     initKnobs() {

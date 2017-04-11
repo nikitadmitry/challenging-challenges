@@ -24,4 +24,11 @@ export class UserService {
         return this.authHttp.get(Actions.user.getUserById, { search: params })
             .map(response => response.json() as UserModel);
     }
+
+    setAbout(about: string): Observable<any> {
+        let params = new URLSearchParams();
+        params.set('about', about);
+
+        return this.authHttp.get(Actions.user.setAbout, { search: params });
+    }
 }

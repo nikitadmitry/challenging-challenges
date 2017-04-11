@@ -43,5 +43,8 @@ namespace Business.Identity
 
         [OperationContract]
         UserModel GetUser(Guid userId);
+
+        [OperationContract]
+        void SetAbout(Guid userId, string about);
     }
 }

@@ -28,5 +28,14 @@ namespace Presentation.Web.Controllers
 
             return Json(userModel);
         }
+
+        public IActionResult SetAbout(string about)
+        {
+            var currentUserId = Guid.Parse(userManager.GetUserId(User));
+
+            identityService.SetAbout(currentUserId, about);
+
+            return Ok();
+        }
     }
 }

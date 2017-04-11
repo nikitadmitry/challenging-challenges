@@ -162,5 +162,14 @@ namespace Business.Identity
 
             return mapper.Map<UserModel>(user);
         }
+
+        public void SetAbout(Guid userId, string about)
+        {
+            var user = unitOfWork.Get<User>(userId);
+
+            user.About = about;
+
+            unitOfWork.Commit();
+        }
     }
 }

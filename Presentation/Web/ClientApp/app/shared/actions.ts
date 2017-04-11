@@ -22,6 +22,7 @@ interface Challenges {
 
 interface User {
     getUserById: string;
+    setAbout: string;
 }
 
 declare module actions {
