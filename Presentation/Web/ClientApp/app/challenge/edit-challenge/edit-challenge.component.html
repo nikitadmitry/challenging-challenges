@@ -28,19 +28,12 @@
         <textarea #conditionEditor></textarea>
         <span class="mdl-textfield__error challenge__markdown-editor-error">{{getErrorForControl(challengeForm.get('condition'))}}</span>
         <div [hidden]="challengeForm.get('codeAnswered').value">
-            <label class="mdl-cell mdl-cell--12-col">Answers</label>
-            <mdl-textfield class="mdl-cell mdl-cell--12-col"
-                           *ngFor="let index of [1,2,3,4,5]"
-                           label="Answer {{index}}"
-                           type="text"
-                           floating-label></mdl-textfield>
+            <answers [answers]="answers"></answers>
         </div>
         <div [hidden]="!challengeForm.get('codeAnswered').value">
             <label class="mdl-cell mdl-cell--12-col">Answer</label>
-            <ace-editor style="height:500px" [(text)]="answer"></ace-editor>
-            <label class="mdl-cell mdl-cell--12-col">Test Cases</label>
-            <mdl-textfield label="Input Parameter 1" floating-label></mdl-textfield>
-            <mdl-textfield label="Output Parameter 1" floating-label></mdl-textfield>
+            <ace-editor style="height:500px" [(text)]="codeAnswer"></ace-editor>
+            <test-cases [testCases]="testCases"></test-cases>
         </div>
         <mdl-textfield class="mdl-cell mdl-cell--12-col" label="Tags" floating-label></mdl-textfield>
 

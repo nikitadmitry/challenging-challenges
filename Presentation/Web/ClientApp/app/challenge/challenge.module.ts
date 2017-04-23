@@ -15,6 +15,8 @@ import {LoadingSpinnerModule} from "../shared/components/loading-spinner.compone
 import {CommonModule} from "@angular/common";
 import {EnumPipeModule} from "../shared/pipes/enum.pipe";
 import {MarkdownModule} from "../shared/components/markdown.component";
+import {TestCasesComponent} from "./edit-challenge/test-cases/test-cases.component";
+import {AnswersComponent} from "./edit-challenge/answers/answers.component";
 
 @NgModule({
     declarations: [
@@ -23,7 +25,9 @@ import {MarkdownModule} from "../shared/components/markdown.component";
         ChallengeDetailsComponent,
         ChallengeDescriptionComponent,
         ChallengeActionsComponent,
-        EditChallengeComponent
+        EditChallengeComponent,
+        TestCasesComponent,
+        AnswersComponent
     ],
     imports: [
         CommonModule,

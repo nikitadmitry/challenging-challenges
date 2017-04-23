@@ -1,0 +1,10 @@
+<label class="mdl-cell mdl-cell--12-col">Answers</label>
+<mdl-button *ngIf="canAddAnswer()" (click)="addAnswer()">Add</mdl-button>
+<div *ngFor="let answer of answers; let index = index">
+    <mdl-textfield class="mdl-cell mdl-cell--10-col"
+                   label="Answer {{index+1}}"
+                   type="text"
+                   maxlength="50" [(ngModel)]="answer.value"
+                   floating-label></mdl-textfield>
+    <mdl-button (click)="deleteAnswer(answer)">Delete</mdl-button>
+</div>

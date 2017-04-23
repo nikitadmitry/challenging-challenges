@@ -39,7 +39,7 @@ namespace Business.Challenges.Private
                 IsSolved = true
             };
 
-            foreach (var testCase in challenge.TestCases)
+            foreach (var testCase in challenge.TestCases.OrderByDescending(x => x.IsPublic))
             {
                 var codeExecutionRequest = BuildCodeExecutionRequest(challenge, answer, testCase);
 
@@ -51,7 +51,7 @@ namespace Business.Challenges.Private
                 if (!testCaseValidationResult.IsSolved)
                 {
                     testCaseValidationResult.ErrorMessage = codeExecutionResult.IsValid
-                        ? GetTestCaseExecutionMessage(testCase.InputParameters, codeExecutionResult.Output)
+                        ? (testCase.IsPublic ? GetTestCaseExecutionMessage(testCase.InputParameters, codeExecutionResult.Output) : "Private Test Case Failed")
                         : codeExecutionResult.ErrorMessage;
 
                     break;

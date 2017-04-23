@@ -41,7 +41,9 @@ export class EditChallengeComponent extends Translation implements OnInit {
     @ViewChild('conditionEditor') conditionEditorElement : ElementRef;
     previewEditor: any;
     conditionEditor: any;
-    answer: string;
+    codeAnswer: string;
+    testCases = [];
+    answers = [];
 
     constructor(private challengesService: ChallengesService,
                 translationService: TranslationService,
@@ -60,7 +62,6 @@ export class EditChallengeComponent extends Translation implements OnInit {
             previewText: [null, Validators.compose([Validators.required, Validators.minLength(50), Validators.maxLength(600)])],
             condition: [null, Validators.compose([Validators.required, Validators.minLength(50), Validators.maxLength(3000)])],
             codeAnswered: [true, Validators.required],
-            answers: [[]],
             sourceCode: [null, Validators.required],
             tags: [[]]
         });
@@ -126,7 +127,7 @@ export class EditChallengeComponent extends Translation implements OnInit {
         this.editor.setTheme("eclipse");
         this.editor.setText("");
         this.editor.textChange.subscribe(() => {
-            this.challengeForm.get('sourceCode').setValue(this.answer);
+            this.challengeForm.get('sourceCode').setValue(this.codeAnswer);
         });
     }
 
@@ -143,6 +144,15 @@ export class EditChallengeComponent extends Translation implements OnInit {
     }
 
     submit() {
+        let saveModel = this.challengeForm.value;
+        if (this.challengeForm.get("codeAnswered").value) {
+            saveModel.testCases = this.testCases;
+        } else {
+            saveModel.answers = this.answers;
+        }
 
+        debugger;
     }
+
+
 }
