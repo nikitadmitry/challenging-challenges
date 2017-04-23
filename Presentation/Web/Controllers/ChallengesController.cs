@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Business.Achievements;
 using Business.Challenges;
 using Business.Challenges.ViewModels;
 using Business.Identity.ViewModels;
@@ -16,12 +17,15 @@ namespace Presentation.Web.Controllers
     {
         private readonly IChallengesService challengesService;
         private readonly Lazy<UserManager<IdentityUser>> userManager;
+        private readonly IAchievementsService achievementsService;
 
         public ChallengesController(IChallengesService challengesService,
-            Lazy<UserManager<IdentityUser>> userManager)
+            Lazy<UserManager<IdentityUser>> userManager,
+            IAchievementsService achievementsService)
         {
             this.challengesService = challengesService;
             this.userManager = userManager;
+            this.achievementsService = achievementsService;
         }
 
         [HttpGet]
@@ -54,11 +58,18 @@ namespace Presentation.Web.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<ChallengeSolveResult> Solve(Guid challengeId, [FromBody]string answer)
+        public async Task<JsonResult> Solve(Guid challengeId, [FromBody]string answer)
         {
             var user = await userManager.Value.GetUserAsync(User);
 
-            return challengesService.TryToSolve(challengeId, user.Id, answer);
+            var solveResult = challengesService.TryToSolve(challengeId, user.Id, answer);
+
+            if (solveResult.IsSolved)
+            {
+                achievementsService.ChallengeSolved(challengeId, user.Id);
+            }
+
+            return Json(solveResult);
         }
 
         [HttpGet]

@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import { TranslationService } from "angular-l10n";
 
 import { HomeService } from "../home.service";
+import {Router} from "@angular/router";
 
 @Component({
     selector: "top-users",
@@ -17,7 +18,8 @@ export class TopUsersComponent implements OnInit {
     usersLoaded: boolean = false;
     users: Array<any>;
 
-    constructor(private homeService: HomeService, private translation: TranslationService) { }
+    constructor(private homeService: HomeService, private translation: TranslationService,
+        private router: Router) { }
 
     ngOnInit(): void {
         this.translation.translationChanged.subscribe(() => {
@@ -36,7 +38,7 @@ export class TopUsersComponent implements OnInit {
     }
 
     openUserProfile(userId: string): void {
-        console.debug(userId);
+        this.router.navigate(["user", userId]);
     }
 
     private setDescription(user: any) {

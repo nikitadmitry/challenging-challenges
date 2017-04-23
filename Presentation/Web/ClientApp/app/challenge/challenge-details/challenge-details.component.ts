@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import { AceEditorComponent } from 'ng2-ace-editor';
 import {Translation, TranslationService} from "angular-l10n";
 import "brace";
@@ -13,6 +13,7 @@ import "brace/theme/eclipse";
 import {ChallengeDetailsModel} from "../models/challenge.model";
 import {ChallengesService} from "../../challenges/challenges.service";
 import {EditorModeResolver} from "../services/editor-mode-resolver.service";
+import {MdlDialogService} from "angular2-mdl";
 
 @Component({
     selector: "challenge-details",
@@ -32,7 +33,9 @@ export class ChallengeDetailsComponent extends Translation implements OnInit {
     constructor(private route: ActivatedRoute,
                 private challengesService: ChallengesService,
                 translationService: TranslationService,
-                private editorModeResolver: EditorModeResolver) {
+                private editorModeResolver: EditorModeResolver,
+                private dialogService: MdlDialogService,
+                private router: Router) {
         super(translationService);
 
         this.translation.AddConfiguration()
@@ -78,8 +81,13 @@ export class ChallengeDetailsComponent extends Translation implements OnInit {
 
     submit() {
         this.challengesService.solve(this.challenge.id, this.answer).subscribe((response) => {
-            debugger;
-            console.log(response);
+            if (response.isSolved) {
+                this.dialogService.alert(response.ratingObtained + " Rating obtained.", "Close challenge", "Challenge Solved").subscribe(() => {
+                    this.router.navigate(["challenges"]);
+                });
+            } else {
+                this.dialogService.alert(response.errorMessage, "Return to challenge", "Wrong!");
+            }
         })
     }
 }

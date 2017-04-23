@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.ServiceModel;
 using AutoMapper;
+using Business.Common.ViewModels;
 using Business.Identity.ViewModels;
 using Data.Common.Query.Builder;
 using Data.Common.Query.QueryParameters;
@@ -160,7 +162,10 @@ namespace Business.Identity
         {
             var user = unitOfWork.Get<User>(userId);
 
-            return mapper.Map<UserModel>(user);
+            var model = mapper.Map<UserModel>(user);
+            model.Achievements = user.Achievements.Select(x => (AchievementType) x.AchievementEnum).ToList();
+
+            return model;
         }
 
         public void SetAbout(Guid userId, string about)

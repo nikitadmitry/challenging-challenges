@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Business.Challenges.ViewModels;
+using Business.Identity;
 using Data.Challenges.Context;
 using Data.Challenges.Entities;
 
@@ -9,10 +10,12 @@ namespace Business.Challenges.Private
     internal abstract class ChallengeSolvingStrategyBase : IChallengeSolvingStrategy
     {
         private readonly IChallengesUnitOfWork unitOfWork;
+        private readonly IIdentityService identityService;
 
-        protected ChallengeSolvingStrategyBase(IChallengesUnitOfWork unitOfWork)
+        protected ChallengeSolvingStrategyBase(IChallengesUnitOfWork unitOfWork, IIdentityService identityService)
         {
             this.unitOfWork = unitOfWork;
+            this.identityService = identityService;
         }
 
         public ChallengeSolveResult Solve(Challenge challenge, Guid userId, string answer)
@@ -25,6 +28,10 @@ namespace Business.Challenges.Private
 
                 solver.HasSolved = true;
                 challenge.TimesSolved++;
+                var rating = (double)((int)challenge.Difficulty + 1) / challenge.TimesSolved;
+                solveResult.RatingObtained = rating;
+
+                identityService.AddRatingToUser(userId, rating);
 
                 unitOfWork.InsertOrUpdate(challenge);
                 unitOfWork.InsertOrUpdate(solver);

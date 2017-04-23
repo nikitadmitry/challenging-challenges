@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Business.Challenges.ViewModels;
+using Business.Identity;
 using Data.Challenges.Context;
 using Data.Challenges.Entities;
 using Shared.Framework.Dependency;
@@ -11,8 +12,8 @@ namespace Business.Challenges.Private
     [KeyedDependency(ChallengeType.TextAnswered)]
     internal class TextChallengeSolvingStrategy : ChallengeSolvingStrategyBase
     {
-        public TextChallengeSolvingStrategy(IChallengesUnitOfWork unitOfWork)
-            : base(unitOfWork)
+        public TextChallengeSolvingStrategy(IChallengesUnitOfWork unitOfWork, IIdentityService identityService)
+            : base(unitOfWork, identityService)
         {
         }
 

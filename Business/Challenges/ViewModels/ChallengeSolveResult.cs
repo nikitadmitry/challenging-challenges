@@ -13,5 +13,11 @@
             get;
             set;
         }
+
+        public double RatingObtained
+        {
+            get;
+            set;
+        }
     }
 }

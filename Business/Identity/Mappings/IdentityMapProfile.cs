@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Business.Common.ViewModels;
@@ -18,10 +19,6 @@ namespace Business.Identity.Mappings
 
         private void MapUserToUserModel()
         {
-            CreateMap<Achievement, AchievementType>()
-                .ConstructUsing(a => (AchievementType) a.AchievementEnum);
-                
-
             CreateMap<User, UserModel>()
                 .ForMember(m => m.Id, o => o.MapFrom(e => e.Id))
                 .ForMember(m => m.About, o => o.MapFrom(e => e.About))
@@ -31,7 +28,7 @@ namespace Business.Identity.Mappings
                 .ForMember(m => m.SolvedChallenges, o => o.MapFrom(e => e.SolvedTasksQuantity))
                 .ForMember(m => m.PostedChallenges, o => o.MapFrom(e => e.PostedTasksQuantity))
                 .ForMember(m => m.UserName, o => o.MapFrom(e => e.UserName))
-                .ForMember(m => m.Achievements, o => o.MapFrom(e => e.Achievements));
+                .ForMember(m => m.Achievements, o => o.Ignore());
 
         }
 

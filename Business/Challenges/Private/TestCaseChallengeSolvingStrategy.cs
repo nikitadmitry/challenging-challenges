@@ -4,6 +4,7 @@ using System.Linq;
 using Business.Challenges.ViewModels;
 using Business.CodeExecution;
 using Business.CodeExecution.ViewModels;
+using Business.Identity;
 using Data.Challenges.Context;
 using Data.Challenges.Entities;
 using Data.Challenges.Enums;
@@ -21,8 +22,9 @@ namespace Business.Challenges.Private
 
         public TestCaseChallengeSolvingStrategy(
             IChallengesUnitOfWork unitOfWork,
-            ICodeExecutor codeExecutor)
-            : base(unitOfWork)
+            ICodeExecutor codeExecutor,
+            IIdentityService identityService)
+            : base(unitOfWork, identityService)
         {
             this.codeExecutor = codeExecutor;
         }

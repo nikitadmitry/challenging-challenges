@@ -11,22 +11,22 @@ require("jquery-knob");
     styles: [require("./profile.component.css")],
     providers: [UserService]
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent {
     @ViewChild("editAboutDialog") editAboutDialog: MdlDialogComponent;
     model: UserModel;
     newAbout: string;
+    isCurrentUser: boolean;
 
     constructor(route: ActivatedRoute, private userService: UserService) {
         route.params.subscribe((params) => {
-            this.userService.getUser(params["id"]).subscribe((model) => {
+            let userId = params["id"];
+            this.userService.getUser(userId).subscribe((model) => {
                 this.model = model;
                 setTimeout(() => this.initKnobs(), 0);
             });
+            this.userService.getCurrentUserId()
+                .subscribe((currentId) => this.isCurrentUser = userId === currentId);
         });
-    }
-
-    ngOnInit() {
-
     }
 
     saveAbout() {

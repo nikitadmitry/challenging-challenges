@@ -7,7 +7,7 @@
             <div class="mdl-cell mdl-cell--4-col">
                 <div class="mdl-grid">
                     <h4 class="mdl-cell">About</h4>
-                    <button class="mdl-cell" #editAboutButton mdl-button mdl-ripple (click)="editAboutDialog.show()">Edit</button>
+                    <button class="mdl-cell" #editAboutButton mdl-button mdl-ripple [hidden]="!isCurrentUser" (click)="editAboutDialog.show()">Edit</button>
                 </div>
                 <div>{{model.about}}</div>
                 <h4>Contact information</h4>
@@ -39,7 +39,7 @@
                     (show)="newAbout = ''">
         <h3 class="mdl-dialog__title">Edit About</h3>
         <div class="mdl-dialog__content">
-            <mdl-textfield style="margin-top: -25px; width: 100%;" [(ngModel)]="newAbout" 
+            <mdl-textfield style="margin-top: -25px; width: 100%;" [(ngModel)]="newAbout"
                 rows="5" maxrows="7" floating-label autofocus></mdl-textfield>
         </div>
         <div class="mdl-dialog__actions">
