@@ -8,7 +8,6 @@ import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 export class AnswersComponent implements OnInit {
     @Input() answers: FormArray;
     constructor() {
-
     }
 
     ngOnInit() {
@@ -21,6 +20,10 @@ export class AnswersComponent implements OnInit {
 
     canAddAnswer(): boolean {
         return this.answers.controls.length < 5;
+    }
+
+    canDeleteAnswer(): boolean {
+        return this.answers.controls.length > 1;
     }
 
     deleteAnswer(answer: any) {

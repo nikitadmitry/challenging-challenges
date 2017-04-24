@@ -1,8 +1,12 @@
 <label class="mdl-cell mdl-cell--12-col">Test Cases</label>
 <mdl-button *ngIf="canAddTestCase()" (click)="addTestCase()">Add</mdl-button>
-<div *ngFor="let testCase of testCases; let index = index">
-    <mdl-textfield maxlength="50" [(ngModel)]="testCase.input" label="Input Parameter {{index+1}}" floating-label></mdl-textfield>
-    <mdl-textfield maxlength="50" [(ngModel)]="testCase.output" label="Output Parameter {{index+1}}" floating-label></mdl-textfield>
-    <mdl-checkbox style="width: initial;" [(ngModel)]="testCase.isPublic">Public</mdl-checkbox>
-    <mdl-button (click)="deleteTestCase(testCase)">Delete</mdl-button>
+<div *ngFor="let testCase of testCases.controls; let index = index">
+    <mdl-textfield-validated [formControl]="testCase.get('input')"
+                             label="Input Parameter {{index+1}}"
+                             floating-label></mdl-textfield-validated>
+    <mdl-textfield-validated [formControl]="testCase.get('output')"
+                             label="Output Parameter {{index+1}}"
+                             floating-label></mdl-textfield-validated>
+    <mdl-checkbox style="width: initial;" [formControl]="testCase.get('isPublic')">Public</mdl-checkbox>
+    <mdl-button *ngIf="canDeleteTestCase()" (click)="deleteTestCase(testCase)">Delete</mdl-button>
 </div>

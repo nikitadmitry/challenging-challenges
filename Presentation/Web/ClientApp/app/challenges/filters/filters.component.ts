@@ -1,9 +1,10 @@
-import {Component, Input, Output, EventEmitter, ViewChild, AfterViewInit} from "@angular/core";
+import {Component, Input, Output, EventEmitter, ViewChild, AfterViewInit, OnDestroy} from "@angular/core";
 import { Translation, TranslationService } from "angular-l10n";
 
 import { ChallengeSearchType } from "../models/ChallengeSearchType";
 import {MdlSelectComponent} from "@angular2-mdl-ext/select";
 import {EnumSelectService} from "../../shared/services/enum-select.service";
+import {Subject} from "rxjs";
 
 @Component({
     selector: "filters",
@@ -11,7 +12,8 @@ import {EnumSelectService} from "../../shared/services/enum-select.service";
     styles: [require("./filters.component.css")],
     providers: [EnumSelectService]
 })
-export class FiltersComponent extends Translation implements AfterViewInit {
+export class FiltersComponent extends Translation implements AfterViewInit, OnDestroy {
+    private ngUnsubscribe: Subject<void> = new Subject<void>();
     @Input() searchType: ChallengeSearchType;
     @Output() searchTypeChange: EventEmitter<ChallengeSearchType> = new EventEmitter<ChallengeSearchType>();
 
@@ -25,13 +27,17 @@ export class FiltersComponent extends Translation implements AfterViewInit {
     constructor(translationService: TranslationService, private enumSelectService: EnumSelectService) {
         super(translationService);
 
-        this.translation.translationChanged.subscribe(() => {
-            this.initializeSearchTypes();
-        });
+        this.translation.translationChanged.takeUntil(this.ngUnsubscribe)
+            .subscribe(() => this.initializeSearchTypes());
     }
 
     ngAfterViewInit(): void {
-        setTimeout(() => this.searchTypeSelect.writeValue(this.searchType), 500); // component is bugged first time.
+        this.searchTypeSelect.writeValue(this.searchType);
+    }
+
+    ngOnDestroy() {
+        this.ngUnsubscribe.next();
+        this.ngUnsubscribe.complete();
     }
 
     submit(): void {

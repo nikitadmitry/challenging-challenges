@@ -1,4 +1,4 @@
-import {Component, ViewChild, ElementRef, OnInit} from "@angular/core";
+import {Component, ViewChild, ElementRef, OnInit, AfterViewInit, OnDestroy} from "@angular/core";
 import { AceEditorComponent } from 'ng2-ace-editor';
 import {Translation, TranslationService} from "angular-l10n";
 import "brace";
@@ -11,7 +11,7 @@ import "brace/theme/eclipse";
 import * as SimpleMDE from "simplemde";
 
 import {ChallengesService} from "../../challenges/challenges.service";
-import {FormGroup, Validators, FormBuilder, FormControl, FormArray} from "@angular/forms";
+import {FormGroup, Validators, FormBuilder, FormControl} from "@angular/forms";
 import {EnumSelectService} from "../../shared/services/enum-select.service";
 import {Section} from "../models/Section";
 import {Difficulty} from "../models/Difficulty";
@@ -19,6 +19,7 @@ import {Language} from "../models/Language";
 import {MdlSelectComponent} from "@angular2-mdl-ext/select";
 import {FormControlValidationMessagesBuilder} from "../../shared/validation/FormControlValidationMessagesBuilder";
 import {EditorModeResolver} from "../services/editor-mode-resolver.service";
+import {Subject} from "rxjs";
 
 @Component({
     selector: "edit-challenge",
@@ -30,7 +31,7 @@ import {EditorModeResolver} from "../services/editor-mode-resolver.service";
         EditorModeResolver
     ]
 })
-export class EditChallengeComponent extends Translation implements OnInit {
+export class EditChallengeComponent extends Translation implements OnInit, AfterViewInit, OnDestroy {
     challengeForm: FormGroup;
     @ViewChild(AceEditorComponent) editor: AceEditorComponent;
     sections: any[];
@@ -42,7 +43,7 @@ export class EditChallengeComponent extends Translation implements OnInit {
     previewEditor: any;
     conditionEditor: any;
     codeAnswer: string;
-    testCases = [];
+    private ngUnsubscribe: Subject<void> = new Subject<void>();
 
     constructor(private challengesService: ChallengesService,
                 translationService: TranslationService,
@@ -53,6 +54,36 @@ export class EditChallengeComponent extends Translation implements OnInit {
     ) {
         super(translationService);
 
+        this.constructForm();
+
+        this.translation.AddConfiguration()
+            .AddProvider("./assets/locale-")
+            .AddProvider("./assets/locale-challenges-");
+        this.translation.init();
+    }
+
+    ngOnInit(): void {
+        this.subscribeToAnswerTypeChange();
+        this.initCodeEditor();
+        this.initLocalizations();
+        this.initTemplateLoading();
+    }
+
+    ngAfterViewInit() {
+        this.createPreviewEditor();
+        this.createConditionEditor();
+        this.toggleConditionalField(this.challengeForm.get('codeAnswered').value);
+    }
+
+    ngOnDestroy() {
+        this.ngUnsubscribe.next();
+        this.ngUnsubscribe.complete();
+
+        this.previewEditor.codemirror.off("change");
+        this.conditionEditor.codemirror.off("change");
+    }
+
+    private constructForm() {
         this.challengeForm = this.fb.group({
             title: [null, Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(80)])],
             section: [null, Validators.compose([Validators.required])],
@@ -62,22 +93,10 @@ export class EditChallengeComponent extends Translation implements OnInit {
             condition: [null, Validators.compose([Validators.required, Validators.minLength(50), Validators.maxLength(3000)])],
             codeAnswered: [true, Validators.required],
             sourceCode: [null, Validators.required],
-            tags: [[]],
-            answers: this.fb.array([], Validators.compose([Validators.minLength(1), Validators.maxLength(5), (fa: FormArray) => {
-                let numberOfControls = fa.controls.length;
-
-                if (numberOfControls < 1 || numberOfControls > 5) {
-                    return { numberOfAnswersIsInvalid: true };
-                }
-
-                return null;
-            }]))
+            tags: [null],
+            answers: this.fb.array([]),
+            testCases: this.fb.array([])
         });
-        (Window as any).form = this.challengeForm;
-
-        this.translation.AddConfiguration()
-            .AddProvider("./assets/locale-challenges-");
-        this.translation.init();
     }
 
     getErrorForControl(fc: FormControl): string {
@@ -85,17 +104,7 @@ export class EditChallengeComponent extends Translation implements OnInit {
         return errors.length > 0 ? errors[0] : undefined
     }
 
-    ngAfterViewInit() {
-        this.previewEditor = new SimpleMDE({
-            element: this.previewEditorElement.nativeElement,
-            placeholder: "Preview Text",
-            toolbar: ["bold", "italic", "|", "preview"],
-            forceSync: true
-        });
-        this.previewEditor.codemirror.on("change", () => {
-            this.challengeForm.get('previewText').setValue(this.previewEditor.value());
-        });
-
+    private createConditionEditor() {
         this.conditionEditor = new SimpleMDE({
             element: this.conditionEditorElement.nativeElement,
             placeholder: "Condition",
@@ -107,58 +116,76 @@ export class EditChallengeComponent extends Translation implements OnInit {
         });
     }
 
-    ngOnInit(): void {
-        this.initCodeEditor();
-        this.initTemplateLoading();
-        this.initLocalizations();
+    private createPreviewEditor() {
+        this.previewEditor = new SimpleMDE({
+            element: this.previewEditorElement.nativeElement,
+            placeholder: "Preview Text",
+            toolbar: ["bold", "italic", "|", "preview"],
+            forceSync: true
+        });
+        this.previewEditor.codemirror.on("change", () => {
+            this.challengeForm.get('previewText').setValue(this.previewEditor.value());
+        });
     }
 
     private initTemplateLoading() {
-        this.challengeForm.get('codeAnswered').valueChanges.subscribe((value) => {
-            if (value && this.challengeForm.get('section').value === Section.Other) {
-                this.challengeForm.get('section').setValue(Section.CSharp);
-            }
-        });
+        this.challengeForm.get('section').valueChanges
+            .takeUntil(this.ngUnsubscribe)
+            .subscribe((section: Section) => {
+                if (section === Section.Other && this.challengeForm.get('codeAnswered').value) {
+                    this.challengeForm.get('codeAnswered').setValue(false);
+                }
 
-        this.challengeForm.get('section').valueChanges.subscribe((value) => {
-            if (value === Section.Other && this.challengeForm.get('codeAnswered').value) {
-                this.challengeForm.get('codeAnswered').setValue(false);
-            }
-            this.editor.setMode(this.editorModeResolver.resolve(value));
-            this.challengesService.getSourceCodeTemplate(value).subscribe((codeTemplate) => {
-                this.editor.getEditor().setValue(codeTemplate, 1);
+                this.editor.setMode(this.editorModeResolver.resolve(section));
+
+                this.challengesService.getSourceCodeTemplate(section)
+                    .takeUntil(this.ngUnsubscribe)
+                    .subscribe((codeTemplate) => this.editor.getEditor().setValue(codeTemplate, 1));
             });
-        });
+    }
+
+    private subscribeToAnswerTypeChange() {
+        this.challengeForm.get('codeAnswered').valueChanges
+            .takeUntil(this.ngUnsubscribe)
+            .subscribe((isCodeAnswered) => {
+                if (isCodeAnswered && this.challengeForm.get('section').value === Section.Other) {
+                    this.challengeForm.get('section').setValue(Section.CSharp);
+                }
+
+                this.toggleConditionalField(isCodeAnswered);
+            });
+    }
+
+    private toggleConditionalField(isCodeAnswered) {
+        this.challengeForm.get(isCodeAnswered ? "answers" : "testCases").disable();
+        this.challengeForm.get(!isCodeAnswered ? "answers" : "testCases").enable();
     }
 
     private initCodeEditor() {
         this.editor.getEditor().$blockScrolling = Infinity;
         this.editor.setTheme("eclipse");
         this.editor.setText("");
-        this.editor.textChange.subscribe(() => {
+        this.editor.textChange.takeUntil(this.ngUnsubscribe).subscribe(() => {
             this.challengeForm.get('sourceCode').setValue(this.codeAnswer);
         });
     }
 
     private initLocalizations() {
-        this.translation.translationChanged.subscribe(() => {
-            this.sections = this.enumSelectService.convertToSelectValues(Section, "section");
-            this.difficulties = this.enumSelectService.convertToSelectValues(Difficulty, "difficulty");
-            this.languages = this.enumSelectService.convertToSelectValues(Language, "language");
+        this.translation.translationChanged
+            .takeUntil(this.ngUnsubscribe)
+            .subscribe(() => {
+                this.sections = this.enumSelectService.convertToSelectValues(Section, "section");
+                this.difficulties = this.enumSelectService.convertToSelectValues(Difficulty, "difficulty");
+                this.languages = this.enumSelectService.convertToSelectValues(Language, "language");
 
-            this.challengeForm.get('section').setValue(Section.CSharp);
-            this.challengeForm.get('difficulty').setValue(Difficulty.Intermediate);
-            this.challengeForm.get('language').setValue(Language.English);
-        });
+                this.challengeForm.get('section').setValue(Section.CSharp);
+                this.challengeForm.get('difficulty').setValue(Difficulty.Intermediate);
+                this.challengeForm.get('language').setValue(Language.English);
+            });
     }
 
     submit() {
         let saveModel = this.challengeForm.value;
-        if (this.challengeForm.get("codeAnswered").value) {
-            saveModel.testCases = this.testCases;
-        } else {
-            //aveModel.answers = this.answers;
-        }
 
         debugger;
     }

@@ -1,4 +1,4 @@
-import {Component, OnInit, AfterViewInit} from "@angular/core";
+import {Component, OnInit, AfterViewInit, OnDestroy} from "@angular/core";
 import { Translation, TranslationService } from "angular-l10n";
 import "rxjs/add/operator/publishReplay";
 import "rxjs/add/operator/merge";
@@ -10,6 +10,7 @@ import { ChallengesSearchOptions } from "./models/ChallengesSearchOptions";
 import {PageRule} from "../shared/models/PageRule";
 import {RedirectSearchModel} from "./models/RedirectSearchModel";
 import {ActivatedRoute} from "@angular/router";
+import {Subject} from "rxjs";
 
 @Component({
     selector: "challenges",
@@ -17,7 +18,8 @@ import {ActivatedRoute} from "@angular/router";
     styles: [require("./challenges.component.css")],
     providers: [ChallengesService]
 })
-export class ChallengesComponent extends Translation implements OnInit {
+export class ChallengesComponent extends Translation implements OnInit, OnDestroy {
+    private ngUnsubscribe: Subject<void> = new Subject<void>();
     private PAGE_SIZE: number = 5;
     selectedSearchType: ChallengeSearchType;
     searchString: string;
@@ -43,18 +45,24 @@ export class ChallengesComponent extends Translation implements OnInit {
         this.searchChallenges();
     }
 
+    ngOnDestroy() {
+        this.ngUnsubscribe.next();
+        this.ngUnsubscribe.subscribe();
+    }
+
     searchChallenges(): void {
         this.isLoading = true;
         this.previousPageEnabled = this.currentPage > 0;
 
-        this.challengesService.search(this.getSearchOptions()).subscribe(challenges => {
-            setTimeout(() => {
-                this.challenges = challenges;
-                this.isLoading = false;
-            }, 100); // this is to fix animation lag on Search Query field
-            this.nextPageEnabled = challenges.length === this.PAGE_SIZE;
-            this.noChallenges = challenges.length === 0;
-        });
+        this.challengesService.search(this.getSearchOptions()).takeUntil(this.ngUnsubscribe)
+            .subscribe(challenges => {
+                setTimeout(() => {
+                    this.challenges = challenges;
+                    this.isLoading = false;
+                }, 100); // this is to fix animation lag on Search Query field
+                this.nextPageEnabled = challenges.length === this.PAGE_SIZE;
+                this.noChallenges = challenges.length === 0;
+            });
     }
 
     redirect(redirectModel: RedirectSearchModel): void {
@@ -109,7 +117,7 @@ export class ChallengesComponent extends Translation implements OnInit {
     }
 
     private parseRouteParameters() {
-        this.route.params.subscribe(params => {
+        this.route.params.takeUntil(this.ngUnsubscribe).subscribe(params => {
             let searchText = params['searchText'];
             if (searchText !== undefined) {
                 this.selectedSearchType = ChallengeSearchType.Title;

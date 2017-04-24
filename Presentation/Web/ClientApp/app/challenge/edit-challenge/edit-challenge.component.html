@@ -33,7 +33,7 @@
         <div [hidden]="!challengeForm.get('codeAnswered').value">
             <label class="mdl-cell mdl-cell--12-col">Answer</label>
             <ace-editor style="height:500px" [(text)]="codeAnswer"></ace-editor>
-            <test-cases [testCases]="testCases"></test-cases>
+            <test-cases [testCases]="challengeForm.get('testCases')"></test-cases>
         </div>
         <mdl-textfield class="mdl-cell mdl-cell--12-col" label="Tags" floating-label></mdl-textfield>
 
