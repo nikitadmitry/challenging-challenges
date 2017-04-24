@@ -2,7 +2,7 @@
 <mdl-button *ngIf="canAddTestCase()" (click)="addTestCase()">Add</mdl-button>
 <div *ngFor="let testCase of testCases; let index = index">
     <mdl-textfield maxlength="50" [(ngModel)]="testCase.input" label="Input Parameter {{index+1}}" floating-label></mdl-textfield>
-    <mdl-textfield required maxlength="50" [(ngModel)]="testCase.output" label="Output Parameter {{index+1}}" floating-label></mdl-textfield>
+    <mdl-textfield maxlength="50" [(ngModel)]="testCase.output" label="Output Parameter {{index+1}}" floating-label></mdl-textfield>
     <mdl-checkbox style="width: initial;" [(ngModel)]="testCase.isPublic">Public</mdl-checkbox>
     <mdl-button (click)="deleteTestCase(testCase)">Delete</mdl-button>
 </div>

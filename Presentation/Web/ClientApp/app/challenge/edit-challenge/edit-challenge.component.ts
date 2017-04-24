@@ -11,7 +11,7 @@ import "brace/theme/eclipse";
 import * as SimpleMDE from "simplemde";
 
 import {ChallengesService} from "../../challenges/challenges.service";
-import {FormGroup, Validators, FormBuilder, FormControl} from "@angular/forms";
+import {FormGroup, Validators, FormBuilder, FormControl, FormArray} from "@angular/forms";
 import {EnumSelectService} from "../../shared/services/enum-select.service";
 import {Section} from "../models/Section";
 import {Difficulty} from "../models/Difficulty";
@@ -43,7 +43,6 @@ export class EditChallengeComponent extends Translation implements OnInit {
     conditionEditor: any;
     codeAnswer: string;
     testCases = [];
-    answers = [];
 
     constructor(private challengesService: ChallengesService,
                 translationService: TranslationService,
@@ -63,8 +62,18 @@ export class EditChallengeComponent extends Translation implements OnInit {
             condition: [null, Validators.compose([Validators.required, Validators.minLength(50), Validators.maxLength(3000)])],
             codeAnswered: [true, Validators.required],
             sourceCode: [null, Validators.required],
-            tags: [[]]
+            tags: [[]],
+            answers: this.fb.array([], Validators.compose([Validators.minLength(1), Validators.maxLength(5), (fa: FormArray) => {
+                let numberOfControls = fa.controls.length;
+
+                if (numberOfControls < 1 || numberOfControls > 5) {
+                    return { numberOfAnswersIsInvalid: true };
+                }
+
+                return null;
+            }]))
         });
+        (Window as any).form = this.challengeForm;
 
         this.translation.AddConfiguration()
             .AddProvider("./assets/locale-challenges-");
@@ -148,7 +157,7 @@ export class EditChallengeComponent extends Translation implements OnInit {
         if (this.challengeForm.get("codeAnswered").value) {
             saveModel.testCases = this.testCases;
         } else {
-            saveModel.answers = this.answers;
+            //aveModel.answers = this.answers;
         }
 
         debugger;

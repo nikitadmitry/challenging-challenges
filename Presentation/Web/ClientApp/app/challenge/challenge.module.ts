@@ -25,9 +25,9 @@ import {AnswersComponent} from "./edit-challenge/answers/answers.component";
         ChallengeDetailsComponent,
         ChallengeDescriptionComponent,
         ChallengeActionsComponent,
-        EditChallengeComponent,
         TestCasesComponent,
-        AnswersComponent
+        AnswersComponent,
+        EditChallengeComponent
     ],
     imports: [
         CommonModule,

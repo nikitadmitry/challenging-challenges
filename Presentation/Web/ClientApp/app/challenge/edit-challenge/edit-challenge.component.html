@@ -28,7 +28,7 @@
         <textarea #conditionEditor></textarea>
         <span class="mdl-textfield__error challenge__markdown-editor-error">{{getErrorForControl(challengeForm.get('condition'))}}</span>
         <div [hidden]="challengeForm.get('codeAnswered').value">
-            <answers [answers]="answers"></answers>
+            <answers [answers]="challengeForm.get('answers')"></answers>
         </div>
         <div [hidden]="!challengeForm.get('codeAnswered').value">
             <label class="mdl-cell mdl-cell--12-col">Answer</label>

@@ -1,10 +1,12 @@
 <label class="mdl-cell mdl-cell--12-col">Answers</label>
 <mdl-button *ngIf="canAddAnswer()" (click)="addAnswer()">Add</mdl-button>
-<div *ngFor="let answer of answers; let index = index">
-    <mdl-textfield class="mdl-cell mdl-cell--10-col"
+<div *ngFor="let answer of answers.controls; let index = index">
+    <mdl-textfield-validated class="mdl-cell mdl-cell--10-col"
                    label="Answer {{index+1}}"
                    type="text"
-                   maxlength="50" [(ngModel)]="answer.value"
-                   floating-label></mdl-textfield>
+                   maxlength="50"
+                   [formControl]="answer"
+                   floating-label></mdl-textfield-validated>
     <mdl-button (click)="deleteAnswer(answer)">Delete</mdl-button>
 </div>
+{{answers.errors | json}}
