@@ -2,7 +2,7 @@ import {Component, Input, Output, EventEmitter, ViewChild, AfterViewInit, OnDest
 import { Translation, TranslationService } from "angular-l10n";
 
 import { ChallengeSearchType } from "../models/ChallengeSearchType";
-import {MdlSelectComponent} from "@angular2-mdl-ext/select";
+import {MdlSelectComponent} from "@angular-mdl/select";
 import {EnumSelectService} from "../../shared/services/enum-select.service";
 import {Subject} from "rxjs";
 

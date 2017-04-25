@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {MdlDialogService, MdlDialogReference} from "angular2-mdl";
+import {MdlDialogService, MdlDialogReference} from "@angular-mdl/core";
 import {Observable} from "rxjs";
 import {LoginDialogComponent} from "./login/login-dialog.component";
 import {RegisterDialogComponent} from "./register/register-dialog.component";

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, ViewEncapsulation, ViewChild } from "@angular/core";
-import { MdlLayoutComponent } from "angular2-mdl";
+import { MdlLayoutComponent } from "@angular-mdl/core";
 import { Translation, LocaleService, TranslationService } from "angular-l10n";
 import {Router} from "@angular/router";
 

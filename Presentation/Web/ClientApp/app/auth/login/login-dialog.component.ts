@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { MdlDialogReference } from "angular2-mdl";
+import { MdlDialogReference } from "@angular-mdl/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { TranslationService, Translation } from "angular-l10n";
 

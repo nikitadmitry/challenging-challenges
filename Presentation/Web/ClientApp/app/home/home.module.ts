@@ -10,7 +10,7 @@ import { LatestChallengesComponent } from "./challenges/latest-challenges.compon
 import { PopularChallengesComponent } from "./challenges/popular-challenges.component";
 import { UnsolvedChallengesComponent } from "./challenges/unsolved-challenges.component";
 import { TopUsersComponent } from "./top-users/top-users.component";
-import {MdlNonRootModule} from "angular2-mdl";
+import {MdlNonRootModule} from "@angular-mdl/core";
 import {MarkdownModule} from "../shared/components/markdown.component";
 import {LoadingSpinnerModule} from "../shared/components/loading-spinner.component/loading-spinner.module";
 

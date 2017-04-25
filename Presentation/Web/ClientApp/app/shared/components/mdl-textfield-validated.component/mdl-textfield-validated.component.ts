@@ -1,10 +1,10 @@
 import {
-    Component, Renderer, ElementRef, Optional, Inject, forwardRef, Input, ViewEncapsulation, OnInit
+    Component, ElementRef, Optional, Inject, forwardRef, Input, ViewEncapsulation, OnInit, Renderer2
 } from "@angular/core";
 import {
     NG_VALUE_ACCESSOR, FormControl
 } from "@angular/forms";
-import { MdlTextFieldComponent, DISABLE_NATIVE_VALIDITY_CHECKING } from "angular2-mdl";
+import { MdlTextFieldComponent, DISABLE_NATIVE_VALIDITY_CHECKING } from "@angular-mdl/core";
 
 import { FormControlValidationMessagesBuilder } from "../../validation/FormControlValidationMessagesBuilder";
 
@@ -33,7 +33,7 @@ export class MdlTextFieldValidatedComponent extends MdlTextFieldComponent implem
     private error: string;
     @Input() formControl: FormControl;
 
-    constructor(renderer: Renderer, elmRef: ElementRef,
+    constructor(renderer: Renderer2, elmRef: ElementRef,
         @Optional() @Inject(DISABLE_NATIVE_VALIDITY_CHECKING) nativeCheckGlobalDisabled: Boolean,
         private formControlValidationMessagesBuilder: FormControlValidationMessagesBuilder) {
         super(renderer, elmRef, nativeCheckGlobalDisabled);

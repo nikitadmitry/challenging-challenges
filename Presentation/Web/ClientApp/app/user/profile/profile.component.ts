@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../user.service";
 import * as $ from "jquery";
-import { MdlDialogComponent } from "angular2-mdl/components";
+import { MdlDialogComponent } from "@angular-mdl/core/components";
 require("jquery-knob");
 
 @Component({

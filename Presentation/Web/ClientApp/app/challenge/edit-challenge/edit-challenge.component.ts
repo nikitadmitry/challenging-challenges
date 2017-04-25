@@ -16,7 +16,7 @@ import {EnumSelectService} from "../../shared/services/enum-select.service";
 import {Section} from "../models/Section";
 import {Difficulty} from "../models/Difficulty";
 import {Language} from "../models/Language";
-import {MdlSelectComponent} from "@angular2-mdl-ext/select";
+import {MdlSelectComponent} from "@angular-mdl/select";
 import {FormControlValidationMessagesBuilder} from "../../shared/validation/FormControlValidationMessagesBuilder";
 import {EditorModeResolver} from "../services/editor-mode-resolver.service";
 import {Subject} from "rxjs";
@@ -43,6 +43,7 @@ export class EditChallengeComponent extends Translation implements OnInit, After
     previewEditor: any;
     conditionEditor: any;
     codeAnswer: string;
+    tags = ['tag1', 'tag2', 'tag3'];
     private ngUnsubscribe: Subject<void> = new Subject<void>();
 
     constructor(private challengesService: ChallengesService,

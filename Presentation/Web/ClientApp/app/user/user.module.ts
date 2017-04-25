@@ -4,7 +4,7 @@ import {CommonModule} from "@angular/common";
 import {TranslationModule} from "angular-l10n";
 import {RouterModule} from "@angular/router";
 import {LoadingSpinnerModule} from "../shared/components/loading-spinner.component/loading-spinner.module";
-import {MdlNonRootModule} from "angular2-mdl";
+import {MdlNonRootModule} from "@angular-mdl/core";
 import {FormsModule} from "@angular/forms";
 
 @NgModule({

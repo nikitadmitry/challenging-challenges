@@ -13,7 +13,7 @@ import "brace/theme/eclipse";
 import {ChallengeDetailsModel} from "../models/challenge.model";
 import {ChallengesService} from "../../challenges/challenges.service";
 import {EditorModeResolver} from "../services/editor-mode-resolver.service";
-import {MdlDialogService} from "angular2-mdl";
+import {MdlDialogService} from "@angular-mdl/core";
 
 @Component({
     selector: "challenge-details",

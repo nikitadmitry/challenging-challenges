@@ -1,6 +1,6 @@
 import {NgModule} from "@angular/core";
 import {LoadingSpinnerComponent} from "./loading-spinner.component";
-import {MdlSpinnerModule} from "angular2-mdl";
+import {MdlSpinnerModule} from "@angular-mdl/core";
 import {CommonModule} from "@angular/common";
 
 @NgModule({

@@ -22,24 +22,25 @@ module.exports = (env) => {
                 '@angular/http',
                 '@angular/platform-browser',
                 '@angular/platform-browser-dynamic',
+                '@angular/platform-browser/animations',
                 '@angular/router',
                 '@angular/platform-server',
-                'angular2-universal',
                 'angular2-universal-polyfills',
+                'core-js',
                 'es6-shim',
                 'es6-promise',
                 'event-source-polyfill',
                 'jquery',
                 'zone.js',
-                'angular2-mdl',
+                '@angular-mdl/core',
                 'angular2-notifications/components',
                 'ng2-pagination',
                 'marked',
                 'rxjs',
-                '@angular2-mdl-ext/popover',
-                '@angular2-mdl-ext/popover/popover.css',
-                '@angular2-mdl-ext/select',
-                '@angular2-mdl-ext/select/select.css',
+                '@angular-mdl/popover',
+                '@angular-mdl/popover/popover.css',
+                '@angular-mdl/select',
+                '@angular-mdl/select/select.css',
                 'angular-l10n',
                 'brace',
                 'brace/mode/csharp',
@@ -50,7 +51,8 @@ module.exports = (env) => {
                 'brace/theme/eclipse',
                 'ng2-ace-editor',
                 'simplemde',
-                'simplemde/dist/simplemde.min.css'
+                'simplemde/dist/simplemde.min.css',
+                'ng2-tag-input'
             ]
         },
         output: {
@@ -61,7 +63,7 @@ module.exports = (env) => {
         plugins: [
             new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery' }), // Maps these identifiers to the jQuery package (because Bootstrap expects it to be a global variable)
             new webpack.ContextReplacementPlugin(/\@angular\b.*\b(bundles|linker)/, path.join(__dirname, './ClientApp')), // Workaround for https://github.com/angular/angular/issues/11580
-            new webpack.IgnorePlugin(/^vertx$/) // Workaround for https://github.com/stefanpenner/es6-promise/issues/100
+            new webpack.IgnorePlugin(/^vertx$/) // Workaround for https://github.com/stefanpenner/es6-promise/issues/100,
         ]
     };
 
