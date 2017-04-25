@@ -131,6 +131,7 @@
     <Compile Include="ViewModels\ChallengeType.cs" />
     <Compile Include="ViewModels\ChallengeViewModel.cs" />
     <Compile Include="ViewModels\CommentViewModel.cs" />
+    <Compile Include="ViewModels\EditChallengeViewModel.cs" />
     <Compile Include="ViewModels\SolverViewModel.cs" />
     <Compile Include="ViewModels\SortedPageRule.cs" />
     <Compile Include="ViewModels\SortingType.cs" />

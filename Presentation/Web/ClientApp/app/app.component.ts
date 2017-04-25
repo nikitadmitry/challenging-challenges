@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
     styles: [require("./app.component.css")],
     encapsulation: ViewEncapsulation.None
 })
-export class AppComponent extends Translation implements OnDestroy {
+export class AppComponent extends Translation {
     @ViewChild(MdlLayoutComponent)
     layout: MdlLayoutComponent;
     searchText: string;
@@ -34,10 +34,6 @@ export class AppComponent extends Translation implements OnDestroy {
 
     selectLanguage(language: string): void {
         this.locale.setCurrentLanguage(language);
-    }
-
-    ngOnDestroy(): void {
-        document.body.appendChild(document.createElement("app"));
     }
 
     onNavigated(): void {

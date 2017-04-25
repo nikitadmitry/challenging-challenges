@@ -11,7 +11,7 @@ import "brace/theme/eclipse";
 import * as SimpleMDE from "simplemde";
 
 import {ChallengesService} from "../../challenges/challenges.service";
-import {FormGroup, Validators, FormBuilder, FormControl} from "@angular/forms";
+import {FormGroup, Validators, FormBuilder} from "@angular/forms";
 import {EnumSelectService} from "../../shared/services/enum-select.service";
 import {Section} from "../models/Section";
 import {Difficulty} from "../models/Difficulty";
@@ -43,7 +43,6 @@ export class EditChallengeComponent extends Translation implements OnInit, After
     previewEditor: any;
     conditionEditor: any;
     codeAnswer: string;
-    tags = ['tag1', 'tag2', 'tag3'];
     private ngUnsubscribe: Subject<void> = new Subject<void>();
 
     constructor(private challengesService: ChallengesService,
@@ -73,7 +72,9 @@ export class EditChallengeComponent extends Translation implements OnInit, After
     ngAfterViewInit() {
         this.createPreviewEditor();
         this.createConditionEditor();
+
         this.toggleConditionalField(this.challengeForm.get('codeAnswered').value);
+        this.loadTemplate(this.challengeForm.get('section').value);
     }
 
     ngOnDestroy() {
@@ -87,22 +88,24 @@ export class EditChallengeComponent extends Translation implements OnInit, After
     private constructForm() {
         this.challengeForm = this.fb.group({
             title: [null, Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(80)])],
-            section: [null, Validators.compose([Validators.required])],
-            difficulty: [null, Validators.compose([Validators.required])],
-            language: [null, Validators.compose([Validators.required])],
+            section: [Section.CSharp, Validators.compose([Validators.required])],
+            difficulty: [Difficulty.Intermediate, Validators.compose([Validators.required])],
+            language: [Language.English, Validators.compose([Validators.required])],
             previewText: [null, Validators.compose([Validators.required, Validators.minLength(50), Validators.maxLength(600)])],
             condition: [null, Validators.compose([Validators.required, Validators.minLength(50), Validators.maxLength(3000)])],
             codeAnswered: [true, Validators.required],
             sourceCode: [null, Validators.required],
-            tags: [null],
+            tags: [[]],
             answers: this.fb.array([]),
             testCases: this.fb.array([])
         });
     }
 
-    getErrorForControl(fc: FormControl): string {
+    updateErrorForControl(fc) {
+        var a = this.challengeForm.get("condition");
+        console.log("update error");
         let errors = this.errorBuilder.build(fc);
-        return errors.length > 0 ? errors[0] : undefined
+        fc.errorText = errors.length > 0 ? errors[0] : undefined
     }
 
     private createConditionEditor() {
@@ -113,7 +116,8 @@ export class EditChallengeComponent extends Translation implements OnInit, After
             forceSync: true
         });
         this.conditionEditor.codemirror.on("change", () => {
-            this.challengeForm.get('condition').setValue(this.conditionEditor.value())
+            this.challengeForm.get('condition').setValue(this.conditionEditor.value());
+            this.updateErrorForControl(this.challengeForm.get('condition'));
         });
     }
 
@@ -126,6 +130,7 @@ export class EditChallengeComponent extends Translation implements OnInit, After
         });
         this.previewEditor.codemirror.on("change", () => {
             this.challengeForm.get('previewText').setValue(this.previewEditor.value());
+            this.updateErrorForControl(this.challengeForm.get('previewText'));
         });
     }
 
@@ -137,12 +142,16 @@ export class EditChallengeComponent extends Translation implements OnInit, After
                     this.challengeForm.get('codeAnswered').setValue(false);
                 }
 
-                this.editor.setMode(this.editorModeResolver.resolve(section));
-
-                this.challengesService.getSourceCodeTemplate(section)
-                    .takeUntil(this.ngUnsubscribe)
-                    .subscribe((codeTemplate) => this.editor.getEditor().setValue(codeTemplate, 1));
+                this.loadTemplate(section);
             });
+    }
+
+    private loadTemplate(section: Section) {
+        this.editor.setMode(this.editorModeResolver.resolve(section));
+
+        this.challengesService.getSourceCodeTemplate(section)
+            .takeUntil(this.ngUnsubscribe)
+            .subscribe((codeTemplate) => this.editor.getEditor().setValue(codeTemplate, 1));
     }
 
     private subscribeToAnswerTypeChange() {
@@ -178,10 +187,6 @@ export class EditChallengeComponent extends Translation implements OnInit, After
                 this.sections = this.enumSelectService.convertToSelectValues(Section, "section");
                 this.difficulties = this.enumSelectService.convertToSelectValues(Difficulty, "difficulty");
                 this.languages = this.enumSelectService.convertToSelectValues(Language, "language");
-
-                this.challengeForm.get('section').setValue(Section.CSharp);
-                this.challengeForm.get('difficulty').setValue(Difficulty.Intermediate);
-                this.challengeForm.get('language').setValue(Language.English);
             });
     }
 

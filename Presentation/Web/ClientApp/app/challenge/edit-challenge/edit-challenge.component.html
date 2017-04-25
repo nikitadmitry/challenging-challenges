@@ -24,9 +24,9 @@
             </mdl-select>
         </p>
         <textarea #previewEditor></textarea>
-        <span class="mdl-textfield__error challenge__markdown-editor-error">{{getErrorForControl(challengeForm.get('previewText'))}}</span>
+        <span class="mdl-textfield__error challenge__markdown-editor-error">{{challengeForm.get('previewText').errorText}}</span>
         <textarea #conditionEditor></textarea>
-        <span class="mdl-textfield__error challenge__markdown-editor-error">{{getErrorForControl(challengeForm.get('condition'))}}</span>
+        <span class="mdl-textfield__error challenge__markdown-editor-error">{{challengeForm.get('condition').errorText}}</span>
         <div [hidden]="challengeForm.get('codeAnswered').value">
             <answers [answers]="challengeForm.get('answers')"></answers>
         </div>
@@ -35,8 +35,7 @@
             <ace-editor style="height:500px" [(text)]="codeAnswer"></ace-editor>
             <test-cases [testCases]="challengeForm.get('testCases')"></test-cases>
         </div>
-        <tag-input [(ngModel)]="tags" [ngModelOptions]="{standalone: true}"></tag-input>
-        <!--<mdl-textfield class="mdl-cell mdl-cell&#45;&#45;12-col" label="Tags" floating-label></mdl-textfield>-->
+        <tag-input formControlName="tags" [maxItems]="5" [modelAsStrings]="true"></tag-input>
 
         <div class="mdl-cell mdl-cell--12-col">
             <button [routerLink]="['/challenges']" mdl-button mdl-button-type="raised" mdl-ripple>

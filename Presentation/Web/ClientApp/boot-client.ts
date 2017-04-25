@@ -9,7 +9,6 @@ import './assets/locale-ru.json';
 // enable either Hot Module Reloading or production mode
 if (module["hot"]) {
     module["hot"].accept();
-    module["hot"].dispose(() => { platform.destroy(); });
 } else {
     enableProdMode();
 }

@@ -1,12 +1,21 @@
 <label class="mdl-cell mdl-cell--12-col">Test Cases</label>
-<mdl-button *ngIf="canAddTestCase()" (click)="addTestCase()">Add</mdl-button>
-<div *ngFor="let testCase of testCases.controls; let index = index">
-    <mdl-textfield-validated [formControl]="testCase.get('input')"
-                             label="Input Parameter {{index+1}}"
-                             floating-label></mdl-textfield-validated>
-    <mdl-textfield-validated [formControl]="testCase.get('output')"
-                             label="Output Parameter {{index+1}}"
-                             floating-label></mdl-textfield-validated>
+<mdl-button *ngIf="canAddTestCase()" (click)="addTestCase()">Add Test Case</mdl-button>
+<mdl-card mdl-shadow="2" class="mdl-cell mdl-cell--12-col mdl-padded"
+          *ngFor="let testCase of testCases.controls">
+    <mdl-card-supporting-text>
+        <mdl-textfield-validated *ngFor="let inputParameter of testCase.get('inputParameters').controls; let index = index"
+                                 [formControl]="inputParameter"
+                                 label="Input Parameter {{index+1}}"
+                                 floating-label></mdl-textfield-validated>
+        <mdl-textfield-validated *ngFor="let outputParameter of testCase.get('outputParameters').controls; let index = index"
+                                 [formControl]="outputParameter"
+                                 label="Output Parameter {{index+1}}"
+                                 floating-label></mdl-textfield-validated>
+    </mdl-card-supporting-text>
     <mdl-checkbox style="width: initial;" [formControl]="testCase.get('isPublic')">Public</mdl-checkbox>
-    <mdl-button *ngIf="canDeleteTestCase()" (click)="deleteTestCase(testCase)">Delete</mdl-button>
-</div>
+    <mdl-card-actions mdl-card-border>
+        <mdl-button *ngIf="canAddInputParameter(testCase)" (click)="addInputParameter(testCase)">Add Input Parameter</mdl-button>
+        <mdl-button *ngIf="canAddOutputParameter(testCase)" (click)="addOutputParameter(testCase)">Add Output Parameter</mdl-button>
+        <mdl-button *ngIf="canDeleteTestCase()" (click)="deleteTestCase(testCase)">Delete Test Case</mdl-button>
+    </mdl-card-actions>
+</mdl-card>

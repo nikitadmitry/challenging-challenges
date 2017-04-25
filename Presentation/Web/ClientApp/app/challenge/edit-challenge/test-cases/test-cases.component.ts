@@ -16,11 +16,40 @@ export class TestCasesComponent implements OnInit {
     }
 
     addTestCase() {
-        this.testCases.push(this.fb.group({
-            input: ["", Validators.maxLength(200)],
-            output: ["", Validators.compose([Validators.required, Validators.maxLength(200)])],
+        let testCase = this.fb.group({
+            inputParameters: this.fb.array([]),
+            outputParameters: this.fb.array([]),
             isPublic: [true]
-        }));
+        });
+
+        this.testCases.push(testCase);
+    }
+
+    addInputParameter(testCase: FormGroup) {
+        this.addParameter(testCase, "inputParameters");
+    }
+
+    addOutputParameter(testCase: FormGroup) {
+        this.addParameter(testCase, "outputParameters");
+    }
+
+    private addParameter(testCase: FormGroup, collectionName: string) {
+        let parameterControl = this.fb.control("", Validators.compose([Validators.required,
+            Validators.maxLength(200)]));
+
+        (testCase.get(collectionName) as FormArray).push(parameterControl);
+    }
+
+    canAddInputParameter(testCase: FormGroup) {
+        return this.canAddParameter(testCase, "inputParameters");
+    }
+
+    canAddOutputParameter(testCase: FormGroup) {
+        return this.canAddParameter(testCase, "outputParameters");
+    }
+
+    private canAddParameter(testCase: FormGroup, collectionName: string): boolean {
+        return (testCase.get(collectionName) as FormArray).length < 5;
     }
 
     canAddTestCase(): boolean {

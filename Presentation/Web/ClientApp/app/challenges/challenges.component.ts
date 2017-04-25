@@ -56,10 +56,8 @@ export class ChallengesComponent extends Translation implements OnInit, OnDestro
 
         this.challengesService.search(this.getSearchOptions()).takeUntil(this.ngUnsubscribe)
             .subscribe(challenges => {
-                setTimeout(() => {
-                    this.challenges = challenges;
-                    this.isLoading = false;
-                }, 100); // this is to fix animation lag on Search Query field
+                this.challenges = challenges;
+                this.isLoading = false;
                 this.nextPageEnabled = challenges.length === this.PAGE_SIZE;
                 this.noChallenges = challenges.length === 0;
             });
