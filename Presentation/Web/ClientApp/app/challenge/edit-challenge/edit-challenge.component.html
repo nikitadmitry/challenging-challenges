@@ -35,7 +35,7 @@
             <ace-editor style="height:500px" [(text)]="codeAnswer"></ace-editor>
             <test-cases [testCases]="challengeForm.get('testCases')"></test-cases>
         </div>
-        <tag-input [(ngModel)]='tags'></tag-input>
+        <tag-input [(ngModel)]="tags" [ngModelOptions]="{standalone: true}"></tag-input>
         <!--<mdl-textfield class="mdl-cell mdl-cell&#45;&#45;12-col" label="Tags" floating-label></mdl-textfield>-->
 
         <div class="mdl-cell mdl-cell--12-col">
