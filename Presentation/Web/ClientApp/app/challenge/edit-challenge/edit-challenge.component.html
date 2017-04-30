@@ -1,4 +1,4 @@
-<div class="mdl-grid mdl-cell--8-col">
+<div class="mdl-grid mdl-cell--12-col">
     <div class="mdl-cell mdl-cell--12-col">
         <h3>New Challenge</h3>
     </div>
@@ -14,8 +14,6 @@
                 <mdl-option *ngFor="let section of sections" [value]="section.value">{{section.name}}</mdl-option>
             </mdl-select>
             <mdl-switch class="mdl-cell--3-col" formControlName="codeAnswered">Code Answered</mdl-switch>
-        </p>
-        <p>
             <mdl-select class="challenge__first-row-field" floating-label formControlName="difficulty" placeholder="Difficulty">
                 <mdl-option *ngFor="let difficulty of difficulties" [value]="difficulty.value">{{difficulty.name}}</mdl-option>
             </mdl-select>
@@ -23,18 +21,21 @@
                 <mdl-option *ngFor="let language of languages" [value]="language.value">{{language.name}}</mdl-option>
             </mdl-select>
         </p>
+        <h4>Preview Text</h4>
         <textarea #previewEditor></textarea>
-        <span class="mdl-textfield__error challenge__markdown-editor-error">{{challengeForm.get('previewText').errorText}}</span>
+        <span class="mdl-textfield__error challenge__markdown-editor-error">{{challengeForm.get('previewText') | errorText}}</span>
+        <h4>Condition</h4>
         <textarea #conditionEditor></textarea>
-        <span class="mdl-textfield__error challenge__markdown-editor-error">{{challengeForm.get('condition').errorText}}</span>
+        <span class="mdl-textfield__error challenge__markdown-editor-error">{{challengeForm.get('condition') | errorText}}</span>
         <div [hidden]="challengeForm.get('codeAnswered').value">
             <answers [answers]="challengeForm.get('answers')"></answers>
         </div>
         <div [hidden]="!challengeForm.get('codeAnswered').value">
-            <label class="mdl-cell mdl-cell--12-col">Answer</label>
-            <ace-editor style="height:500px" [(text)]="codeAnswer"></ace-editor>
+            <h4>Solution</h4>
+            <ace-editor style="height:500px"></ace-editor>
             <test-cases [testCases]="challengeForm.get('testCases')"></test-cases>
         </div>
+        <h4>Tags</h4>
         <tag-input formControlName="tags" [maxItems]="5" [modelAsStrings]="true"></tag-input>
 
         <div class="mdl-cell mdl-cell--12-col">
@@ -46,4 +47,5 @@
                     mdl-colored="primary" mdl-ripple>Done!</button>
         </div>
     </form>
+    {{challengeForm.get("sourceCode").value}}
 </div>

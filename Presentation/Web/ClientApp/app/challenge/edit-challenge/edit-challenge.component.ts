@@ -11,7 +11,7 @@ import "brace/theme/eclipse";
 import * as SimpleMDE from "simplemde";
 
 import {ChallengesService} from "../../challenges/challenges.service";
-import {FormGroup, Validators, FormBuilder} from "@angular/forms";
+import {FormGroup, Validators, FormBuilder, ValidationErrors, FormArray} from "@angular/forms";
 import {EnumSelectService} from "../../shared/services/enum-select.service";
 import {Section} from "../models/Section";
 import {Difficulty} from "../models/Difficulty";
@@ -20,6 +20,7 @@ import {MdlSelectComponent} from "@angular-mdl/select";
 import {FormControlValidationMessagesBuilder} from "../../shared/validation/FormControlValidationMessagesBuilder";
 import {EditorModeResolver} from "../services/editor-mode-resolver.service";
 import {Subject} from "rxjs";
+import {debug} from "util";
 
 @Component({
     selector: "edit-challenge",
@@ -42,7 +43,6 @@ export class EditChallengeComponent extends Translation implements OnInit, After
     @ViewChild('conditionEditor') conditionEditorElement : ElementRef;
     previewEditor: any;
     conditionEditor: any;
-    codeAnswer: string;
     private ngUnsubscribe: Subject<void> = new Subject<void>();
 
     constructor(private challengesService: ChallengesService,
@@ -97,15 +97,15 @@ export class EditChallengeComponent extends Translation implements OnInit, After
             sourceCode: [null, Validators.required],
             tags: [[]],
             answers: this.fb.array([]),
-            testCases: this.fb.array([])
+            testCases: this.fb.array([], (array: FormArray) => {
+                for (let control of array.controls) {
+                    if (control.get("isPublic").value) {
+                        return null;
+                    }
+                }
+                return {"hasNoPublicTestCases": true};
+            })
         });
-    }
-
-    updateErrorForControl(fc) {
-        var a = this.challengeForm.get("condition");
-        console.log("update error");
-        let errors = this.errorBuilder.build(fc);
-        fc.errorText = errors.length > 0 ? errors[0] : undefined
     }
 
     private createConditionEditor() {
@@ -117,7 +117,6 @@ export class EditChallengeComponent extends Translation implements OnInit, After
         });
         this.conditionEditor.codemirror.on("change", () => {
             this.challengeForm.get('condition').setValue(this.conditionEditor.value());
-            this.updateErrorForControl(this.challengeForm.get('condition'));
         });
     }
 
@@ -130,7 +129,6 @@ export class EditChallengeComponent extends Translation implements OnInit, After
         });
         this.previewEditor.codemirror.on("change", () => {
             this.challengeForm.get('previewText').setValue(this.previewEditor.value());
-            this.updateErrorForControl(this.challengeForm.get('previewText'));
         });
     }
 
@@ -176,7 +174,7 @@ export class EditChallengeComponent extends Translation implements OnInit, After
         this.editor.setTheme("eclipse");
         this.editor.setText("");
         this.editor.textChange.takeUntil(this.ngUnsubscribe).subscribe(() => {
-            this.challengeForm.get('sourceCode').setValue(this.codeAnswer);
+            this.challengeForm.get('sourceCode').setValue(this.editor.text);
         });
     }
 

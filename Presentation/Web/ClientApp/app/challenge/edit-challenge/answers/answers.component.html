@@ -1,4 +1,4 @@
-<label class="mdl-cell mdl-cell--12-col">Answers</label>
+<h4>Answers</h4>
 <mdl-button *ngIf="canAddAnswer()" (click)="addAnswer()">Add</mdl-button>
 <div *ngFor="let answer of answers.controls; let index = index">
     <mdl-textfield-validated class="mdl-cell mdl-cell--10-col"

@@ -18,6 +18,7 @@ import {EnumPipeModule} from "../shared/pipes/enum.pipe";
 import {MarkdownModule} from "../shared/components/markdown.component";
 import {TestCasesComponent} from "./edit-challenge/test-cases/test-cases.component";
 import {AnswersComponent} from "./edit-challenge/answers/answers.component";
+import {ErrorTextPipeModule} from "../shared/pipes/errorText.pipe";
 
 @NgModule({
     declarations: [
@@ -41,6 +42,7 @@ import {AnswersComponent} from "./edit-challenge/answers/answers.component";
         MdlSelectModule,
         MdlTextFieldValidatedModule,
         TagInputModule,
+        ErrorTextPipeModule,
         RouterModule.forChild([
             { path: "new", component: EditChallengeComponent },
             { path: "edit/:id", component: EditChallengeComponent },

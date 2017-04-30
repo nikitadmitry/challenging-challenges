@@ -1,5 +1,6 @@
 import {Component, Input, OnInit, Output} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormArray, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from "@angular/forms";
+import {FormControlValidationMessagesBuilder} from "../../../shared/validation/FormControlValidationMessagesBuilder";
 
 @Component({
     selector: 'test-cases',
@@ -21,6 +22,12 @@ export class TestCasesComponent implements OnInit {
             outputParameters: this.fb.array([]),
             isPublic: [true]
         });
+        testCase.setValidators((group: FormGroup) => {
+            if ((group.get("outputParameters") as any).controls.length === 0) {
+                return {"hasNoOutputParameters": true};
+            }
+            return null;
+        });
 
         this.testCases.push(testCase);
     }
@@ -40,6 +47,21 @@ export class TestCasesComponent implements OnInit {
         (testCase.get(collectionName) as FormArray).push(parameterControl);
     }
 
+    deleteInputParameter(testCase: FormGroup, parameter) {
+        this.deleteParameter(testCase, parameter, "inputParameters");
+    }
+
+    deleteOutputParameter(testCase: FormGroup, parameter) {
+        this.deleteParameter(testCase, parameter, "outputParameters");
+    }
+
+
+    private deleteParameter(testCase: FormGroup, parameter, collectionName: string) {
+        let parameters = (testCase.get(collectionName) as FormArray);
+
+        parameters.removeAt(parameters.controls.indexOf(parameter));
+    }
+
     canAddInputParameter(testCase: FormGroup) {
         return this.canAddParameter(testCase, "inputParameters");
     }
@@ -49,7 +71,7 @@ export class TestCasesComponent implements OnInit {
     }
 
     private canAddParameter(testCase: FormGroup, collectionName: string): boolean {
-        return (testCase.get(collectionName) as FormArray).length < 5;
+        return (testCase.get(collectionName) as FormArray).length < 3;
     }
 
     canAddTestCase(): boolean {
