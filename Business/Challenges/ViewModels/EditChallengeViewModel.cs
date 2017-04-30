@@ -2,44 +2,23 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Data.Challenges.Enums;
+using Shared.Framework.Extensions;
 
 namespace Business.Challenges.ViewModels
 {
     public class EditChallengeViewModel
     {
-        public Guid ChallengeId
+        public Guid Id
         {
             get;
             set;
         }
+
+        public bool IsNew => Id.IsEmpty();
 
         [Required]
         [StringLength(80, MinimumLength = 4)]
         public string Title
-        {
-            get;
-            set;
-        }
-
-        public BusinessSection Section
-        {
-            get;
-            set;
-        }
-
-        public bool CodeAnswered
-        {
-            get;
-            set;
-        }
-
-        public Difficulty Difficulty
-        {
-            get;
-            set;
-        }
-
-        public Language Language
         {
             get;
             set;
@@ -61,13 +40,13 @@ namespace Business.Challenges.ViewModels
             set;
         }
 
-        public string SourceCode
+        public List<string> Tags
         {
             get;
             set;
         }
 
-        public IList<string> Answers
+        public List<string> Answers
         {
             get;
             set;
@@ -79,7 +58,37 @@ namespace Business.Challenges.ViewModels
             set;
         }
 
-        public IList<string> Tags
+        public Difficulty Difficulty
+        {
+            get;
+            set;
+        }
+
+        public BusinessSection Section
+        {
+            get;
+            set;
+        }
+
+        public Language Language
+        {
+            get;
+            set;
+        }
+
+        public ChallengeType ChallengeType
+        {
+            get;
+            set;
+        }
+
+        public string SourceCode
+        {
+            get;
+            set;
+        }
+
+        public Guid AuthorId
         {
             get;
             set;

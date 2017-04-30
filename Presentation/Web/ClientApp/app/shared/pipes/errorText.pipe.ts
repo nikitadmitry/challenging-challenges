@@ -7,11 +7,9 @@ export class ErrorTextPipe implements PipeTransform {
     constructor(private errorBuilder: FormControlValidationMessagesBuilder) {
     }
 
-    transform(error: any): string {
-        console.log("detect");
-        return "err";
-        // let errors = this.errorBuilder.build(value);
-        // return errors.length > 0 ? errors[0] : undefined;
+    transform(errors: any): string {
+        let errorStrings = this.errorBuilder.buildForErrors(errors);
+        return errorStrings.length > 0 ? errorStrings[0] : undefined;
     }
 }
 

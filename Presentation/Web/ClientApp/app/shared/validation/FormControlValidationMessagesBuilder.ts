@@ -11,11 +11,14 @@ export class FormControlValidationMessagesBuilder {
     }
 
     public build(control: AbstractControl): Array<string> {
-        if (!control.errors) {
+        return this.buildForErrors(control.errors as Array<any>);
+    }
+
+    public buildForErrors(errors: Array<any>): Array<string> {
+        if (!errors) {
             return new Array<string>();
         }
 
-        var errors: any = control.errors;
         var errorNames: Array<string> = Object.keys(errors);
         var errorMessages: Array<string> = new Array<string>();
 

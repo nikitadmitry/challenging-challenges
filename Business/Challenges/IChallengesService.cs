@@ -9,19 +9,13 @@ namespace Business.Challenges
     public interface IChallengesService
     {
         [OperationContract]
-        ChallengeViewModel AddChallenge(ChallengeViewModel challenge);
-
-        [OperationContract]
-        ChallengeViewModel UpdateChallenge(ChallengeViewModel challenge);
+        EditChallengeViewModel SaveChallenge(EditChallengeViewModel challenge);
 
         [OperationContract]
         void RemoveChallenge(Guid id);
 
         [OperationContract]
-        ChallengeViewModel GetChallengeViewModel(Guid id);
-
-        [OperationContract]
-        ChallengeFullViewModel GetChallengeFullViewModel(Guid id);
+        EditChallengeViewModel GetEditChallengeViewModel(Guid id);
 
         [OperationContract]
         void AddComment(Guid challengeId, Guid userId, string message);

@@ -47,18 +47,27 @@ namespace Business.Challenges
             this.sourceCodeTemplateCollector = sourceCodeTemplateCollector;
         }
 
-        public ChallengeViewModel AddChallenge(ChallengeViewModel challenge)
+        public EditChallengeViewModel SaveChallenge(EditChallengeViewModel challengeModel)
         {
-            Contract.NotNull<ArgumentNullException>(challenge);
+            Contract.NotNull<ArgumentNullException>(challengeModel);
 
-            var challengeEntity = mapper.Map<Challenge>(challenge);
+            Challenge challenge;
 
-            challengeEntity.TimeCreated = DateTime.Now;
+            if (challengeModel.IsNew)
+            {
+                challenge = mapper.Map<Challenge>(challengeModel);
+                challenge.TimeCreated = DateTime.Now;
+            }
+            else
+            {
+                challenge = unitOfWork.Get<Challenge>(challengeModel.Id);
+            }
 
-            var updatedChallenge = unitOfWork.InsertOrUpdate(challengeEntity);
+            var updatedChallenge = unitOfWork.InsertOrUpdate(challenge);
+
             unitOfWork.Commit();
 
-            return mapper.Map<ChallengeViewModel>(updatedChallenge);
+            return mapper.Map<EditChallengeViewModel>(updatedChallenge);
         }
 
         public void RemoveChallenge(Guid id)
@@ -70,26 +79,11 @@ namespace Business.Challenges
             unitOfWork.Commit();
         }
 
-        public ChallengeViewModel GetChallengeViewModel(Guid id)
+        public EditChallengeViewModel GetEditChallengeViewModel(Guid id)
         {
             var challenge = unitOfWork.Get<Challenge>(id);
 
-            return mapper.Map<ChallengeViewModel>(challenge);
-        }
-
-        public ChallengeFullViewModel GetChallengeFullViewModel(Guid id)
-        {
-            var challenge = unitOfWork.Get<Challenge>(id);
-
-            var challengeViewModel = mapper.Map<ChallengeFullViewModel>(challenge);
-
-            foreach (var comment in challenge.Comments)
-            {
-                var userName = identityService.Value.GetUserNameById(comment.UserId);
-                challengeViewModel.Comments.Single(x => x.Id == comment.Id).UserName = userName;
-            }
-
-            return challengeViewModel;
+            return mapper.Map<EditChallengeViewModel>(challenge);
         }
 
         public void AddComment(Guid challengeId, Guid userId, string message)
@@ -184,21 +178,6 @@ namespace Business.Challenges
             var challenge = unitOfWork.Get<Challenge>(challengeId);
             
             return challenge.TimesSolved;
-        }
-
-        public ChallengeViewModel UpdateChallenge(ChallengeViewModel challenge)
-        {
-            Contract.NotNull<ArgumentNullException>(challenge);
-
-            var challengeEntity = unitOfWork.Get<Challenge>(challenge.Id);
-
-            mapper.Map(challenge, challengeEntity);
-
-            var updatedChallenge = unitOfWork.InsertOrUpdate(challengeEntity);
-
-            unitOfWork.Commit();
-
-            return mapper.Map<ChallengeViewModel>(updatedChallenge);
         }
 
         public List<ChallengesDescriptionViewModel> GetChallenges(SortedPageRule sortedPageRule)

@@ -87,6 +87,8 @@ export class EditChallengeComponent extends Translation implements OnInit, After
 
     private constructForm() {
         this.challengeForm = this.fb.group({
+            idNew: [true],
+            id: [null],
             title: [null, Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(80)])],
             section: [Section.CSharp, Validators.compose([Validators.required])],
             difficulty: [Difficulty.Intermediate, Validators.compose([Validators.required])],
@@ -117,6 +119,7 @@ export class EditChallengeComponent extends Translation implements OnInit, After
         });
         this.conditionEditor.codemirror.on("change", () => {
             this.challengeForm.get('condition').setValue(this.conditionEditor.value());
+            this.challengeForm.get('condition').markAsTouched();
         });
     }
 
@@ -129,6 +132,7 @@ export class EditChallengeComponent extends Translation implements OnInit, After
         });
         this.previewEditor.codemirror.on("change", () => {
             this.challengeForm.get('previewText').setValue(this.previewEditor.value());
+            this.challengeForm.get('previewText').markAsTouched();
         });
     }
 

@@ -3,13 +3,10 @@
         <h3>New Challenge</h3>
     </div>
     <form class="mdl-cell mdl-cell--12-col" [formGroup]="challengeForm" (ngSubmit)="submit()">
-        <p>
             <mdl-textfield-validated class="mdl-cell--12-col" [formControl]="challengeForm.get('title')"
                                      label="Title"
                                      type="text"
                                      floating-label></mdl-textfield-validated>
-        </p>
-        <p>
             <mdl-select class="challenge__first-row-field" #sectionSelect floating-label formControlName="section" placeholder="Section">
                 <mdl-option *ngFor="let section of sections" [value]="section.value">{{section.name}}</mdl-option>
             </mdl-select>
@@ -20,13 +17,12 @@
             <mdl-select floating-label formControlName="language" placeholder="Language">
                 <mdl-option *ngFor="let language of languages" [value]="language.value">{{language.name}}</mdl-option>
             </mdl-select>
-        </p>
         <h4>Preview Text</h4>
         <textarea #previewEditor></textarea>
-        <span class="mdl-textfield__error challenge__markdown-editor-error">{{challengeForm.get('previewText') | errorText}}</span>
+        <span *ngIf="challengeForm.get('previewText').touched" class="mdl-textfield__error challenge__markdown-editor-error">{{challengeForm.get('previewText').errors | errorText}}</span>
         <h4>Condition</h4>
         <textarea #conditionEditor></textarea>
-        <span class="mdl-textfield__error challenge__markdown-editor-error">{{challengeForm.get('condition') | errorText}}</span>
+        <span *ngIf="challengeForm.get('condition').touched" class="mdl-textfield__error challenge__markdown-editor-error">{{challengeForm.get('condition').errors | errorText}}</span>
         <div [hidden]="challengeForm.get('codeAnswered').value">
             <answers [answers]="challengeForm.get('answers')"></answers>
         </div>
@@ -47,5 +43,4 @@
                     mdl-colored="primary" mdl-ripple>Done!</button>
         </div>
     </form>
-    {{challengeForm.get("sourceCode").value}}
 </div>

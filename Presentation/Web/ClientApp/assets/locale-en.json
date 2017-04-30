@@ -40,6 +40,8 @@
       "usernameTaken": "Provided User Name is already registered.",
       "emailRegistered": "Email Address is in use.",
       "passwordComplexity": "Password must contain lowercase, uppercase letter and number.",
-      "equalToPassword": "Passwords must match"
+      "equalToPassword": "Passwords must match.",
+      "hasNoPublicTestCases": "Add at least one public Test Case.",
+      "hasNoOutputParameters": "Test Case must have at least one output parameter."
     }
 }

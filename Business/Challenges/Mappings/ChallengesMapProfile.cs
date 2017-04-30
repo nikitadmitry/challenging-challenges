@@ -71,7 +71,7 @@ namespace Business.Challenges.Mappings
 
         private void ConfigureChallengeMap()
         {
-            CreateMap<Challenge, ChallengeViewModel>()
+            CreateMap<Challenge, EditChallengeViewModel>()
                 .ForMember(t => t.Id, o => o.MapFrom(s => s.Id))
                 .ForMember(t => t.Answers, o => o.MapFrom(s => s.Answers.Select(x => x.Value).ToList()))
                 .ForMember(t => t.AuthorId, o => o.MapFrom(s => s.AuthorId))
@@ -83,73 +83,6 @@ namespace Business.Challenges.Mappings
                 .ForMember(t => t.Tags, o => o.MapFrom(s => s.Tags.Select(x => x.Value).ToList()))
                 .ForMember(t => t.Title, o => o.MapFrom(s => s.Title))
                 .ForMember(t => t.SourceCode, o => o.Ignore());
-                
-            CreateMap<ChallengeViewModel, Challenge>()
-                .ForMember(t => t.Id, o => o.MapFrom(s => s.Id))
-                .ForMember(t => t.Answers, o =>
-                {
-                    o.Condition(s => s.ChallengeType == ChallengeType.TextAnswered);
-                    o.MapFrom(s => GetEntityAnswers(s.Answers));
-                })
-                .ForMember(t => t.AuthorId, o => o.MapFrom(s => s.AuthorId))
-                .ForMember(t => t.Condition, o => o.MapFrom(s => s.Condition))
-                .ForMember(t => t.Difficulty, o => o.MapFrom(s => s.Difficulty))
-                .ForMember(t => t.Language, o => o.MapFrom(s => s.Language))
-                .ForMember(t => t.PreviewText, o => o.MapFrom(s => s.PreviewText))
-                .ForMember(t => t.Section, o => o.MapFrom(s => s.Section))
-                .ForMember(t => t.Tags, o => o.MapFrom(s => s.Tags.Select(tag => new Tag { Value = tag })))
-                .ForMember(t => t.Title, o => o.MapFrom(s => s.Title))
-                .ForMember(t => t.TestCases, o =>
-                {
-                    o.Condition(s => s.ChallengeType == ChallengeType.CodeAnswered);
-                    o.MapFrom(s => s.TestCases);
-                })
-                .ForMember(t => t.SolutionSourceCode, o =>
-                {
-                    o.Condition(s => s.ChallengeType == ChallengeType.CodeAnswered);
-                    o.MapFrom(s => s.SourceCode);
-                })
-                .ForMember(t => t.Rating, o => o.Ignore())
-                .ForMember(t => t.NumberOfVotes, o => o.Ignore())
-                .ForMember(t => t.TimeCreated, o => o.Ignore())
-                .ForMember(t => t.TimesSolved, o => o.Ignore())
-                .ForMember(t => t.State, o => o.Ignore());
-
-            CreateMap<Challenge, ChallengeFullViewModel>()
-                .ForMember(t => t.Id, o => o.MapFrom(s => s.Id))
-                .ForMember(t => t.Answers, o => o.MapFrom(s => s.Answers.Select(x => x.Value).ToList()))
-                .ForMember(t => t.AuthorId, o => o.MapFrom(s => s.AuthorId))
-                .ForMember(t => t.Condition, o => o.MapFrom(s => s.Condition))
-                .ForMember(t => t.Difficulty, o => o.MapFrom(s => s.Difficulty))
-                .ForMember(t => t.Language, o => o.MapFrom(s => s.Language))
-                .ForMember(t => t.PreviewText, o => o.MapFrom(s => s.PreviewText))
-                .ForMember(t => t.Section, o => o.MapFrom(s => s.Section))
-                .ForMember(t => t.Tags, o => o.MapFrom(s => s.Tags.Select(x => x.Value)))
-                .ForMember(t => t.Title, o => o.MapFrom(s => s.Title))
-                .ForMember(t => t.Comments, o => o.MapFrom(s => s.Comments))
-                .ForMember(t => t.Rating, o => o.MapFrom(s => s.Rating))
-                .ForMember(t => t.TimesSolved, o => o.MapFrom(s => s.TimesSolved))
-                .ForMember(t => t.SourceCode, o => o.Ignore());
-
-            CreateMap<ChallengeFullViewModel, Challenge>()
-                .ForMember(t => t.Id, o => o.MapFrom(s => s.Id))
-                .ForMember(t => t.Answers, o => o.MapFrom(s => GetEntityAnswers(s.Answers)))
-                .ForMember(t => t.AuthorId, o => o.MapFrom(s => s.AuthorId))
-                .ForMember(t => t.Condition, o => o.MapFrom(s => s.Condition))
-                .ForMember(t => t.Difficulty, o => o.MapFrom(s => s.Difficulty))
-                .ForMember(t => t.Language, o => o.MapFrom(s => s.Language))
-                .ForMember(t => t.PreviewText, o => o.MapFrom(s => s.PreviewText))
-                .ForMember(t => t.Section, o => o.MapFrom(s => s.Section))
-                .ForMember(t => t.Tags, o => o.MapFrom(s => s.Tags.Select(tag => new Tag { Value = tag })))
-                .ForMember(t => t.Title, o => o.MapFrom(s => s.Title))
-                .ForMember(t => t.Comments, o => o.MapFrom(s => s.Comments))
-                .ForMember(t => t.Rating, o => o.MapFrom(s => s.Rating))
-                .ForMember(t => t.TimesSolved, o => o.MapFrom(s => s.TimesSolved))
-                .ForMember(t => t.NumberOfVotes, o => o.Ignore())
-                .ForMember(t => t.TimeCreated, o => o.Ignore())
-                .ForMember(t => t.TimesSolved, o => o.Ignore())
-                .ForMember(t => t.State, o => o.Ignore())
-                .ForMember(t => t.SolutionSourceCode, o => o.Ignore());
 
             CreateMap<Challenge, ChallengesDescriptionViewModel>()
                 .ForMember(t => t.Id, o => o.MapFrom(s => s.Id))

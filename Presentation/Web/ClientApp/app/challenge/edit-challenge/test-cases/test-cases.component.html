@@ -22,7 +22,7 @@
         <div class="mdl-cell mdl-cell--12-col">
             <mdl-checkbox style="width: initial;" [formControl]="testCase.get('isPublic')">Public</mdl-checkbox>
         </div>
-        {{testCase.errors | errorText}}
+        <div style="color: #d50000;">{{testCase.errors | errorText}}</div>
     </mdl-card-supporting-text>
     <mdl-card-actions mdl-card-border>
         <mdl-button *ngIf="canAddInputParameter(testCase)" (click)="addInputParameter(testCase)">Add Input Parameter</mdl-button>
@@ -30,4 +30,4 @@
         <mdl-button *ngIf="canDeleteTestCase()" (click)="deleteTestCase(testCase)">Delete Test Case</mdl-button>
     </mdl-card-actions>
 </mdl-card>
-<div>{{testCases.errors | errorText}}</div>
+<div style="color: #d50000;">{{testCases.errors | errorText}}</div>

@@ -22,12 +22,15 @@ export class TestCasesComponent implements OnInit {
             outputParameters: this.fb.array([]),
             isPublic: [true]
         });
+
         testCase.setValidators((group: FormGroup) => {
             if ((group.get("outputParameters") as any).controls.length === 0) {
                 return {"hasNoOutputParameters": true};
             }
             return null;
         });
+
+        this.addOutputParameter(testCase);
 
         this.testCases.push(testCase);
     }
