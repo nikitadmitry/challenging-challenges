@@ -24,7 +24,7 @@ import {MdlDialogService} from "@angular-mdl/core";
 export class ChallengeDetailsComponent extends Translation implements OnInit {
     challenge: ChallengeDetailsModel;
     @ViewChild(AceEditorComponent) editor: AceEditorComponent;
-    answer: string;
+    submissionInProgress = false;
 
     editorOptions: any = {
 
@@ -61,6 +61,8 @@ export class ChallengeDetailsComponent extends Translation implements OnInit {
 
         this.editor.getEditor().$blockScrolling = Infinity;
         this.editor.setTheme("eclipse");
+
+        (<any>window).editorTest = this.editor;
     }
 
     private prepareView() {
@@ -74,19 +76,27 @@ export class ChallengeDetailsComponent extends Translation implements OnInit {
         else {
             answerText = this.challenge.answerTemplate;
         }
+        this.editor.setText(answerText);
         this.editor.getEditor().setValue(answerText, 1);
 
         this.editor.setMode(this.editorModeResolver.resolve(this.challenge.section));
     }
 
     submit() {
-        this.challengesService.solve(this.challenge.id, this.answer).subscribe((response) => {
+        this.submissionInProgress = true;
+
+        this.challengesService.solve(this.challenge.id, this.editor.text).subscribe((response) => {
+            this.submissionInProgress = false;
             if (response.isSolved) {
                 this.dialogService.alert(response.ratingObtained + " Rating obtained.", "Close challenge", "Challenge Solved").subscribe(() => {
                     this.router.navigate(["challenges"]);
                 });
             } else {
-                this.dialogService.alert(response.errorMessage, "Return to challenge", "Wrong!");
+                this.dialogService.showDialog({
+                    title: "Wrong!",
+                    message: response.errorMessage,
+                    actions: [{handler: ()=>{}, text: "Return to Challenge"}]
+                });
             }
         })
     }

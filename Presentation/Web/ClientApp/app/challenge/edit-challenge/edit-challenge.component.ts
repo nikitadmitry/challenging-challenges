@@ -11,7 +11,7 @@ import "brace/theme/eclipse";
 import * as SimpleMDE from "simplemde";
 
 import {ChallengesService} from "../../challenges/challenges.service";
-import {FormGroup, Validators, FormBuilder, ValidationErrors, FormArray} from "@angular/forms";
+import {FormGroup, Validators, FormBuilder, FormArray} from "@angular/forms";
 import {EnumSelectService} from "../../shared/services/enum-select.service";
 import {Section} from "../models/Section";
 import {Difficulty} from "../models/Difficulty";
@@ -20,7 +20,6 @@ import {MdlSelectComponent} from "@angular-mdl/select";
 import {FormControlValidationMessagesBuilder} from "../../shared/validation/FormControlValidationMessagesBuilder";
 import {EditorModeResolver} from "../services/editor-mode-resolver.service";
 import {Subject} from "rxjs";
-import {debug} from "util";
 
 @Component({
     selector: "edit-challenge",
@@ -49,7 +48,6 @@ export class EditChallengeComponent extends Translation implements OnInit, After
                 translationService: TranslationService,
                 private fb: FormBuilder,
                 private enumSelectService: EnumSelectService,
-                private errorBuilder: FormControlValidationMessagesBuilder,
                 private editorModeResolver: EditorModeResolver
     ) {
         super(translationService);

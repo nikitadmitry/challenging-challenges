@@ -32,7 +32,8 @@ namespace Business.Challenges.Handlers
             {
                 var testCaseEntity = new TestCase
                 {
-                    Id = testCase.Id
+                    Id = testCase.Id,
+                    IsPublic = testCase.IsPublic
                 };
 
                 var parameters = new List<CodeParameter>();

@@ -122,7 +122,7 @@ namespace Data.Challenges.Entities
             }
         }
 
-        public IList<TestCase> TestCases
+        public virtual IList<TestCase> TestCases
         {
             get
             {

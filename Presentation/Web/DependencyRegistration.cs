@@ -1,4 +1,5 @@
-﻿using System.ServiceModel;
+﻿using System;
+using System.ServiceModel;
 using Autofac;
 using Autofac.Integration.Wcf;
 using Business.Achievements;
@@ -24,8 +25,14 @@ namespace Presentation.Web
         {
             var businessAddress = configuration["BusinessAddress"];
 
+            var serviceBinding = new BasicHttpBinding
+            {
+                SendTimeout = TimeSpan.FromMinutes(5),
+                ReceiveTimeout = TimeSpan.FromMinutes(5)
+            };
+
             builder.Register(c => new ChannelFactory<T>(
-                    new BasicHttpBinding(),
+                    serviceBinding,
                     new EndpointAddress($"{businessAddress}{serviceName}.svc")))
                 .SingleInstance();
 

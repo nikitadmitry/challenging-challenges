@@ -8,7 +8,7 @@ namespace Data.Challenges.Entities
 {
     public class TestCase : Entity
     {
-        public ICollection<CodeParameter> CodeParameters
+        public virtual ICollection<CodeParameter> CodeParameters
         {
             get;
             set;
