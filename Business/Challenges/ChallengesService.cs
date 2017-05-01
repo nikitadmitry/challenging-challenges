@@ -5,6 +5,7 @@ using System.ServiceModel;
 using System.Text;
 using Autofac.Features.Indexed;
 using AutoMapper;
+using Business.Challenges.Handlers;
 using Business.Challenges.Private;
 using Business.Challenges.Private.SearchStrategies;
 using Business.Challenges.ViewModels;
@@ -30,6 +31,7 @@ namespace Business.Challenges
         private readonly IMapper mapper;
         private readonly IIndex<ChallengeSearchType, Lazy<ISearchStrategy>> searchStrategies;
         private readonly Lazy<SourceCodeTemplateCollector> sourceCodeTemplateCollector;
+        private readonly Lazy<SaveChallengeHandler> saveChallengeHandler;
         private const ChallengeSearchType DefaultSearchType = ChallengeSearchType.Title;
 
         public ChallengesService(IChallengesUnitOfWork unitOfWork, 
@@ -37,7 +39,8 @@ namespace Business.Challenges
             Lazy<IChallengeSolutionDispatcher> challengeSolutionDispatcher,
             IMapper mapper,
             IIndex<ChallengeSearchType, Lazy<ISearchStrategy>> searchStrategies,
-            Lazy<SourceCodeTemplateCollector> sourceCodeTemplateCollector)
+            Lazy<SourceCodeTemplateCollector> sourceCodeTemplateCollector,
+            Lazy<SaveChallengeHandler> saveChallengeHandler)
         {
             this.unitOfWork = unitOfWork;
             this.identityService = identityService;
@@ -45,29 +48,12 @@ namespace Business.Challenges
             this.mapper = mapper;
             this.searchStrategies = searchStrategies;
             this.sourceCodeTemplateCollector = sourceCodeTemplateCollector;
+            this.saveChallengeHandler = saveChallengeHandler;
         }
 
-        public EditChallengeViewModel SaveChallenge(EditChallengeViewModel challengeModel)
+        public EditChallengeViewModel SaveChallenge(EditChallengeViewModel challenge)
         {
-            Contract.NotNull<ArgumentNullException>(challengeModel);
-
-            Challenge challenge;
-
-            if (challengeModel.IsNew)
-            {
-                challenge = mapper.Map<Challenge>(challengeModel);
-                challenge.TimeCreated = DateTime.Now;
-            }
-            else
-            {
-                challenge = unitOfWork.Get<Challenge>(challengeModel.Id);
-            }
-
-            var updatedChallenge = unitOfWork.InsertOrUpdate(challenge);
-
-            unitOfWork.Commit();
-
-            return mapper.Map<EditChallengeViewModel>(updatedChallenge);
+            return saveChallengeHandler.Value.Save(challenge);
         }
 
         public void RemoveChallenge(Guid id)

@@ -18,6 +18,7 @@ interface Challenges {
     getChallenge: string;
     solve: string;
     getSourceCodeTemplate: string;
+    saveChallenge: string;
 }
 
 interface User {

@@ -195,7 +195,9 @@ export class EditChallengeComponent extends Translation implements OnInit, After
     submit() {
         let saveModel = this.challengeForm.value;
 
-        debugger;
+        this.challengesService.saveChallenge(saveModel).subscribe((data) => {
+            debugger;
+        });
     }
 
 

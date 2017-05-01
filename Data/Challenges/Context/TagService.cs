@@ -1,9 +1,12 @@
 ﻿using System.Linq;
 using Data.Challenges.Entities;
+using Data.Common.Query.Builder;
+using Shared.Framework.DataSource;
+using Shared.Framework.Dependency;
 
 namespace Data.Challenges.Context
 {
-    public interface ITagService
+    public interface ITagService : IDependency
     {
         TEntity Tag<TEntity>(TEntity entity, string str) where TEntity : ITaggable;
         TEntity Untag<TEntity>(TEntity entity, string str) where TEntity : ITaggable;
@@ -11,34 +14,40 @@ namespace Data.Challenges.Context
 
     public class TagService : ITagService
     {
-        private readonly ITaggableContext context;
+        private readonly IChallengesUnitOfWork unitOfWork;
 
         public TagService()
         { }
 
-        public TagService(ITaggableContext context)
+        public TagService(IChallengesUnitOfWork unitOfWork)
         {
-            this.context = context;
+            this.unitOfWork = unitOfWork;
         }
 
         public TEntity Tag<TEntity>(TEntity entity, string str) where TEntity : ITaggable
         {
-            string tag = str.Trim();
+            var tag = str.Trim();
 
-            if (entity.Tags.All(t => t.Value != tag))
+            var queryParameters = FilterSettingsBuilder<Tag>.Create()
+                .AddFilterRule(t => t.Value, FilterOperator.IsEqualTo, tag)
+                .ToListQueryParameters();
+
+            if (entity.Tags.Any(t => t.Value == tag))
             {
-                var tagEntity = context.Tags.FirstOrDefault(t => t.Value == tag) ??
-                                context.Tags.Add(new Tag { Value = tag });
-
-                entity.Tags.Add(tagEntity);
+                return entity;
             }
+
+            var tagEntity = unitOfWork.TagsRepository.GetFirstOrDefault(queryParameters) ??
+                            unitOfWork.TagsRepository.InsertOrUpdate(new Tag { Value = tag });
+
+            entity.Tags.Add(tagEntity);
 
             return entity;
         }
 
         public TEntity Untag<TEntity>(TEntity entity, string str) where TEntity : ITaggable
         {
-            Tag tag = entity.Tags.FirstOrDefault(x => x.Value == str);
+            var tag = entity.Tags.FirstOrDefault(x => x.Value == str);
 
             if (tag != null)
                 entity.Tags.Remove(tag);

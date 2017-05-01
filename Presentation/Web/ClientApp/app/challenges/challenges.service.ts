@@ -50,4 +50,9 @@ export class ChallengesService {
         return this.authHttp.get(Actions.challenges.getChallenge, { search: params })
             .map(response => response.json() as ChallengeDetailsModel);
     }
+
+    saveChallenge(model: any): Observable<any> {
+        return this.authHttp.post(Actions.challenges.saveChallenge, model)
+            .map(response => response.json());
+    }
 }

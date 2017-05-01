@@ -111,7 +111,8 @@ namespace Data.Challenges.Entities
             }
         }
 
-        private List<Solver> solvers; 
+        private List<Solver> solvers;
+        private IList<TestCase> testCases;
 
         public virtual IList<Solver> Solvers
         {
@@ -123,8 +124,14 @@ namespace Data.Challenges.Entities
 
         public IList<TestCase> TestCases
         {
-            get;
-            set;
+            get
+            {
+                return testCases ?? (testCases = new List<TestCase>());
+            }
+            set
+            {
+                testCases = value;
+            }
         }
 
         public ChallengeType ChallengeType

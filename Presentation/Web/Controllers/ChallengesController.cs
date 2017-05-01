@@ -77,5 +77,17 @@ namespace Presentation.Web.Controllers
         {
             return challengesService.GetSourceCodeTemplate(section);
         }
+
+        [HttpPost]
+        [Authorize]
+        [ValidateModel]
+        public JsonResult SaveChallenge([FromBody]EditChallengeViewModel challenge)
+        {
+            challenge.AuthorId = userManager.Value.GetUserId(User).ToGuid();
+
+            var model = challengesService.SaveChallenge(challenge);
+
+            return Json(model);
+        }
     }
 }

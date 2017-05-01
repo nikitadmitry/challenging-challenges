@@ -94,9 +94,14 @@
   <ItemGroup>
     <Compile Include="ChallengesService.cs" />
     <Compile Include="Exceptions\NoResultsException.cs" />
+    <Compile Include="Handlers\CodeAnsweredChallengeMapper.cs" />
+    <Compile Include="Handlers\IChallengeMapper.cs" />
+    <Compile Include="Handlers\SaveChallengeHandler.cs" />
+    <Compile Include="Handlers\TextAnsweredChallengeMapper.cs" />
     <Compile Include="IChallengesService.cs" />
     <Compile Include="Mappings\ChallengesMapProfile.cs" />
     <Compile Include="Private\ChallengeSolutionDispatcher.cs" />
+    <Compile Include="Private\CodeExecutionRequestBuilder.cs" />
     <Compile Include="Private\SearchStrategies\ConditionSearchStrategy.cs" />
     <Compile Include="Private\SearchStrategies\DifficultySearchStrategy.cs" />
     <Compile Include="Private\SearchStrategies\EnumSearchStrategy.cs" />

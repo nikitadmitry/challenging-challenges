@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Business.Challenges.ViewModels;
 using Business.CodeExecution;
-using Business.CodeExecution.ViewModels;
 using Business.Identity;
 using Data.Challenges.Context;
 using Data.Challenges.Entities;
@@ -19,14 +18,17 @@ namespace Business.Challenges.Private
     internal class TestCaseChallengeSolvingStrategy : ChallengeSolvingStrategyBase
     {
         private readonly ICodeExecutor codeExecutor;
+        private readonly CodeExecutionRequestBuilder codeExecutionRequestBuilder;
 
         public TestCaseChallengeSolvingStrategy(
             IChallengesUnitOfWork unitOfWork,
             ICodeExecutor codeExecutor,
-            IIdentityService identityService)
+            IIdentityService identityService,
+            CodeExecutionRequestBuilder codeExecutionRequestBuilder)
             : base(unitOfWork, identityService)
         {
             this.codeExecutor = codeExecutor;
+            this.codeExecutionRequestBuilder = codeExecutionRequestBuilder;
         }
 
         protected override ChallengeSolveResult ValidateAnswer(Challenge challenge, string answer)
@@ -41,7 +43,8 @@ namespace Business.Challenges.Private
 
             foreach (var testCase in challenge.TestCases.OrderByDescending(x => x.IsPublic))
             {
-                var codeExecutionRequest = BuildCodeExecutionRequest(challenge, answer, testCase);
+                var codeExecutionRequest = codeExecutionRequestBuilder.Build(challenge.Section, answer, 
+                    testCase.InputParameters.Select(x => x.Value));
 
                 var codeExecutionResult = codeExecutor.Execute(codeExecutionRequest);
 
@@ -69,39 +72,10 @@ namespace Business.Challenges.Private
                 string.Join(", ", codeExecutionOutput));
         }
 
-        private CodeExecutionRequest BuildCodeExecutionRequest(Challenge challenge, 
-            string answer, TestCase testCase)
-        {
-            var codeExecutionRequest = new CodeExecutionRequest
-            {
-                CodeLanguage = ConvertSectionToCodeLanguage(challenge.Section),
-                Input = testCase.InputParameters.Select(x => x.Value),
-                SourceCode = answer
-            };
-            return codeExecutionRequest;
-        }
-
         private bool CheckOutput(IEnumerable<CodeParameter> testCaseOutputParameters, 
             IEnumerable<string> codeOutput)
         {
             return testCaseOutputParameters.Select(x => x.Value).SequenceEqual(codeOutput);
-        }
-
-        private CodeLanguage ConvertSectionToCodeLanguage(Section challengeSection)
-        {
-            switch (challengeSection)
-            {
-                case Section.CSharp:
-                    return CodeLanguage.CSharp;
-                case Section.Java:
-                    return CodeLanguage.Java;
-                case Section.Python:
-                    return CodeLanguage.Python;
-                case Section.Ruby:
-                    return CodeLanguage.Ruby;
-                default:
-                    throw new InvalidOperationException();
-            }
         }
     }
 }

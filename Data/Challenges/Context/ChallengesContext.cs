@@ -3,7 +3,7 @@ using Data.Challenges.Entities;
 
 namespace Data.Challenges.Context
 {
-    public class ChallengesContext : DbContext, ITaggableContext
+    public class ChallengesContext : DbContext
     {
         public virtual DbSet<Challenge> Challenges
         {
@@ -42,15 +42,6 @@ namespace Data.Challenges.Context
                         .WithOptional()
                         .HasForeignKey(x => x.ChallengeId)
                         .WillCascadeOnDelete();
-        }
-    }
-
-    public interface ITaggableContext
-    {
-        DbSet<Tag> Tags
-        {
-            get;
-            set;
         }
     }
 }

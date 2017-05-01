@@ -8,13 +8,13 @@ namespace Business.Challenges.ViewModels
 {
     public class EditChallengeViewModel
     {
-        public Guid Id
+        public Guid? Id
         {
             get;
             set;
         }
 
-        public bool IsNew => Id.IsEmpty();
+        public bool IsNew => Id.IsNullOrEmpty();
 
         [Required]
         [StringLength(80, MinimumLength = 4)]
@@ -76,7 +76,10 @@ namespace Business.Challenges.ViewModels
             set;
         }
 
-        public ChallengeType ChallengeType
+        public ChallengeType ChallengeType => CodeAnswered ? ChallengeType.CodeAnswered 
+            : ChallengeType.TextAnswered;
+
+        public bool CodeAnswered
         {
             get;
             set;

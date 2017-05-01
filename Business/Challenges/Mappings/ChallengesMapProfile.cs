@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using AutoMapper;
 using Business.Challenges.ViewModels;
 using Data.Challenges.Entities;
-using Data.Challenges.Enums;
-using ChallengeType = Business.Challenges.ViewModels.ChallengeType;
 
 namespace Business.Challenges.Mappings
 {
@@ -17,6 +14,20 @@ namespace Business.Challenges.Mappings
             ConfigureSolversMap();
             ConfigureCommentsMap();
             ConfigureChallengeDetailsModelMap();
+            MapTags();
+            MapAnswers();
+        }
+
+        private void MapAnswers()
+        {
+            CreateMap<Answer, string>()
+                .ConstructUsing(answer => answer.Value);
+        }
+
+        private void MapTags()
+        {
+            CreateMap<Tag, string>()
+                .ConstructUsing(tag => tag.Value);
         }
 
         private void ConfigureChallengeDetailsModelMap()
@@ -38,30 +49,8 @@ namespace Business.Challenges.Mappings
 
         private void ConfigureTestCasesMap()
         {
-            CreateMap<TestCaseViewModel, TestCase>()
-                .ForMember(e => e.Id, o => o.Ignore())
-                .ForMember(e => e.State, o => o.Ignore())
-                .ForMember(e => e.IsPublic, o => o.MapFrom(wm => wm.IsPublic))
-                .ForMember(e => e.CodeParameters, o => o.ResolveUsing(wm =>
-                {
-                    var codeParameters = wm.InputParameters.Select(inputParameter =>
-                        new CodeParameter
-                        {
-                            Type = CodeParameterType.Input,
-                            Value = inputParameter
-                        }).ToList();
-
-                    codeParameters.AddRange(wm.OutputParameters.Select(outputParameter =>
-                        new CodeParameter
-                        {
-                            Type = CodeParameterType.Output,
-                            Value = outputParameter
-                        }));
-
-                    return codeParameters;
-                }));
-
             CreateMap<TestCase, TestCaseViewModel>()
+                .ForMember(vm => vm.Id, o => o.MapFrom(e => e.Id))
                 .ForMember(vm => vm.IsPublic, o => o.MapFrom(e => e.IsPublic))
                 .ForMember(vm => vm.InputParameters, o => o.ResolveUsing(e => 
                     e.InputParameters.Select(x => x.Value)))
@@ -73,16 +62,18 @@ namespace Business.Challenges.Mappings
         {
             CreateMap<Challenge, EditChallengeViewModel>()
                 .ForMember(t => t.Id, o => o.MapFrom(s => s.Id))
-                .ForMember(t => t.Answers, o => o.MapFrom(s => s.Answers.Select(x => x.Value).ToList()))
+                .ForMember(t => t.Answers, o => o.MapFrom(s => s.Answers))
                 .ForMember(t => t.AuthorId, o => o.MapFrom(s => s.AuthorId))
                 .ForMember(t => t.Condition, o => o.MapFrom(s => s.Condition))
                 .ForMember(t => t.Difficulty, o => o.MapFrom(s => s.Difficulty))
                 .ForMember(t => t.Language, o => o.MapFrom(s => s.Language))
                 .ForMember(t => t.PreviewText, o => o.MapFrom(s => s.PreviewText))
                 .ForMember(t => t.Section, o => o.MapFrom(s => s.Section))
-                .ForMember(t => t.Tags, o => o.MapFrom(s => s.Tags.Select(x => x.Value).ToList()))
+                .ForMember(t => t.Tags, o => o.MapFrom(s => s.Tags))
                 .ForMember(t => t.Title, o => o.MapFrom(s => s.Title))
-                .ForMember(t => t.SourceCode, o => o.Ignore());
+                .ForMember(t => t.TestCases, o => o.MapFrom(s => s.TestCases))
+                .ForMember(t => t.SourceCode, o => o.MapFrom(s => s.SolutionSourceCode))
+                .ForMember(t => t.AuthorId, o => o.MapFrom(s => s.AuthorId));
 
             CreateMap<Challenge, ChallengesDescriptionViewModel>()
                 .ForMember(t => t.Id, o => o.MapFrom(s => s.Id))
@@ -132,20 +123,6 @@ namespace Business.Challenges.Mappings
                 .ForMember(t => t.Value, o => o.MapFrom(s => s.Value))
                 .ForMember(t => t.UserId, o => o.Ignore())
                 .ForMember(t => t.State, o => o.Ignore());
-        }
-
-        private List<Answer> GetEntityAnswers(List<string> answers)
-        {
-            List<Answer> answersList = new List<Answer>();
-
-            int i = 0;
-            foreach (string answer in answers.TakeWhile(answer => i != 5).Where(answer => !answer.Equals(string.Empty)))
-            {
-                answersList.Add(new Answer { Value = answer });
-                i++;
-            }
-
-            return answersList;
         }
     }
 }
