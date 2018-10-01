@@ -1,23 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{6631FCD4-16FD-4A8C-BAC1-49F0EF055285}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Common", "Data\Common\Data.Common.csproj", "{610FE3E7-21B8-4BBD-865F-32EA6BA15784}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Identity", "Data\Identity\Data.Identity.csproj", "{6780FCD1-1B0C-4410-94B7-91C98B2333A1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{A42CA661-3EDA-4917-8316-828739271322}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{9FA0EB92-42C6-4BA7-8097-CA0A9569690C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{933C404F-9CF1-4D2C-8E76-51657A5A3B45}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B6F1A650-AF91-464F-8B47-17EED04C5C66}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Common", "Data\Common\Data.Common.csproj", "{610FE3E7-21B8-4BBD-865F-32EA6BA15784}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Identity", "Data\Identity\Data.Identity.csproj", "{6780FCD1-1B0C-4410-94B7-91C98B2333A1}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.Host", "Business\Host\Business.Host.csproj", "{DE6F869A-56ED-43A9-8F3F-3CE5C53DB35C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Challenges", "Data\Challenges\Data.Challenges.csproj", "{3BC289F6-2AE2-4CD3-A5D4-AA6A549BCA9A}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{933C404F-9CF1-4D2C-8E76-51657A5A3B45}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Framework", "Shared\Framework\Shared.Framework.csproj", "{150EBD2E-0220-4E95-A42E-A5E14E0DB467}"
 EndProject
@@ -29,11 +31,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.Achievements", "Bu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.CodeExecution", "Business\CodeExecution\Business.CodeExecution.csproj", "{96305162-A7C2-4E9B-ADB3-D9B0946874EB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B6F1A650-AF91-464F-8B47-17EED04C5C66}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.Tests", "Tests\Business.Tests\Business.Tests.csproj", "{5D0AE141-2F74-4C92-86BD-F2E35748DE0E}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Presentation.Web", "Presentation\Web\Presentation.Web.xproj", "{EE218BE7-EFE6-446E-9622-B43070B1CDD0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "Presentation\Web\Web.csproj", "{EE218BE7-EFE6-446E-9622-B43070B1CDD0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.Common", "Business\Business.Common\Business.Common.csproj", "{E4E9BF7A-CB57-484D-AA0C-EF6A4C6C5077}"
 EndProject
@@ -108,5 +108,8 @@ Global
 		{5D0AE141-2F74-4C92-86BD-F2E35748DE0E} = {B6F1A650-AF91-464F-8B47-17EED04C5C66}
 		{EE218BE7-EFE6-446E-9622-B43070B1CDD0} = {9FA0EB92-42C6-4BA7-8097-CA0A9569690C}
 		{E4E9BF7A-CB57-484D-AA0C-EF6A4C6C5077} = {A42CA661-3EDA-4917-8316-828739271322}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2FD6F4BC-5648-4734-AE9E-D5F5E10DC4B2}
 	EndGlobalSection
 EndGlobal
