@@ -1,6 +1,5 @@
 using System;
 
-//pr 1
 namespace Shared.Framework.Utilities
 {
     public abstract class BaseDisposable : IDisposable
